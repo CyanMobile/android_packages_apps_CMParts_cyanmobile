@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Expanded View Power Widget -->
+	<PreferenceCategory android:title="@string/general_title">
+		<CheckBoxPreference android:key="expanded_widget"
+			android:title="@string/title_expanded_widget" android:summary="@string/summary_expanded_widget"
+			android:defaultValue="true" />
+                <CheckBoxPreference android:key="pref_widget_loc"
+                        android:title="@string/title_bottom_expanded_widget" android:defaultValue="false"
+                        android:summaryOn="@string/bottom_expanded_widget_summaryOn"
+                        android:summaryOff="@string/bottom_expanded_widget_summaryOff" />
+                <CheckBoxPreference android:key="pref_widget_grid"
+                        android:title="@string/title_grid_expanded_widget" android:defaultValue="false"
+                        android:summaryOn="@string/grid_expanded_widget_summaryOn"
+                        android:summaryOff="@string/grid_expanded_widget_summaryOff" />
+                <CheckBoxPreference android:key="pref_widget_tab"
+                        android:title="@string/title_tab_expanded_widget" android:defaultValue="false"
+                        android:summaryOn="@string/tab_expanded_widget_summaryOn"
+                        android:summaryOff="@string/tab_expanded_widget_summaryOff" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/grid_title">
+                <CheckBoxPreference android:key="pref_widget_grid_one"
+                        android:title="@string/title_grid_one_expanded_widget" android:defaultValue="true"
+                        android:summaryOn="@string/grid_one_expanded_widget_summaryOn"
+                        android:summaryOff="@string/grid_one_expanded_widget_summaryOff" />
+                <CheckBoxPreference android:key="pref_widget_grid_two"
+                        android:title="@string/title_grid_two_expanded_widget" android:defaultValue="true"
+                        android:summaryOn="@string/grid_two_expanded_widget_summaryOn"
+                        android:summaryOff="@string/grid_two_expanded_widget_summaryOff" />
+                <CheckBoxPreference android:key="pref_widget_grid_three"
+                        android:title="@string/title_grid_three_expanded_widget" android:defaultValue="true"
+                        android:summaryOn="@string/grid_three_expanded_widget_summaryOn"
+                        android:summaryOff="@string/grid_three_expanded_widget_summaryOff" />
+                <CheckBoxPreference android:key="pref_widget_grid_four"
+                        android:title="@string/title_grid_four_expanded_widget" android:defaultValue="true"
+                        android:summaryOn="@string/grid_four_expanded_widget_summaryOn"
+                        android:summaryOff="@string/grid_four_expanded_widget_summaryOff" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/expanded_title">
+		<CheckBoxPreference android:key="expanded_hide_onchange"
+			android:title="@string/title_expanded_hide_onchange" android:summary="@string/summary_expanded_hide_onchange"
+			android:defaultValue="false"/>
+		<CheckBoxPreference android:key="expanded_hide_indicator"
+			android:title="@string/title_expanded_hide_indicator" android:summary="@string/summary_expanded_hide_indicator"
+			android:defaultValue="false"/>
+		<CheckBoxPreference android:key="expanded_hide_scrollbar"
+			android:title="@string/title_expanded_hide_scrollbar" android:summary="@string/summary_expanded_hide_scrollbar"
+			android:defaultValue="true" />
+		<ListPreference android:key="expanded_haptic_feedback"
+			android:dialogTitle="@string/expanded_haptic_feedback_title" android:title="@string/expanded_haptic_feedback_title"
+			android:summary="@string/expanded_haptic_feedback_summary" android:entries="@array/haptic_feedback_entries"
+			android:entryValues="@array/haptic_feedback_values" />
+		<Preference android:key="expanded_color_mask"
+			android:title="@string/expanded_color_mask" android:summary="@string/expanded_color_mask"
+			android:defaultValue="-1"/>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/widget_title">
+		<CheckBoxPreference android:key="pref_music_widget"
+			android:title="@string/title_music_widget" android:summary="@string/summary_music_widget"
+			android:defaultValue="true"/>
+	</PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

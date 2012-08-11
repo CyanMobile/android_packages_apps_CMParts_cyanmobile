@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+ * Created by Sven Dawitz; Copyright (C) 2011 CyanogenMod Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- General options -->
+    <PreferenceCategory android:title="@string/general_title">
+        <ListPreference android:key="pref_navi_buttons_menu"
+            android:title="@string/tablet_navi_buttons_menu_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_navi_buttons" 
+	    android:entryValues="@array/values_tablet_navi_buttons" />
+		<PreferenceScreen android:key="input_menu_key"
+			android:title="@string/input_menu_key_title" android:summary="@string/input_menu_key_summary">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.InputMenuKeyActivity" />
+		</PreferenceScreen>
+        <ListPreference android:key="pref_navi_buttons_home"
+            android:title="@string/tablet_navi_buttons_home_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_navi_buttons" 
+	    android:entryValues="@array/values_tablet_navi_buttons" />
+		<PreferenceScreen android:key="input_home_key"
+			android:title="@string/input_home_key_title" android:summary="@string/input_home_key_summary">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.InputHomeKeyActivity" />
+		</PreferenceScreen>
+        <ListPreference android:key="pref_navi_buttons_quicker"
+            android:title="@string/tablet_navi_buttons_quicker_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_navi_buttons_quicker" 
+	    android:entryValues="@array/values_tablet_navi_buttons_quicker" />
+		<PreferenceScreen android:key="input_quick_key"
+			android:title="@string/input_quick_key_title" android:summary="@string/input_quick_key_summary">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.InputQuickKeyActivity" />
+		</PreferenceScreen>
+        <ListPreference android:key="pref_navi_buttons_search"
+            android:title="@string/tablet_navi_buttons_search_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_navi_buttons" 
+	    android:entryValues="@array/values_tablet_navi_buttons" />
+		<PreferenceScreen android:key="input_navisearch_key"
+			android:title="@string/input_navisearch_key_title" android:summary="@string/input_navisearch_key_summary">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.InputNaviSearchKeyActivity" />
+		</PreferenceScreen>
+        <ListPreference android:key="pref_navi_buttons_back"
+            android:title="@string/tablet_navi_buttons_back_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_navi_buttons" 
+	    android:entryValues="@array/values_tablet_navi_buttons" />
+		<PreferenceScreen android:key="input_back_key"
+			android:title="@string/input_back_key_title" android:summary="@string/input_back_key_summary">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.InputBackKeyActivity" />
+		</PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

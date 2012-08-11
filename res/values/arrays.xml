@@ -1,0 +1,1549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * Copyright (C) 2007 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+
+<resources>
+    <string-array name="entries_recent_apps_num" translatable="false">
+        <item>8</item>
+        <item>12</item>
+        <item>15</item>
+    </string-array>
+
+    <string-array name="entries_scrollingcache" translatable="false">
+        <item>@string/pref_scrollingcache_force_enable</item>
+        <item>@string/pref_scrollingcache_default_enable</item>
+        <item>@string/pref_scrollingcache_default_disable</item>
+        <item>@string/pref_scrollingcache_force_disable</item>
+    </string-array>
+
+    <string-array name="values_scrollingcache" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="entries_battery">
+        <item>1 second</item>
+        <item>5 seconds</item>
+        <item>10 seconds</item>
+        <item>20 seconds</item>
+        <item>30 seconds</item>
+        <item>40 seconds</item>
+        <item>50 seconds</item>
+	<item>1 minute</item>
+    </string-array>
+
+    <string-array name="values_battery" translatable="false">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+	<item>60</item>
+    </string-array>
+
+    <string-array name="entries_heapsize">
+        <item>12m</item>
+        <item>16m</item>
+        <item>24m</item>
+        <item>32m</item>
+        <item>48m</item>
+	<item>64m</item>
+    </string-array>
+
+    <string-array name="values_heapsize" translatable="false">
+        <item>12m</item>
+        <item>16m</item>
+        <item>24m</item>
+        <item>32m</item>
+        <item>48m</item>
+	<item>64m</item>
+    </string-array>
+
+    <string-array name="entries_vol_bootsound">
+        <item>1</item>
+        <item>2 (Default)</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="values_vol_bootsound" translatable="false">
+        <item>0.1</item>
+        <item>0.2</item>
+        <item>0.3</item>
+        <item>0.4</item>
+        <item>0.5</item>
+        <item>0.6</item>
+        <item>0.7</item>
+    </string-array>
+
+    <string-array name="entries_install_location">
+        <item>Automatic</item>
+        <item>Internal</item>
+        <item>External</item>
+        <item>SD-Ext</item>
+    </string-array>
+
+    <string-array name="values_install_location" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_carrier_label" translatable="false">
+	<item>@string/ui_status_bar_carrier_label_use_default</item>
+	<item>@string/ui_status_bar_carrier_label_use_spn</item>
+	<item>@string/ui_status_bar_carrier_label_use_plmn</item>
+	<item>@string/ui_status_bar_carrier_label_use_custom</item>
+    </string-array>
+
+    <string-array name="values_status_bar_carrier_label" translatable="false">
+	<item>0</item>
+	<item>1</item>
+	<item>2</item>
+	<item>3</item>
+    </string-array>
+
+    <string-array name="dithering_entries" translatable="false">
+        <item>@string/dithering_no_dither</item>
+        <item>@string/dithering_color_banding</item>
+        <item>@string/dithering_blur_effect</item>
+    </string-array>
+
+    <string-array name="dithering_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_am_pm">
+        <item>Normal</item>
+        <item>Small</item>
+        <item>None (Default)</item>
+    </string-array>
+
+    <string-array name="values_status_bar_am_pm" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_battery_style">
+        <item>Default</item>
+        <item>Percentage</item>
+	<item>Full color</item>
+    </string-array>
+
+    <string-array name="values_status_bar_battery_style" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_battery">
+        <item>Icon (Default)</item>
+        <item>Percentage</item>
+	<item>Top Status Bar</item>
+        <item>Side Bar</item>
+	<item>Behind Status Bar</item>
+	<item>Navi Bar</item>
+        <item>Hidden</item>
+    </string-array>
+
+    <string-array name="values_status_bar_battery" translatable="false">
+        <item>0</item>
+        <item>1</item>
+	<item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_battery_color">
+        <item>Theme</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
+        <item>Custom</item>
+    </string-array>
+
+    <string-array name="values_status_bar_battery_color" translatable="false">
+        <item>theme</item>
+        <item>black</item>
+        <item>blue</item>
+        <item>gray</item>
+        <item>green</item>
+        <item>red</item>
+        <item>white</item>
+        <item>yellow</item>
+        <item>custom</item>
+    </string-array>
+
+     <string-array name="statusbar_clockfontsize_entries">
+        <item>7sp</item>
+        <item>8sp</item>
+        <item>9sp</item>
+        <item>10sp(Default)</item>
+        <item>11sp</item>
+        <item>12sp</item>
+        <item>13sp</item>
+        <item>14sp</item>
+     </string-array>
+  
+     <string-array name="statusbar_clockfontsize_values">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+     </string-array>
+
+     <string-array name="statusbar_iconfontsize_entries">
+        <item>7sp</item>
+        <item>8sp</item>
+        <item>9sp</item>
+        <item>10sp(Default)</item>
+        <item>11sp</item>
+        <item>12sp</item>
+        <item>13sp</item>
+        <item>14sp</item>
+     </string-array>
+  
+     <string-array name="statusbar_iconfontsize_values">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+     </string-array>
+
+     <string-array name="statusbar_iconsize_entries">
+        <item>15dp</item>
+        <item>16dp</item>
+        <item>17dp</item>
+        <item>18dp</item>
+        <item>19dp</item>
+        <item>20dp</item>
+        <item>21dp</item>
+        <item>22dp</item>
+        <item>23dp</item>
+        <item>24dp</item>
+        <item>25dp(Default)</item>
+        <item>26dp</item>
+        <item>27dp</item>
+        <item>28dp</item>
+        <item>29dp</item>
+        <item>30dp</item>
+        <item>31dp</item>
+        <item>32dp</item>
+        <item>33dp</item>
+        <item>34dp</item>
+        <item>35dp</item>
+        <item>36dp</item>
+        <item>37dp</item>
+        <item>38dp</item>
+        <item>39dp</item>
+        <item>40dp</item>
+        <item>41dp</item>
+        <item>42dp</item>
+        <item>43dp</item>
+        <item>44dp</item>
+        <item>45dp</item>
+     </string-array>
+  
+     <string-array name="statusbar_iconsize_values">
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+     </string-array>
+
+     <string-array name="statusbar_navisize_entries">
+        <item>15dp</item>
+        <item>16dp</item>
+        <item>17dp</item>
+        <item>18dp</item>
+        <item>19dp</item>
+        <item>20dp</item>
+        <item>21dp</item>
+        <item>22dp</item>
+        <item>23dp</item>
+        <item>24dp</item>
+        <item>25dp(Default)</item>
+        <item>26dp</item>
+        <item>27dp</item>
+        <item>28dp</item>
+        <item>29dp</item>
+        <item>30dp</item>
+        <item>31dp</item>
+        <item>32dp</item>
+        <item>33dp</item>
+        <item>34dp</item>
+        <item>35dp</item>
+        <item>36dp</item>
+        <item>37dp</item>
+        <item>38dp</item>
+        <item>39dp</item>
+        <item>40dp</item>
+        <item>41dp</item>
+        <item>42dp</item>
+        <item>43dp</item>
+        <item>44dp</item>
+        <item>45dp</item>
+     </string-array>
+  
+     <string-array name="statusbar_navisize_values">
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+     </string-array>
+
+     <string-array name="statusbar_carrierfontsize_entries">
+        <item>7sp</item>
+        <item>8sp</item>
+        <item>9sp</item>
+        <item>10sp(Default)</item>
+        <item>11sp</item>
+        <item>12sp</item>
+        <item>13sp</item>
+        <item>14sp</item>
+     </string-array>
+  
+     <string-array name="statusbar_carrierfontsize_values">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item> 
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+     </string-array>
+
+     <string-array name="entries_status_bar_signal" translatable="false">
+        <item>@string/ui_status_bar_cm_signal_text_show_bars</item>
+        <item>@string/ui_status_bar_cm_signal_text_show_text</item>
+        <item>@string/ui_status_bar_cm_signal_text_show_text_dbm</item>
+        <item>@string/ui_status_bar_cm_signal_text_show_text_auto_color</item>
+        <item>@string/ui_status_bar_cm_signal_hidden</item>
+     </string-array>
+
+     <string-array name="values_status_bar_signal" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="entries_render_effect" translatable="false">
+        <item>@string/pref_render_effect_none</item>
+        <item>@string/pref_render_effect_night</item>
+        <item>@string/pref_render_effect_green</item>
+        <item>@string/pref_render_effect_blue</item>
+        <item>@string/pref_render_effect_amber</item>
+        <item>@string/pref_render_effect_salmon</item>
+        <item>@string/pref_render_effect_fuscia</item>
+        <item>@string/pref_render_effect_calibrated</item>
+        <item>@string/pref_render_effect_calibrated_red</item>
+        <item>@string/pref_render_effect_calibrated_cool</item>
+        <item>@string/pref_render_effect_red</item>
+    </string-array>
+
+    <string-array name="values_render_effect" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="render_entries" translatable="false">
+        <item>@string/pref_render_effect_night</item>
+        <item>@string/pref_render_effect_green</item>
+        <item>@string/pref_render_effect_blue</item>
+        <item>@string/pref_render_effect_amber</item>
+        <item>@string/pref_render_effect_salmon</item>
+        <item>@string/pref_render_effect_fuscia</item>
+        <item>@string/pref_render_effect_calibrated</item>
+        <item>@string/pref_render_effect_calibrated_red</item>
+        <item>@string/pref_render_effect_calibrated_cool</item>
+        <item>@string/pref_render_effect_red</item>
+    </string-array>
+
+    <string-array name="render_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="haptic_feedback_entries">
+        <item>Global Settings</item>
+        <item>On</item>
+        <item>Off</item>
+    </string-array>
+
+    <string-array name="haptic_feedback_values" translatable="false">
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="entries_trackball_colors" translatable="false">
+        <item>@string/trackball_color_entry_use_app</item>
+        <item>@string/trackball_color_entry_green</item>
+        <item>@string/trackball_color_entry_white</item>
+        <item>@string/trackball_color_entry_red</item>
+        <item>@string/trackball_color_entry_blue</item>
+        <item>@string/trackball_color_entry_yellow</item>
+        <item>@string/trackball_color_entry_cyan</item>
+        <item>@string/trackball_color_entry_magenta</item>
+        <item>@string/trackball_color_entry_pink</item>
+        <item>@string/trackball_color_entry_orange</item>
+        <item>@string/trackball_color_entry_light_blue</item>
+        <item>@string/trackball_color_entry_random</item>
+    </string-array>
+
+    <string-array name="pref_trackball_colors_values" translatable="false">
+        <item>default</item>
+        <item>green</item>
+        <item>white</item>
+        <item>red</item>
+        <item>blue</item>
+        <item>yellow</item>
+        <item>cyan</item>
+        <item>#800080</item>
+        <item>#ffc0cb</item>
+        <item>#ffa500</item>
+        <item>#add8e6</item>
+        <item>random</item>
+    </string-array>
+
+    <string-array name="entries_dual_led_colors" translatable="false">
+        <item>@string/trackball_color_entry_use_app</item>
+        <item>@string/trackball_color_entry_green</item>
+        <item>@string/trackball_color_entry_amber</item>
+    </string-array>
+
+    <string-array name="values_dual_led_colors" translatable="false">
+        <item>default</item>
+        <item>green</item>
+        <item>red</item>
+    </string-array>
+
+    <string-array name="pref_trackball_blink_rate_entries">
+        <item>Use application setting</item>
+        <item>2 (Fast)</item>
+        <item>3</item>
+        <item>4 (Medium)</item>
+        <item>5</item>
+        <item>6 (Slow)</item>
+    </string-array>
+
+    <string-array name="pref_trackball_blink_rate_values" translatable="false">
+        <item>default</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="pref_trackball_force_mode_entries" translatable="false">
+        <item>@string/trackball_force_mode_category</item>
+        <item>@string/trackball_force_mode_application</item>
+        <item>@string/trackball_force_mode_off</item>
+        <item>@string/trackball_force_mode_events</item>
+        <item>@string/trackball_force_mode_on</item>
+    </string-array>
+
+    <string-array name="pref_trackball_force_mode_values" translatable="false">
+        <item>category</item>
+        <item>default</item>
+        <item>forceoff</item>
+        <item>forceeventon</item>
+        <item>forceon</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_delay_entries">
+        <item>Immediately</item>
+        <item>1s</item>
+        <item>5s</item>
+        <item>10s</item>
+        <item>15s</item>  
+        <item>30s</item>
+        <item>1m</item>
+        <item>5m</item>
+        <item>10m</item>
+        <item>30m</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_delay_values" translatable="false">
+        <item>0</item>
+        <item>1000</item>
+        <item>5000</item>
+        <item>10000</item>
+        <item>15000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>300000</item>
+        <item>600000</item>
+        <item>1800000</item>
+    </string-array>
+
+    <string-array name="pref_compcache_size_entries">
+        <item>Disabled</item>
+        <item>10%</item>
+        <item>18%</item>
+        <item>26%</item>
+        <item>32%</item>
+    </string-array>
+
+    <string-array name="pref_compcache_size_values" translatable="false">
+        <item>0</item>
+        <item>10</item>
+        <item>18</item>
+        <item>26</item>
+        <item>32</item>
+    </string-array>
+
+    <string-array name="entries_light_filter_window">
+        <item>2 s</item>
+        <item>5 s</item>
+        <item>10 s</item>
+        <item>20 s</item>
+        <item>30 s</item>
+        <item>60 s</item>
+    </string-array>
+
+    <string-array name="values_light_filter_window" translatable="false">
+        <item>2000</item>
+        <item>5000</item>
+        <item>10000</item>
+        <item>20000</item>
+        <item>30000</item>
+        <item>60000</item>
+    </string-array>
+
+    <string-array name="entries_light_filter_reset">
+        <item>Disabled</item>
+        <item>400 lux</item>
+        <item>500 lux</item>
+        <item>600 lux</item>
+        <item>700 lux</item>
+        <item>800 lux</item>
+        <item>900 lux</item>
+        <item>1000 lux</item>
+        <item>1500 lux</item>
+        <item>2000 lux</item>
+        <item>2500 lux</item>
+    </string-array>
+
+    <string-array name="values_light_filter_reset" translatable="false">
+        <item>-1</item>
+        <item>400</item>
+        <item>500</item>
+        <item>600</item>
+        <item>700</item>
+        <item>800</item>
+        <item>900</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
+        <item>2500</item>
+    </string-array>
+
+    <string-array name="entries_light_filter_interval">
+        <item>0.5 s</item>
+        <item>1 s</item>
+        <item>2 s</item>
+        <item>5 s</item>
+        <item>10 s</item>
+    </string-array>
+
+    <string-array name="values_light_filter_interval" translatable="false">
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+        <item>10000</item>
+    </string-array>
+
+    <string-array name="entries_light_levels_dim">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20 (default)</item>
+        <item>22</item>
+        <item>24</item>
+        <item>26</item>
+    </string-array>
+
+    <string-array name="values_light_levels_dim" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>22</item>
+        <item>24</item>
+        <item>26</item>
+    </string-array>
+
+    <string-array name="entries_light_decrease_hysteresis">
+        <item>0 %</item>
+        <item>10 %</item>
+        <item>20 %</item>
+        <item>30 %</item>
+        <item>40 %</item>
+        <item>50 %</item>
+        <item>60 %</item>
+        <item>70 %</item>
+        <item>80 %</item>
+        <item>90 %</item>
+    </string-array>
+
+    <string-array name="values_light_decrease_hysteresis" translatable="false">
+        <item>0</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+    </string-array>
+
+    <string-array name="entries_sound_attenuation">
+        <item>0 dB</item>
+        <item>4 dB</item>
+        <item>6 dB (default)</item>
+        <item>8 dB</item>
+        <item>10 dB</item>
+    </string-array>
+
+    <string-array name="values_sound_attenuation" translatable="false">
+        <item>0</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="entries_speaker_attenuation">
+        <item>0 dB (default)</item>
+        <item>4 dB</item>
+        <item>6 dB</item>
+        <item>8 dB</item>
+        <item>10 dB</item>
+    </string-array>
+
+    <string-array name="values_speaker_attenuation" translatable="false">
+        <item>0</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="entries_sound_limitvol">
+        <item>Attenuated system setting</item>
+        <item>Music volume (default)</item>
+    </string-array>
+
+    <string-array name="values_sound_limitvol" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+   <string-array name="entries_brightness_widget" formatted="false" translatable="false">
+        <item>@string/cm_brightness_mode_dim</item>
+        <item>25%</item>
+        <item>40%</item>
+        <item>50%</item>
+        <item>75%</item>
+        <item>100%</item>
+    </string-array>
+
+   <string-array name="values_brightness_widget" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="entries_network_widget">
+        <item>2G/3G+2G</item>  
+        <item>2G/3G Only</item>   
+        <item>2G/3G Only/3G+2G</item>
+    </string-array>
+
+    <string-array name="values_network_widget" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="entries_screentimeout_widget">
+        <item>15s/1m/5m</item>
+        <item>30s/2m/5m</item>
+    </string-array>
+
+    <string-array name="values_screentimeout_widget" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="entries_ring_widget" translatable="false">
+        <item>@string/cm_sound_mode_silent</item>
+        <item>@string/cm_sound_mode_vibrate</item>
+        <item>@string/cm_sound_mode_sound</item>
+        <item>@string/cm_sound_mode_soundVibrate</item>
+    </string-array>
+
+    <string-array name="values_ring_widget" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="entries_flash_widget">
+        <item>Normal</item>
+        <item>High / Death Ray</item>
+    </string-array>
+
+    <string-array name="values_flash_widget" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="entries_mobiledatanetwork_widget">
+        <item>Off</item>
+        <item>On</item>
+    </string-array>
+	
+    <string-array name="values_mobiledatanetwork_widget" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_gestures_sensitivity_entries">
+        <item>1 (broadest)</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12 (strictest)</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_gestures_sensitivity_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_gesture_action_entries" translatable="false">
+        <item>@string/gestures_unlock_only</item>
+        <item>@string/gestures_toggle_sound</item>
+        <item>@string/gestures_shortcut_or_activity</item>
+        <item>@string/gestures_next</item>
+        <item>@string/gestures_previous</item>
+        <item>@string/gestures_playpause</item>
+        <item>@string/gestures_flashlight</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_style_entries" translatable="false">
+        <item>@string/lockscreen_style_entry_tabs</item>
+        <item>@string/lockscreen_style_entry_rotary</item>
+        <item>@string/lockscreen_style_entry_lense</item>
+        <item>@string/lockscreen_style_entry_ring</item>
+        <item>@string/lockscreen_style_entry_honeycomb</item>
+        <item>@string/lockscreen_style_entry_circular</item>
+        <item>@string/lockscreen_style_entry_sense</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_style_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="pref_rotary_style_entries" translatable="false">
+        <item>@string/rotary_style_entry_normal</item>
+        <item>@string/rotary_style_entry_revamped</item>
+    </string-array>
+
+    <string-array name="pref_rotary_style_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="pref_ringlock_style_entries" translatable="false">
+        <item>@string/ringlock_style_entry_bubbles</item>
+        <item>@string/ringlock_style_entry_revamped</item>
+        <item>@string/ringlock_style_entry_holo</item>
+	<item>@string/ringlock_style_entry_blade</item>
+    </string-array>
+
+    <string-array name="pref_ringlock_style_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+	<item>4</item>
+    </string-array>
+
+    <string-array name="pref_in_call_style_entries" translatable="false">
+        <item>@string/lockscreen_style_entry_tabs</item>
+        <item>@string/lockscreen_style_entry_rotary</item>
+        <item>@string/lockscreen_style_entry_ring</item>
+    </string-array>
+
+    <string-array name="pref_in_call_style_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_background_entries">
+        <item>Color fill</item>
+        <item>Custom image</item>
+        <item>Default wallpaper</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_background_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_widget_layout_entries" translatable="false">
+        <item>@string/pref_lockscreen_widget_layout_entry_default</item>
+        <item>@string/pref_lockscreen_widget_layout_entry_hidden</item>
+        <item>@string/pref_lockscreen_widget_layout_entry_centered</item>
+        <item>@string/pref_lockscreen_widget_layout_entry_right</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_widget_layout_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_music_headset_entries">
+        <item>Disabled</item>
+        <item>Wired Headset</item>
+        <item>Bluetooth A2DP Headset</item>
+        <item>Both</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_music_headset_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_calendar_lookahead_entries">
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>1 day</item>
+        <item>3 days</item>
+        <item>1 week</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_calendar_lookahead_values" translatable="false">
+        <item>10800000</item>
+        <item>21600000</item>
+        <item>43200000</item>
+        <item>86400000</item>
+        <item>259200000</item>
+        <item>604800000</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_calendar_show_event_metadata_entries">
+        <item>Do not show</item>
+        <item>Show first line</item>
+        <item>Show all</item>
+    </string-array>
+
+    <string-array name="pref_lockscreen_calendar_show_event_metadata_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="pref_overscroll_effect_entries">
+        <item>None</item>
+        <item>Edge Glow</item>
+        <item>Bounce and Glow</item>
+        <item>Bounce</item>
+    </string-array>
+
+    <string-array name="pref_overscroll_effect_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="entries_overscroll_weight">
+        <item>Extra Heavy</item>
+        <item>Heavy</item>
+        <item>Medium</item>
+        <item>Light</item>
+        <item>Extra Light</item>
+    </string-array>
+
+    <string-array name="values_overscroll_weight" translatable="false">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="entries_overscroll_color">
+        <item>Default color</item>
+        <item>Custom color</item>
+    </string-array>
+	
+    <string-array name="values_overscroll_color" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="phone_goggles_confirmation_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="phone_goggles_confirmation_entries" translatable="false">
+        <item>@string/phone_goggles_confirmation_none</item>
+        <item>@string/phone_goggles_confirmation_prompt</item>
+        <item>@string/phone_goggles_confirmation_maths</item>
+    </string-array>
+
+    <string-array name="phone_goggles_maths_level_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="phone_goggles_maths_level_entries" translatable="false">
+        <item>@string/phone_goggles_maths_level_easy</item>
+        <item>@string/phone_goggles_maths_level_medium</item>
+        <item>@string/phone_goggles_maths_level_hard</item>
+    </string-array>
+
+    <string-array name="swap_volume_keys_orientation_list_entries" translatable="true">
+        <item>Never</item>
+        <item>0-degrees</item>
+        <item>90-degrees</item>
+        <item>180-degrees</item>
+        <item>270-degrees</item>
+    </string-array>
+	
+    <string-array name="swap_volume_keys_orientation_list_values" translatable="false">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="entries_vol_actions">
+        <item>None/Default</item>
+        <item>Home</item>
+        <item>Menu</item>
+        <item>Back</item>
+        <item>Search</item>
+        <item>Power</item>
+        <item>Call</item>
+        <item>End call</item>
+        <item>Play/Pause</item>
+        <item>Next track</item>
+        <item>Prev track</item>
+        <item>Long press home</item>
+    </string-array>
+
+    <string-array name="values_vol_actions" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
+
+    <string-array name="entries_unhide_button">
+        <item>Home</item>
+        <item>Menu</item>
+        <item>Back</item>
+        <item>Search</item>
+        <item>Camera</item>
+        <item>Volume Up</item>
+        <item>Volume Down</item>
+    </string-array>
+
+    <string-array name="values_unhide_button" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="entries_long_press_menu">
+        <item>None</item>
+        <item>Soft keyboard</item>
+        <item>Search key</item>
+        <item>Custom Application</item>
+        <item>Toggle statusbar</item>
+    </string-array>
+
+    <string-array name="values_long_press_menu" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="values_transparent_status_bar">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    
+    <string-array name="entries_transparent_status_bar">
+        <item>Theme</item>
+        <item>Disabled</item>
+        <item>Semi-transparent</item>
+        <item>Gradient</item>
+        <item>Custom Color</item>
+        <item>Transparent</item>
+        <item>Custom Image</item>
+    </string-array>
+
+    <string-array name="values_transparent_navi_bar">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    
+    <string-array name="entries_tablet_navi_buttons">
+        <item>Hide</item>
+        <item>Home</item>
+        <item>Back</item>
+        <item>Search</item>
+        <item>Menu</item>
+        <item>Quick</item>
+        <item>Custom app</item>
+    </string-array>
+
+    <string-array name="values_tablet_navi_buttons">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    
+    <string-array name="entries_tablet_navi_buttons_quicker">
+        <item>Home</item>
+        <item>Back</item>
+        <item>Search</item>
+        <item>Menu</item>
+        <item>Quick</item>
+        <item>Custom app</item>
+    </string-array>
+
+    <string-array name="values_tablet_navi_buttons_quicker">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="entries_transparent_navi_bar">
+        <item>Theme</item>
+        <item>Disabled</item>
+        <item>Semi-transparent</item>
+        <item>Gradient</item>
+        <item>Custom Color</item>
+        <item>Transparent</item>
+    </string-array>
+
+    <string-array name="values_transparent_notification_background">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    
+    <string-array name="entries_transparent_notification_background">
+        <item>Theme</item>
+        <item>Rom</item>
+        <item>Custom Color</item>
+        <item>Transparent</item>
+        <item>Peeping Android</item>
+        <item>Custom Image</item>
+    </string-array>
+
+    <string-array name="values_transparent_app_background">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <string-array name="entries_transparent_app_background">
+        <item>Theme(Default)</item>
+        <item>Custom Color</item>
+        <item>Custom Image</item>
+    </string-array>
+
+    <string-array name="values_transparent_full_background">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <string-array name="entries_transparent_full_background">
+        <item>Theme(Default)</item>
+        <item>Translucent</item>
+        <item>Show wallpaper</item>
+    </string-array>
+
+    <string-array name="entries_sd_readahead">
+        <item>128</item>
+        <item>256</item>
+        <item>512</item>
+        <item>1024</item>
+        <item>2048</item>
+        <item>4096</item>
+        <item>8192</item>
+    </string-array>
+
+    <string-array name="values_sd_readahead">
+        <item>128</item>
+        <item>256</item>
+        <item>512</item>
+        <item>1024</item>
+        <item>2048</item>
+        <item>4096</item>
+        <item>8192</item>
+    </string-array>
+
+    <string-array name="entries_lowmemkill">
+        <item>Default</item>
+        <item>Every day use</item>
+        <item>Multitasking</item>
+        <item>Hard multitasking</item>
+        <item>Soft multitasking</item>
+        <item>Hard gaming</item>
+    </string-array>
+
+    <string-array name="values_lowmemkill">
+        <item>2560,4096,6144,10240,11264,12288</item>
+        <item>2560,4096,6144,11264,11776,14336</item>
+        <item>2560,4096,6144,11776,12288,16384</item>
+        <item>2560,4096,6144,10752,11264,13312</item>
+        <item>2560,4096,6144,7680,8704,10240</item>
+        <item>2560,4096,6144,18944,22016,23552</item>
+    </string-array>
+
+    <string-array name="entries_iosched">
+        <item>sio</item>
+        <item>deadline</item>
+        <item>cfq</item>
+        <item>bfq</item>
+        <item>vr</item>
+        <item>noop</item>
+    </string-array>
+
+    <string-array name="values_iosched">
+        <item>sio</item>
+        <item>deadline</item>
+        <item>cfq</item>
+        <item>bfq</item>
+        <item>vr</item>
+        <item>noop</item>
+    </string-array>
+
+    <string-array name="entries_ksm_sleep">
+        <item>500</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
+        <item>2500</item>
+        <item>3000</item>
+        <item>3500</item>
+        <item>4000</item>
+    </string-array>
+
+    <string-array name="values_ksm_sleep">
+        <item>500</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
+        <item>2500</item>
+        <item>3000</item>
+        <item>3500</item>
+        <item>4000</item>
+    </string-array>
+
+    <string-array name="entries_ksm_scan">
+        <item>64</item>
+        <item>128</item>
+        <item>256</item>
+        <item>384</item>
+        <item>512</item>
+    </string-array>
+
+    <string-array name="values_ksm_scan">
+        <item>64</item>
+        <item>128</item>
+        <item>256</item>
+        <item>384</item>
+        <item>512</item>
+    </string-array>
+
+    <string-array name="lcd_density_entries">
+        <item>200</item>  
+        <item>205</item>
+        <item>210</item>
+        <item>215</item>
+        <item>220</item>
+        <item>225</item>
+        <item>230</item>
+        <item>235</item>
+        <item>240</item>
+        <item>245</item>
+        <item>250</item>
+        <item>255</item>
+        <item>260</item>
+        <item>custom</item>
+     </string-array>
+
+     <string-array
+        name="pref_powersaving_data_screen_off_entries">
+        <item>Do nothing</item>
+        <item>Turn data off</item>
+        <item>Switch to 2G mode</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_data_screen_off_values">
+        <item>20</item>
+        <item>22</item>
+        <item>21</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_data_screen_off_delay_entries">
+        <item>Don\'t wait (immediate)</item>
+        <item>10 seconds</item>
+        <item>30 seconds</item>
+        <item>45 seconds</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_data_screen_off_delay_values">
+        <item>0</item>
+        <item>10</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>300</item>
+        <item>600</item>
+        <item>900</item>
+        <item>1800</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_sync_screen_off_interval_entries">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+        <item>5 hours</item>
+        <item>6 hours</item>
+        <item>8 hours</item>
+        <item>12 hours</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_sync_screen_off_interval_values">
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>7200</item>
+        <item>10800</item>
+        <item>14400</item>
+        <item>18000</item>
+        <item>21600</item>
+        <item>28800</item>
+        <item>43200</item>
+    </string-array>
+
+    <string-array
+       name="pref_powersaving_data_screen_off_entries_cdma">
+       <item>Do nothing</item>
+       <item>Turn data off</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_data_screen_off_values_cdma">
+        <item>20</item>
+        <item>22</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_sync_screen_off_entries">
+        <item>Do nothing</item>
+        <item>Turn autosync off</item>
+        <item>Turn autosync off with delay</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_sync_screen_off_values">
+        <item>35</item>
+        <item>33</item>
+        <item>34</item>
+    </string-array>
+
+   <string-array name="powersaving_screen_off_wifi_entries">
+    <item>Leave untouched</item>
+    <item>Turn Wi-Fi off</item>
+    <item>turn Wi-Fi on</item>
+  </string-array>
+  
+  <string-array name="powersaving_screen_off_wifi_values">
+    <item>40</item>
+    <item>41</item>
+    <item>42</item>
+  </string-array>
+  
+  <string-array name="powersaving_sync_data_mode_entries">
+    <item>Leave untouched</item>
+    <item>Only Wi-Fi</item>
+    <item>Wi-Fi preferred</item>
+    <item>Data only</item>
+  </string-array>
+  
+  <string-array name="powersaving_sync_data_mode_values">
+    <item>54</item>
+    <item>50</item>
+    <item>51</item>
+    <item>53</item>
+  </string-array>
+
+  <string-array name="powersaving_sync_data_mobile_mode_entries">
+    <item>2G/1x only</item>
+    <item>Prefer 3G</item>
+  </string-array>
+  
+  <string-array name="powersaving_sync_data_mobile_mode_values">
+    <item>62</item>
+    <item>63</item>
+  </string-array>
+
+  <string-array name="statusbar_settingup_entries">
+    <item>Settings Menu</item>
+    <item>Weather Popup</item>
+    <item>None</item>
+  </string-array>
+  
+  <string-array name="statusbar_settingup_values">
+    <item>1</item>
+    <item>2</item>
+    <item>0</item>
+  </string-array>
+
+  <string-array name="entries_animations">
+        <item>Off</item>
+        <item>Fast</item>
+        <item>Normal</item>
+        <item>Slow</item>
+        <item>Very Slow</item>
+    </string-array>
+
+    <string-array name="entryvalues_animations">
+        <item>0.0</item>
+        <item>0.5</item>
+        <item>1.0</item>
+        <item>1.5</item>
+        <item>2.0</item>
+    </string-array>
+</resources>

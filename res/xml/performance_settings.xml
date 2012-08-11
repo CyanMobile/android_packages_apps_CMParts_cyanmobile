@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- General settings -->
+    <PreferenceCategory android:key="general_category"
+        android:title="@string/general_title">
+
+        <CheckBoxPreference android:key="pref_jit_mode"
+            android:title="@string/pref_jit_mode_title" android:summary="@string/pref_jit_mode_summary" />
+
+        <ListPreference
+            android:key="pref_use_dithering"
+            android:dialogTitle="@string/pref_use_dithering_title"
+            android:title="@string/pref_use_dithering_title" android:summary="@string/pref_use_dithering_summary"
+            android:entries="@array/dithering_entries"
+            android:entryValues="@array/dithering_values" />
+
+        <CheckBoxPreference android:key="pref_use_16bpp_alpha"
+            android:title="@string/pref_use_16bpp_alpha_title"
+            android:summary="@string/pref_use_16bpp_alpha_summary" />
+
+        <CheckBoxPreference android:key="pref_purgeable_assets"
+            android:title="@string/pref_purgeable_assets_title"
+            android:summary="@string/pref_purgeable_assets_summary" />
+
+        <CheckBoxPreference android:key="pref_disable_bootanimation"
+            android:title="@string/pref_disable_bootanimation_title"
+            android:summary="@string/pref_disable_bootanimation_summary" />
+
+	<CheckBoxPreference android:key="pref_enable_bootsound"
+            android:title="@string/pref_enable_bootsound_title"
+            android:summaryOn="@string/pref_enable_bootsound_play_summary" 
+            android:summaryOff="@string/pref_enable_bootsound_not_summary" />
+
+        <ListPreference android:key="pref_volume_bootsound"
+            android:dependency="pref_enable_bootsound"
+            android:dialogTitle="@string/pref_vol_bootsound_title"
+            android:title="@string/pref_vol_bootsound_title" android:summary="@string/pref_vol_bootsound_summary"
+            android:entries="@array/entries_vol_bootsound"
+            android:entryValues="@array/values_vol_bootsound" />
+
+        <CheckBoxPreference android:key="pref_animate_on_shutdown"
+            android:title="@string/pref_animate_on_shutdown_title"
+            android:summary="@string/pref_animate_on_shutdown_summary" />
+
+        <CheckBoxPreference android:key="pref_lock_home"
+            android:title="@string/pref_lock_home_title"
+            android:summary="@string/pref_lock_home_summary" />
+
+        <CheckBoxPreference android:key="pref_lock_mms"
+            android:title="@string/pref_lock_mms_title" android:summary="@string/pref_lock_mms_summary" />
+
+        <CheckBoxPreference android:key="pref_gmaps_hack"
+            android:dialogTitle="@string/pref_gmaps_hack_title"
+            android:title="@string/pref_gmaps_hack_title" android:summary="@string/pref_gmaps_hack_summary" />
+
+        <CheckBoxPreference
+            android:key="pref_ksm"
+            android:title="@string/pref_ksm_title"
+            android:summary="@string/pref_ksm_summary" />
+
+        <ListPreference android:key="pref_ksm_sleep"
+            android:dependency="pref_ksm"
+            android:dialogTitle="@string/pref_ksm_sleep_title"
+            android:title="@string/pref_ksm_sleep_title" android:summary="@string/pref_ksm_sleep_summary"
+            android:entries="@array/entries_ksm_sleep"
+            android:entryValues="@array/values_ksm_sleep" />
+
+        <ListPreference android:key="pref_ksm_scan"
+            android:dependency="pref_ksm"
+            android:dialogTitle="@string/pref_ksm_scan_title"
+            android:title="@string/pref_ksm_scan_title" android:summary="@string/pref_ksm_scan_summary"
+            android:entries="@array/entries_ksm_scan"
+            android:entryValues="@array/values_ksm_scan" />
+
+        <ListPreference android:key="pref_heapsize"
+            android:dialogTitle="@string/pref_heapsize_title"
+            android:title="@string/pref_heapsize_title" android:summary="@string/pref_heapsize_summary"
+            android:entries="@array/entries_heapsize"
+            android:entryValues="@array/values_heapsize" />
+
+        <!-- Battery -->
+        <ListPreference android:key="pref_battery"
+                android:dialogTitle="@string/pref_battery_title"
+                android:title="@string/pref_battery_title" android:summary="@string/pref_battery_summary"
+                android:entries="@array/entries_battery"
+                android:entryValues="@array/values_battery" />
+
+        <ListPreference android:key="pref_compcache_size"
+            android:dialogTitle="@string/pref_compcache_title"
+            android:title="@string/pref_compcache_title"
+            android:summary="@string/pref_compcache_summary"
+            android:entries="@array/pref_compcache_size_entries"
+            android:entryValues="@array/pref_compcache_size_values" />
+
+	<ListPreference android:key="pref_scrollingcache"
+            android:dialogTitle="@string/pref_scrollingcache_title"
+            android:title="@string/pref_scrollingcache_title" android:summary="@string/pref_scrollingcache_summary"
+            android:entries="@array/entries_scrollingcache"
+            android:entryValues="@array/values_scrollingcache" />
+
+        <ListPreference android:key="pref_lowmemkill"
+            android:dialogTitle="@string/pref_lowmemkill_title"
+            android:title="@string/pref_lowmemkill_title" android:summary="@string/pref_lowmemkill_summary"
+            android:entries="@array/entries_lowmemkill"
+            android:entryValues="@array/values_lowmemkill" />
+
+        <ListPreference android:key="pref_iosched"
+            android:dialogTitle="@string/pref_iosched_title"
+            android:title="@string/pref_iosched_title" android:summary="@string/pref_iosched_summary"
+            android:entries="@array/entries_iosched"
+            android:entryValues="@array/values_iosched" />
+
+        <ListPreference android:key="pref_sdcard"
+            android:dialogTitle="@string/pref_sd_readahead_title"
+            android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_sd_readahead_summary"
+            android:entries="@array/entries_sd_readahead"
+            android:entryValues="@array/values_sd_readahead" />
+
+    </PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

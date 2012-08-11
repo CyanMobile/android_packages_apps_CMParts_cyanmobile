@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Status bar tweaks -->
+	<PreferenceCategory android:title="@string/general_title">
+                <Preference android:key="pref_exportall"
+                        android:title="@string/ui_exportall_title"
+                        android:summary="@string/ui_exportall_summary" />
+                <Preference android:key="pref_importall"
+                        android:title="@string/ui_importall_title"
+                        android:summary="@string/ui_importall_summary" />
+	</PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

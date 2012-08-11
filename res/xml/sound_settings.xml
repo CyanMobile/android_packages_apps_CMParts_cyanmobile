@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- General settings -->
+	<PreferenceCategory android:key="general_category"
+		android:title="@string/general_title">
+         <!-- DSPManager -->
+                <PreferenceScreen android:key="dspmanager_settings"
+                        android:title="@string/dspmanager_title" android:summary="@string/dspmanager_summary">
+                        <intent android:action="android.intent.action.MAIN"
+                                android:targetPackage="com.bel.android.dspmanager"
+                                android:targetClass="com.bel.android.dspmanager.activity.DSPManager" />
+                </PreferenceScreen>
+
+	<!-- Notifications -->
+		<CheckBoxPreference android:key="notif-focus"
+			android:title="@string/sound_notifications_focus_title"
+			android:summary="@string/sound_notifications_focus_summary"
+			android:persistent="false" />
+
+	<!-- Silent state -->
+		<CheckBoxPreference android:key="vol-ctrl-silent"
+			android:title="@string/sound_volume_control_silent_title"
+			android:summary="@string/sound_volume_control_silent_summary"
+			android:persistent="false" />
+
+                <CheckBoxPreference android:key="screenshot-mute"
+			android:title="@string/sound_screenshot_disable_title"
+			android:summaryOn="@string/sound_screenshot_disable_summary_on"
+			android:summaryOff="@string/sound_screenshot_disable_summary_off"
+			android:persistent="false" />
+ 
+	<!-- Lock volume keys -->
+		<CheckBoxPreference android:key="lock-volume-keys"
+			android:title="@string/sound_lock_volume_keys_title"
+			android:summary="@string/sound_lock_volume_keys_summary"
+			android:persistent="false" />
+
+        <!-- Default volume media -->
+                <CheckBoxPreference android:key="default-volume-media"
+			android:title="@string/sound_default_volume_media_title"
+			android:summary="@string/sound_default_volume_media_summary"
+			android:persistent="false" />
+
+	<!--  Volume key beeps -->
+		<CheckBoxPreference android:key="volume-key-beeps"
+			android:title="@string/sound_volume_key_beeps_title"
+			android:summaryOn="@string/sound_volume_key_beeps_summary_on"
+			android:summaryOff="@string/sound_volume_key_beeps_summary_off"
+			android:persistent="false" />
+
+        <!-- Swap Volume Keys -->
+                <ListPreference android:key="swap-vol-keys"
+			android:title="@string/sound_swap_volume_keys_title"
+			android:dialogTitle="@string/sound_swap_volume_keys_dialog"
+			android:entries="@array/swap_volume_keys_orientation_list_entries"
+			android:entryValues="@array/swap_volume_keys_orientation_list_values"
+                        android:persistent="false" />
+
+	</PreferenceCategory>
+        <PreferenceCategory android:key="call_category" android:title="@string/call_features_title">
+
+                <CheckBoxPreference android:key="pref_pick_up_to_call"
+                        android:title="@string/pref_pick_up_to_call_title"
+                        android:summary="@string/pref_pick_up_to_call_summary"/>
+
+        <!-- Back button ends call -->
+                <CheckBoxPreference android:key="back-button-ends-call"
+                        android:title="@string/sound_back_button_title" 
+                        android:summaryOn="@string/sound_back_button_summary_On"
+                        android:summaryOff="@string/sound_back_button_summary_Off" />
+
+        <!-- Menu button ends call -->
+                <CheckBoxPreference android:key="pref_menu_button_answers_call"
+                        android:title="@string/sound_menu_button_title" 
+                        android:summaryOn="@string/sound_menu_button_summary_On"
+                        android:summaryOff="@string/sound_menu_button_summary_Off" />
+
+        <!-- Incall UI-->
+                <CheckBoxPreference android:key="pref_incall_ui_force"
+                        android:title="@string/sound_incall_ui_title" 
+                        android:summaryOn="@string/sound_incall_ui_summary_On"
+                        android:summaryOff="@string/sound_incall_ui_summary_Off" />
+
+	<!--  Ringtone looping -->
+		<CheckBoxPreference android:key="ringer-loop"
+        		android:title="@string/sound_ringer_loop_title" 
+                        android:summaryOn="@string/sound_ringer_loop_summary_on"
+                        android:summaryOff="@string/sound_ringer_loop_summary_off"
+                        android:persistent="false" />
+
+                <CheckBoxPreference android:key="call-me-louder"
+                        android:title="@string/sound_call_me_louder_title" 
+                        android:summary="@string/sound_call_me_louder_summary"/>
+
+        <!-- Vibrate on call -->
+		<CheckBoxPreference android:key="vibrate-in-call"
+			android:title="@string/sound_vibrate_in_call_title"
+			android:summaryOn="@string/sound_vibrate_in_call_summary_on"
+			android:summaryOff="@string/sound_vibrate_in_call_summary_off"
+			android:persistent="false" />
+
+                <CheckBoxPreference android:key="flipping-mutes-ringer" 
+                        android:title="@string/sound_flipping_down_mutes_ringer_title"
+                        android:summary="@string/sound_flipping_down_mutes_ringer_summary"/>
+
+                <CheckBoxPreference android:key="flipping-snoozes-alarm" 
+                        android:title="@string/sound_flipping_down_snoozes_alarm_title"
+                        android:summary="@string/sound_flipping_down_snoozes_alarm_summary"/>
+	</PreferenceCategory>
+	<PreferenceCategory android:key="camera_category"
+		android:title="@string/camera_title">
+		<!-- Disable camera shutter sound -->
+		<CheckBoxPreference android:key="camera-mute"
+			android:title="@string/sound_camera_shutter_disable_title"
+			android:summaryOn="@string/sound_camera_shutter_disable_summary_on"
+			android:summaryOff="@string/sound_camera_shutter_disable_summary_off"
+			android:persistent="false" />
+		<CheckBoxPreference android:key="camera_focus_mute"
+			android:title="@string/sound_camera_focus_mute_title"
+			android:summaryOn="@string/sound_camera_focus_mute_summary_on"
+			android:summaryOff="@string/sound_camera_focus_mute_summary_off"
+			android:persistent="false" />
+	</PreferenceCategory>
+
+	<!-- Some spacing -->
+	<PreferenceCategory />
+
+	<!-- Note -->
+	<Preference android:title="@string/sound_note_title"
+		android:summary="@string/sound_note_summary" android:selectable="false" />
+
+	<!-- Sound to speaker -->
+	<PreferenceCategory android:title="@string/sound_to_speaker_title">
+
+		<!-- Notifications -->
+		<CheckBoxPreference android:key="notif-speaker"
+			android:title="@string/sound_notifications_title" android:persistent="false" />
+
+		<!-- Ring tones -->
+		<CheckBoxPreference android:key="ring-speaker"
+			android:title="@string/sound_rings_title" android:persistent="false" />
+
+		<!-- Alarms -->
+		<CheckBoxPreference android:key="alarm-speaker"
+			android:title="@string/sound_alarms_title" android:persistent="false" />
+	</PreferenceCategory>
+
+	<!-- Attenuation -->
+	<PreferenceCategory android:title="@string/sound_attenuation_title">
+
+		<!-- Notifications -->
+		<ListPreference android:key="notif-attn"
+			android:title="@string/sound_notifications_title"
+			android:dialogTitle="@string/sound_notifications_attenuation_dialog"
+			android:entries="@array/entries_sound_attenuation"
+			android:entryValues="@array/values_sound_attenuation"
+			android:persistent="false" />
+
+		<!-- Ring tones -->
+		<ListPreference android:key="ring-attn" android:title="@string/sound_rings_title"
+			android:dialogTitle="@string/sound_rings_attenuation_dialog"
+			android:entries="@array/entries_sound_attenuation"
+			android:entryValues="@array/values_sound_attenuation"
+			android:persistent="false" />
+
+		<!-- Alarms -->
+		<ListPreference android:key="alarm-attn"
+			android:title="@string/sound_alarms_title" android:dialogTitle="@string/sound_alarms_attenuation_dialog"
+			android:entries="@array/entries_sound_attenuation"
+			android:entryValues="@array/values_sound_attenuation"
+			android:persistent="false" />
+
+		<!-- FM -->
+		<ListPreference android:key="fm-attn"
+			android:title="@string/sound_fm_title"
+			android:dialogTitle="@string/sound_fm_attenuation_dialog"
+			android:entries="@array/entries_speaker_attenuation"
+			android:entryValues="@array/values_speaker_attenuation"
+			android:persistent="false" />
+
+		<!-- Headset -->
+		<ListPreference android:key="headset-attn" android:title="@string/sound_headset_title"
+			android:dialogTitle="@string/sound_headset_attenuation_dialog"
+			android:entries="@array/entries_speaker_attenuation"
+			android:entryValues="@array/values_speaker_attenuation"
+			android:persistent="false" />
+
+		<!-- Speaker -->
+		<ListPreference android:key="speaker-attn"
+			android:title="@string/sound_speaker_title" android:dialogTitle="@string/sound_speaker_attenuation_dialog"
+			android:entries="@array/entries_speaker_attenuation"
+			android:entryValues="@array/values_speaker_attenuation"
+			android:persistent="false" />
+
+	</PreferenceCategory>
+
+	<!-- Volume limit -->
+	<PreferenceCategory android:title="@string/sound_limitvol_title">
+
+		<!-- Notifications -->
+		<ListPreference android:key="notif-limitvol"
+			android:title="@string/sound_notifications_title"
+			android:dialogTitle="@string/sound_notifications_limitvol_dialog"
+			android:entries="@array/entries_sound_limitvol" android:entryValues="@array/values_sound_limitvol"
+			android:persistent="false" />
+
+		<!-- Ring tones -->
+		<ListPreference android:key="ring-limitvol"
+			android:title="@string/sound_rings_title" android:dialogTitle="@string/sound_rings_limitvol_dialog"
+			android:entries="@array/entries_sound_limitvol" android:entryValues="@array/values_sound_limitvol"
+			android:persistent="false" />
+
+		<!-- Alarms -->
+		<ListPreference android:key="alarm-limitvol"
+			android:title="@string/sound_alarms_title" android:dialogTitle="@string/sound_alarms_limitvol_dialog"
+			android:entries="@array/entries_sound_limitvol" android:entryValues="@array/values_sound_limitvol"
+			android:persistent="false" />
+	</PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

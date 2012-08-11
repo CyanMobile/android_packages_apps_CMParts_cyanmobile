@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Search key settings -->
+	<PreferenceCategory android:key="shortcut_key_settings"
+		android:title="@string/general_title">
+
+		<CheckBoxPreference android:key="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut_app_toggle_title"
+			android:summary="@string/pref_custom_shortcut_app_toggle_summary" />
+
+		<Preference android:key="pref_custom_shortcut1_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut1_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut2_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut2_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut3_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut3_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut4_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut4_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut5_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut5_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut6_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut6_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut7_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut7_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut8_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut8_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut9_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut9_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut10_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut10_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut11_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut11_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut12_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut12_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut13_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut13_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut14_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut14_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut15_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut15_app_activity_title" />
+
+		<Preference android:key="pref_custom_shortcut16_app_activity"
+			android:dependency="pref_custom_shortcut_app_toggle"
+			android:title="@string/pref_custom_shortcut16_app_activity_title" />
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

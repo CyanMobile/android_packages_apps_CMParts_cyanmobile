@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- General settings -->
+	<PreferenceCategory android:title="@string/power_title">
+
+		<!-- Power prompt -->
+		<CheckBoxPreference android:key="power_dialog_prompt"
+			android:title="@string/pref_power_prompt_title" android:summary="@string/pref_power_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="silent_dialog_prompt"
+			android:title="@string/pref_silent_prompt_title" android:summary="@string/pref_silent_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="airplane_dialog_prompt"
+			android:title="@string/pref_airplane_prompt_title" android:summary="@string/pref_airplane_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="profile_dialog_prompt"
+			android:title="@string/pref_profile_prompt_title" android:summary="@string/pref_profile_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="screenshot_dialog_prompt"
+			android:title="@string/pref_screenshot_prompt_title" android:summary="@string/pref_screenshot_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="powersaver_dialog_prompt"
+			android:title="@string/pref_powersaver_prompt_title" android:summary="@string/pref_powersaver_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="hibernate_dialog_prompt"
+			android:title="@string/pref_hibernate_prompt_title" android:summary="@string/pref_hibernate_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="suspend_dialog_prompt"
+			android:title="@string/pref_suspend_prompt_title" android:summary="@string/pref_suspend_prompt_summary"
+			android:defaultValue="false" />
+	</PreferenceCategory>
+
+     	<PreferenceCategory android:key="general_category"
+		android:title="@string/general_title">
+
+                <!-- <CheckBoxPreference android:key="pref_hide_avatar_message"
+                        android:title="@string/pref_hide_avatar_message_title"
+                        android:summary="@string/pref_summary_hide_avatar_message" /> -->
+
+		<PreferenceScreen android:key="ui_stats_power_widget_settings_menu"
+			android:title="@string/title_stats_widget">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.MainStatusActivity" />
+		</PreferenceScreen>
+
+		<PreferenceScreen android:key="ui_lockscreen_settings_menu"
+			android:title="@string/lockscreen_settings_title_subhead">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.LockscreenActivity" />
+		</PreferenceScreen>
+
+		<!-- LED notifications -->
+		<PreferenceScreen android:key="trackball_notifications"
+			android:title="@string/trackball_title" android:summary="@string/trackball_summary">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.led.NotificationActivity" />
+		</PreferenceScreen>
+
+		<!-- Render effect -->
+		<ListPreference android:key="pref_render_effect"
+			android:dialogTitle="@string/pref_render_effect_title" android:title="@string/pref_render_effect_title"
+			android:summary="@string/pref_render_effect_summary" android:entries="@array/entries_render_effect"
+			android:entryValues="@array/values_render_effect" />
+
+		<CheckBoxPreference android:key="pref_pinch_reflow"
+			android:title="@string/pref_pinch_reflow_title" android:summary="@string/pref_pinch_reflow_summary" />
+
+		<CheckBoxPreference android:key="pref_share_screenshot"
+			android:title="@string/pref_share_screenshot_title" android:summary="@string/pref_share_screenshot_summary" />
+	</PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/fonts_change_title">
+                 <PreferenceScreen android:key="fonts_settings"
+                         android:title="@string/fonts_title" android:summary="@string/fonts_summary">
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.cmfontschanger"
+                                 android:targetClass="com.cyanogenmod.cmfontschanger.TypeFresh" />
+                  </PreferenceScreen>
+
+                  <PreferenceScreen
+                                 android:key="fontsettings"
+                                 android:title="@string/fontsettings_title"
+                                 android:summary="@string/fontsettings_summary" >
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.cmparts"
+                                 android:targetClass="com.cyanogenmod.cmparts.activities.DisplayFontTypeSettings" />
+                  </PreferenceScreen>
+
+                <CheckBoxPreference android:key="pref_text_global_of_color"
+                        android:title="@string/ui_text_global_of_color_title"
+                        android:summary="@string/ui_text_global_of_color_summary"
+                        android:defaultValue="false" />
+
+		<Preference android:key="pref_text_full_of_color"
+      			android:title="@string/ui_text_full_of_color_title"
+      			android:summary="@string/ui_text_full_of_color_summary"
+      			android:defaultValue="-1" />
+
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/apps_change_title">
+                 <PreferenceScreen android:key="apps_settings"
+                         android:title="@string/apps_title" android:summary="@string/apps_summary">
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.cmappschanger"
+                                 android:targetClass="com.cyanogenmod.cmappschanger.TypeAppFresh" />
+                  </PreferenceScreen>
+                 <PreferenceScreen android:key="fmws_settings"
+                         android:title="@string/fmws_title" android:summary="@string/fmws_summary">
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.cmfmwschanger"
+                                 android:targetClass="com.cyanogenmod.cmfmwschanger.TypeFmwFresh" />
+                  </PreferenceScreen>
+        </PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/ui_overscroll_title">
+		<ListPreference android:key="pref_overscroll_effect"
+			android:dialogTitle="@string/pref_overscroll_title" android:title="@string/pref_overscroll_title"
+			android:summary="@string/pref_overscroll_summary" android:entries="@array/pref_overscroll_effect_entries"
+			android:entryValues="@array/pref_overscroll_effect_values" />
+                <ListPreference android:key="pref_overscroll_color"
+			android:title="@string/pref_overscroll_color_title" android:summary="@string/pref_overscroll_color_summary"
+			android:entries="@array/entries_overscroll_color"
+			android:entryValues="@array/values_overscroll_color"/>
+		<ListPreference android:key="pref_overscroll_weight"
+			android:dialogTitle="@string/pref_overscroll_weight_title"
+			android:title="@string/pref_overscroll_weight_title" android:summary="@string/pref_overscroll_weight_summary"
+			android:entries="@array/entries_overscroll_weight"
+			android:entryValues="@array/values_overscroll_weight" />
+	</PreferenceCategory>
+
+	<!-- Boot Animation Chooser -->
+	<PreferenceCategory android:title="@string/ui_bootanim_cat_title">
+                <PreferenceScreen android:key="pref_bootanimation_preview"
+                        android:title="@string/bootanimation_preview_title" android:summary="@string/bootanimation_preview_summary">
+                </PreferenceScreen>
+                <PreferenceScreen android:key="pref_bootanimation"
+                        android:title="@string/bootanimation_title" android:summary="@string/bootanimation_summary">
+                </PreferenceScreen>
+                <PreferenceScreen android:key="pref_bootanimation_reset"
+                        android:title="@string/bootanimation_reset_title" android:summary="@string/bootanimation_reset_summary">
+                </PreferenceScreen>
+                <PreferenceScreen android:key="pref_shutdownanimation"
+                        android:title="@string/shutdownanimation_title" android:summary="@string/shutdownanimation_summary">
+                </PreferenceScreen>
+                <PreferenceScreen android:key="pref_shutdownanimation_reset"
+                        android:title="@string/shutdownanimation_reset_title" android:summary="@string/shutdownanimation_reset_summary">
+                </PreferenceScreen>
+                <PreferenceScreen android:key="pref_bootsound"
+                        android:title="@string/bootsound_title" android:summary="@string/bootsound_summary">
+                </PreferenceScreen>
+                <PreferenceScreen android:key="pref_bootsound_reset"
+                        android:title="@string/bootsound_reset_title" android:summary="@string/bootsound_reset_summary">
+                </PreferenceScreen>
+        </PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

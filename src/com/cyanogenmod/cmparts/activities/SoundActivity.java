@@ -1,0 +1,453 @@
+/*
+ * Copyright (C) 2011 The CyanogenMod Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.cyanogenmod.cmparts.activities;
+
+import com.cyanogenmod.cmparts.R;
+
+import android.app.Dialog;
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemProperties;
+import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
+import android.provider.Settings;
+import android.text.format.DateFormat;
+import android.widget.TimePicker;
+import java.util.Calendar;
+import android.media.AudioManager;
+
+public class SoundActivity extends PreferenceActivity implements OnPreferenceChangeListener {
+
+    private static final int DIALOG_QUIET_HOURS_START = 1;
+
+    private static final int DIALOG_QUIET_HOURS_END = 2;
+
+    private static final String PREF_SQUADZONE = "squadkeys";
+
+    private static final String NOTIFICATIONS_FOCUS = "notif-focus";
+
+    private static final String NOTIFICATIONS_SPEAKER = "notif-speaker";
+
+    private static final String NOTIFICATIONS_ATTENUATION = "notif-attn";
+
+    private static final String NOTIFICATIONS_LIMITVOL = "notif-limitvol";
+
+    private static final String VOLUME_CONTROL_SILENT = "vol-ctrl-silent";
+
+    private static final String SWAP_VOLUME_KEYS = "swap-vol-keys";
+
+    private static final String VIBRATE_IN_CALL = "vibrate-in-call";
+
+    private static final String LOCK_VOLUME_KEYS = "lock-volume-keys";
+
+    private static final String DEFAULT_VOLUME_MEDIA = "default-volume-media";
+
+    private static final String VOLUME_KEY_BEEPS = "volume-key-beeps";
+
+    private static final String RINGER_LOOP = "ringer-loop";
+
+    private static final String RINGS_SPEAKER = "ring-speaker";
+
+    private static final String RINGS_ATTENUATION = "ring-attn";
+
+    private static final String FM_ATTENUATION = "fm-attn";
+
+    private static final String HEADSET_ATTENUATION = "headset-attn";
+
+    private static final String SPEAKER_ATTENUATION = "speaker-attn";
+
+    private static final String RINGS_LIMITVOL = "ring-limitvol";
+
+    private static final String ALARMS_SPEAKER = "alarm-speaker";
+
+    private static final String ALARMS_ATTENUATION = "alarm-attn";
+
+    private static final String ALARMS_LIMITVOL = "alarm-limitvol";
+
+    private static final String CAMERA_SHUTTER_MUTE = "camera-mute";
+
+    private static final String SCREENSHOT_MUTE = "screenshot-mute";
+
+    private static final String CAMERA_FOCUS_MUTE = "camera_focus_mute";
+
+    private static final String CALL_ME_LOUDER = "call-me-louder";
+
+    private static final String FLIPPING_DOWN_MUTES_RINGER = "flipping-mutes-ringer";
+
+    private static final String FLIPPING_DOWN_SNOOZES_ALARM = "flipping-snoozes-alarm";
+
+    private static final String BACK_BUTTON_ENDS_CALL_PREF = "back-button-ends-call";
+
+    private static final String MENU_BUTTON_ANSWERS_CALL_PREF = "pref_menu_button_answers_call";
+
+    private static final String PICK_UP_TO_CALL_PREF = "pref_pick_up_to_call";
+
+    private static final String INCALL_UI_FORCE_PREF = "pref_incall_ui_force";
+
+    private static final String PREFIX = "persist.sys.";
+
+    private static final String CAMERA_CATEGORY = "camera_category";
+    private static final String CAMERA_SHUTTER_DISABLE = "ro.camera.sound.disabled";
+
+    private static String getKey(String suffix) {
+        return PREFIX + suffix;
+    }
+
+    private CheckBoxPreference mLockVolumeKeys;
+    private CheckBoxPreference mBackButtonEndsCall;
+    private CheckBoxPreference mMenuButtonAnswersCall;
+    private CheckBoxPreference mPickUpToCall;
+    private CheckBoxPreference mDefaultVolumeMedia;
+    private Preference mSquadzone;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setTitle(R.string.sound_settings_title_subhead);
+        addPreferencesFromResource(R.xml.sound_settings);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
+
+        mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
+        mSquadzone.setSummary("CyanMobile");
+
+        CheckBoxPreference p = (CheckBoxPreference) prefSet.findPreference(NOTIFICATIONS_FOCUS);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.NOTIFICATIONS_AUDIO_FOCUS, 1) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(NOTIFICATIONS_SPEAKER);
+        p.setChecked(SystemProperties.getBoolean(getKey(NOTIFICATIONS_SPEAKER), false));
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(VOLUME_CONTROL_SILENT);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.VOLUME_CONTROL_SILENT, 0) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(VIBRATE_IN_CALL);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.VIBRATE_IN_CALL, 1) != 0);
+	p.setOnPreferenceChangeListener(this);
+	
+        mMenuButtonAnswersCall = (CheckBoxPreference) prefSet.findPreference(MENU_BUTTON_ANSWERS_CALL_PREF);
+        mMenuButtonAnswersCall.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.MENU_BUTTON_ANSWERS_CALL, 1) != 0);
+        mMenuButtonAnswersCall.setOnPreferenceChangeListener(this);
+
+        mPickUpToCall = (CheckBoxPreference) prefSet.findPreference(PICK_UP_TO_CALL_PREF);
+        mPickUpToCall.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.PICK_UP_TO_CALL, 0) == 1);
+        mPickUpToCall.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(INCALL_UI_FORCE_PREF);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.PHONE_FORCE_INCOMING_CALL_UI, 0) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        int lockVolumeKeys = Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCK_VOLUME_KEYS, 0);
+        mLockVolumeKeys = (CheckBoxPreference) prefSet.findPreference(LOCK_VOLUME_KEYS);
+	mLockVolumeKeys.setChecked(lockVolumeKeys != 0);
+        mLockVolumeKeys.setOnPreferenceChangeListener(this);
+
+        int defaultVolumeMedia = Settings.System.getInt(getContentResolver(),
+                Settings.System.DEFAULT_VOLUME_CONTROL_MEDIA, 0);
+        mDefaultVolumeMedia = (CheckBoxPreference) prefSet.findPreference(DEFAULT_VOLUME_MEDIA);
+        mDefaultVolumeMedia.setChecked(defaultVolumeMedia != 0);
+        mDefaultVolumeMedia.setOnPreferenceChangeListener(this);
+	
+        mLockVolumeKeys.setEnabled(defaultVolumeMedia == 0);
+        mDefaultVolumeMedia.setEnabled(lockVolumeKeys == 0);
+	
+        p = (CheckBoxPreference) prefSet.findPreference(VOLUME_KEY_BEEPS);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.VOLUME_KEY_BEEPS, 1) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+	p = (CheckBoxPreference) prefSet.findPreference(RINGER_LOOP);
+        p.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.RINGER_LOOP, 1) != 0));
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(CALL_ME_LOUDER);
+        p.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.CALL_ME_LOUDER, 0) != 0));
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(FLIPPING_DOWN_MUTES_RINGER);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.FLIPPING_DOWN_MUTES_RINGER, 0) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(FLIPPING_DOWN_SNOOZES_ALARM);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.FLIPPING_DOWN_SNOOZES_ALARM, 0) != 0);
+        p.setOnPreferenceChangeListener(this);
+
+        mBackButtonEndsCall = (CheckBoxPreference) prefSet.findPreference(BACK_BUTTON_ENDS_CALL_PREF);
+        mBackButtonEndsCall.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.BACK_BUTTON_ENDS_CALL, 1) != 0);
+        mBackButtonEndsCall.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(RINGS_SPEAKER);
+        p.setChecked(SystemProperties.getBoolean(getKey(RINGS_SPEAKER), false));
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(ALARMS_SPEAKER);
+        p.setChecked(SystemProperties.getBoolean(getKey(ALARMS_SPEAKER), false));
+        p.setOnPreferenceChangeListener(this);
+
+        ListPreference lp = (ListPreference) prefSet.findPreference(NOTIFICATIONS_ATTENUATION);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(NOTIFICATIONS_ATTENUATION), 6)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(RINGS_ATTENUATION);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(RINGS_ATTENUATION), 6)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(ALARMS_ATTENUATION);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(ALARMS_ATTENUATION), 6)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(FM_ATTENUATION);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(FM_ATTENUATION), 0)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(HEADSET_ATTENUATION);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(HEADSET_ATTENUATION), 0)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(SPEAKER_ATTENUATION);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(SPEAKER_ATTENUATION), 0)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(NOTIFICATIONS_LIMITVOL);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(NOTIFICATIONS_LIMITVOL), 1)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(RINGS_LIMITVOL);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(RINGS_LIMITVOL), 1)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(ALARMS_LIMITVOL);
+        lp.setValue(String.valueOf(SystemProperties.getInt(getKey(ALARMS_LIMITVOL), 1)));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        lp = (ListPreference) prefSet.findPreference(SWAP_VOLUME_KEYS);
+        lp.setValue(String.valueOf(Settings.System.getInt(getContentResolver(),
+                Settings.System.SWAP_VOLUME_KEYS_ORIENTATION,
+                getResources().getInteger(com.android.internal.R.integer.swap_volume_keys_orientation))));
+        lp.setSummary(lp.getEntry());
+        lp.setOnPreferenceChangeListener(this);
+
+        if (SystemProperties.getBoolean(CAMERA_SHUTTER_DISABLE, false)) {
+            // we cannot configure camera sound, hide camera settigs
+            prefSet.removePreference(prefSet.findPreference(CAMERA_SHUTTER_MUTE));
+        } else {
+            p = (CheckBoxPreference) prefSet.findPreference(CAMERA_SHUTTER_MUTE);
+            p.setChecked(SystemProperties.getBoolean(getKey(CAMERA_SHUTTER_MUTE), false));
+            p.setOnPreferenceChangeListener(this);
+        }
+	p = (CheckBoxPreference) prefSet.findPreference(CAMERA_FOCUS_MUTE);
+        p.setChecked(Settings.System.getInt(getContentResolver(),
+                CAMERA_FOCUS_MUTE, 0) == 1);
+        p.setOnPreferenceChangeListener(this);
+
+        p = (CheckBoxPreference) prefSet.findPreference(SCREENSHOT_MUTE);
+        p.setChecked(SystemProperties.getBoolean(getKey(SCREENSHOT_MUTE), false));
+        p.setOnPreferenceChangeListener(this);
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        String key = preference.getKey();
+        if (key.equals(NOTIFICATIONS_FOCUS)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.NOTIFICATIONS_AUDIO_FOCUS,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(VOLUME_CONTROL_SILENT)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_CONTROL_SILENT,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(SWAP_VOLUME_KEYS)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.SWAP_VOLUME_KEYS_ORIENTATION,
+                    getInt(newValue));
+            ((AudioManager)getSystemService(AUDIO_SERVICE)).reloadAudioSettings();
+            mHandler.sendMessage(mHandler.obtainMessage(0, key));
+        } else if (key.equals(VIBRATE_IN_CALL)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.VIBRATE_IN_CALL,
+                    getBoolean(newValue) ? 1 : 0);
+	} else if (key.equals(LOCK_VOLUME_KEYS)) {
+            if (getBoolean(newValue)) {
+                Settings.System.putInt(getContentResolver(), Settings.System.LOCK_VOLUME_KEYS, 1);
+                Settings.System.putInt(getContentResolver(), Settings.System.DEFAULT_VOLUME_CONTROL_MEDIA, 0);
+            } else {
+                Settings.System.putInt(getContentResolver(), Settings.System.LOCK_VOLUME_KEYS, 0);
+            }
+            mDefaultVolumeMedia.setEnabled(!getBoolean(newValue));
+        } else if (key.equals(DEFAULT_VOLUME_MEDIA)) {
+            if (getBoolean(newValue)) {
+                Settings.System.putInt(getContentResolver(), Settings.System.DEFAULT_VOLUME_CONTROL_MEDIA, 1);
+                Settings.System.putInt(getContentResolver(), Settings.System.LOCK_VOLUME_KEYS, 0);
+            } else {
+                Settings.System.putInt(getContentResolver(), Settings.System.DEFAULT_VOLUME_CONTROL_MEDIA, 0);
+            }
+            mLockVolumeKeys.setEnabled(!getBoolean(newValue));
+	} else if (key.equals(VOLUME_KEY_BEEPS)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_KEY_BEEPS,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(CALL_ME_LOUDER)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.CALL_ME_LOUDER,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(FLIPPING_DOWN_MUTES_RINGER)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_MUTES_RINGER,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(FLIPPING_DOWN_SNOOZES_ALARM)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_SNOOZES_ALARM,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(BACK_BUTTON_ENDS_CALL_PREF)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.BACK_BUTTON_ENDS_CALL,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(MENU_BUTTON_ANSWERS_CALL_PREF)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.MENU_BUTTON_ANSWERS_CALL,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(PICK_UP_TO_CALL_PREF)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.PICK_UP_TO_CALL,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(INCALL_UI_FORCE_PREF)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.PHONE_FORCE_INCOMING_CALL_UI,
+                    getBoolean(newValue) ? 1 : 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.MENU_BUTTON_ANSWERS_CALL,
+                    getBoolean(newValue) ? 0 : 1);
+            Settings.System.putInt(getContentResolver(), Settings.System.BACK_BUTTON_ENDS_CALL,
+                    getBoolean(newValue) ? 0 : 1);
+            mBackButtonEndsCall.setChecked(getBoolean(newValue) ? false : true);
+            mMenuButtonAnswersCall.setChecked(getBoolean(newValue) ? false : true);
+        } else if (key.equals(RINGER_LOOP)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.RINGER_LOOP,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(NOTIFICATIONS_SPEAKER) || key.equals(RINGS_SPEAKER)
+                || key.equals(ALARMS_SPEAKER)) {
+            SystemProperties.set(getKey(key), getBoolean(newValue) ? "1" : "0");
+	} else if (key.equals(CAMERA_FOCUS_MUTE)) {
+            Settings.System.putInt(getContentResolver(), Settings.System.CAMERA_FOCUS_MUTE,
+                    getBoolean(newValue) ? 1 : 0);
+        } else if (key.equals(SCREENSHOT_MUTE)) {
+            if (getBoolean(newValue)) {
+                 SystemProperties.set(getKey(SCREENSHOT_MUTE), "1");
+            } else {
+                SystemProperties.set(getKey(SCREENSHOT_MUTE), "0");
+            }
+        } else if (key.equals(CAMERA_SHUTTER_MUTE)) {
+            if (getBoolean(newValue)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.sound_camera_shutter_disable_warning_title);
+                builder.setMessage(R.string.sound_camera_shutter_disable_warning);
+                builder.setPositiveButton(com.android.internal.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SystemProperties.set(getKey(CAMERA_SHUTTER_MUTE), "1");
+                        }
+                    });
+                final CheckBoxPreference p = (CheckBoxPreference) preference;
+                builder.setNegativeButton(com.android.internal.R.string.cancel,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            p.setChecked(false);
+                        }
+                    });
+                builder.show();
+            } else {
+                SystemProperties.set(getKey(CAMERA_SHUTTER_MUTE), "0");
+            }
+        } else {
+            SystemProperties.set(getKey(key), String.valueOf(getInt(newValue)));
+            mHandler.sendMessage(mHandler.obtainMessage(0, key));
+        }
+        return true;
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DIALOG_QUIET_HOURS_START:
+                return createTimePicker(Settings.System.QUIET_HOURS_START);
+            case DIALOG_QUIET_HOURS_END:
+                return createTimePicker(Settings.System.QUIET_HOURS_END);
+        }
+        return super.onCreateDialog(id);
+    }
+
+    private TimePickerDialog createTimePicker(final String key) {
+        int value = Settings.System.getInt(getContentResolver(), key, -1);
+        int hour;
+        int minutes;
+        if (value < 0) {
+            Calendar calendar = Calendar.getInstance();
+            hour = calendar.get(Calendar.HOUR_OF_DAY);
+            minutes = calendar.get(Calendar.MINUTE);
+        } else {
+            hour = value / 60;
+            minutes = value % 60;
+        }
+        TimePickerDialog dlg = new TimePickerDialog(this, /* context */
+        new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker v, int hours, int minutes) {
+                Settings.System.putInt(getContentResolver(), key, hours * 60 + minutes);
+            };
+        }, hour, minutes, DateFormat.is24HourFormat(this));
+        return dlg;
+    }
+
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if (msg.obj != null) {
+                        ListPreference p = (ListPreference) findPreference(msg.obj.toString());
+                        p.setSummary(p.getEntry());
+                    }
+                    break;
+            }
+        }
+    };
+
+    private boolean getBoolean(Object o) {
+        return Boolean.valueOf(o.toString());
+    }
+
+    private int getInt(Object o) {
+        return Integer.valueOf(o.toString());
+    }
+}

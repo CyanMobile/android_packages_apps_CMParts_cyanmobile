@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- General settings -->
+    <PreferenceCategory android:key="general_category"
+        android:title="@string/general_title">
+
+        <!-- CMStats 
+        <PreferenceScreen android:key="cmstats_settings"
+            android:title="@string/cmstats_title" android:summary="@string/cmstats_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.stats"
+                android:targetClass="com.cyanogenmod.stats.MainActivity" />
+        </PreferenceScreen> -->
+
+        <!-- Dev Tools -->
+        <PreferenceScreen android:key="devtools_settings"
+            android:title="@string/devtools_title" android:summary="@string/devtools_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.development"
+                android:targetClass="com.android.development.Development" />
+        </PreferenceScreen>
+
+        <!-- Spare Parts -->
+        <PreferenceScreen android:key="spareparts_settings"
+            android:title="@string/spareparts_title" android:summary="@string/spareparts_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.spare_parts"
+                android:targetClass="com.android.spare_parts.SpareParts" />
+        </PreferenceScreen>
+
+        <!-- Battery Monitor -->
+        <PreferenceScreen android:key="battery_settings"
+            android:title="@string/battery_title" android:summary="@string/battery_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.batterymonitor"
+                android:targetClass="com.cyanogenmod.batterymonitor.activities.BatteryMonitor" />
+        </PreferenceScreen>
+
+        <!-- Timer -->
+        <PreferenceScreen android:key="timer_settings"
+            android:title="@string/timer_title" android:summary="@string/timer_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.timerpower"
+                android:targetClass="com.cyanogenmod.timerpower.ClockApps" />
+        </PreferenceScreen>
+
+        <!-- Compass -->
+        <PreferenceScreen android:key="compass_settings"
+            android:title="@string/compass_title" android:summary="@string/compass_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.compasscalibrator"
+                android:targetClass="com.cyanogenmod.compasscalibrator.activities.CompassCalibrator" />
+        </PreferenceScreen>
+
+        <!-- TS Calibrator -->
+        <PreferenceScreen android:key="tscalibration_settings"
+            android:title="@string/tscalibration_title" android:summary="@string/tscalibration_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.util.tscal"
+                android:targetClass="com.cyanogenmod.util.tscal.TSCalibration" />
+        </PreferenceScreen>
+
+        <!-- Update Notifications 
+        <PreferenceScreen android:key="updatenotify_settings"
+            android:title="@string/updatenotify_title" android:summary="@string/updatenotify_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.updatenotify"
+                android:targetClass="com.cyanogenmod.updatenotify.MainActivity" />
+        </PreferenceScreen> -->
+
+        <!-- Change Log -->
+        <PreferenceScreen android:key="changelog"
+            android:title="@string/changelog_title">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.cmparts"
+                android:targetClass="com.cyanogenmod.cmparts.activities.ChangeLog" />
+        </PreferenceScreen>
+
+        <!-- Bug Report -->
+        <PreferenceScreen android:key="bugreports_settings"
+            android:title="@string/bugreports_title" android:summary="@string/bugreports_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.bugreportsender"
+                android:targetClass="com.android.bugreportsender.BugReportListActivity" />
+        </PreferenceScreen>
+
+        <!-- SIM toolkit -->
+        <PreferenceScreen android:key="stk_settings"
+            android:title="@string/stk_title" android:summary="@string/stk_summary">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.stk" 
+                android:targetClass="com.android.stk.StkMenuActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>
