@@ -731,7 +731,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(true);
             } else if (statusBarBattery == 4) {
-                if (StatusStyle) {
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
@@ -739,10 +738,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                    }
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
                     4);
-                } else {
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    4);
-                }
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(true);
             } else if (statusBarBattery == 5) {
