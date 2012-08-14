@@ -67,7 +67,7 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
     private CheckBoxPreference mAlbumArtPref;
     private CheckBoxPreference mAlwaysMusicControlPref;
     private CheckBoxPreference mAlwaysBatteryPref;
-    private CheckBoxPreference mFuzzyClock;
+    private ListPreference mFuzzyClock;
     private CheckBoxPreference mLockMessaging;
     private CheckBoxPreference mCalendarAlarmPref;
     private CheckBoxPreference mCalendarRemindersOnlyPref;
@@ -187,10 +187,12 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
         mAlwaysBatteryPref.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 1);
 
-        mFuzzyClock = (CheckBoxPreference) prefSet
+        mFuzzyClock = (ListPreference) prefSet
                 .findPreference(LOCKSCREEN_FUZZY_CLOCK);
-        mFuzzyClock.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_FUZZY_CLOCK, 1) == 1);
+        int FuzzyClockPref = Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_FUZZY_CLOCK, 1);
+        mFuzzyClock.setValue(String.valueOf(FuzzyClockPref));
+        mFuzzyClock.setOnPreferenceChangeListener(this);
 
         mLockMessaging = (CheckBoxPreference) prefSet
                 .findPreference(LOCKSCREEN_MESSAGING);
@@ -263,11 +265,6 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ALBUM_ART,
                     value ? 1 : 0);
             return true;
-        } else if (preference == mFuzzyClock) {
-            value = mFuzzyClock.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_FUZZY_CLOCK,
-                    value ? 1 : 0);
-            return true;
         } else if (preference == mLockMessaging) {
             value = mLockMessaging.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_MESSAGE,
@@ -308,6 +305,10 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
             int calendarShowLocationPref = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_CALENDAR_SHOW_LOCATION, calendarShowLocationPref);
+            return true;
+        } else if (preference == mFuzzyClock) {
+            int FuzzyClockPref = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_FUZZY_CLOCK, FuzzyClockPref);
             return true;
         } else if (preference == mCusText) {
             String labelTextCustom = String.valueOf(newValue);

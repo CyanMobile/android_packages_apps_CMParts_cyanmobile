@@ -10,9 +10,11 @@
 
     <PreferenceCategory android:title="@string/general_title">
 
-        <CheckBoxPreference android:key="lockscreen_fuzzy_clock"
+        <ListPreference android:key="lockscreen_fuzzy_clock"
             android:title="@string/pref_lockscreen_fuzzy_clock_title"
-            android:summary="@string/pref_lockscreen_fuzzy_clock_summary" />
+            android:summary="@string/pref_lockscreen_fuzzy_clock_summary" 
+	    android:entries="@array/entries_lockscreen_fuzzy_clock"
+	    android:entryValues="@array/values_lockscreen_fuzzy_clock" />
 
         <CheckBoxPreference android:key="lockscreen_always_battery"
             android:title="@string/pref_lockscreen_always_battery_title"

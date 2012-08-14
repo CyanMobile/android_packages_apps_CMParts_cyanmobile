@@ -286,17 +286,6 @@
                         android:title="@string/ui_notification_background_color_title"
                         android:summary="@string/ui_notification_background_color_summary"
                         android:defaultValue="-1"/>
-                <ListPreference android:key="pref_transparent_app_background"
-                        android:dialogTitle="@string/pref_transparent_app_background_title"
-                        android:title="@string/pref_transparent_app_background_title"
-                        android:summary="@string/pref_transparent_app_background_summary"
-                        android:entries="@array/entries_transparent_app_background"
-                        android:entryValues="@array/values_transparent_app_background" />
-                <Preference android:key="pref_app_background_color"
-                        android:dialogTitle="@string/ui_app_background_color_title"
-                        android:title="@string/ui_app_background_color_title"
-                        android:summary="@string/ui_app_background_color_summary"
-                        android:defaultValue="-1"/>
                 <Preference
                         android:key="restartStatusBar"
                         android:title="@string/restartStatusBar_title"

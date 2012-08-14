@@ -346,8 +346,8 @@
     <string name="pref_lockscreen_slide_screenoff_lock_delay">Screen turned off delay</string>
     <string name="pref_lockscreen_slide_timeout_lock_delay_summary">How long to delay before enabling screen slide lock when screen times out</string>
     <string name="pref_lockscreen_slide_screenoff_lock_delay_summary">How long to delay before enabling screen slide lock when screen is turned off</string>
-    <string name="pref_lockscreen_fuzzy_clock_title">Show fuzzy time</string>
-    <string name="pref_lockscreen_fuzzy_clock_summary">Writes the time in words</string>
+    <string name="pref_lockscreen_fuzzy_clock_title">Time Style Widget</string>
+    <string name="pref_lockscreen_fuzzy_clock_summary">Changing style of time widget</string>
     <string name="pref_lockscreen_messaging_title">Show Notif Message</string>
     <string name="pref_lockscreen_messaging_summary">Show Unread Message / Missed calls notifications</string>
     <string name="label_text_custom_title">Custom text lockscreen</string>

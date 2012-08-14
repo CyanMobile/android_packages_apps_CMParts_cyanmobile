@@ -30,15 +30,12 @@ import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
 
-public class MainActivity extends TabActivity implements OnInitListener {
+public class MainActivity extends TabActivity {
 
 	private static TabHost mTabHost;
 	private Intent intent;
     private ActionBar mActionBar;
-    private TextToSpeech talker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +44,6 @@ public class MainActivity extends TabActivity implements OnInitListener {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         if ("1".equals(SystemProperties.get("ro.squadzone.build", "0"))) {
            setContentView(R.xml.cmparts);
-           talker = new TextToSpeech(this, this);
         } else {
            return;
         }
@@ -117,23 +113,5 @@ public class MainActivity extends TabActivity implements OnInitListener {
 		TextView tv = (TextView) view.findViewById(R.id.tabsText);
 		tv.setText(text);
 		return view;
-	}
-
-        private void say(String text2say){
-    	    talker.speak(text2say, TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-	@Override
-	public void onInit(int status) {
-		say("CyanMobile Settings");
-	}
-	
-	@Override
-	public void onDestroy() {
-		if (talker != null) {
-			talker.stop();
-			talker.shutdown();
-		}
-		super.onDestroy();
 	}
 }

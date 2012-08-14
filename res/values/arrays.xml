@@ -1531,6 +1531,18 @@
     <item>0</item>
   </string-array>
 
+  <string-array name="entries_lockscreen_fuzzy_clock">
+    <item>Fuzzy Clock</item>
+    <item>Kanji Clock</item>
+    <item>Default</item>
+  </string-array>
+  
+  <string-array name="values_lockscreen_fuzzy_clock">
+    <item>1</item>
+    <item>2</item>
+    <item>0</item>
+  </string-array>
+
   <string-array name="entries_animations">
         <item>Off</item>
         <item>Fast</item>
