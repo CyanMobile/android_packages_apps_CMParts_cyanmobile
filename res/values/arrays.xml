@@ -1209,6 +1209,22 @@
         <item>6</item>
     </string-array>
     
+    <string-array name="entries_tablet_soft_buttons">
+        <item>Hide</item>
+        <item>Home</item>
+        <item>Back</item>
+        <item>Search</item>
+        <item>Menu</item>
+    </string-array>
+
+    <string-array name="values_tablet_soft_buttons">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
     <string-array name="entries_tablet_navi_buttons_quicker">
         <item>Home</item>
         <item>Back</item>

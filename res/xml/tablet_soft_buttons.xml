@@ -19,14 +19,30 @@
 
     <!-- General options -->
     <PreferenceCategory android:title="@string/general_title">
-        <CheckBoxPreference android:key="pref_soft_buttons_home"
-            android:title="@string/tablet_soft_buttons_home_title" />
-        <CheckBoxPreference android:key="pref_soft_buttons_menu"
-            android:title="@string/tablet_soft_buttons_menu_title" />
-        <CheckBoxPreference android:key="pref_soft_buttons_back"
-            android:title="@string/tablet_soft_buttons_back_title" />
-        <CheckBoxPreference android:key="pref_soft_buttons_search"
-            android:title="@string/tablet_soft_buttons_search_title" />
+        <ListPreference android:key="pref_soft_buttons_home"
+            android:title="@string/tablet_soft_buttons_home_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_soft_buttons" 
+	    android:entryValues="@array/values_tablet_soft_buttons" />
+        <ListPreference android:key="pref_soft_buttons_menu"
+            android:title="@string/tablet_soft_buttons_menu_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_soft_buttons" 
+	    android:entryValues="@array/values_tablet_soft_buttons" />
+        <ListPreference android:key="pref_soft_buttons_back"
+            android:title="@string/tablet_soft_buttons_back_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_soft_buttons" 
+	    android:entryValues="@array/values_tablet_soft_buttons" />
+        <ListPreference android:key="pref_soft_buttons_search"
+            android:title="@string/tablet_soft_buttons_search_title"
+	    android:summary="@string/tablet_navi_buttons_summary"
+            android:dialogTitle="@string/tablet_navi_buttons_input_title"
+            android:entries="@array/entries_tablet_soft_buttons" 
+	    android:entryValues="@array/values_tablet_soft_buttons" />
         <CheckBoxPreference android:key="pref_soft_buttons_quick_na"
             android:title="@string/tablet_soft_buttons_quick_na_title" />
     </PreferenceCategory>

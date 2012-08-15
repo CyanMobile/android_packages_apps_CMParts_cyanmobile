@@ -125,10 +125,10 @@
 
     <!-- User interface: Tablet tweaks -> soft buttons -->
     <string name="tablet_tweaks_soft_buttons_list_head">Soft-buttons</string>
-    <string name="tablet_soft_buttons_home_title">Home</string>
-    <string name="tablet_soft_buttons_menu_title">Menu</string>
-    <string name="tablet_soft_buttons_back_title">Back</string>
-    <string name="tablet_soft_buttons_search_title">Search</string>
+    <string name="tablet_soft_buttons_home_title">Button 1</string>
+    <string name="tablet_soft_buttons_menu_title">Button 2</string>
+    <string name="tablet_soft_buttons_back_title">Button 3</string>
+    <string name="tablet_soft_buttons_search_title">Button 4</string>
     <string name="tablet_soft_buttons_quick_na_title">Quick notifications</string>
 
     <string name="tablet_tweaks_navi_buttons_list_head">Navi-buttons</string>
