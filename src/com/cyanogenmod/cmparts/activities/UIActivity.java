@@ -19,7 +19,6 @@ package com.cyanogenmod.cmparts.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -35,7 +34,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.net.Uri;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -45,7 +43,6 @@ import java.io.File;
 import java.io.IOException;
 
 import com.cyanogenmod.cmparts.R;
-import com.cyanogenmod.cmparts.activities.ColorPickerDialog.OnColorChangedListener;
 
 public class UIActivity extends PreferenceActivity implements OnPreferenceChangeListener {
 
@@ -53,10 +50,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
     private static final String NOTIFICATION_SCREEN = "notification_settings";
 
     private static final String NOTIFICATION_TRACKBALL = "trackball_notifications";
-
-    private static final String PREF_TEXT_FULL_OF_COLOR = "pref_text_full_of_color";
-
-    private static final String PREF_TEXT_GLOBAL_OF_COLOR = "pref_text_global_of_color";
 
     private static final String PREF_SQUADZONE = "squadkeys";
 
@@ -104,10 +97,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     /* private CheckBoxPreference mHideAvatarMessage; */
 
-    private CheckBoxPreference mTextGlobalOfColor;
-
-    private Preference mTextFullOfColor;
-
     /* Other */
     private static final String BOOTANIMATION_PREF = "pref_bootanimation";
 
@@ -131,14 +120,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String SHARE_SCREENSHOT_PREF = "pref_share_screenshot";
 
-    private static final String OVERSCROLL_PREF = "pref_overscroll_effect";
-
-    private static final String OVERSCROLL_WEIGHT_PREF = "pref_overscroll_weight";
-
-    private static final String OVERSCROLL_COLOR = "pref_overscroll_color";
-
-    private static final String KEY_FONT_FONT_SETINGS = "fontsettings";
-
     private CheckBoxPreference mPinchReflowPref;
 
     private CheckBoxPreference mPowerPromptPref;
@@ -146,12 +127,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
     private ListPreference mRenderEffectPref;
 
     private CheckBoxPreference mShareScreenshotPref;
-
-    private ListPreference mOverscrollPref;
-
-    private ListPreference mOverscrollColor;
-
-    private ListPreference mOverscrollWeightPref;
 
     private PreferenceScreen mBootPref;
 
@@ -166,8 +141,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
     private PreferenceScreen mShutReset;
 
     private PreferenceScreen mBootPreview;
-
-    private PreferenceScreen mFontsPref;
 
     private static final int REQUEST_CODE_PICK_FILESHUT = 997;
 
@@ -225,8 +198,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
                     .removePreference(mTrackballScreen);
         }
 
-        mFontsPref = (PreferenceScreen) prefSet.findPreference(KEY_FONT_FONT_SETINGS);
-
         /* Boot Animation Chooser */
         mBootPref = (PreferenceScreen) prefSet.findPreference(BOOTANIMATION_PREF);
         mBootReset = (PreferenceScreen) prefSet.findPreference(BOOTANIMATION_RESET_PREF);
@@ -245,13 +216,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mRenderEffectPref = (ListPreference) prefSet.findPreference(RENDER_EFFECT_PREF);
         mRenderEffectPref.setOnPreferenceChangeListener(this);
         updateFlingerOptions();
-
-        mTextGlobalOfColor = (CheckBoxPreference) prefSet.findPreference(PREF_TEXT_GLOBAL_OF_COLOR);
-        mTextGlobalOfColor.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.TEXT_GLOBALOFCOLOR, 1) == 1));
-
-	mTextFullOfColor = (Preference) prefSet.findPreference(PREF_TEXT_FULL_OF_COLOR);
-        mTextFullOfColor.setOnPreferenceChangeListener(this);
 
         mShowProfile = (CheckBoxPreference) findPreference(PREF_PROFILE);
         mShowProfile.setChecked(Settings.System.getInt(getContentResolver(),
@@ -290,25 +254,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mShareScreenshotPref.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.SHARE_SCREENSHOT, 0) == 1);
 
-        /* Overscroll Effect */
-        mOverscrollPref = (ListPreference) prefSet.findPreference(OVERSCROLL_PREF);
-        int overscrollEffect = Settings.System.getInt(getContentResolver(),
-                Settings.System.OVERSCROLL_EFFECT, 1);
-        mOverscrollPref.setValue(String.valueOf(overscrollEffect));
-        mOverscrollPref.setOnPreferenceChangeListener(this);
-
-        mOverscrollColor = (ListPreference) prefSet.findPreference(OVERSCROLL_COLOR);
-        mOverscrollColor.setOnPreferenceChangeListener(this);
-        int overscrollColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.OVERSCROLL_COLOR,0);
-        mOverscrollColor.setValue(String.valueOf(overscrollColor == 0 ? 0 : 1));
-
-        mOverscrollWeightPref = (ListPreference) prefSet.findPreference(OVERSCROLL_WEIGHT_PREF);
-        int overscrollWeight = Settings.System.getInt(getContentResolver(),
-                Settings.System.OVERSCROLL_WEIGHT, 5);
-        mOverscrollWeightPref.setValue(String.valueOf(overscrollWeight));
-        mOverscrollWeightPref.setOnPreferenceChangeListener(this);
-
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -337,17 +282,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
             Settings.System.putInt(getContentResolver(), Settings.System.SHARE_SCREENSHOT,
                     value ? 1 : 0);
             return true;
-        } else if (preference == mTextGlobalOfColor) {
-            value = mTextGlobalOfColor.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.TEXT_GLOBALOFCOLOR,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mTextFullOfColor) {
-            ColorPickerDialog cp = new ColorPickerDialog(this,
-            mTextFullOfColorListener,
-            readTextFullOfColor());
-            cp.show();
-	    return true;
         } else if (preference == mPowerPromptPref) {
             value = mPowerPromptPref.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT,
@@ -425,12 +359,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
             intent.setDataAndType(Uri.fromFile(new File("/sdcard/download")), "file/*");
             startActivityForResult(intent, REQUEST_CODE_PREVIEW_FILE);
             return true;
-        }  else if (preference == mFontsPref) {
-              final String key = preference.getKey();
-              if (KEY_FONT_FONT_SETINGS.equals(key)) {
-                  return false;
-              }
-            return true;
         }
         return false;
     }
@@ -440,40 +368,9 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         if (preference == mRenderEffectPref) {
             writeRenderEffect(Integer.valueOf((String) newValue));
             return true;
-        } else if (preference == mOverscrollPref) {
-            int overscrollEffect = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_EFFECT,
-                    overscrollEffect);
-            return true;
-        } else if (preference == mOverscrollWeightPref) {
-            int overscrollWeight = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT,
-                    overscrollWeight);
-            return true;
-        } else if (preference == mOverscrollColor){
-            if (mOverscrollColor.findIndexOfValue(val)==0){
-                Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_COLOR,0);
-            }else{
-                int overscrollColor = Settings.System.getInt(getContentResolver(),
-                        Settings.System.OVERSCROLL_COLOR,0);
-                ColorPickerDialog cp = new ColorPickerDialog(this,mPackageColorListener,
-                        overscrollColor);
-                cp.show();
-            }
-            return true;
         }
         return false;
     }
-
-    ColorPickerDialog.OnColorChangedListener mPackageColorListener = new
-    ColorPickerDialog.OnColorChangedListener() {
-        public void colorChanged(int color) {
-            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_COLOR,color);
-        }
-        @Override
-        public void colorUpdate(int color) {
-        }
-    };
 
     // Taken from DevelopmentSettings
     private void updateFlingerOptions() {
@@ -519,16 +416,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         } catch (RemoteException ex) {
         }
     }
-
-    ColorPickerDialog.OnColorChangedListener mWidgetColorListener = new ColorPickerDialog.OnColorChangedListener() {
-        public void colorChanged(int color) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR, color);
-        }
-
-        public void colorUpdate(int color) {
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -601,24 +488,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
             break;
         }
     }
-
-    private int readTextFullOfColor() {
-        try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR);
-        }
-        catch (SettingNotFoundException e) {
-            return -1;
-        }
-    }
-
-    ColorPickerDialog.OnColorChangedListener mTextFullOfColorListener = 
-        new ColorPickerDialog.OnColorChangedListener() {
-            public void colorChanged(int color) {
-                Settings.System.putInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR, color);
-            }
-            public void colorUpdate(int color) {
-            }
-    };
 
     @Override
     public void onPause() {

@@ -73,35 +73,6 @@
 			android:title="@string/pref_share_screenshot_title" android:summary="@string/pref_share_screenshot_summary" />
 	</PreferenceCategory>
 
-        <PreferenceCategory android:title="@string/fonts_change_title">
-                 <PreferenceScreen android:key="fonts_settings"
-                         android:title="@string/fonts_title" android:summary="@string/fonts_summary">
-                         <intent android:action="android.intent.action.MAIN"
-                                 android:targetPackage="com.cyanogenmod.cmfontschanger"
-                                 android:targetClass="com.cyanogenmod.cmfontschanger.TypeFresh" />
-                  </PreferenceScreen>
-
-                  <PreferenceScreen
-                                 android:key="fontsettings"
-                                 android:title="@string/fontsettings_title"
-                                 android:summary="@string/fontsettings_summary" >
-                         <intent android:action="android.intent.action.MAIN"
-                                 android:targetPackage="com.cyanogenmod.cmparts"
-                                 android:targetClass="com.cyanogenmod.cmparts.activities.DisplayFontTypeSettings" />
-                  </PreferenceScreen>
-
-                <CheckBoxPreference android:key="pref_text_global_of_color"
-                        android:title="@string/ui_text_global_of_color_title"
-                        android:summary="@string/ui_text_global_of_color_summary"
-                        android:defaultValue="false" />
-
-		<Preference android:key="pref_text_full_of_color"
-      			android:title="@string/ui_text_full_of_color_title"
-      			android:summary="@string/ui_text_full_of_color_summary"
-      			android:defaultValue="-1" />
-
-        </PreferenceCategory>
-
         <PreferenceCategory android:title="@string/apps_change_title">
                  <PreferenceScreen android:key="apps_settings"
                          android:title="@string/apps_title" android:summary="@string/apps_summary">
@@ -116,22 +87,6 @@
                                  android:targetClass="com.cyanogenmod.cmfmwschanger.TypeFmwFresh" />
                   </PreferenceScreen>
         </PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/ui_overscroll_title">
-		<ListPreference android:key="pref_overscroll_effect"
-			android:dialogTitle="@string/pref_overscroll_title" android:title="@string/pref_overscroll_title"
-			android:summary="@string/pref_overscroll_summary" android:entries="@array/pref_overscroll_effect_entries"
-			android:entryValues="@array/pref_overscroll_effect_values" />
-                <ListPreference android:key="pref_overscroll_color"
-			android:title="@string/pref_overscroll_color_title" android:summary="@string/pref_overscroll_color_summary"
-			android:entries="@array/entries_overscroll_color"
-			android:entryValues="@array/values_overscroll_color"/>
-		<ListPreference android:key="pref_overscroll_weight"
-			android:dialogTitle="@string/pref_overscroll_weight_title"
-			android:title="@string/pref_overscroll_weight_title" android:summary="@string/pref_overscroll_weight_summary"
-			android:entries="@array/entries_overscroll_weight"
-			android:entryValues="@array/values_overscroll_weight" />
-	</PreferenceCategory>
 
 	<!-- Boot Animation Chooser -->
 	<PreferenceCategory android:title="@string/ui_bootanim_cat_title">

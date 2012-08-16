@@ -24,6 +24,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.app.Dialog;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -51,6 +52,18 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
 
     private static final String PREF_TRANSPARENT_FULL_BACKGROUND = "pref_transparent_full_background";
 
+    private static final String OVERSCROLL_PREF = "pref_overscroll_effect";
+
+    private static final String OVERSCROLL_WEIGHT_PREF = "pref_overscroll_weight";
+
+    private static final String OVERSCROLL_COLOR = "pref_overscroll_color";
+
+    private static final String KEY_FONT_FONT_SETINGS = "fontsettings";
+
+    private static final String PREF_TEXT_FULL_OF_COLOR = "pref_text_full_of_color";
+
+    private static final String PREF_TEXT_GLOBAL_OF_COLOR = "pref_text_global_of_color";
+
     static Context mContext;
 
     private static final int REQUEST_CODE_PICK_FILE_BG = 998;
@@ -59,6 +72,12 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
     private Preference mAppBackgroundColor;
     private ListPreference mTransparentFullBackgroundPref;
     private ListPreference mTransparentAppBackgroundPref;
+    private ListPreference mOverscrollPref;
+    private ListPreference mOverscrollColor;
+    private ListPreference mOverscrollWeightPref;
+    private PreferenceScreen mFontsPref;
+    private CheckBoxPreference mTextGlobalOfColor;
+    private Preference mTextFullOfColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,9 +114,38 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mTransparentFullBackgroundPref.setOnPreferenceChangeListener(this);
         mTransparentFullBackgroundPref.setEnabled(transparentAppBackgroundPref == 1);
 
+        mFontsPref = (PreferenceScreen) prefSet.findPreference(KEY_FONT_FONT_SETINGS);
+
+        mTextGlobalOfColor = (CheckBoxPreference) prefSet.findPreference(PREF_TEXT_GLOBAL_OF_COLOR);
+        mTextGlobalOfColor.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.TEXT_GLOBALOFCOLOR, 1) == 1));
+
+	mTextFullOfColor = (Preference) prefSet.findPreference(PREF_TEXT_FULL_OF_COLOR);
+        mTextFullOfColor.setOnPreferenceChangeListener(this);
+
+        /* Overscroll Effect */
+        mOverscrollPref = (ListPreference) prefSet.findPreference(OVERSCROLL_PREF);
+        int overscrollEffect = Settings.System.getInt(getContentResolver(),
+                Settings.System.OVERSCROLL_EFFECT, 1);
+        mOverscrollPref.setValue(String.valueOf(overscrollEffect));
+        mOverscrollPref.setOnPreferenceChangeListener(this);
+
+        mOverscrollColor = (ListPreference) prefSet.findPreference(OVERSCROLL_COLOR);
+        mOverscrollColor.setOnPreferenceChangeListener(this);
+        int overscrollColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.OVERSCROLL_COLOR,0);
+        mOverscrollColor.setValue(String.valueOf(overscrollColor == 0 ? 0 : 1));
+
+        mOverscrollWeightPref = (ListPreference) prefSet.findPreference(OVERSCROLL_WEIGHT_PREF);
+        int overscrollWeight = Settings.System.getInt(getContentResolver(),
+                Settings.System.OVERSCROLL_WEIGHT, 5);
+        mOverscrollWeightPref.setValue(String.valueOf(overscrollWeight));
+        mOverscrollWeightPref.setOnPreferenceChangeListener(this);
+
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        String val = newValue.toString();
         if (preference == mTransparentAppBackgroundPref) {
             int transparentAppBackgroundPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP,
@@ -140,6 +188,27 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_FULL, 0);
             }
             return true;
+        } else if (preference == mOverscrollPref) {
+            int overscrollEffect = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_EFFECT,
+                    overscrollEffect);
+            return true;
+        } else if (preference == mOverscrollWeightPref) {
+            int overscrollWeight = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT,
+                    overscrollWeight);
+            return true;
+        } else if (preference == mOverscrollColor){
+            if (mOverscrollColor.findIndexOfValue(val)==0){
+                Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_COLOR,0);
+            }else{
+                int overscrollColor = Settings.System.getInt(getContentResolver(),
+                        Settings.System.OVERSCROLL_COLOR,0);
+                ColorPickerDialog cp = new ColorPickerDialog(this,mPackageColorListener,
+                        overscrollColor);
+                cp.show();
+            }
+            return true;
         }
         return false;
     }
@@ -152,9 +221,54 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             ColorPickerDialog cp = new ColorPickerDialog(this, mBgAppColorListener, getBgAppColor());
             cp.show();
             return true;
+        } else if (preference == mTextGlobalOfColor) {
+            value = mTextGlobalOfColor.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TEXT_GLOBALOFCOLOR,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mTextFullOfColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this,
+            mTextFullOfColorListener,
+            readTextFullOfColor());
+            cp.show();
+	    return true;
+        }  else if (preference == mFontsPref) {
+              final String key = preference.getKey();
+              if (KEY_FONT_FONT_SETINGS.equals(key)) {
+                  return false;
+              }
+            return true;
 	}
         return false;
     }
+
+    private int readTextFullOfColor() {
+        try {
+            return Settings.System.getInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR);
+        }
+        catch (SettingNotFoundException e) {
+            return -1;
+        }
+    }
+
+    ColorPickerDialog.OnColorChangedListener mTextFullOfColorListener = 
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mPackageColorListener = new
+    ColorPickerDialog.OnColorChangedListener() {
+        public void colorChanged(int color) {
+            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_COLOR,color);
+        }
+        @Override
+        public void colorUpdate(int color) {
+        }
+    };
 
     private int getBgAppColor() {
         try {

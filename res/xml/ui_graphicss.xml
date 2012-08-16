@@ -21,6 +21,50 @@
                         android:entries="@array/entries_transparent_full_background"
                         android:entryValues="@array/values_transparent_full_background" />
 	</PreferenceCategory>
+        <PreferenceCategory android:title="@string/fonts_change_title">
+                 <PreferenceScreen android:key="fonts_settings"
+                         android:title="@string/fonts_title" android:summary="@string/fonts_summary">
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.cmfontschanger"
+                                 android:targetClass="com.cyanogenmod.cmfontschanger.TypeFresh" />
+                  </PreferenceScreen>
+
+                  <PreferenceScreen
+                                 android:key="fontsettings"
+                                 android:title="@string/fontsettings_title"
+                                 android:summary="@string/fontsettings_summary" >
+                         <intent android:action="android.intent.action.MAIN"
+                                 android:targetPackage="com.cyanogenmod.cmparts"
+                                 android:targetClass="com.cyanogenmod.cmparts.activities.DisplayFontTypeSettings" />
+                  </PreferenceScreen>
+
+                <CheckBoxPreference android:key="pref_text_global_of_color"
+                        android:title="@string/ui_text_global_of_color_title"
+                        android:summary="@string/ui_text_global_of_color_summary"
+                        android:defaultValue="false" />
+
+		<Preference android:key="pref_text_full_of_color"
+                        android:dependency="pref_text_global_of_color"
+      			android:title="@string/ui_text_full_of_color_title"
+      			android:summary="@string/ui_text_full_of_color_summary"
+      			android:defaultValue="-1" />
+
+        </PreferenceCategory>
+	<PreferenceCategory android:title="@string/ui_overscroll_title">
+		<ListPreference android:key="pref_overscroll_effect"
+			android:dialogTitle="@string/pref_overscroll_title" android:title="@string/pref_overscroll_title"
+			android:summary="@string/pref_overscroll_summary" android:entries="@array/pref_overscroll_effect_entries"
+			android:entryValues="@array/pref_overscroll_effect_values" />
+                <ListPreference android:key="pref_overscroll_color"
+			android:title="@string/pref_overscroll_color_title" android:summary="@string/pref_overscroll_color_summary"
+			android:entries="@array/entries_overscroll_color"
+			android:entryValues="@array/values_overscroll_color"/>
+		<ListPreference android:key="pref_overscroll_weight"
+			android:dialogTitle="@string/pref_overscroll_weight_title"
+			android:title="@string/pref_overscroll_weight_title" android:summary="@string/pref_overscroll_weight_summary"
+			android:entries="@array/entries_overscroll_weight"
+			android:entryValues="@array/values_overscroll_weight" />
+	</PreferenceCategory>
 	<PreferenceCategory />
 	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
 		android:summary="@string/squadzone_summary" android:selectable="false" />
