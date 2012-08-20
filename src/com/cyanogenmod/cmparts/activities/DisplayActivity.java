@@ -164,6 +164,8 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
+
         setTitle(R.string.display_settings_title_subhead);
         addPreferencesFromResource(R.xml.display_settings);
 
@@ -243,7 +245,6 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         mRotation180Pref.setChecked((mode & ROTATION_180_MODE) != 0);
         mRotation270Pref.setChecked((mode & ROTATION_270_MODE) != 0);
 
-        mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {

@@ -58,6 +58,7 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
     private static final String LOCKSCREEN_WIDGETS_LAYOUT = "pref_lockscreen_widgets_layout";
     private static final String LOCKSCREEN_FUZZY_CLOCK = "lockscreen_fuzzy_clock";
     private static final String LOCKSCREEN_MESSAGING = "lockscreen_messaging";
+    // private static final String PERF_LOCKSCREEN_ROTATION = "perf_lockscreen_rotation";
     private static final String PREF_LABEL_TEXT_CUSTOM = "pref_label_text_custom";
     private static final String PREF_LOCKSCREEN_CARRIER_LABEL = "pref_lockscreen_carrier_label";
     private static final String PREF_LOCKSCREEN_CARRIER_LABEL_CUSTOM = "pref_lockscreen_carrier_label_custom";
@@ -80,6 +81,7 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
     private EditTextPreference mCusText;
     private ListPreference mLockscreenCarrierLabel;
     private EditTextPreference mLockscreenCarrierLabelCustom;
+    // private CheckBoxPreference mLockScreenRotation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,12 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
         addPreferencesFromResource(R.xml.lockscreen_widgets_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        /* mLockScreenRotation = (CheckBoxPreference) findPreference(PERF_LOCKSCREEN_ROTATION);
+        mLockScreenRotation.setEnabled(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.ACCELEROMETER_ROTATION, 0) != 0);
+        mLockScreenRotation.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_ROTATION, 0) != 0); */
 
         /* Music Controls */
         mMusicControlPref = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_MUSIC_CONTROLS);
@@ -255,6 +263,11 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_MUSIC_CONTROLS,
                     value ? 1 : 0);
             return true;
+        /* } else if (preference == mLockScreenRotation) {
+            value = mLockScreenRotation.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ROTATION, value ? 1 : 0);
+            return true; */
         } else if (preference == mNowPlayingPref) {
             value = mNowPlayingPref.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_NOW_PLAYING,

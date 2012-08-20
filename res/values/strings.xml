@@ -350,6 +350,8 @@
     <string name="pref_lockscreen_fuzzy_clock_summary">Changing style of time widget</string>
     <string name="pref_lockscreen_messaging_title">Show Notif Message</string>
     <string name="pref_lockscreen_messaging_summary">Show Unread Message / Missed calls notifications</string>
+    <string name="pref_lockscreen_rotation_title">Allow lockscreen rotation</string>
+    <string name="pref_lockscreen_rotation_summary">Enable/disable lockscreen rotation (require Auto-rotate screen enabled)</string>
     <string name="label_text_custom_title">Custom text lockscreen</string>
     <string name="label_text_custom_summary">Text will be used in lockscreen</string>
     <string name="pref_pick_up_to_call_title">Smart phone call</string>

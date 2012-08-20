@@ -10,6 +10,11 @@
 
     <PreferenceCategory android:title="@string/general_title">
 
+        <!-- <CheckBoxPreference
+            android:key="perf_lockscreen_rotation"
+            android:title="@string/pref_lockscreen_rotation_title"
+            android:summary="@string/pref_lockscreen_rotation_summary"  /> -->
+
         <ListPreference android:key="lockscreen_fuzzy_clock"
             android:title="@string/pref_lockscreen_fuzzy_clock_title"
             android:summary="@string/pref_lockscreen_fuzzy_clock_summary" 
