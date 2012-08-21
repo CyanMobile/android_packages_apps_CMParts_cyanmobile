@@ -14,6 +14,9 @@
             android:key="perf_lockscreen_rotation"
             android:title="@string/pref_lockscreen_rotation_title"
             android:summary="@string/pref_lockscreen_rotation_summary"  /> -->
+        <CheckBoxPreference android:key="lockscreen_flashlight"
+            android:title="@string/pref_lockscreen_flashlight_title"
+            android:summary="@string/pref_lockscreen_flashlight_summary" />
 
         <ListPreference android:key="lockscreen_fuzzy_clock"
             android:title="@string/pref_lockscreen_fuzzy_clock_title"

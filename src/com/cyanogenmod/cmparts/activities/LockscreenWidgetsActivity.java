@@ -58,6 +58,7 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
     private static final String LOCKSCREEN_WIDGETS_LAYOUT = "pref_lockscreen_widgets_layout";
     private static final String LOCKSCREEN_FUZZY_CLOCK = "lockscreen_fuzzy_clock";
     private static final String LOCKSCREEN_MESSAGING = "lockscreen_messaging";
+    private static final String LOCKSCREEN_LONG_HOME_ACTION = "lockscreen_flashlight";
     // private static final String PERF_LOCKSCREEN_ROTATION = "perf_lockscreen_rotation";
     private static final String PREF_LABEL_TEXT_CUSTOM = "pref_label_text_custom";
     private static final String PREF_LOCKSCREEN_CARRIER_LABEL = "pref_lockscreen_carrier_label";
@@ -68,6 +69,7 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
     private CheckBoxPreference mAlbumArtPref;
     private CheckBoxPreference mAlwaysMusicControlPref;
     private CheckBoxPreference mAlwaysBatteryPref;
+    private CheckBoxPreference mFlashlightPref;
     private ListPreference mFuzzyClock;
     private CheckBoxPreference mLockMessaging;
     private CheckBoxPreference mCalendarAlarmPref;
@@ -207,6 +209,11 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
         mLockMessaging.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_MESSAGE, 1) == 1);
 
+        /* Flashlight toggle when long pressing HOME button on lockscreen */
+        mFlashlightPref = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_LONG_HOME_ACTION);
+        mFlashlightPref.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_LONG_HOME_ACTION, 0) == 1);
+
         /* Calendars */
         mCalendarsPref = (MultiSelectListPreference) prefSet.findPreference(LOCKSCREEN_CALENDARS);
         mCalendarsPref.setValue(Settings.System.getString(getContentResolver(),
@@ -292,6 +299,11 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
         } else if (preference == mAlwaysBatteryPref) {
             value = mAlwaysBatteryPref.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mFlashlightPref) {
+            value = mFlashlightPref.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_LONG_HOME_ACTION,
                     value ? 1 : 0);
             return true;
         } else if (preference == mCalendarAlarmPref) {
