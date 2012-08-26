@@ -105,12 +105,6 @@
             android:entries="@array/entries_lowmemkill"
             android:entryValues="@array/values_lowmemkill" />
 
-        <ListPreference android:key="pref_iosched"
-            android:dialogTitle="@string/pref_iosched_title"
-            android:title="@string/pref_iosched_title" android:summary="@string/pref_iosched_summary"
-            android:entries="@array/entries_iosched"
-            android:entryValues="@array/values_iosched" />
-
         <ListPreference android:key="pref_sdcard"
             android:dialogTitle="@string/pref_sd_readahead_title"
             android:title="@string/pref_sd_readahead_title" android:summary="@string/pref_sd_readahead_summary"

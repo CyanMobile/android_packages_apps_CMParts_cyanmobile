@@ -208,7 +208,7 @@
         <item>7sp</item>
         <item>8sp</item>
         <item>9sp</item>
-        <item>10sp(Default)</item>
+        <item>10sp (Default)</item>
         <item>11sp</item>
         <item>12sp</item>
         <item>13sp</item>
@@ -230,7 +230,7 @@
         <item>7sp</item>
         <item>8sp</item>
         <item>9sp</item>
-        <item>10sp(Default)</item>
+        <item>10sp (Default)</item>
         <item>11sp</item>
         <item>12sp</item>
         <item>13sp</item>
@@ -259,7 +259,7 @@
         <item>22dp</item>
         <item>23dp</item>
         <item>24dp</item>
-        <item>25dp(Default)</item>
+        <item>25dp (Default)</item>
         <item>26dp</item>
         <item>27dp</item>
         <item>28dp</item>
@@ -327,7 +327,7 @@
         <item>22dp</item>
         <item>23dp</item>
         <item>24dp</item>
-        <item>25dp(Default)</item>
+        <item>25dp (Default)</item>
         <item>26dp</item>
         <item>27dp</item>
         <item>28dp</item>
@@ -388,7 +388,7 @@
         <item>7sp</item>
         <item>8sp</item>
         <item>9sp</item>
-        <item>10sp(Default)</item>
+        <item>10sp (Default)</item>
         <item>11sp</item>
         <item>12sp</item>
         <item>13sp</item>
@@ -754,6 +754,70 @@
         <item>6 dB</item>
         <item>8 dB</item>
         <item>10 dB</item>
+    </string-array>
+
+    <string-array name="values_status_bar_clock" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_clock">
+        <item>Right (default)</item>
+        <item>Center</item>
+        <item>Left</item>
+        <item>Hide</item>
+    </string-array>
+
+    <string-array name="values_status_bar_statusbar_carrier" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_statusbar_carrier">
+        <item>Right</item>
+        <item>Center</item>
+        <item>Left</item>
+        <item>Bottom</item>
+        <item>Compact</item>
+        <item>Default</item>
+        <item>Disabled</item>
+    </string-array>
+
+    <string-array name="values_expanded_widget" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="entries_expanded_widget">
+        <item>Default</item>
+        <item>Bottom</item>
+        <item>Grid</item>
+        <item>Tab</item>
+        <item>Disabled</item>
+    </string-array>
+
+    <string-array name="values_status_bar_carrier_logo" translatable="false">
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_carrier_logo">
+        <item>Right</item>
+        <item>Center</item>
+        <item>Left</item>
+        <item>Disabled</item>
     </string-array>
 
     <string-array name="values_speaker_attenuation" translatable="false">

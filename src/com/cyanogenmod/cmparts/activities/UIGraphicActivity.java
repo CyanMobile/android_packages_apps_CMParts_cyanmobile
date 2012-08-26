@@ -118,7 +118,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
 
         mTextGlobalOfColor = (CheckBoxPreference) prefSet.findPreference(PREF_TEXT_GLOBAL_OF_COLOR);
         mTextGlobalOfColor.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.TEXT_GLOBALOFCOLOR, 0) == 1));
+                Settings.System.TEXT_GLOBALOFCOLOR, 1) == 1));
 
 	mTextFullOfColor = (Preference) prefSet.findPreference(PREF_TEXT_FULL_OF_COLOR);
         mTextFullOfColor.setOnPreferenceChangeListener(this);

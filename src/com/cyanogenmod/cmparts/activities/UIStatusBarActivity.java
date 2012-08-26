@@ -80,10 +80,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_ALARM = "pref_status_bar_alarm";
 
-    private static final String PREF_STATUS_BAR_CENTERCLOCK = "pref_status_bar_centerclock";
-
-    private static final String PREF_STATUS_BAR_LEFTCLOCK = "pref_status_bar_leftclock";
-
     private static final String PREF_STATUS_BAR_CLOCKCOLOR = "pref_status_bar_clockcolor";
 
     private static final String PREF_STATUS_BAR_CARRIERCOLOR = "pref_status_bar_carriercolor";
@@ -94,27 +90,13 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private static final String PREF_STATUS_BAR_CARRIER_LABEL_CUSTOM =
             "pref_status_bar_carrier_label_custom";
 
-    private static final String PREF_STATUS_BAR_COMPACT_CARRIER = "pref_status_bar_compact_carrier";
-
-    private static final String PREF_STATUS_BAR_BOTTOM_CARRIER = "pref_status_bar_bottom_carrier";
-
     private static final String PREF_CARRIER_LOGO = "pref_carrier_logo";
 
     private static final String PREF_CARRIER_LOGO_IMAGE = "pref_carrier_logo_image";
 
-    private static final String PREF_CARRIER_LOGO_CENTER = "pref_carrier_logo_center";
-
-    private static final String PREF_CARRIER_LOGO_LEFT = "pref_carrier_logo_left";
-
-    private static final String PREF_STATUS_BAR_HIDE_CARRIER = "pref_status_bar_hide_carrier";
-
     private static final String PREF_STATUS_BAR_REVERSE = "pref_status_bar_reverse";
 
     private static final String PREF_STATUS_BAR_STATUSBAR_CARRIER = "pref_status_bar_statusbar_carrier";
-
-    private static final String PREF_STATUS_BAR_STATUSBAR_CARRIER_CENTER = "pref_status_bar_statusbar_carrier_center";
-
-    private static final String PREF_STATUS_BAR_STATUSBAR_CARRIER_LEFT = "pref_status_bar_statusbar_carrier_left";
 
     private static final String PREF_STATUS_BAR_BRIGHTNESS_CONTROL =
             "pref_status_bar_brightness_control";
@@ -211,19 +193,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private ListPreference mStatusBarCarrierLabel;
 
-    private CheckBoxPreference mStatusBarClock;
-
-    private CheckBoxPreference mStatusBarHideCarrier;
+    private ListPreference mStatusBarClock;
 
     private CheckBoxPreference mStatusBarReverse;
 
-    private CheckBoxPreference mStatusBarCarrier;
-
-    private CheckBoxPreference mStatusBarCarrierBottom;
-
-    private CheckBoxPreference mStatusBarCarrierCenter;
-
-    private CheckBoxPreference mStatusBarCarrierLeft;
+    private ListPreference mStatusBarCarrier;
 
     private CheckBoxPreference mStatusBarDate;
 
@@ -232,10 +206,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private CheckBoxPreference mStatusBarIcon;
 
     private CheckBoxPreference mStatusBarAlarm;
-
-    private CheckBoxPreference mStatusBarCenterClock;
-
-    private CheckBoxPreference mStatusBarLeftClock;
 
     private Preference mStatusBarClockColor;
 
@@ -249,13 +219,9 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private CheckBoxPreference mStatusBarCompactCarrier;
 
-    private CheckBoxPreference mStatusBarCarrierLogo;
+    private ListPreference mStatusBarCarrierLogo;
 
     private CheckBoxPreference mStatusBarCarrierLogoImage;
-
-    private CheckBoxPreference mStatusBarCarrierLogoCenter;
-
-    private CheckBoxPreference mStatusBarCarrierLogoLeft;
 
     private CheckBoxPreference mStatusBarBrightnessControl;
 
@@ -327,7 +293,12 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
 
-        mStatusBarClock = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CLOCK);
+        mStatusBarClock = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_CLOCK);
+        int clockAct = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_CLOCK, 1);
+        mStatusBarClock.setValue(String.valueOf(clockAct));
+        mStatusBarClock.setOnPreferenceChangeListener(this);
+
         mStatusBarCmWifiPref = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CM_WIFI_TEXT);
         mStatusBarDate = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_DATE);
         mStatusBarNotif = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_NOTIF);
@@ -338,15 +309,17 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBar3g = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_3G);
         mStatusBarGPS = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_GPS);
         mStatusBarSync = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_SYNC);
-        mStatusBarHideCarrier = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_HIDE_CARRIER);
         mStatusBarReverse = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_REVERSE);
-        mStatusBarCarrier = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_STATUSBAR_CARRIER);
-        mStatusBarCarrierCenter = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_STATUSBAR_CARRIER_CENTER);
-        mStatusBarCarrierLeft = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_STATUSBAR_CARRIER_LEFT);
+
+        mStatusBarCarrier = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_STATUSBAR_CARRIER);
+        int carrierAct = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_CARRIER, 6);
+        mStatusBarCarrier.setValue(String.valueOf(carrierAct));
+        mStatusBarCarrier.setOnPreferenceChangeListener(this);
 
         mRestartStatusBar = (Preference) prefSet.findPreference(RESTARTSTATUSBAR_PREF);
         mStatusBarSetting = (ListPreference) prefSet.findPreference(SETTINGSHORCUT_PREF);
-
+        
         mDateColorPref = (Preference) prefSet.findPreference(COLOR_DATE);
         mDateColorPref.setOnPreferenceChangeListener(this);
         mNotifTickerColorPref = (Preference) prefSet.findPreference(COLOR_NOTIFICATION_TICKER_TEXT);
@@ -368,8 +341,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
 	mStatusBarBatteryColor = (ListPreference) prefSet.
                 findPreference(PREF_STATUS_BAR_BATTERY_COLOR);
-	mStatusBarCenterClock = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CENTERCLOCK);
-	mStatusBarLeftClock = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_LEFTCLOCK);
         mStatusBarClockColor = (Preference) prefSet.findPreference(PREF_STATUS_BAR_CLOCKCOLOR);
         mStatusBarClockColor.setOnPreferenceChangeListener(this);
         mStatusBarCarrierColor = (Preference) prefSet.findPreference(PREF_STATUS_BAR_CARRIERCOLOR);
@@ -378,18 +349,15 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarColor.setOnPreferenceChangeListener(this);
         mNotificationBackgroundColor = (Preference) prefSet.findPreference(PREF_NOTIFICATION_BACKGROUND_COLOR);
         mNotificationBackgroundColor.setOnPreferenceChangeListener(this);
-        mStatusBarCompactCarrier = (CheckBoxPreference) prefSet
-                .findPreference(PREF_STATUS_BAR_COMPACT_CARRIER);
-        mStatusBarCarrierBottom = (CheckBoxPreference) prefSet
-                .findPreference(PREF_STATUS_BAR_BOTTOM_CARRIER);
-        mStatusBarCarrierLogo = (CheckBoxPreference) prefSet
-                .findPreference(PREF_CARRIER_LOGO);
+
+        mStatusBarCarrierLogo = (ListPreference) prefSet.findPreference(PREF_CARRIER_LOGO);
+        int logosAct = Settings.System.getInt(getContentResolver(),
+                Settings.System.CARRIER_LOGO, 0);
+        mStatusBarCarrierLogo.setValue(String.valueOf(logosAct));
+        mStatusBarCarrierLogo.setOnPreferenceChangeListener(this);
+
         mStatusBarCarrierLogoImage = (CheckBoxPreference) prefSet
                 .findPreference(PREF_CARRIER_LOGO_IMAGE);
-        mStatusBarCarrierLogoCenter = (CheckBoxPreference) prefSet
-                .findPreference(PREF_CARRIER_LOGO_CENTER);
-        mStatusBarCarrierLogoLeft = (CheckBoxPreference) prefSet
-                .findPreference(PREF_CARRIER_LOGO_LEFT);
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet
                 .findPreference(PREF_STATUS_BAR_BRIGHTNESS_CONTROL);
         mStatusBarHeadset = (CheckBoxPreference) prefSet
@@ -427,15 +395,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         // wifi
         mStatusBarCmWifiPref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CM_WIFI_TEXT, 0) == 1));
-        // right clock
-        mStatusBarClock.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCK, 1) == 1));
-        // center clock
-	mStatusBarCenterClock.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CENTERCLOCK, 0) == 1));
-        // left clock
-	mStatusBarLeftClock.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_LEFTCLOCK, 0) == 1));
         // date
         mStatusBarDate.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_DATE, 1) == 1));
@@ -470,51 +429,14 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         // sync
         mStatusBarSync.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_SYNC, 1) == 1));
-        // hide carrier
-        mStatusBarHideCarrier.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_HIDE_CARRIER, 0) == 1));
         // reverse
         mStatusBarReverse.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_REVERSE, 0) == 1) );
-        // right carrier
-        mStatusBarCarrier.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0) == 1));
-        // center carrier
-        mStatusBarCarrierCenter.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0) == 1));
-        // left carrier
-        mStatusBarCarrierLeft.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0) == 1));
-        // compact carrier
-        mStatusBarCompactCarrier.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_COMPACT_CARRIER, 0) == 1));
-        // enable compact carrier
-        mStatusBarCompactCarrier.setEnabled((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 4) || (Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_BOTTOM, 0) != 1));
-        // bottom carrier
-        mStatusBarCarrierBottom.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.CARRIER_LABEL_BOTTOM, 0) == 1));
-        // enable bottom carrier
-        mStatusBarCarrierBottom.setEnabled((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 4) || (Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_BOTTOM, 0) != 1));
-        // left logo
-        mStatusBarCarrierLogo.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.CARRIER_LOGO, 0) == 1));
-        // center logo
-        mStatusBarCarrierLogoCenter.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.CARRIER_LOGO_CENTER, 0) == 1));
-        // right logo
-        mStatusBarCarrierLogoLeft.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.CARRIER_LOGO_LEFT, 0) == 1));
         // change logo
         mStatusBarCarrierLogoImage.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.CARRIER_LOGO_STATUS_BAR, 0) == 1));
-        mStatusBarCarrierLogoImage.setEnabled((Settings.System.getInt(getContentResolver(),
-                Settings.System.CARRIER_LOGO, 0) == 1) || (Settings.System.getInt(getContentResolver(),
-                Settings.System.CARRIER_LOGO_CENTER, 0) == 1) || (Settings.System.getInt(getContentResolver(),
-                Settings.System.CARRIER_LOGO_LEFT, 0) == 1));
+        mStatusBarCarrierLogoImage.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.CARRIER_LOGO, 0) != 0);
         logoBackgroundImage = new File(getApplicationContext().getFilesDir()+"/lg_background");
         // brightness
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getContentResolver(),
@@ -564,13 +486,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             }
         } catch (SettingNotFoundException e) {
         }
-
-        //mRecentAppsStatusBar = (CheckBoxPreference) prefSet.findPreference(PREF_RECENT_APPS_STATUS_BAR);
-        //mRecentAppsStatusBar.setChecked((Settings.System.getInt(getContentResolver(),
-        //        Settings.System.RECENT_APPS_STATUS_BAR, 1) == 1) || (Settings.System.getInt(getContentResolver(),
-        //        Settings.System.EXPANDED_VIEW_WIDGET, 1) != 4));
-        //mRecentAppsStatusBar.setEnabled((Settings.System.getInt(getContentResolver(),
-        //        Settings.System.EXPANDED_VIEW_WIDGET, 1) != 4));
 
         int statusBarBattery = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_BATTERY, 0);
@@ -687,95 +602,84 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUS_BAR_BATTERY, 0) == 5);
             if (statusBarBattery == 1) {
                 if (StatusStyle) {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 1);
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                      // we're screwed here fellas
                    }
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    1);
                 } else {
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    1);
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 1);
                 }
                 mStatusBarBatteryStyle.setEnabled(true);
                 mStatusBarBatteryColor.setEnabled(false);
             } else if (statusBarBattery == 3) {
                 if (StatusStyle) {
+                   Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 3);
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                      // we're screwed here fellas
                    }
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    3);
                 } else {
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    3);
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 3);
                 }
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(true);
             } else if (statusBarBattery == 6) {
                 if (StatusStyle) {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 6);
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                      // we're screwed here fellas
                    }
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    6);
                 } else {
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    6);
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 6);
                 }
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(true);
             } else if (statusBarBattery == 4) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    4);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 4);
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(true);
+                try {
+                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                   // we're screwed here fellas
+                }
             } else if (statusBarBattery == 5) {
+                   Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 5);
+                   mStatusBarBatteryStyle.setEnabled(false);
+                   mStatusBarBatteryColor.setEnabled(true);
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                      // we're screwed here fellas
                    }
-                              Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 5);
-                               mStatusBarBatteryStyle.setEnabled(false);
-                                mStatusBarBatteryColor.setEnabled(true);
             } else if (statusBarBattery == 2) {
                 if (StatusStyle) {
+                   Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 2);
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                      // we're screwed here fellas
                    }
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    2);
                 } else {
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    2);
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 2);
                 }
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(false);
             } else {
                 if (StatusStyle) {
+                    Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                      // we're screwed here fellas
                    }
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    0);
                 } else {
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY,
-                    0);
+                   Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
                 }
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(false);
@@ -808,23 +712,23 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mIconsize) {
             int IconSize = Integer.valueOf((String) newValue);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
             Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_ICONS_SIZE,
                     IconSize);
+            try {
+                Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+            } catch (IOException e) {
+                // we're screwed here fellas
+            }
             return true;
         } else if (preference == mStatsize) {
             int StatSize = Integer.valueOf((String) newValue);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
             Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_STATS_SIZE,
                     StatSize);
+            try {
+                Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+            } catch (IOException e) {
+                // we're screwed here fellas
+            }
             return true;
         } else if (preference == mStatusBarCmSignal) {
             int signalStyle = Integer.valueOf((String) newValue);
@@ -932,7 +836,41 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 }
             }
 		return true;
-	}
+	} else if (preference == mStatusBarClock) {
+            int clockPref = Integer.parseInt(String.valueOf(newValue));
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, clockPref);
+            return true;
+        } else if (preference == mStatusBarCarrier) {
+            int carrierPref = Integer.parseInt(String.valueOf(newValue));
+            int carrierPrefs = Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 0);
+            if (carrierPref == 0 || carrierPref == 1 || carrierPref == 2 || carrierPref == 3) {
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
+                try {
+                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                    // we're screwed here fellas
+                }
+            } else if (carrierPrefs == 0 || carrierPrefs == 1 || carrierPrefs == 2 || carrierPrefs == 3) {
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
+                try {
+                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                    // we're screwed here fellas
+                }
+            } else {
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
+            }
+            return true;
+        } else if (preference == mStatusBarCarrierLogo) {
+            int logosPref = Integer.parseInt(String.valueOf(newValue));
+            Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, logosPref);
+            try {
+                Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+            } catch (IOException e) {
+                // we're screwed here fellas
+            }
+            return true;
+        }
         return false;
     }
 
@@ -940,57 +878,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         boolean value;
 
         /* Preference Screens */
-        if (preference == mStatusBarClock) {
-            value = mStatusBarClock.isChecked();
-            if (value) {
-                mStatusBarCenterClock.setChecked(false);
-                mStatusBarLeftClock.setChecked(false);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CENTERCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_LEFTCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, 1);
-            } else {
-                mStatusBarCenterClock.setChecked(false);
-                mStatusBarLeftClock.setChecked(false);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CENTERCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_LEFTCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, 0);
-            }
-            return true;
-        } else if (preference == mStatusBarCenterClock) {
-            value = mStatusBarCenterClock.isChecked();
-            if (value) {
-                mStatusBarLeftClock.setChecked(false);
-                mStatusBarClock.setChecked(false);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CENTERCLOCK, 1);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_LEFTCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, 0);
-            } else {
-                mStatusBarCenterClock.setChecked(false);
-                mStatusBarLeftClock.setChecked(false);
-                mStatusBarClock.setChecked(true);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CENTERCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_LEFTCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, 1);
-            }
-            return true;
-        } else if (preference == mStatusBarLeftClock) {
-            value = mStatusBarLeftClock.isChecked();
-            if (value) {
-                mStatusBarCenterClock.setChecked(false);
-                mStatusBarClock.setChecked(false);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CENTERCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_LEFTCLOCK, 1);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, 0);
-            } else {
-                mStatusBarCenterClock.setChecked(false);
-                mStatusBarLeftClock.setChecked(false);
-                mStatusBarClock.setChecked(true);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CENTERCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_LEFTCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, 1);
-            }
-            return true;
-        } else if (preference == mStatusBarAlarm) {
+        if (preference == mStatusBarAlarm) {
             value = mStatusBarAlarm.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_ALARM,
                     value ? 1 : 0);
@@ -998,11 +886,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 	} else if (preference == mStatusBarIcon) {
             value = mStatusBarIcon.isChecked();
             if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_ALARM, 0);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NOTIF, 0);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_WIFI, 0);
@@ -1020,12 +903,12 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 mStatusBarGPS.setChecked(false);
                 mStatusBarSync.setChecked(false);
                 mStatusBarNotif.setChecked(false);
+                try {
+                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                   // we're screwed here fellas
+                }
             } else {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_ALARM, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NOTIF, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_WIFI, 1);
@@ -1043,6 +926,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 mStatusBarGPS.setChecked(true);
                 mStatusBarSync.setChecked(true);
                 mStatusBarNotif.setChecked(true);
+                try {
+                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                   // we're screwed here fellas
+                }
             }
             return true;
 	} else if (preference == mStatusBarCmWifiPref) {
@@ -1158,198 +1046,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             CRColorPickerDialog cr = new CRColorPickerDialog(this, mCarrierColorListener, getCarrierColor());
             cr.show();
             return true;
-        } else if (preference == mStatusBarCarrier) {
-            value = mStatusBarCarrier.isChecked();
-            if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-                                   mStatusBarCarrierBottom.setChecked(false);
-                                   mStatusBarHideCarrier.setChecked(false);
-                                   mStatusBarCompactCarrier.setChecked(false);
-                                   mStatusBarCarrierCenter.setChecked(false);
-                                   mStatusBarCarrierLeft.setChecked(false);
-            } else {
-              if ((Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-                      mStatusBarCarrier.setChecked(false);
-              }
-            }
-            return true;
-        } else if (preference == mStatusBarCarrierCenter) {
-            value = mStatusBarCarrierCenter.isChecked();
-            if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-                                   mStatusBarCarrierBottom.setChecked(false);
-                                   mStatusBarHideCarrier.setChecked(false);
-                                   mStatusBarCompactCarrier.setChecked(false);
-                                   mStatusBarCarrier.setChecked(false);
-                                   mStatusBarCarrierLeft.setChecked(false);
-            } else {
-              if ((Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-                      mStatusBarCarrierCenter.setChecked(false);
-              }
-            }
-            return true;
-        } else if (preference == mStatusBarCarrierLeft) {
-            value = mStatusBarCarrierLeft.isChecked();
-            if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-                                   mStatusBarCarrierBottom.setChecked(false);
-                                   mStatusBarHideCarrier.setChecked(false);
-                                   mStatusBarCompactCarrier.setChecked(false);
-                                   mStatusBarCarrier.setChecked(false);
-                                   mStatusBarCarrierCenter.setChecked(false);
-            } else {
-              if ((Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0);
-                      mStatusBarCarrierLeft.setChecked(false);
-              }
-            }
-            return true;
-        } else if (preference == mStatusBarHideCarrier) {
-            value = mStatusBarHideCarrier.isChecked();
-            if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DATE, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-                                   mStatusBarCarrierBottom.setChecked(false);
-                                   mStatusBarCarrier.setChecked(false);
-                                   mStatusBarCarrierCenter.setChecked(false);
-                                   mStatusBarCarrierLeft.setChecked(false);
-                                   mStatusBarCompactCarrier.setChecked(false);
-                                   mStatusBarCarrierLogo.setChecked(false);
-                                   mStatusBarCarrierLogoCenter.setChecked(false);
-                                   mStatusBarCarrierLogoLeft.setChecked(false);
-                                   mStatusBarCarrierLogoImage.setEnabled(false);
-            }
-            return true;
-        } else if (preference == mStatusBarCompactCarrier) {
-            value = mStatusBarCompactCarrier.isChecked();
-            if (value) {
-               if ((Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-               }
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 1);
-               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0);
-               mStatusBarHideCarrier.setChecked(false);
-               mStatusBarCarrier.setChecked(false);
-               mStatusBarCarrierBottom.setChecked(false);
-               mStatusBarCarrierCenter.setChecked(false);
-               mStatusBarCarrierLeft.setChecked(false);
-               mStatusBarCarrierLogoImage.setEnabled(false);
-            } else {
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-            }
-            return true;
-        } else if (preference == mStatusBarCarrierBottom) {
-            value = mStatusBarCarrierBottom.isChecked();
-            if (value) {
-               if ((Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0) == 1) ||
-                   (Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-               }
-               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 1);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0);
-               mStatusBarHideCarrier.setChecked(false);
-               mStatusBarCarrier.setChecked(false);
-               mStatusBarCompactCarrier.setChecked(false);
-               mStatusBarCarrierCenter.setChecked(false);
-               mStatusBarCarrierLeft.setChecked(false);
-               mStatusBarCarrierLogoImage.setEnabled(false);
-            } else {
-               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-            }
-            return true;
         } else if (preference == mStatusBarCarrierLogoImage) {
             value = mStatusBarCarrierLogoImage.isChecked();
             if (value) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
                 intent.setType("image/*");
-                //intent.putExtra("crop", "true");
-                //intent.putExtra("scale", true);
-                //intent.putExtra("scaleUpIfNeeded", false);
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
                 int width = 32;
                 int height = 32;
@@ -1361,8 +1062,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 int titleBarHeight = contentViewTop - statusBarHeight;
                 boolean isPortrait = getResources().getConfiguration().orientation ==
                     Configuration.ORIENTATION_PORTRAIT;
-                //intent.putExtra("aspectX", isPortrait ? (statusBarHeight + statusBarHeight) : statusBarHeight);
-                //intent.putExtra("aspectY", isPortrait ? statusBarHeight : (statusBarHeight + statusBarHeight));
                 try {
                     logoBackgroundImage.createNewFile();
                     logoBackgroundImage.setReadable(true, false);
@@ -1377,100 +1076,13 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 }
             } else {
               if ((Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
                   Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 0);
-                      mStatusBarCarrierLogoImage.setChecked(false);
-              }
-            }
-            return true;
-        } else if (preference == mStatusBarCarrierLogo) {
-            value = mStatusBarCarrierLogo.isChecked();
-            if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, 1);
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0);
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                                   mStatusBarHideCarrier.setChecked(false);
-                                   mStatusBarCarrierLogoCenter.setChecked(false);
-                                   mStatusBarCarrierLogoLeft.setChecked(false);
-                                   mStatusBarCarrierLogoImage.setEnabled(true);
-            } else {
-              if ((Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                  Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0);
-                      mStatusBarCarrierLogo.setChecked(false);
-                      mStatusBarCarrierLogoImage.setEnabled(false);
-              }
-            }
-            return true;
-        } else if (preference == mStatusBarCarrierLogoCenter) {
-            value = mStatusBarCarrierLogoCenter.isChecked();
-            if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0);
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 1);
-                                   mStatusBarHideCarrier.setChecked(false);
-                                   mStatusBarCarrierLogo.setChecked(false);
-                                   mStatusBarCarrierLogoLeft.setChecked(false);
-                                   mStatusBarCarrierLogoImage.setEnabled(true);
-            } else {
-              if ((Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                  Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0);
-                      mStatusBarCarrierLogoCenter.setChecked(false);
-                      mStatusBarCarrierLogoImage.setEnabled(false);
-              }
-            }
-            return true;
-        } else if (preference == mStatusBarCarrierLogoLeft) {
-            value = mStatusBarCarrierLogoLeft.isChecked();
-            if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0);
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0);
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                                   mStatusBarHideCarrier.setChecked(false);;
-                                   mStatusBarCarrierLogo.setChecked(false);
-                                   mStatusBarCarrierLogoCenter.setChecked(false);
-                                   mStatusBarCarrierLogoImage.setEnabled(true);
-            }else {
-              if ((Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0) == 1)) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                  Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0);
-                      mStatusBarCarrierLogoLeft.setChecked(false);
-                      mStatusBarCarrierLogoImage.setEnabled(false);
+                  mStatusBarCarrierLogoImage.setChecked(false);
+                try {
+                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                    // we're screwed here fellas
+                }
               }
             }
             return true;
@@ -1479,11 +1091,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_TOGGLE, value ? 1 : 0);
             return true;
-        //} else if (preference == mRecentAppsStatusBar) {
-        //    value = mRecentAppsStatusBar.isChecked();
-        //    Settings.System.putInt(getContentResolver(),
-        //            Settings.System.RECENT_APPS_STATUS_BAR, value ? 1 : 0);
-        //    return true;
         } else if (preference == mStatusBarColor) {
             SBColorPickerDialog sbcp = new SBColorPickerDialog(this, mStatusBarColorListener, getStatusBarColor());
             sbcp.show();
@@ -1500,21 +1107,21 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         } else if (preference == mStatusBarHidden) {
             value = mStatusBarHidden.isChecked();
             if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 4);
+                Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY, 1);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 4);
+                try {
+                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                    // we're screwed here fellas
+                }
             } else {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
+                Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY, 0);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
+                try {
+                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                    // we're screwed here fellas
+                }
             }
             return true;
         } else if (preference == mStatusBarFourG) {
@@ -1525,40 +1132,24 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         } else if (preference == mStatusBarReverse) {
             value = mStatusBarReverse.isChecked();
             if (value) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-                                   mStatusBarCarrierBottom.setChecked(false);
-                mStatusBarCenterClock.setChecked(false);
-                mStatusBarLeftClock.setChecked(false);
-                mStatusBarClock.setChecked(true);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CENTERCLOCK, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_LEFTCLOCK, 0);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 0);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, 1);
-                                   mStatusBarHideCarrier.setChecked(false);
-                                   mStatusBarCompactCarrier.setChecked(false);
-                                   mStatusBarCarrierCenter.setChecked(false);
-                                   mStatusBarCarrierLeft.setChecked(false);
-                                   mStatusBarCarrier.setChecked(false);
-                                   mStatusBarDate.setChecked(false);
-                                   mStatusBarDate.setEnabled(false);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DATE, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_REVERSE, 1);
+                mStatusBarDate.setChecked(false);
+                mStatusBarDate.setEnabled(false);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DATE, 0);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_REVERSE, 1);
+                try {
+                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                    // we're screwed here fellas
+                }
             } else {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_REVERSE, 0);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_REVERSE, 0);
+                try {
+                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                    // we're screwed here fellas
+                }
             }
             return true;
         }
@@ -1845,11 +1436,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                             mvBackgroundImage.setAction(MOVE_BACKGROUND_INTENT);
                             mvBackgroundImage.putExtra("fileName", filePath);
                             sendBroadcast(mvBackgroundImage);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
+                            try {
+                               Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                            } catch (IOException e) {
+                               // we're screwed here fellas
+                            }
                         }
                     }
                 }
@@ -1857,55 +1448,27 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             case REQUEST_CODE_LOGO_FILE:
                 if (resultCode != RESULT_OK) {
                     Log.d("Copy_logo_Error", "Error: " + resultCode);
-/*                if (resultCode == RESULT_OK) {
-                    // obtain the filename
-                    Uri fileUri = Uri.fromFile(wallpaperTemporary);
-                    if (fileUri != null) {
-                        String filePath = fileUri.getPath();
-                        Log.d("FilePath = ", filePath);
-                        if (filePath != null) {
-                            Intent mvBackgroundImage = new Intent();
-                            mvBackgroundImage.setAction(MOVE_BACKGROUND_INTENT);
-                            mvBackgroundImage.putExtra("fileName", filePath);
-                            sendBroadcast(mvBackgroundImage);
-                        }
-                    }
-*/
                 } else { 
+                   Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 1);
+                   Toast.makeText(context, "CyanMobile carrier logo set to new image" ,Toast.LENGTH_LONG).show();
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
-                     // we're screwed here fellas
+                       // we're screwed here fellas
                    }
-                          Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 1);
-                    Toast.makeText(context, "CyanMobile carrier logo set to new image" ,Toast.LENGTH_LONG).show();
                 }
             break;
             case REQUEST_CODE_BACK_FILE:
                 if (resultCode != RESULT_OK) {
                     Log.d("Copy_logo_Error", "Error: " + resultCode);
-/*                if (resultCode == RESULT_OK) {
-                    // obtain the filename
-                    Uri fileUri = Uri.fromFile(wallpaperTemporary);
-                    if (fileUri != null) {
-                        String filePath = fileUri.getPath();
-                        Log.d("FilePath = ", filePath);
-                        if (filePath != null) {
-                            Intent mvBackgroundImage = new Intent();
-                            mvBackgroundImage.setAction(MOVE_BACKGROUND_INTENT);
-                            mvBackgroundImage.putExtra("fileName", filePath);
-                            sendBroadcast(mvBackgroundImage);
-                        }
-                    }
-*/
                 } else { 
+                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 6);
+                   Toast.makeText(context, "CyanMobile carrier logo set to new image" ,Toast.LENGTH_LONG).show();
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
-                     // we're screwed here fellas
+                       // we're screwed here fellas
                    }
-                          Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 6);
-                    Toast.makeText(context, "CyanMobile carrier logo set to new image" ,Toast.LENGTH_LONG).show();
                 }
             break;
         }

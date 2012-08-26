@@ -153,14 +153,10 @@
     <string name="ui_status_bar_am_pm_title">AM/PM style</string>
     <string name="ui_status_bar_am_pm_summary">Display style of AM/PM next to clock</string>
     <string name="ui_status_bar_am_pm_info">24-hour clock is enabled</string>
-    <string name="ui_status_bar_clock_title">Show right clock</string>
-    <string name="ui_status_bar_clock_summary">Clock will be on the right side, if checked</string>
+    <string name="ui_status_bar_clock_title">Clock locations</string>
+    <string name="ui_status_bar_clock_summary">Choose location clock in statusbar</string>
     <string name="ui_status_bar_alarm_title">Show alarm icon</string>
     <string name="ui_status_bar_alarm_summary">Status bar alarm icon will be hidden, if disabled</string>
-    <string name="ui_status_bar_centerclock_title">Show center clock</string>
-    <string name="ui_status_bar_centerclock_summary">Clock will be centered, if checked</string>
-    <string name="ui_status_bar_leftclock_title">Show left clock</string>
-    <string name="ui_status_bar_leftclock_summary">Clock will be on the left side, if checked</string>
     <string name="ui_status_bar_clockcolor_title">Clock color</string>
     <string name="ui_status_bar_clockcolor_summary">ffffffff</string>
     <string name="ui_status_bar_carriercolor_title">Carrier color</string>
@@ -202,24 +198,12 @@
     <string name="statusbar_navisize_summary">Change the size of Navigation buttons</string>
     <string name="statusbar_carrierfontsize">Carrier Font Size</string>
     <string name="statusbar_carrierfontsize_summary">Change the size of text elements on carrier</string>
-    <string name="ui_status_bar_statusbar_carrier_title">Right carrier label</string>
-    <string name="ui_status_bar_statusbar_carrier_summary">Add right carrier label into statusbar</string>
-    <string name="ui_status_bar_statusbar_carrier_center_title">Center carrier label</string>
-    <string name="ui_status_bar_statusbar_carrier_center_summary">Add center carrier label into statusbar</string>
-    <string name="ui_status_bar_statusbar_carrier_left_title">Left carrier label</string>
-    <string name="ui_status_bar_statusbar_carrier_left_summary">Add left carrier label into statusbar</string>
-    <string name="ui_status_bar_compact_carrier_title">Compact carrier label</string>
-    <string name="ui_status_bar_compact_carrier_summary">Use alternate notification dropdown layout with mini carrier label</string>
-    <string name="ui_status_bar_bottom_carrier_title">Bottom carrier label</string>
-    <string name="ui_status_bar_bottom_carrier_summary">Use alternate tracking bottom carrier label</string>
-    <string name="ui_status_bar_carrier_logo_title">Left carrier logo</string>
-    <string name="ui_status_bar_carrier_logo_summary">Add left carrier logo into statusbar</string>
+    <string name="ui_status_bar_statusbar_carrier_title">Carrier label menu</string>
+    <string name="ui_status_bar_statusbar_carrier_summary">Add carrier label into statusbar</string>
+    <string name="ui_status_bar_carrier_logo_title">Carrier logo menu</string>
+    <string name="ui_status_bar_carrier_logo_summary">Add carrier logo into statusbar</string>
     <string name="ui_status_bar_carrier_logo_image_title">Change logo image</string>
     <string name="ui_status_bar_carrier_logo_image_summary">Carrier logo image will be change, if checked</string>
-    <string name="ui_status_bar_carrier_logo_center_title">Center carrier logo</string>
-    <string name="ui_status_bar_carrier_logo_center_summary">Add center carrier logo into statusbar</string>
-    <string name="ui_status_bar_carrier_logo_left_title">Right carrier logo</string>
-    <string name="ui_status_bar_carrier_logo_left_summary">Add right carrier logo into statusbar</string>
     <string name="ui_status_bar_carrier_label_title">Carrier label type</string>
     <string name="ui_status_bar_carrier_label_summary">Change what is used as carrier label</string>
     <string name="ui_lockscreen_carrier_label_title">Lockscreen Carrier label type</string>
@@ -233,7 +217,7 @@
     <string name="ui_lockscreen_carrier_label_custom_title">Custom Lockscreen carrier label</string>
     <string name="ui_lockscreen_carrier_label_custom_summary">Text used instead of the operator provided carrier label</string>
     <string name="ui_status_bar_toggle_brightness">Status bar brightness control</string>
-    <string name="ui_status_bar_toggle_brightness_summary">Allows adjusting of brightness by sliding across statusbar</string>
+    <string name="ui_status_bar_toggle_brightness_summary">Allows adjusting of brightness by pressing long on statusbar</string>
     <string name="ui_status_bar_toggle_info">Automatic brightness is enabled</string>
     <string name="ui_status_bar_cm_signal_text_title">Phone signal display</string>
     <string name="ui_status_bar_cm_signal_text_summary">Show dBm value instead of signal bars, or hide</string>
@@ -827,7 +811,6 @@
     <string name="clock_title">Clock</string>
     <string name="icons_title">Icons</string>
     <string name="carrier_title">Carrier</string>
-    <string name="statusbar_carrier_title">Statusbar Carrier Label</string>
     <string name="logo_carrier_title">Statusbar Carrier Logo</string>
     <string name="batteries_title">Battery</string>
     <string name="statusbars_title">Layout</string>
@@ -899,7 +882,7 @@
     <!-- Expanded View Power Widget -->
     <string name="title_widget_buttons">Expanded View Widget</string>
     <string name="title_expanded_widget">Notification power widget</string>
-    <string name="summary_expanded_widget">Use the expanded views power widget</string>
+    <string name="summary_expanded_widget">choose style expanded views power widget</string>
     <string name="title_bottom_expanded_widget">Move to bottom</string>
     <string name="bottom_expanded_widget_summaryOn">Showing power widget on bottom</string>
     <string name="bottom_expanded_widget_summaryOff">Showing power widget on top</string>
@@ -1249,8 +1232,9 @@
     <string name="screenoff_cpu_max_freq_summary">Maximum screen off CPU frequency\nCurrently set to: %s</string>
     <string name="pref_lowmemkill_title">Low Mem Killer</string>
     <string name="pref_lowmemkill_summary">Option for Low Mem Killer</string>
-    <string name="pref_iosched_title">IO Scheduler</string>
-    <string name="pref_iosched_summary">Choice IO scheduler (requires reboot)</string>
+    <string name="pref_iosched_title">I/O scheduler</string>
+    <string name="pref_iosched_summary">Change I/O scheduler</string>
+    <string name="io_sched_summary">%S</string>
     <string name="cpu_set_on_boot">Set on boot</string>
     <string name="cpu_set_on_boot_summary">Restore CPU settings on boot</string>
 

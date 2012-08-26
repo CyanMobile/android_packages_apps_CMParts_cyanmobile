@@ -244,7 +244,6 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         mRotation90Pref.setChecked((mode & ROTATION_90_MODE) != 0);
         mRotation180Pref.setChecked((mode & ROTATION_180_MODE) != 0);
         mRotation270Pref.setChecked((mode & ROTATION_270_MODE) != 0);
-
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {

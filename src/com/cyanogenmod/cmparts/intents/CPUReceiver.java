@@ -36,6 +36,7 @@ public class CPUReceiver extends BroadcastReceiver {
     private static final String TAG = "CPUSettings";
 
     private static final String CPU_SETTINGS_PROP = "sys.cpufreq.restored";
+    private static final String IOSCHED_SETTINGS_PROP = "sys.iosched.restored";
     private static final String KSM_SETTINGS_PROP = "sys.ksm.restored";
 
     @Override
@@ -48,14 +49,17 @@ public class CPUReceiver extends BroadcastReceiver {
         } else if (SystemProperties.getBoolean(CPU_SETTINGS_PROP, false) == false
                 && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             SystemProperties.set(CPU_SETTINGS_PROP, "true");
-            SystemProperties.set(KSM_SETTINGS_PROP, "true");
             configureCPU(ctx);
+            SystemProperties.set(KSM_SETTINGS_PROP, "true");
             configureKSM(ctx);
+            SystemProperties.set(IOSCHED_SETTINGS_PROP, "true");
+            configureIOSched(ctx);
             configureSDCARD(ctx);
             configureLOWMEMKILL(ctx);
         } else {
-            SystemProperties.set(KSM_SETTINGS_PROP, "false");
             SystemProperties.set(CPU_SETTINGS_PROP, "false");
+            SystemProperties.set(KSM_SETTINGS_PROP, "false");
+            SystemProperties.set(IOSCHED_SETTINGS_PROP, "false");
         }
 
     }
@@ -103,6 +107,32 @@ public class CPUReceiver extends BroadcastReceiver {
                                  PerformanceSettingsActivity.KSM_SCAN_PREF_DEFAULT));
         CPUActivity.writeOneLine(PerformanceSettingsActivity.KSM_RUN_FILE, ksm ? "1" : "0");
         Log.d(TAG, "KSM settings restored.");
+    }
+
+    private void configureIOSched(Context ctx) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+
+        if (prefs.getBoolean(CPUActivity.SOB_PREF, false) == false) {
+            Log.i(TAG, "Restore disabled by user preference.");
+            return;
+        }
+
+        String ioscheduler = prefs.getString(CPUActivity.IOSCHED_PREF, null);
+        String availableIOSchedulersLine = CPUActivity.readOneLine(CPUActivity.IOSCHED_LIST_FILE);
+        boolean noSettings = ((availableIOSchedulersLine == null) || (ioscheduler == null));
+        List<String> ioschedulers = null;
+
+        if (noSettings) {
+            Log.d(TAG, "No I/O scheduler settings saved. Nothing to restore.");
+        } else {
+            if (availableIOSchedulersLine != null){
+                ioschedulers = Arrays.asList(availableIOSchedulersLine.replace("[", "").replace("]","").split(" "));
+            }
+            if (ioscheduler != null && ioschedulers != null && ioschedulers.contains(ioscheduler)) {
+                CPUActivity.writeOneLine(CPUActivity.IOSCHED_LIST_FILE, ioscheduler);
+            }
+            Log.d(TAG, "I/O scheduler settings restored.");
+        }
     }
 
     private void configureCPU(Context ctx) {

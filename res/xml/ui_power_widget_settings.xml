@@ -3,21 +3,12 @@
 
 	<!-- Expanded View Power Widget -->
 	<PreferenceCategory android:title="@string/general_title">
-		<CheckBoxPreference android:key="expanded_widget"
-			android:title="@string/title_expanded_widget" android:summary="@string/summary_expanded_widget"
-			android:defaultValue="true" />
-                <CheckBoxPreference android:key="pref_widget_loc"
-                        android:title="@string/title_bottom_expanded_widget" android:defaultValue="false"
-                        android:summaryOn="@string/bottom_expanded_widget_summaryOn"
-                        android:summaryOff="@string/bottom_expanded_widget_summaryOff" />
-                <CheckBoxPreference android:key="pref_widget_grid"
-                        android:title="@string/title_grid_expanded_widget" android:defaultValue="false"
-                        android:summaryOn="@string/grid_expanded_widget_summaryOn"
-                        android:summaryOff="@string/grid_expanded_widget_summaryOff" />
-                <CheckBoxPreference android:key="pref_widget_tab"
-                        android:title="@string/title_tab_expanded_widget" android:defaultValue="false"
-                        android:summaryOn="@string/tab_expanded_widget_summaryOn"
-                        android:summaryOff="@string/tab_expanded_widget_summaryOff" />
+		<ListPreference android:key="expanded_widget"
+			android:dialogTitle="@string/title_expanded_widget"
+			android:title="@string/title_expanded_widget"
+			android:summary="@string/summary_expanded_widget"
+			android:entries="@array/entries_expanded_widget"
+			android:entryValues="@array/values_expanded_widget" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/grid_title">
                 <CheckBoxPreference android:key="pref_widget_grid_one"

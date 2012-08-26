@@ -168,14 +168,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     public static final String LOWMEMKILL_PREF_DEFAULT = "2560,4096,6144,11264,11776,14336";
 
-    private static final String IOSCHED_PREF = "pref_iosched";
-
-    private static final String IOSCHED_PROP = "iosched";
-
-    private static final String IOSCHED_PERSIST_PROP = "persist.sys.ioscheduler";
-
-    private static final String IOSCHED_DEFAULT = "sio";
-
     private static final String BATTERY_PREF = "pref_battery";
 
     private static final String BATTERY_PROP = "battery.polling";
@@ -221,8 +213,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private ListPreference mVolbootPref;
 
     private ListPreference mLowMemKillPref;
-
-    private ListPreference mIoSchedPref;
 
     private CheckBoxPreference mKSMPref;
 
@@ -355,11 +345,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         if (temp == null) {
             prefSet.removePreference(mLowMemKillPref);
         }
-
-        mIoSchedPref = (ListPreference) prefSet.findPreference(IOSCHED_PREF);
-        mIoSchedPref.setValue(SystemProperties.get(IOSCHED_PERSIST_PROP,
-                SystemProperties.get(IOSCHED_PROP, IOSCHED_DEFAULT)));
-        mIoSchedPref.setOnPreferenceChangeListener(this);
 
         temp = CPUActivity.readOneLine(SDCARD_RUN_FILE);
 
@@ -539,13 +524,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
             if (newValue != null) {
                 SystemProperties.set(LOWMEMKILL_PROP, (String)newValue);
                 CPUActivity.writeOneLine(LOWMEMKILL_RUN_FILE, (String)newValue);
-                return true;
-            }
-        }
-
-        if (preference == mIoSchedPref) {
-            if (newValue != null) {
-                SystemProperties.set(IOSCHED_PERSIST_PROP, (String)newValue);
                 return true;
             }
         }

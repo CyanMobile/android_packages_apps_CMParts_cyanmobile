@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemProperties;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -57,18 +58,24 @@ public class CPUActivity extends PreferenceActivity implements
     public static final String FREQ_MIN_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
     public static final String SOB_PREF = "pref_set_on_boot";
 
+    public static final String IOSCHED_PREF = "pref_io_sched";
+    public static final String IOSCHED_LIST_FILE = "/sys/block/mmcblk0/queue/scheduler";
+    private static final String IOSCHED_PERSIST_PROP = "persist.sys.ioscheduler";
+
     private static final String TAG = "CPUSettings";
 
     private String mGovernorFormat;
     private String mMinFrequencyFormat;
     private String mMaxFrequencyFormat;
     private String mMaxSoFrequencyFormat;
+    private String mIOSchedulerFormat;
 
     private Preference mCurFrequencyPref;
     private ListPreference mGovernorPref;
     private ListPreference mMinFrequencyPref;
     private ListPreference mMaxFrequencyPref;
     private ListPreference mMaxSoFrequencyPref;
+    private ListPreference mIOSchedulerPref;
 
     private class CurCPUThread extends Thread {
         private boolean mInterrupt = false;
@@ -109,7 +116,12 @@ public class CPUActivity extends PreferenceActivity implements
         mMinFrequencyFormat = getString(R.string.cpu_min_freq_summary);
         mMaxFrequencyFormat = getString(R.string.cpu_max_freq_summary);
         mMaxSoFrequencyFormat = getString(R.string.screenoff_cpu_max_freq_summary);
+        mIOSchedulerFormat = getString(R.string.io_sched_summary);
 
+        String[] availableIOSchedulers = new String[0];
+        String availableIOSchedulersLine;
+        int bropen, brclose;
+        String currentIOScheduler = null;
         String[] availableGovernors = readOneLine(GOVERNORS_LIST_FILE).split(" ");
         String[] availableFrequencies = new String[0];
         String availableFrequenciesLine = readOneLine(FREQ_LIST_FILE);
@@ -136,6 +148,25 @@ public class CPUActivity extends PreferenceActivity implements
         mGovernorPref.setValue(temp);
         mGovernorPref.setSummary(String.format(mGovernorFormat, temp));
         mGovernorPref.setOnPreferenceChangeListener(this);
+
+        mIOSchedulerPref = (ListPreference) PrefScreen.findPreference(IOSCHED_PREF);
+        if (!fileExists(IOSCHED_LIST_FILE) ||
+            (availableIOSchedulersLine = readOneLine(IOSCHED_LIST_FILE)) == null) {
+            PrefScreen.removePreference(mIOSchedulerPref);
+        } else {
+            availableIOSchedulers = availableIOSchedulersLine.replace("[", "").replace("]", "").split(" ");
+            bropen = availableIOSchedulersLine.indexOf("[");
+            brclose = availableIOSchedulersLine.lastIndexOf("]");
+            if (bropen >= 0 && brclose >= 0)
+                currentIOScheduler = availableIOSchedulersLine.substring(bropen + 1, brclose);
+
+            mIOSchedulerPref.setEntryValues(availableIOSchedulers);
+            mIOSchedulerPref.setEntries(availableIOSchedulers);
+            if (currentIOScheduler != null)
+                mIOSchedulerPref.setValue(currentIOScheduler);
+            mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, currentIOScheduler));
+            mIOSchedulerPref.setOnPreferenceChangeListener(this);
+        }
 
         /* Some systems might not use governors */
         if (temp == null) {
@@ -192,8 +223,21 @@ public class CPUActivity extends PreferenceActivity implements
     public void onResume() {
         String temp;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String availableIOSchedulersLine;
+        int bropen, brclose;
+        String currentIOScheduler;
 
         super.onResume();
+
+        if (fileExists(IOSCHED_LIST_FILE) &&
+            (availableIOSchedulersLine = readOneLine(IOSCHED_LIST_FILE)) != null) {
+            bropen = availableIOSchedulersLine.indexOf("[");
+            brclose = availableIOSchedulersLine.lastIndexOf("]");
+            if (bropen >= 0 && brclose >= 0) {
+                currentIOScheduler = availableIOSchedulersLine.substring(bropen + 1, brclose);
+                mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, currentIOScheduler));
+            }
+        }
 
         temp = prefs.getString(MAX_FREQ_PREF, null);
 
@@ -231,6 +275,8 @@ public class CPUActivity extends PreferenceActivity implements
                 fname = FREQ_MIN_FILE;
             } else if (preference == mMaxFrequencyPref) {
                 fname = FREQ_MAX_FILE;
+            } else if (preference == mIOSchedulerPref) {
+                fname = IOSCHED_LIST_FILE;
             } else if (preference == mMaxSoFrequencyPref) {
                 mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat,
                         toMHz((String) newValue)));
@@ -243,6 +289,9 @@ public class CPUActivity extends PreferenceActivity implements
                 } else if (preference == mMinFrequencyPref) {
                     mMinFrequencyPref.setSummary(String.format(mMinFrequencyFormat,
                             toMHz((String) newValue)));
+                } else if (preference == mIOSchedulerPref) {
+                    SystemProperties.set(IOSCHED_PERSIST_PROP, (String)newValue);
+                    mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, (String) newValue));
                 } else if (preference == mMaxFrequencyPref) {
                     mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat,
                             toMHz((String) newValue)));

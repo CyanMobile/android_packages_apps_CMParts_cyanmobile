@@ -52,13 +52,7 @@ public class UIPowerWidgetActivity extends PreferenceActivity
 
     private static final String UI_EXP_WIDGET_ORDER = "widget_order";
 
-    private static final String POWER_WIDGET_LOC = "pref_widget_loc";
-
     private static final String MUSIC_WIDGET_BUTTON = "pref_music_widget";
-
-    private static final String POWER_WIDGET_GRID = "pref_widget_grid";
-
-    private static final String POWER_WIDGET_TAB = "pref_widget_tab";
 
     private static final String POWER_WIDGET_GRID_ONE = "pref_widget_grid_one";
 
@@ -68,15 +62,9 @@ public class UIPowerWidgetActivity extends PreferenceActivity
 
     private static final String POWER_WIDGET_GRID_FOUR = "pref_widget_grid_four";
 
-    private CheckBoxPreference mPowerWidget;
+    private ListPreference mPowerWidget;
 
     private CheckBoxPreference mMusicWidget;
-
-    private CheckBoxPreference mPowerWidgetLoc;
-
-    private CheckBoxPreference mPowerWidgetGrid;
-
-    private CheckBoxPreference mPowerWidgetTab;
 
     private CheckBoxPreference mPowerWidgetGridOne;
 
@@ -117,11 +105,12 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mSquadzone.setSummary("CyanMobile");
 
         /* Expanded View Power Widget */
-        mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
+        mPowerWidget = (ListPreference) prefSet.findPreference(UI_EXP_WIDGET);
+        mPowerWidget.setOnPreferenceChangeListener(this);
+        mPowerWidget.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_VIEW_WIDGET, 1)));
+
         mMusicWidget = (CheckBoxPreference) prefSet.findPreference(MUSIC_WIDGET_BUTTON);
-        mPowerWidgetLoc = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_LOC);
-        mPowerWidgetGrid = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID);
-        mPowerWidgetTab = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_TAB);
         mPowerWidgetGridOne = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_ONE);
         mPowerWidgetGridTwo = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_TWO);
         mPowerWidgetGridThree = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_THREE);
@@ -140,16 +129,8 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
         mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
 
-        mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 0) == 1));
         mMusicWidget.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.MUSIC_WIDGET_TOGGLE, 0) == 1));
-        mPowerWidgetLoc.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 0) == 2));
-        mPowerWidgetGrid.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 0) == 3));
-        mPowerWidgetTab.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 0) == 4));
         mPowerWidgetGridOne.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 1) == 1));
         mPowerWidgetGridTwo.setChecked((Settings.System.getInt(getContentResolver(),
@@ -158,40 +139,6 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                 Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 1) == 1));
         mPowerWidgetGridFour.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 1) == 1));
-
-        if (Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_BOTTOM, 0) == 1) {
-            mPowerWidgetGrid.setEnabled(false);
-            mPowerWidgetLoc.setEnabled(false);
-            mPowerWidgetTab.setEnabled(false);
-            mPowerWidgetGridOne.setEnabled(false);
-            mPowerWidgetGridTwo.setEnabled(false);
-            mPowerWidgetGridThree.setEnabled(false);
-            mPowerWidgetGridFour.setEnabled(false);
-        } else if (Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 0) == 3) {
-            mPowerWidgetGridOne.setEnabled(true);
-            mPowerWidgetGridTwo.setEnabled(true);
-            mPowerWidgetGridThree.setEnabled(true);
-            mPowerWidgetGridFour.setEnabled(true);
-        } else if (Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 0) == 4) {
-            mPowerWidgetGrid.setEnabled(false);
-            mPowerWidgetLoc.setEnabled(false);
-            mPowerWidget.setEnabled(false);
-            mPowerWidgetGridOne.setChecked(true);
-            mPowerWidgetGridTwo.setChecked(true);
-            mPowerWidgetGridThree.setChecked(true);
-            mPowerWidgetGridFour.setChecked(true);
-        } else {
-            mPowerWidgetGridOne.setEnabled(false);
-            mPowerWidgetGridTwo.setEnabled(false);
-            mPowerWidgetGridThree.setEnabled(false);
-            mPowerWidgetGridFour.setEnabled(false);
-            mPowerWidgetGrid.setEnabled(true);
-            mPowerWidgetTab.setEnabled(true);
-            mPowerWidgetLoc.setEnabled(true);
-        }
 
         mPowerWidgetHideOnChange.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.EXPANDED_HIDE_ONCHANGE, 0) == 1));
@@ -223,8 +170,34 @@ public class UIPowerWidgetActivity extends PreferenceActivity
             int intValue = Integer.parseInt((String)newValue);
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_HAPTIC_FEEDBACK, intValue);
             return true;
+        } else if (preference == mPowerWidget) {
+            int intsValue = Integer.parseInt((String)newValue);
+            int intsValues = Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, intsValue);
+            if (intsValue == 4) {
+               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 3);
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 1);
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 1);
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 1);
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 1);
+                try {
+                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                   // we're screwed here fellas
+                }
+            } else if (intsValues == 4) {
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0);
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0);
+               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0);
+                try {
+                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                   // we're screwed here fellas
+                }
+            }
+            return true;
         }
-
         return false;
     }
 
@@ -240,193 +213,51 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         if (preference == mPowerOrder) {
             startActivity(mPowerOrder.getIntent());
         }
-
-        if (preference == mPowerWidget) {
-            value = mPowerWidget.isChecked();
-            if (value) {
-            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
-                            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0);
-                mPowerWidgetGrid.setChecked(false);
-                mPowerWidgetLoc.setChecked(false);
-                mPowerWidgetTab.setChecked(false);
-                mPowerWidgetGridOne.setEnabled(false);
-                mPowerWidgetGridTwo.setEnabled(false);
-                mPowerWidgetGridThree.setEnabled(false);
-                mPowerWidgetGridFour.setEnabled(false);
-            } else {
-            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 0);
-            }
-        }
-
         if (preference == mMusicWidget) {
             value = mMusicWidget.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.MUSIC_WIDGET_TOGGLE,
                     value ? 1 : 0);
         }
-
         if (preference == mPowerWidgetGridOne) {
             value = mPowerWidgetGridOne.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE,
                     value ? 1 : 0);
         }
-
         if (preference == mPowerWidgetGridTwo) {
             value = mPowerWidgetGridTwo.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO,
                     value ? 1 : 0);
         }
-
         if (preference == mPowerWidgetGridThree) {
             value = mPowerWidgetGridThree.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE,
                     value ? 1 : 0);
         }
-
         if (preference == mPowerWidgetGridFour) {
             value = mPowerWidgetGridFour.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR,
                     value ? 1 : 0);
         }
-
-        if (preference == mPowerWidgetLoc) {
-            boolean checked = ((CheckBoxPreference) preference).isChecked();
-            
-            if(checked) {
-                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 2);
-                            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0);
-                mPowerWidgetGrid.setChecked(false);
-                mPowerWidget.setChecked(false);
-                mPowerWidgetGridOne.setEnabled(false);
-                mPowerWidgetGridTwo.setEnabled(false);
-                mPowerWidgetGridThree.setEnabled(false);
-                mPowerWidgetGridFour.setEnabled(false);
-            } else {
-                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
-                mPowerWidget.setChecked(true);
-            }
-        }
-
-        if (preference == mPowerWidgetGrid) {
-            boolean checked = ((CheckBoxPreference) preference).isChecked();
-            if(checked) {
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 3);
-                                mPowerWidgetLoc.setChecked(false);
-                                mPowerWidget.setChecked(false);
-                                mPowerWidgetGridOne.setEnabled(true);
-                                mPowerWidgetGridTwo.setEnabled(true);
-                                mPowerWidgetGridThree.setEnabled(true);
-                                mPowerWidgetGridFour.setEnabled(true);
-            } else {
-                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
-                            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0);
-                                mPowerWidgetGridOne.setChecked(false);
-                                mPowerWidgetGridTwo.setChecked(false);
-                                mPowerWidgetGridThree.setChecked(false);
-                                mPowerWidgetGridFour.setChecked(false);
-                mPowerWidget.setChecked(true);
-                mPowerWidgetGridOne.setEnabled(false);
-                mPowerWidgetGridTwo.setEnabled(false);
-                mPowerWidgetGridThree.setEnabled(false);
-                mPowerWidgetGridFour.setEnabled(false);
-            }
-        }
-
-        if (preference == mPowerWidgetTab) {
-            boolean checked = ((CheckBoxPreference) preference).isChecked();
-            if(checked) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_CENTER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER_LEFT, 1);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DATE, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_STATUSBAR_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HIDE_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COMPACT_CARRIER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_CENTER, 0);
-                               Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_LEFT, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 4);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 1);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 1);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 1);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 1);
-                                mPowerWidgetLoc.setChecked(false);
-                                mPowerWidget.setChecked(false);
-                                mPowerWidgetGrid.setChecked(false);
-                                mPowerWidgetLoc.setEnabled(false);
-                                mPowerWidget.setEnabled(false);
-                mPowerWidgetGridOne.setEnabled(true);
-                mPowerWidgetGridTwo.setEnabled(true);
-                mPowerWidgetGridThree.setEnabled(true);
-                mPowerWidgetGridFour.setEnabled(true);
-                                mPowerWidgetGrid.setEnabled(false);
-                                mPowerWidgetGridOne.setChecked(true);
-                                mPowerWidgetGridTwo.setChecked(true);
-                                mPowerWidgetGridThree.setChecked(true);
-                                mPowerWidgetGridFour.setChecked(true);
-            } else {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                       Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
-                            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0);
-                         mPowerWidget.setChecked(true);
-                         mPowerWidgetLoc.setEnabled(true);
-                         mPowerWidget.setEnabled(true);
-                         mPowerWidgetGrid.setEnabled(true);
-                mPowerWidgetGridOne.setEnabled(false);
-                mPowerWidgetGridTwo.setEnabled(false);
-                mPowerWidgetGridThree.setEnabled(false);
-                mPowerWidgetGridFour.setEnabled(false);
-                                mPowerWidgetGridOne.setChecked(false);
-                                mPowerWidgetGridTwo.setChecked(false);
-                                mPowerWidgetGridThree.setChecked(false);
-                                mPowerWidgetGridFour.setChecked(false);
-            }
-        }
-
         if (preference == mPowerWidgetHideOnChange) {
             value = mPowerWidgetHideOnChange.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_HIDE_ONCHANGE,
                     value ? 1 : 0);
         }
-
         if (preference == mPowerWidgetHideScrollBar) {
             value = mPowerWidgetHideScrollBar.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_HIDE_SCROLLBAR,
                     value ? 1 : 0);
         }
-
         if (preference == mPowerWidgetIndicatorHide) {
             value = mPowerWidgetIndicatorHide.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_HIDE_INDICATOR,
                     value ? 1 : 0);
         }
-
         if (preference == mPowerWidgetColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this, mWidgetColorListener,
                     readWidgetColor());
             cp.show();
         }
-
         return true;
     }
 

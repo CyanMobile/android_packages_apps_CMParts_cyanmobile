@@ -120,9 +120,6 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mNaviBarColor.setSummary(Integer.toHexString(naviBarColor));
         mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
 
-        // cm71 nightlies: will be re-enabled there
-        //mReverseVolumeBehavior = (CheckBoxPreference) prefSet.findPreference(PREF_REVERSE_VOLUME_BEHAVIOR);
-
         int defValue;
 
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_BOTTOM_STATUS_BAR)==true ? 1 : 0;
@@ -148,9 +145,6 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mExtendPm.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.EXTEND_PM, defValue) == 1));
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_REVERSE_VOLUME_BEHAVIOR)==true ? 1 : 0;
-        // cm71 nightlies: will be re-enabled there
-        //mReverseVolumeBehavior.setChecked((Settings.System.getInt(getContentResolver(),
-                //Settings.System.REVERSE_VOLUME_BEHAVIOR, defValue) == 1));
 
         defValue=CmSystem.getDefaultInt(getBaseContext(), CmSystem.CM_DEFAULT_UNHIDE_BUTTON_INDEX);
         mUnhideButton.setOnPreferenceChangeListener(this);
@@ -164,12 +158,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             .setMessage("System has detect you are using Tab layout.\nneed change to default before enable tablet tweaks.\nRestart now?")
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
+                        Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
+                        try {
+                            Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                        } catch (IOException e) {
+                           // we're screwed here fellas
+                        }
                     }
             })
             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -185,7 +179,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             .setMessage("System has detect you are using Grid layout.\nneed change to default before enable tablet tweaks.\nDisable now?")
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
+                       Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
                     }
             })
             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -206,20 +200,22 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         if (preference == mStatusBarBottom) {
             value = mStatusBarBottom.isChecked();
             if (value) {
-                 Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LABEL_BOTTOM, 0);
+                 if (Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 6) == 4) {
+                     Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 6);
+                 }
                  Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
                  updateDependencies();
                  if (Settings.System.getInt(getContentResolver(),
                              Settings.System.SHOW_NAVI_BUTTONS, 1) == 1) {
-                   try {
+                     Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 0);
+                     Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 1);
+                     mStatusBarNavi.setChecked(false);
+                     updateDependencies();
+                     try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-                             Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 0);
-                             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 1);
-                             mStatusBarNavi.setChecked(false);
-                             updateDependencies(); 
+                     } catch (IOException e) {
+                       // we're screwed here fellas
+                     }
                  } else {
                      Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 1);
                      mStatusBarNavi.setChecked(false);
@@ -233,18 +229,18 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             value = mStatusBarSoft.isChecked();
             if (value)  {
                Settings.System.putInt(getContentResolver(), Settings.System.USE_SOFT_BUTTONS, 1);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
+               try {
+                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+               } catch (IOException e) {
+                  // we're screwed here fellas
+               }
             } else {
                Settings.System.putInt(getContentResolver(), Settings.System.USE_SOFT_BUTTONS, 0);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
+               try {
+                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+               } catch (IOException e) {
+                  // we're screwed here fellas
+               }
             }
             return true;
         } else if (preference == mStatusBarNavi) {
@@ -253,19 +249,19 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 0);
                mStatusBarBottom.setChecked(false);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
+               try {
+                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+               } catch (IOException e) {
+                  // we're screwed here fellas
+               }
                updateDependencies();
             } else {
                Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 0);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
+               try {
+                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+               } catch (IOException e) {
+                  // we're screwed here fellas
+               }
             }
             return true;
         } else if (preference == mStatusBarDeadZone) {
@@ -297,14 +293,6 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             ColorPickerDialog cp = new ColorPickerDialog(this, mNaviBarColorListener, getNaviBarColor());
             cp.show();
             return true;
-        // cm71 nightlies: will be re-enabled there
-        /*
-        } else if (preference == mReverseVolumeBehavior) {
-            value = mReverseVolumeBehavior.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.REVERSE_VOLUME_BEHAVIOR,
-                    value ? 1 : 0);
-            updateDependencies();
-            return true;*/
         }
 
         return false;
@@ -319,13 +307,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             int NaviSize = Integer.valueOf((String) newValue);
             if (Settings.System.getInt(getContentResolver(),
                              Settings.System.NAVI_BUTTONS, 0) == 1) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE,
-                    NaviSize);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
+                try {
+                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                   // we're screwed here fellas
+                }
             }
             return true;
         } else if (preference == mTransparentNaviBarPref) {
@@ -338,11 +325,11 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 } else {
                   if (Settings.System.getInt(getContentResolver(),
                              Settings.System.NAVI_BUTTONS, 0) == 1) {
-                   try {
+                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
+                    } catch (IOException e) {
+                      // we're screwed here fellas
+                    }
                   }
                 }
             return true;
@@ -382,13 +369,5 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             mStatusBarDeadZone.setChecked(false);
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DEAD_ZONE, 0);
         }
-
-        // cm71 nightlies: will be re-enabled there
-        /*
-        if(mReverseVolumeBehavior.isChecked())
-            mReverseVolumeBehavior.setSummary(R.string.tablet_tweaks_reverse_volume_behavior_summary_on);
-        else
-            mReverseVolumeBehavior.setSummary(R.string.tablet_tweaks_reverse_volume_behavior_summary_off);
-        */
     }
 }

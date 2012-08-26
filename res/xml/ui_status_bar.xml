@@ -54,16 +54,12 @@
                         android:defaultValue="true" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/clock_title">
-		<CheckBoxPreference android:key="pref_status_bar_clock"
+		<ListPreference android:key="pref_status_bar_clock"
+			android:dialogTitle="@string/ui_status_bar_clock_title"
 			android:title="@string/ui_status_bar_clock_title"
 			android:summary="@string/ui_status_bar_clock_summary"
-			android:defaultValue="true" />
-		<CheckBoxPreference android:key="pref_status_bar_centerclock"
-			android:title="@string/ui_status_bar_centerclock_title"
-			android:summary="@string/ui_status_bar_centerclock_summary" />
-		<CheckBoxPreference android:key="pref_status_bar_leftclock"
-			android:title="@string/ui_status_bar_leftclock_title"
-			android:summary="@string/ui_status_bar_leftclock_summary" />
+			android:entries="@array/entries_status_bar_clock"
+			android:entryValues="@array/values_status_bar_clock" />
                 <Preference android:key="pref_status_bar_clockcolor"
                         android:title="@string/ui_status_bar_clockcolor_title"
                         android:summary="@string/ui_status_bar_clockcolor_summary" 
@@ -114,18 +110,12 @@
                         android:defaultValue="-16777216" />
         </PreferenceCategory>
 	<PreferenceCategory android:title="@string/carrier_title">
-                <CheckBoxPreference android:key="pref_status_bar_hide_carrier"
-			android:title="@string/ui_status_bar_hide_carrier_title"
-			android:summary="@string/ui_status_bar_hide_carrier_summary"
-			android:defaultValue="falses" />
-		<CheckBoxPreference android:key="pref_status_bar_bottom_carrier"
-			android:title="@string/ui_status_bar_bottom_carrier_title"
-			android:summary="@string/ui_status_bar_bottom_carrier_summary"
-			android:defaultValue="falses" />
-		<CheckBoxPreference android:key="pref_status_bar_compact_carrier"
-			android:title="@string/ui_status_bar_compact_carrier_title"
-			android:summary="@string/ui_status_bar_compact_carrier_summary"
-			android:defaultValue="falses" />
+		<ListPreference android:key="pref_status_bar_statusbar_carrier"
+			android:dialogTitle="@string/ui_status_bar_statusbar_carrier_title"
+			android:title="@string/ui_status_bar_statusbar_carrier_title"
+			android:summary="@string/ui_status_bar_statusbar_carrier_summary"
+			android:entries="@array/entries_status_bar_statusbar_carrier"
+			android:entryValues="@array/values_status_bar_statusbar_carrier" />
                 <Preference android:key="pref_status_bar_carriercolor"
                         android:title="@string/ui_status_bar_carriercolor_title"
                         android:summary="@string/ui_status_bar_carriercolor_summary" 
@@ -149,35 +139,15 @@
 			android:defaultValue="CyanMobileX" />
          </PreferenceCategory>
          <PreferenceCategory android:title="@string/logo_carrier_title">
-                <CheckBoxPreference android:key="pref_carrier_logo"
+		<ListPreference android:key="pref_carrier_logo"
+			android:dialogTitle="@string/ui_status_bar_carrier_logo_title"
 			android:title="@string/ui_status_bar_carrier_logo_title"
 			android:summary="@string/ui_status_bar_carrier_logo_summary"
-			android:defaultValue="falses" />
-                <CheckBoxPreference android:key="pref_carrier_logo_center"
-			android:title="@string/ui_status_bar_carrier_logo_center_title"
-			android:summary="@string/ui_status_bar_carrier_logo_center_summary"
-			android:defaultValue="falses" />
-                <CheckBoxPreference android:key="pref_carrier_logo_left"
-			android:title="@string/ui_status_bar_carrier_logo_left_title"
-			android:summary="@string/ui_status_bar_carrier_logo_left_summary"
-			android:defaultValue="falses" />
+			android:entries="@array/entries_status_bar_carrier_logo"
+			android:entryValues="@array/values_status_bar_carrier_logo" />
                 <CheckBoxPreference android:key="pref_carrier_logo_image"
 			android:title="@string/ui_status_bar_carrier_logo_image_title"
 			android:summary="@string/ui_status_bar_carrier_logo_image_summary"
-			android:defaultValue="falses" />
-	</PreferenceCategory>
-         <PreferenceCategory android:title="@string/statusbar_carrier_title">
-                <CheckBoxPreference android:key="pref_status_bar_statusbar_carrier"
-			android:title="@string/ui_status_bar_statusbar_carrier_title"
-			android:summary="@string/ui_status_bar_statusbar_carrier_summary"
-			android:defaultValue="falses" />
-                <CheckBoxPreference android:key="pref_status_bar_statusbar_carrier_center"
-			android:title="@string/ui_status_bar_statusbar_carrier_center_title"
-			android:summary="@string/ui_status_bar_statusbar_carrier_center_summary"
-			android:defaultValue="falses" />
-                <CheckBoxPreference android:key="pref_status_bar_statusbar_carrier_left"
-			android:title="@string/ui_status_bar_statusbar_carrier_left_title"
-			android:summary="@string/ui_status_bar_statusbar_carrier_left_summary"
 			android:defaultValue="falses" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/network_title">
