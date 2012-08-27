@@ -214,6 +214,13 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
         mFlashlightPref.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_LONG_HOME_ACTION, 0) == 1);
 
+        boolean mTorchAvailable =
+                getResources().getBoolean(R.bool.config_torch_available);
+
+        if(mTorchAvailable == false) {
+            prefSet.removePreference(mFlashlightPref);
+        }
+
         /* Calendars */
         mCalendarsPref = (MultiSelectListPreference) prefSet.findPreference(LOCKSCREEN_CALENDARS);
         mCalendarsPref.setValue(Settings.System.getString(getContentResolver(),

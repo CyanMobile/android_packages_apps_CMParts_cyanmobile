@@ -3,10 +3,14 @@
 
 	<!-- Status bar tweaks -->
 	<PreferenceCategory android:title="@string/general_title">
+                <CheckBoxPreference android:key="pref_status_bar_intruder"
+			android:title="@string/ui_status_bar_intruder_title"
+			android:summary="@string/ui_status_bar_intruder_summary"
+			android:defaultValue="true" />
                 <CheckBoxPreference android:key="pref_status_bar_date"
 			android:title="@string/ui_status_bar_date_title"
 			android:summary="@string/ui_status_bar_date_summary"
-			android:defaultValue="true" />
+			android:defaultValue="false" />
                 <Preference android:key="color_date"
                         android:title="@string/ui_status__date_color_title"
                         android:summary="@string/ui_status_bar_date_color_summary"

@@ -74,6 +74,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_DATE = "pref_status_bar_date";
 
+    private static final String PREF_STATUS_BAR_INTRUDER = "pref_status_bar_intruder";
+
     private static final String PREF_STATUS_BAR_NOTIF = "pref_status_bar_notif";
 
     private static final String PREF_STATUS_BAR_ICON = "pref_status_bar_icon";
@@ -201,6 +203,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private CheckBoxPreference mStatusBarDate;
 
+    private CheckBoxPreference mStatusBarIntruder;
+
     private CheckBoxPreference mStatusBarNotif;
 
     private CheckBoxPreference mStatusBarIcon;
@@ -301,6 +305,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
         mStatusBarCmWifiPref = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CM_WIFI_TEXT);
         mStatusBarDate = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_DATE);
+        mStatusBarIntruder = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_INTRUDER);
         mStatusBarNotif = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_NOTIF);
         mStatusBarIcon = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_ICON);
         mStatusBarAlarm = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_ALARM);
@@ -397,7 +402,10 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUS_BAR_CM_WIFI_TEXT, 0) == 1));
         // date
         mStatusBarDate.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_DATE, 1) == 1));
+                Settings.System.STATUS_BAR_DATE, 0) == 1));
+        // intruder
+        mStatusBarIntruder.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_INTRUDER_ALERT, 1) == 1));
         // hide all icon
         mStatusBarIcon.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_ALARM, 1) != 1) && (Settings.System.getInt(getContentResolver(),
@@ -966,6 +974,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 	} else if (preference == mStatusBarDate) {
             value = mStatusBarDate.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DATE,
+                    value ? 1 : 0);
+            return true;
+	} else if (preference == mStatusBarIntruder) {
+            value = mStatusBarIntruder.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_INTRUDER_ALERT,
                     value ? 1 : 0);
             return true;
 	} else if (preference == mStatusBarNotif) {

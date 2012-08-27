@@ -165,6 +165,8 @@
     <string name="ui_status_bar_lockscreencolor_summary">ffffffff</string>
     <string name="ui_status_bar_date_title">Show date</string>
     <string name="ui_status_bar_date_summary">Status bar date will be hidden, if disabled</string>
+    <string name="ui_status_bar_intruder_title">Show Intruder Alert</string>
+    <string name="ui_status_bar_intruder_summary">Use intruder alert instead notifications ticker</string>
     <string name="ui_lock_status_bar_title">Show Secure icon</string>
     <string name="ui_lock_status_bar_summary">Status bar Secure icon will show up, if checked</string>
     <string name="ui_status_bar_notif_title">Show notif icon</string>

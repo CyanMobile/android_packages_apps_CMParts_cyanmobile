@@ -32,4 +32,5 @@
 
     <bool name="has_envelope_key">false</bool>
     <bool name="has_explorer_key">true</bool>
+    <bool name="config_torch_available">false</bool>
 </resources>
