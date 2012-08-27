@@ -218,7 +218,7 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
                 getResources().getBoolean(R.bool.config_torch_available);
 
         if(mTorchAvailable == false) {
-            prefSet.removePreference(mFlashlightPref);
+           mFlashlightPref.setEnabled(false);
         }
 
         /* Calendars */
