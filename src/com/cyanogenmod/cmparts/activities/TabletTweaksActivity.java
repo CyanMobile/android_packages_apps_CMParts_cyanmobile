@@ -43,6 +43,7 @@ import com.cyanogenmod.cmparts.activities.ColorPickerDialog.OnColorChangedListen
 public class TabletTweaksActivity extends PreferenceActivity implements OnPreferenceChangeListener{
     private static final String PREF_STATUS_BAR_BOTTOM = "pref_status_bar_bottom";
     private static final String PREF_STATUS_BAR_NAVI = "pref_status_bar_navi";
+    private static final String PREF_NAVI_BAR = "pref_navi_bar";
     private static final String PREF_STATUS_BAR_SOFT = "pref_status_bar_soft";
     private static final String PREF_SQUADZONE = "squadkeys";
     private static final String PREF_NAVISIZE = "status_bar_navisize";
@@ -64,6 +65,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 
     private CheckBoxPreference mStatusBarBottom;
     private CheckBoxPreference mStatusBarNavi;
+    private CheckBoxPreference mNaviBar;
     private CheckBoxPreference mStatusBarSoft;
     private CheckBoxPreference mStatusBarDeadZone;
     private CheckBoxPreference mSoftButtonsLeft;
@@ -93,6 +95,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 
         mStatusBarBottom = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_BOTTOM);
         mStatusBarNavi = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_NAVI);
+        mNaviBar = (CheckBoxPreference) prefSet.findPreference(PREF_NAVI_BAR);
         mStatusBarSoft = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_SOFT);
         mStatusBarDeadZone = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_DEAD_ZONE);
         mSoftButtonsLeft = (CheckBoxPreference) prefSet.findPreference(PREF_SOFT_BUTTONS_LEFT);
@@ -127,6 +130,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                Settings.System.STATUS_BAR_BOTTOM, defValue) == 1));
         mStatusBarNavi.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.SHOW_NAVI_BUTTONS, 1) == 1));
+        mNaviBar.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.NAVI_BUTTONS, 1) == 1));
         mStatusBarSoft.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.USE_SOFT_BUTTONS, 0) == 1));
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_USE_DEAD_ZONE)==true ? 1 : 0;
@@ -263,6 +268,11 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                   // we're screwed here fellas
                }
             }
+            return true;
+        } else if (preference == mNaviBar) {
+            value = mNaviBar.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS,
+                   value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarDeadZone) {
             value = mStatusBarDeadZone.isChecked();

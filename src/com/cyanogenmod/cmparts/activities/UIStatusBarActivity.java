@@ -1119,23 +1119,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mStatusBarHidden) {
             value = mStatusBarHidden.isChecked();
-            if (value) {
-                Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY, 1);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 4);
-                try {
-                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                    // we're screwed here fellas
-                }
-            } else {
-                Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 0);
-                try {
-                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                    // we're screwed here fellas
-                }
-            }
+            Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY,
+                    value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarFourG) {
             value = mStatusBarFourG.isChecked();

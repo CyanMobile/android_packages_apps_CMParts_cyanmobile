@@ -11,6 +11,9 @@
 		<CheckBoxPreference android:key="silent_dialog_prompt"
 			android:title="@string/pref_silent_prompt_title" android:summary="@string/pref_silent_prompt_summary"
 			android:defaultValue="false" />
+		<CheckBoxPreference android:key="extend_dialog_prompt"
+			android:title="@string/pref_extend_prompt_title" android:summary="@string/pref_extend_prompt_summary"
+			android:defaultValue="false" />
 		<CheckBoxPreference android:key="airplane_dialog_prompt"
 			android:title="@string/pref_airplane_prompt_title" android:summary="@string/pref_airplane_prompt_summary"
 			android:defaultValue="false" />
@@ -25,10 +28,10 @@
 			android:defaultValue="false" />
 		<CheckBoxPreference android:key="hibernate_dialog_prompt"
 			android:title="@string/pref_hibernate_prompt_title" android:summary="@string/pref_hibernate_prompt_summary"
-			android:defaultValue="false" />
+			android:defaultValue="true" />
 		<CheckBoxPreference android:key="suspend_dialog_prompt"
 			android:title="@string/pref_suspend_prompt_title" android:summary="@string/pref_suspend_prompt_summary"
-			android:defaultValue="false" />
+			android:defaultValue="true" />
 	</PreferenceCategory>
 
      	<PreferenceCategory android:key="general_category"

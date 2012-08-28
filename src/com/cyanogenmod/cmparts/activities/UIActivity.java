@@ -61,6 +61,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String PREF_SILENT = "silent_dialog_prompt";
 
+    private static final String PREF_EXTEND = "extend_dialog_prompt";
+
     private static final String PREF_AIRPLANE = "airplane_dialog_prompt";
 
     private static final String PREF_POWER_SAVER = "powersaver_dialog_prompt";
@@ -84,6 +86,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
     private CheckBoxPreference mShowProfile;
 
     private CheckBoxPreference mShowSilent;
+
+    private CheckBoxPreference mShowExtend;
 
     private CheckBoxPreference mShowAirplane;
 
@@ -225,6 +229,10 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mShowSilent.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_SILENT, 0) == 1);
 
+        mShowExtend = (CheckBoxPreference) findPreference(PREF_EXTEND);
+        mShowExtend.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_EXTEND, 0) == 1);
+
         mShowAirplane = (CheckBoxPreference) findPreference(PREF_AIRPLANE);
         mShowAirplane.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 0) == 1);
@@ -295,6 +303,11 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         } else if (preference == mShowSilent) {
             value = mShowSilent.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SILENT,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mShowExtend) {
+            value = mShowExtend.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_EXTEND,
                     value ? 1 : 0);
             return true;
         } else if (preference == mShowAirplane) {

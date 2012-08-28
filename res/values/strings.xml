@@ -88,7 +88,10 @@
     <string name="tablet_tweaks_sb_bottom_title">Bottom status bar</string>
     <string name="tablet_tweaks_sb_bottom_summary">Show status bar on bottom. Useful for tablets which use soft-buttons for home, menu, etc on status bar</string>
     <string name="tablet_tweaks_sb_navi_title">Navigation bar</string>
-    <string name="tablet_tweaks_sb_navi_summary">Show navigation on bottom</string>
+    <string name="tablet_tweaks_sb_navi_summary">Enable navigation on bottom</string>
+    <string name="tablet_tweaks_navi_bar_title">Visibility Navigation</string>
+    <string name="tablet_tweaks_navi_bar_summaryOn">Visible (Show)</string>
+    <string name="tablet_tweaks_navi_bar_summaryOff">Invisible (hide)</string>
     <string name="tablet_tweaks_sb_soft_title">SoftButton bar</string>
     <string name="tablet_tweaks_sb_soft_summary">Show soft button on statusbar</string>
     <string name="tablet_tweaks_status_bar_dead_zone_title">Dead zone</string>
@@ -827,6 +830,8 @@
     <string name="pref_power_prompt_summary">Change whether there is a prompt after choosing shutdown or reboot</string>
     <string name="pref_silent_prompt_title">Silent toggle</string>
     <string name="pref_silent_prompt_summary">Show Silent toggle in power menu</string>
+    <string name="pref_extend_prompt_title">Extended toggle</string>
+    <string name="pref_extend_prompt_summary">Show Extended toggle in power menu</string>
     <string name="pref_airplane_prompt_title">Airplane toggle</string>
     <string name="pref_airplane_prompt_summary">Show Airplane toggle in power menu</string>
     <string name="pref_profile_prompt_title">Profile toggle</string>
