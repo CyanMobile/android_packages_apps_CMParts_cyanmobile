@@ -851,14 +851,14 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         } else if (preference == mStatusBarCarrier) {
             int carrierPref = Integer.parseInt(String.valueOf(newValue));
             int carrierPrefs = Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 0);
-            if (carrierPref == 0 || carrierPref == 1 || carrierPref == 2 || carrierPref == 3) {
+            if (carrierPref == 1 || carrierPref == 2 || carrierPref == 3) {
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
                 try {
                     Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                 } catch (IOException e) {
                     // we're screwed here fellas
                 }
-            } else if (carrierPrefs == 0 || carrierPrefs == 1 || carrierPrefs == 2 || carrierPrefs == 3) {
+            } else if (carrierPrefs == 1 || carrierPrefs == 2 || carrierPrefs == 3) {
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
                 try {
                     Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");

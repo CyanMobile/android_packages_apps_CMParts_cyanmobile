@@ -251,6 +251,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         } else if (preference == mStatusBarNavi) {
             value = mStatusBarNavi.isChecked();
             if (value)  {
+               Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 0);
                mStatusBarBottom.setChecked(false);
@@ -261,6 +262,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                }
                updateDependencies();
             } else {
+               Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 0);
                try {
                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");

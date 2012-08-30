@@ -132,13 +132,13 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mMusicWidget.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.MUSIC_WIDGET_TOGGLE, 0) == 1));
         mPowerWidgetGridOne.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 1) == 1));
+                Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0) == 1));
         mPowerWidgetGridTwo.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 1) == 1));
+                Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0) == 1));
         mPowerWidgetGridThree.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 1) == 1));
+                Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0) == 1));
         mPowerWidgetGridFour.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 1) == 1));
+                Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0) == 1));
 
         mPowerWidgetHideOnChange.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.EXPANDED_HIDE_ONCHANGE, 0) == 1));
@@ -175,11 +175,9 @@ public class UIPowerWidgetActivity extends PreferenceActivity
             int intsValues = Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 0);
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, intsValue);
             if (intsValue == 4) {
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 3);
+               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 6);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 1);
-               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 1);
-               Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 1);
                 try {
                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                 } catch (IOException e) {

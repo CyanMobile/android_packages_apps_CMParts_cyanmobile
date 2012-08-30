@@ -205,14 +205,14 @@
     </string-array>
 
      <string-array name="statusbar_clockfontsize_entries">
-        <item>7sp</item>
-        <item>8sp</item>
-        <item>9sp</item>
-        <item>10sp (Default)</item>
-        <item>11sp</item>
-        <item>12sp</item>
-        <item>13sp</item>
-        <item>14sp</item>
+        <item>7dp</item>
+        <item>8dp</item>
+        <item>9dp</item>
+        <item>10dp (Default)</item>
+        <item>11dp</item>
+        <item>12dp</item>
+        <item>13dp</item>
+        <item>14dp</item>
      </string-array>
   
      <string-array name="statusbar_clockfontsize_values">
@@ -227,14 +227,14 @@
      </string-array>
 
      <string-array name="statusbar_iconfontsize_entries">
-        <item>7sp</item>
-        <item>8sp</item>
-        <item>9sp</item>
-        <item>10sp (Default)</item>
-        <item>11sp</item>
-        <item>12sp</item>
-        <item>13sp</item>
-        <item>14sp</item>
+        <item>7dp</item>
+        <item>8dp</item>
+        <item>9dp</item>
+        <item>10dp (Default)</item>
+        <item>11dp</item>
+        <item>12dp</item>
+        <item>13dp</item>
+        <item>14dp</item>
      </string-array>
   
      <string-array name="statusbar_iconfontsize_values">
@@ -385,14 +385,14 @@
      </string-array>
 
      <string-array name="statusbar_carrierfontsize_entries">
-        <item>7sp</item>
-        <item>8sp</item>
-        <item>9sp</item>
-        <item>10sp (Default)</item>
-        <item>11sp</item>
-        <item>12sp</item>
-        <item>13sp</item>
-        <item>14sp</item>
+        <item>7dp</item>
+        <item>8dp</item>
+        <item>9dp</item>
+        <item>10dp (Default)</item>
+        <item>11dp</item>
+        <item>12dp</item>
+        <item>13dp</item>
+        <item>14dp</item>
      </string-array>
   
      <string-array name="statusbar_carrierfontsize_values">
@@ -1600,7 +1600,7 @@
   </string-array>
 
   <string-array name="statusbar_settingup_entries">
-    <item>Settings Menu</item>
+    <item>NavBar Visibilty</item>
     <item>Weather Popup</item>
     <item>None</item>
   </string-array>
