@@ -24,6 +24,12 @@ import android.content.ActivityNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.view.Window;
+import android.widget.Toast;
+import java.util.ArrayList;
+import android.provider.MediaStore;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -34,7 +40,11 @@ import android.preference.PreferenceScreen;
 import android.provider.CmSystem;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
-
+import android.net.Uri;
+import android.util.Log;
+import java.util.logging.Level;
+import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import com.cyanogenmod.cmparts.R;
@@ -63,6 +73,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private static final String PREF_EXTEND_PM_LIST = "pref_extend_pm_list";
     private static final String PREF_SOFT_BUTTON_LIST = "pref_soft_button_list";
 
+    private static final int REQUEST_CODE_BACK_IMAGE = 998;
+
     private CheckBoxPreference mStatusBarBottom;
     private CheckBoxPreference mStatusBarNavi;
     private CheckBoxPreference mNaviBar;
@@ -80,6 +92,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     //private CheckBoxPreference mReverseVolumeBehavior;
     private ListPreference mUnhideButton;
     private AlertDialog alertDialog;
+
+    private File navBackgroundImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,11 +131,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 	mTransparentNaviBarPref = (ListPreference) prefSet.findPreference(TRANSPARENT_NAVI_BAR_PREF);
         mTransparentNaviBarPref.setValue(String.valueOf(transparentNaviBarPref));
         mTransparentNaviBarPref.setOnPreferenceChangeListener(this);
+        navBackgroundImage = new File(getApplicationContext().getFilesDir()+"/navb_background");
 
         int naviBarColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.NAVI_BAR_COLOR, 0);
         mNaviBarColor.setSummary(Integer.toHexString(naviBarColor));
-        mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
+        mNaviBarColor.setEnabled(transparentNaviBarPref == 2);
 
         int defValue;
 
@@ -132,6 +147,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 Settings.System.SHOW_NAVI_BUTTONS, 1) == 1));
         mNaviBar.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.NAVI_BUTTONS, 1) == 1));
+        mNaviBar.setEnabled((Settings.System.getInt(getContentResolver(),
+                Settings.System.NAVI_BUTTONS, 1) != 2));
         mStatusBarSoft.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.USE_SOFT_BUTTONS, 0) == 1));
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_USE_DEAD_ZONE)==true ? 1 : 0;
@@ -331,8 +348,40 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             int transparentNaviBarPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR,
                           transparentNaviBarPref);
-            mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
-                if (transparentNaviBarPref == 4) {
+            mNaviBarColor.setEnabled(transparentNaviBarPref == 2);
+            if (transparentNaviBarPref == 3) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+                intent.setType("image/*");
+                intent.putExtra("crop", "true");
+                intent.putExtra("scale", true);
+                intent.putExtra("scaleUpIfNeeded", false);
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+                int width = 32;
+                int height = 32;
+                Rect rect = new Rect();
+                Window window = getWindow();
+                window.getDecorView().getWindowVisibleDisplayFrame(rect);
+                int statusBarHeight = rect.top;
+                int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+                int titleBarHeight = contentViewTop - statusBarHeight;
+                boolean isPortrait = getResources().getConfiguration().orientation ==
+                    Configuration.ORIENTATION_PORTRAIT;
+                intent.putExtra("aspectX", isPortrait ? (width + statusBarHeight + statusBarHeight) : statusBarHeight);
+                intent.putExtra("aspectY", isPortrait ? statusBarHeight : (width + statusBarHeight + statusBarHeight));
+                try {
+                    navBackgroundImage.createNewFile();
+                    navBackgroundImage.setReadable(true, false);
+                    navBackgroundImage.setWritable(true, false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(navBackgroundImage));
+                    intent.putExtra("return-data", false);
+                    startActivityForResult(intent,REQUEST_CODE_BACK_IMAGE);
+                } catch (IOException e) {
+                    Log.e("Picker", "IOException: ", e);
+                } catch (ActivityNotFoundException e) {
+                    Log.e("Picker", "ActivityNotFoundException: ", e);
+                }
+            } else {
+                if (transparentNaviBarPref == 2) {
                 // do nothing
                 } else {
                   if (Settings.System.getInt(getContentResolver(),
@@ -344,6 +393,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                     }
                   }
                 }
+            }
             return true;
         }
         return false;
@@ -380,6 +430,27 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         if(!mStatusBarBottom.isChecked()){
             mStatusBarDeadZone.setChecked(false);
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DEAD_ZONE, 0);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Context context = getApplicationContext();
+        switch (requestCode) {
+            case REQUEST_CODE_BACK_IMAGE:
+                if (resultCode != RESULT_OK) {
+                    Log.d("Copy_image_Error", "Error: " + resultCode);
+                } else { 
+                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR, 3);
+                   Toast.makeText(context, "Success set to new image" ,Toast.LENGTH_LONG).show();
+                   try {
+                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                   } catch (IOException e) {
+                       // we're screwed here fellas
+                   }
+                }
+            break;
         }
     }
 }
