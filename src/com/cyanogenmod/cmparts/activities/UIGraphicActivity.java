@@ -133,7 +133,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mOverscrollColor = (ListPreference) prefSet.findPreference(OVERSCROLL_COLOR);
         mOverscrollColor.setOnPreferenceChangeListener(this);
         int overscrollColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.OVERSCROLL_COLOR,0);
+                Settings.System.OVERSCROLL_COLOR, 0xFF38FF00);
         mOverscrollColor.setValue(String.valueOf(overscrollColor == 0 ? 0 : 1));
 
         mOverscrollWeightPref = (ListPreference) prefSet.findPreference(OVERSCROLL_WEIGHT_PREF);
@@ -200,10 +200,10 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             return true;
         } else if (preference == mOverscrollColor){
             if (mOverscrollColor.findIndexOfValue(val)==0){
-                Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_COLOR,0);
+                Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_COLOR, 0);
             }else{
                 int overscrollColor = Settings.System.getInt(getContentResolver(),
-                        Settings.System.OVERSCROLL_COLOR,0);
+                        Settings.System.OVERSCROLL_COLOR, 0xFF38FF00);
                 ColorPickerDialog cp = new ColorPickerDialog(this,mPackageColorListener,
                         overscrollColor);
                 cp.show();

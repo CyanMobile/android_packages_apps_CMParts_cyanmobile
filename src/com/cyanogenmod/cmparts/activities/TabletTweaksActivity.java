@@ -134,7 +134,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         navBackgroundImage = new File(getApplicationContext().getFilesDir()+"/navb_background");
 
         int naviBarColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.NAVI_BAR_COLOR, 0);
+                Settings.System.NAVI_BAR_COLOR, 0xFF38FF00);
         mNaviBarColor.setSummary(Integer.toHexString(naviBarColor));
         mNaviBarColor.setEnabled(transparentNaviBarPref == 2);
 
