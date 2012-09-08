@@ -268,15 +268,15 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         } else if (preference == mStatusBarNavi) {
             value = mStatusBarNavi.isChecked();
             if (value)  {
-               Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS, 1);
-               Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 1);
-               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 0);
-               mStatusBarBottom.setChecked(false);
                try {
                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                } catch (IOException e) {
                   // we're screwed here fellas
                }
+               Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS, 1);
+               Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 1);
+               Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 0);
+               mStatusBarBottom.setChecked(false);
                updateDependencies();
             } else {
                Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS, 0);
@@ -336,12 +336,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             int NaviSize = Integer.valueOf((String) newValue);
             if (Settings.System.getInt(getContentResolver(),
                              Settings.System.NAVI_BUTTONS, 0) == 1) {
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
                 try {
                    Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                 } catch (IOException e) {
                    // we're screwed here fellas
                 }
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
             }
             return true;
         } else if (preference == mTransparentNaviBarPref) {
@@ -415,11 +415,11 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 mNaviBarColor.setSummary(Integer.toHexString(color));
                     if (Settings.System.getInt(getContentResolver(),
                               Settings.System.NAVI_BUTTONS, 0) == 1) {
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
+                       try {
+                          Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                       } catch (IOException e) {
+                         // we're screwed here fellas
+                       }
                     }
             }
             public void colorUpdate(int color) {
@@ -442,13 +442,13 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 if (resultCode != RESULT_OK) {
                     Log.d("Copy_image_Error", "Error: " + resultCode);
                 } else { 
-                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR, 3);
-                   Toast.makeText(context, "Success set to new image" ,Toast.LENGTH_LONG).show();
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                        // we're screwed here fellas
                    }
+                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR, 3);
+                   Toast.makeText(context, "Success set to new image" ,Toast.LENGTH_LONG).show();
                 }
             break;
         }
