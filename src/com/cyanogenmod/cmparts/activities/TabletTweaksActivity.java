@@ -136,7 +136,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         int naviBarColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.NAVI_BAR_COLOR, 0xFF38FF00);
         mNaviBarColor.setSummary(Integer.toHexString(naviBarColor));
-        mNaviBarColor.setEnabled(transparentNaviBarPref == 2);
+        mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
 
         int defValue;
 
@@ -348,8 +348,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             int transparentNaviBarPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR,
                           transparentNaviBarPref);
-            mNaviBarColor.setEnabled(transparentNaviBarPref == 2);
-            if (transparentNaviBarPref == 3) {
+            mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
+            if (transparentNaviBarPref == 6) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
                 intent.setType("image/*");
                 intent.putExtra("crop", "true");
@@ -381,7 +381,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                     Log.e("Picker", "ActivityNotFoundException: ", e);
                 }
             } else {
-                if (transparentNaviBarPref == 2) {
+                if (transparentNaviBarPref == 4) {
                 // do nothing
                 } else {
                   if (Settings.System.getInt(getContentResolver(),
