@@ -14,8 +14,7 @@
                 <Preference android:key="color_date"
                         android:title="@string/ui_status__date_color_title"
                         android:summary="@string/ui_status_bar_date_color_summary"
-                        android:defaultValue="-1" 
-                        android:dependency="pref_status_bar_date"/>
+                        android:defaultValue="-1" />
                 <Preference android:key="color_ticker_text"
                         android:title="@string/title_ticker_color"
                         android:summary="@string/ui_status_bar_ticker_color_summary"

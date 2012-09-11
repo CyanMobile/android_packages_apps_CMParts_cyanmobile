@@ -177,7 +177,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mRinglockStylePref = (ListPreference) prefSet.findPreference(RINGLOCK_STYLE_PREF);
         mRinglockStyle = RinglockStyle.getStyleById(
                 Settings.System.getInt(getContentResolver(),
-                Settings.System.RINGLOCK_STYLE_PREF, RinglockStyle.getIdByStyle(RinglockStyle.Holo)));
+                Settings.System.RINGLOCK_STYLE_PREF, RinglockStyle.getIdByStyle(RinglockStyle.Bubble)));
         mRinglockStylePref.setValue(String.valueOf(RinglockStyle.getIdByStyle(mRinglockStyle)));
         mRinglockStylePref.setOnPreferenceChangeListener(this);
 

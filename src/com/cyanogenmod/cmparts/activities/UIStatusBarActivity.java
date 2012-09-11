@@ -902,7 +902,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_GPS, 0);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_SYNC, 0);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HEADSET, 0);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 4);
+                Settings.Secure.putInt(getContentResolver(), Settings.Secure.ADB_NOTIFY, 0);
                 mStatusBarAlarm.setChecked(false);
                 mStatusBarHeadset.setChecked(false);
                 mStatusBarWifi.setChecked(false);
@@ -911,11 +911,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 mStatusBarGPS.setChecked(false);
                 mStatusBarSync.setChecked(false);
                 mStatusBarNotif.setChecked(false);
-                try {
-                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                   // we're screwed here fellas
-                }
             } else {
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_ALARM, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NOTIF, 1);
@@ -925,7 +920,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_GPS, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_SYNC, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HEADSET, 1);
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 0);
+                Settings.Secure.putInt(getContentResolver(), Settings.Secure.ADB_NOTIFY, 1);
                 mStatusBarAlarm.setChecked(true);
                 mStatusBarHeadset.setChecked(true);
                 mStatusBarWifi.setChecked(true);
@@ -934,11 +929,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 mStatusBarGPS.setChecked(true);
                 mStatusBarSync.setChecked(true);
                 mStatusBarNotif.setChecked(true);
-                try {
-                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                   // we're screwed here fellas
-                }
             }
             return true;
 	} else if (preference == mStatusBarCmWifiPref) {
@@ -985,11 +975,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             value = mStatusBarNotif.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NOTIF,
                     value ? 1 : 0);
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                     // we're screwed here fellas
-                   }
             return true;
 	} else if (preference == mStatusBarClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this, mClockColorListener, getClockColor());
