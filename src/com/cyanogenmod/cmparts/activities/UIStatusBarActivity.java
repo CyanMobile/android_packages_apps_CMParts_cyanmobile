@@ -414,7 +414,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUS_BAR_BLUETOOTH, 1) != 1) && (Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_3G, 1) != 1) && (Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_GPS, 1) != 1) && (Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_SYNC, 1) != 1));
+                Settings.System.STATUS_BAR_SYNC, 1) != 1) && (Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 0) == 4));
         // notif
         mStatusBarNotif.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_NOTIF, 1) == 1));
@@ -901,6 +902,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_GPS, 0);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_SYNC, 0);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HEADSET, 0);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 4);
                 Settings.Secure.putInt(getContentResolver(), Settings.Secure.ADB_NOTIFY, 0);
                 mStatusBarAlarm.setChecked(false);
                 mStatusBarHeadset.setChecked(false);
@@ -919,6 +921,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_GPS, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_SYNC, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_HEADSET, 1);
+                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 0);
                 Settings.Secure.putInt(getContentResolver(), Settings.Secure.ADB_NOTIFY, 1);
                 mStatusBarAlarm.setChecked(true);
                 mStatusBarHeadset.setChecked(true);
