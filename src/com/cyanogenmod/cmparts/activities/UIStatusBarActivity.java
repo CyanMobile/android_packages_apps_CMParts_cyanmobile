@@ -76,7 +76,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_INTRUDER = "pref_status_bar_intruder";
 
-    private static final String PREF_STATUS_BAR_NOTIF = "pref_status_bar_notif";
+    //private static final String PREF_STATUS_BAR_NOTIF = "pref_status_bar_notif";
 
     private static final String PREF_STATUS_BAR_ICON = "pref_status_bar_icon";
 
@@ -205,7 +205,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private CheckBoxPreference mStatusBarIntruder;
 
-    private CheckBoxPreference mStatusBarNotif;
+    //private CheckBoxPreference mStatusBarNotif;
 
     private CheckBoxPreference mStatusBarIcon;
 
@@ -306,7 +306,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarCmWifiPref = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CM_WIFI_TEXT);
         mStatusBarDate = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_DATE);
         mStatusBarIntruder = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_INTRUDER);
-        mStatusBarNotif = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_NOTIF);
+        //mStatusBarNotif = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_NOTIF);
         mStatusBarIcon = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_ICON);
         mStatusBarAlarm = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_ALARM);
         mStatusBarWifi = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_WIFI);
@@ -417,8 +417,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUS_BAR_SYNC, 1) != 1) && (Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 0) == 4));
         // notif
-        mStatusBarNotif.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_NOTIF, 1) == 1));
+        //mStatusBarNotif.setChecked((Settings.System.getInt(getContentResolver(),
+        //        Settings.System.STATUS_BAR_NOTIF, 1) == 1));
         // alarm
         mStatusBarAlarm.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_ALARM, 1) == 1));
@@ -911,7 +911,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 mStatusBar3g.setChecked(false);
                 mStatusBarGPS.setChecked(false);
                 mStatusBarSync.setChecked(false);
-                mStatusBarNotif.setChecked(false);
+                //mStatusBarNotif.setChecked(false);
             } else {
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_ALARM, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NOTIF, 1);
@@ -930,7 +930,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 mStatusBar3g.setChecked(true);
                 mStatusBarGPS.setChecked(true);
                 mStatusBarSync.setChecked(true);
-                mStatusBarNotif.setChecked(true);
+                //mStatusBarNotif.setChecked(true);
             }
             return true;
 	} else if (preference == mStatusBarCmWifiPref) {
@@ -973,11 +973,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_INTRUDER_ALERT,
                     value ? 1 : 0);
             return true;
-	} else if (preference == mStatusBarNotif) {
-            value = mStatusBarNotif.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NOTIF,
-                    value ? 1 : 0);
-            return true;
+	//} else if (preference == mStatusBarNotif) {
+        //    value = mStatusBarNotif.isChecked();
+        //    Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_NOTIF,
+        //            value ? 1 : 0);
+        //    return true;
 	} else if (preference == mStatusBarClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this, mClockColorListener, getClockColor());
             cp.show();
