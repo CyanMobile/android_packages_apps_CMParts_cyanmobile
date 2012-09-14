@@ -142,7 +142,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_BOTTOM_STATUS_BAR)==true ? 1 : 0;
         mStatusBarBottom.setChecked((Settings.System.getInt(getContentResolver(),
-               Settings.System.STATUS_BAR_BOTTOM, defValue) == 1));
+               Settings.System.STATUS_BAR_BOTTOM, 0) == 1));
         mStatusBarNavi.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.SHOW_NAVI_BUTTONS, 1) == 1));
         mNaviBar.setChecked((Settings.System.getInt(getContentResolver(),
@@ -165,7 +165,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 Settings.System.FULLSCREEN_DISABLED, defValue) == 1));
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_EXTEND_POWER_MENU)==true ? 1 : 0;
         mExtendPm.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.EXTEND_PM, defValue) == 1));
+                Settings.System.EXTEND_PM, 0) == 1));
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_REVERSE_VOLUME_BEHAVIOR)==true ? 1 : 0;
 
         defValue=CmSystem.getDefaultInt(getBaseContext(), CmSystem.CM_DEFAULT_UNHIDE_BUTTON_INDEX);

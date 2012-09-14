@@ -10,19 +10,22 @@
 			android:defaultValue="true" />
 		<CheckBoxPreference android:key="silent_dialog_prompt"
 			android:title="@string/pref_silent_prompt_title" android:summary="@string/pref_silent_prompt_summary"
-			android:defaultValue="false" />
+			android:defaultValue="true" />
 		<CheckBoxPreference android:key="extend_dialog_prompt"
 			android:title="@string/pref_extend_prompt_title" android:summary="@string/pref_extend_prompt_summary"
-			android:defaultValue="false" />
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="navbar_dialog_prompt"
+			android:title="@string/pref_navbar_prompt_title" android:summary="@string/pref_navbar_prompt_summary"
+			android:defaultValue="true" />
 		<CheckBoxPreference android:key="airplane_dialog_prompt"
 			android:title="@string/pref_airplane_prompt_title" android:summary="@string/pref_airplane_prompt_summary"
-			android:defaultValue="false" />
+			android:defaultValue="true" />
 		<CheckBoxPreference android:key="profile_dialog_prompt"
 			android:title="@string/pref_profile_prompt_title" android:summary="@string/pref_profile_prompt_summary"
 			android:defaultValue="false" />
 		<CheckBoxPreference android:key="screenshot_dialog_prompt"
 			android:title="@string/pref_screenshot_prompt_title" android:summary="@string/pref_screenshot_prompt_summary"
-			android:defaultValue="false" />
+			android:defaultValue="true" />
 		<CheckBoxPreference android:key="powersaver_dialog_prompt"
 			android:title="@string/pref_powersaver_prompt_title" android:summary="@string/pref_powersaver_prompt_summary"
 			android:defaultValue="false" />

@@ -103,7 +103,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mTransparentAppBackgroundPref.setOnPreferenceChangeListener(this);
 
         int appBackgroundColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.BACKGROUND_APP_COLOR, 0xFF33B5E5);
+                Settings.System.BACKGROUND_APP_COLOR, 0xFF38FF00);
         mAppBackgroundColor.setSummary(Integer.toHexString(appBackgroundColor));
         mAppBackgroundColor.setEnabled(transparentAppBackgroundPref == 1);
 
@@ -133,7 +133,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mOverscrollColor = (ListPreference) prefSet.findPreference(OVERSCROLL_COLOR);
         mOverscrollColor.setOnPreferenceChangeListener(this);
         int overscrollColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.OVERSCROLL_COLOR, 0xFF38FF00);
+                Settings.System.OVERSCROLL_COLOR, 0);
         mOverscrollColor.setValue(String.valueOf(overscrollColor == 0 ? 0 : 1));
 
         mOverscrollWeightPref = (ListPreference) prefSet.findPreference(OVERSCROLL_WEIGHT_PREF);

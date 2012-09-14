@@ -552,11 +552,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 statusBarCarrierLabel == 3);
 
         int clockColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCKCOLOR, 0xFF33B5E5);
+                Settings.System.STATUS_BAR_CLOCKCOLOR, 0xFF38FF00);
         mStatusBarClockColor.setSummary(Integer.toHexString(clockColor));
 
         int carrierColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CARRIERCOLOR, 0xFF33B5E5);
+                Settings.System.STATUS_BAR_CARRIERCOLOR, 0xFF38FF00);
         mStatusBarCarrierColor.setSummary(Integer.toHexString(carrierColor));
 
         int transparentStatusBarPref = Settings.System.getInt(getContentResolver(),

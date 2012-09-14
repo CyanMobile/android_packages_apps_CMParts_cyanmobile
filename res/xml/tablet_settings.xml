@@ -101,7 +101,7 @@
         <CheckBoxPreference android:key="pref_extend_pm"
             android:title="@string/tablet_tweaks_extend_pm_title"
             android:summary="@string/tablet_tweaks_extend_pm_summary"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
         <PreferenceScreen android:key="pref_extend_pm_list"
             android:title="@string/tablet_tweaks_extend_pm_list_title"
             android:dependency="pref_extend_pm" >

@@ -194,7 +194,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mStatusBarLockscreenColor = (Preference) prefSet.findPreference(PREF_STATUS_BAR_LOCKSCREENCOLOR);
         mStatusBarLockscreenColor.setOnPreferenceChangeListener(this);
         int lockscreenColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_LOCKSCREENCOLOR, 0xFF33B5E5);
+                Settings.System.STATUS_BAR_LOCKSCREENCOLOR, 0xFF38FF00);
         mStatusBarLockscreenColor.setSummary(Integer.toHexString(lockscreenColor));
 
         /* Rotary related options */

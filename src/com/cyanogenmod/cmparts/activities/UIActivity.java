@@ -73,6 +73,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String PREF_HIBERNATE = "hibernate_dialog_prompt";
 
+    private static final String PREF_NAVBAR = "navbar_dialog_prompt";
+
     /* private static final String HIDE_AVATAR_MESSAGE_PREF = "pref_hide_avatar_message"; */
 
     private PreferenceScreen mStatusBarScreen;
@@ -99,6 +101,7 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private CheckBoxPreference mShowHibernate;
 
+    private CheckBoxPreference mShowNavbar;
     /* private CheckBoxPreference mHideAvatarMessage; */
 
     /* Other */
@@ -227,19 +230,19 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
         mShowSilent = (CheckBoxPreference) findPreference(PREF_SILENT);
         mShowSilent.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_SILENT, 0) == 1);
+                Settings.System.POWER_DIALOG_SHOW_SILENT, 1) == 1);
 
         mShowExtend = (CheckBoxPreference) findPreference(PREF_EXTEND);
         mShowExtend.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_EXTEND, 0) == 1);
+                Settings.System.POWER_DIALOG_SHOW_EXTEND, 1) == 1);
 
         mShowAirplane = (CheckBoxPreference) findPreference(PREF_AIRPLANE);
         mShowAirplane.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 0) == 1);
+                Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 1) == 1);
 
         mShowScreenshot = (CheckBoxPreference) findPreference(PREF_SCREENSHOT);
         mShowScreenshot.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 0) == 1);
+                Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1);
 
         mShowSuspend = (CheckBoxPreference) findPreference(PREF_SUSPEND);
         mShowSuspend.setChecked(Settings.System.getInt(getContentResolver(),
@@ -248,6 +251,10 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mShowHibernate = (CheckBoxPreference) findPreference(PREF_HIBERNATE);
         mShowHibernate.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_HIBERNATE, 1) == 1);
+
+        mShowNavbar = (CheckBoxPreference) findPreference(PREF_NAVBAR);
+        mShowNavbar.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_NAVI, 1) == 1);
 
         /* mHideAvatarMessage = (CheckBoxPreference) findPreference(HIDE_AVATAR_MESSAGE_PREF);
         mHideAvatarMessage.setChecked(Settings.System.getInt(getContentResolver(),
@@ -328,6 +335,11 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         } else if (preference == mShowHibernate) {
             value = mShowHibernate.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_HIBERNATE,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mShowNavbar) {
+            value = mShowNavbar.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_NAVI,
                     value ? 1 : 0);
             return true;
         } else if (preference == mShowScreenshot) {
