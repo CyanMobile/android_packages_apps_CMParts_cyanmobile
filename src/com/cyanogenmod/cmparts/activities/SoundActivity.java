@@ -58,15 +58,11 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
 
     private static final String SWAP_VOLUME_KEYS = "swap-vol-keys";
 
-    private static final String VIBRATE_IN_CALL = "vibrate-in-call";
-
     private static final String LOCK_VOLUME_KEYS = "lock-volume-keys";
 
     private static final String DEFAULT_VOLUME_MEDIA = "default-volume-media";
 
     private static final String VOLUME_KEY_BEEPS = "volume-key-beeps";
-
-    private static final String RINGER_LOOP = "ringer-loop";
 
     private static final String RINGS_SPEAKER = "ring-speaker";
 
@@ -92,20 +88,6 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
 
     private static final String CAMERA_FOCUS_MUTE = "camera_focus_mute";
 
-    private static final String CALL_ME_LOUDER = "call-me-louder";
-
-    private static final String FLIPPING_DOWN_MUTES_RINGER = "flipping-mutes-ringer";
-
-    private static final String FLIPPING_DOWN_SNOOZES_ALARM = "flipping-snoozes-alarm";
-
-    private static final String BACK_BUTTON_ENDS_CALL_PREF = "back-button-ends-call";
-
-    private static final String MENU_BUTTON_ANSWERS_CALL_PREF = "pref_menu_button_answers_call";
-
-    private static final String PICK_UP_TO_CALL_PREF = "pref_pick_up_to_call";
-
-    private static final String INCALL_UI_FORCE_PREF = "pref_incall_ui_force";
-
     private static final String PREFIX = "persist.sys.";
 
     private static final String CAMERA_CATEGORY = "camera_category";
@@ -116,9 +98,6 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
     }
 
     private CheckBoxPreference mLockVolumeKeys;
-    private CheckBoxPreference mBackButtonEndsCall;
-    private CheckBoxPreference mMenuButtonAnswersCall;
-    private CheckBoxPreference mPickUpToCall;
     private CheckBoxPreference mDefaultVolumeMedia;
     private Preference mSquadzone;
 
@@ -148,26 +127,6 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
                 Settings.System.VOLUME_CONTROL_SILENT, 0) != 0);
         p.setOnPreferenceChangeListener(this);
 
-        p = (CheckBoxPreference) prefSet.findPreference(VIBRATE_IN_CALL);
-        p.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.VIBRATE_IN_CALL, 1) != 0);
-	p.setOnPreferenceChangeListener(this);
-	
-        mMenuButtonAnswersCall = (CheckBoxPreference) prefSet.findPreference(MENU_BUTTON_ANSWERS_CALL_PREF);
-        mMenuButtonAnswersCall.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.MENU_BUTTON_ANSWERS_CALL, 1) != 0);
-        mMenuButtonAnswersCall.setOnPreferenceChangeListener(this);
-
-        mPickUpToCall = (CheckBoxPreference) prefSet.findPreference(PICK_UP_TO_CALL_PREF);
-        mPickUpToCall.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.PICK_UP_TO_CALL, 0) == 1);
-        mPickUpToCall.setOnPreferenceChangeListener(this);
-
-        p = (CheckBoxPreference) prefSet.findPreference(INCALL_UI_FORCE_PREF);
-        p.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.PHONE_FORCE_INCOMING_CALL_UI, 0) != 0);
-        p.setOnPreferenceChangeListener(this);
-
         int lockVolumeKeys = Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCK_VOLUME_KEYS, 0);
         mLockVolumeKeys = (CheckBoxPreference) prefSet.findPreference(LOCK_VOLUME_KEYS);
@@ -187,31 +146,6 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
         p.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.VOLUME_KEY_BEEPS, 1) != 0);
         p.setOnPreferenceChangeListener(this);
-
-	p = (CheckBoxPreference) prefSet.findPreference(RINGER_LOOP);
-        p.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.RINGER_LOOP, 1) != 0));
-        p.setOnPreferenceChangeListener(this);
-
-        p = (CheckBoxPreference) prefSet.findPreference(CALL_ME_LOUDER);
-        p.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.CALL_ME_LOUDER, 0) != 0));
-        p.setOnPreferenceChangeListener(this);
-
-        p = (CheckBoxPreference) prefSet.findPreference(FLIPPING_DOWN_MUTES_RINGER);
-        p.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.FLIPPING_DOWN_MUTES_RINGER, 0) != 0);
-        p.setOnPreferenceChangeListener(this);
-
-        p = (CheckBoxPreference) prefSet.findPreference(FLIPPING_DOWN_SNOOZES_ALARM);
-        p.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.FLIPPING_DOWN_SNOOZES_ALARM, 0) != 0);
-        p.setOnPreferenceChangeListener(this);
-
-        mBackButtonEndsCall = (CheckBoxPreference) prefSet.findPreference(BACK_BUTTON_ENDS_CALL_PREF);
-        mBackButtonEndsCall.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.BACK_BUTTON_ENDS_CALL, 1) != 0);
-        mBackButtonEndsCall.setOnPreferenceChangeListener(this);
 
         p = (CheckBoxPreference) prefSet.findPreference(RINGS_SPEAKER);
         p.setChecked(SystemProperties.getBoolean(getKey(RINGS_SPEAKER), false));
@@ -304,9 +238,6 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
                     getInt(newValue));
             ((AudioManager)getSystemService(AUDIO_SERVICE)).reloadAudioSettings();
             mHandler.sendMessage(mHandler.obtainMessage(0, key));
-        } else if (key.equals(VIBRATE_IN_CALL)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.VIBRATE_IN_CALL,
-                    getBoolean(newValue) ? 1 : 0);
 	} else if (key.equals(LOCK_VOLUME_KEYS)) {
             if (getBoolean(newValue)) {
                 Settings.System.putInt(getContentResolver(), Settings.System.LOCK_VOLUME_KEYS, 1);
@@ -325,36 +256,6 @@ public class SoundActivity extends PreferenceActivity implements OnPreferenceCha
             mLockVolumeKeys.setEnabled(!getBoolean(newValue));
 	} else if (key.equals(VOLUME_KEY_BEEPS)) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_KEY_BEEPS,
-                    getBoolean(newValue) ? 1 : 0);
-        } else if (key.equals(CALL_ME_LOUDER)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.CALL_ME_LOUDER,
-                    getBoolean(newValue) ? 1 : 0);
-        } else if (key.equals(FLIPPING_DOWN_MUTES_RINGER)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_MUTES_RINGER,
-                    getBoolean(newValue) ? 1 : 0);
-        } else if (key.equals(FLIPPING_DOWN_SNOOZES_ALARM)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_SNOOZES_ALARM,
-                    getBoolean(newValue) ? 1 : 0);
-        } else if (key.equals(BACK_BUTTON_ENDS_CALL_PREF)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.BACK_BUTTON_ENDS_CALL,
-                    getBoolean(newValue) ? 1 : 0);
-        } else if (key.equals(MENU_BUTTON_ANSWERS_CALL_PREF)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.MENU_BUTTON_ANSWERS_CALL,
-                    getBoolean(newValue) ? 1 : 0);
-        } else if (key.equals(PICK_UP_TO_CALL_PREF)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.PICK_UP_TO_CALL,
-                    getBoolean(newValue) ? 1 : 0);
-        } else if (key.equals(INCALL_UI_FORCE_PREF)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.PHONE_FORCE_INCOMING_CALL_UI,
-                    getBoolean(newValue) ? 1 : 0);
-            Settings.System.putInt(getContentResolver(), Settings.System.MENU_BUTTON_ANSWERS_CALL,
-                    getBoolean(newValue) ? 0 : 1);
-            Settings.System.putInt(getContentResolver(), Settings.System.BACK_BUTTON_ENDS_CALL,
-                    getBoolean(newValue) ? 0 : 1);
-            mBackButtonEndsCall.setChecked(getBoolean(newValue) ? false : true);
-            mMenuButtonAnswersCall.setChecked(getBoolean(newValue) ? false : true);
-        } else if (key.equals(RINGER_LOOP)) {
-            Settings.System.putInt(getContentResolver(), Settings.System.RINGER_LOOP,
                     getBoolean(newValue) ? 1 : 0);
         } else if (key.equals(NOTIFICATIONS_SPEAKER) || key.equals(RINGS_SPEAKER)
                 || key.equals(ALARMS_SPEAKER)) {

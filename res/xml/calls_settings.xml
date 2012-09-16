@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- General settings -->
+	<PreferenceCategory android:key="general_category"
+		android:title="@string/general_title">
+                <CheckBoxPreference android:key="pref_pick_up_to_call"
+                        android:title="@string/pref_pick_up_to_call_title"
+                        android:summary="@string/pref_pick_up_to_call_summary"/>
+
+        <!-- Back button ends call -->
+                <CheckBoxPreference android:key="back-button-ends-call"
+                        android:title="@string/sound_back_button_title" 
+                        android:summaryOn="@string/sound_back_button_summary_On"
+                        android:summaryOff="@string/sound_back_button_summary_Off" />
+
+        <!-- Menu button ends call -->
+                <CheckBoxPreference android:key="pref_menu_button_answers_call"
+                        android:title="@string/sound_menu_button_title" 
+                        android:summaryOn="@string/sound_menu_button_summary_On"
+                        android:summaryOff="@string/sound_menu_button_summary_Off" />
+
+        <!-- Incall UI-->
+                <CheckBoxPreference android:key="pref_incall_ui_force"
+                        android:title="@string/sound_incall_ui_title" 
+                        android:summaryOn="@string/sound_incall_ui_summary_On"
+                        android:summaryOff="@string/sound_incall_ui_summary_Off" />
+
+	<!--  Ringtone looping -->
+		<CheckBoxPreference android:key="ringer-loop"
+        		android:title="@string/sound_ringer_loop_title" 
+                        android:summaryOn="@string/sound_ringer_loop_summary_on"
+                        android:summaryOff="@string/sound_ringer_loop_summary_off"
+                        android:persistent="false" />
+
+                <CheckBoxPreference android:key="call-me-louder"
+                        android:title="@string/sound_call_me_louder_title" 
+                        android:summary="@string/sound_call_me_louder_summary"/>
+
+        <!-- Vibrate on call -->
+		<CheckBoxPreference android:key="vibrate-in-call"
+			android:title="@string/sound_vibrate_in_call_title"
+			android:summaryOn="@string/sound_vibrate_in_call_summary_on"
+			android:summaryOff="@string/sound_vibrate_in_call_summary_off"
+			android:persistent="false" />
+
+                <CheckBoxPreference android:key="flipping-mutes-ringer" 
+                        android:title="@string/sound_flipping_down_mutes_ringer_title"
+                        android:summary="@string/sound_flipping_down_mutes_ringer_summary"/>
+
+                <CheckBoxPreference android:key="flipping-snoozes-alarm" 
+                        android:title="@string/sound_flipping_down_snoozes_alarm_title"
+                        android:summary="@string/sound_flipping_down_snoozes_alarm_summary"/>
+	</PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

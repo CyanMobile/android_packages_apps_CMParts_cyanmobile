@@ -24,6 +24,8 @@
     <string name="performance_settings_summary_head">Performance tweaks, JIT, VM heap size</string>
     <string name="sound_settings_title_head">Sound</string>
     <string name="sound_settings_title_subhead">Sound settings</string>
+    <string name="calls_settings_title_head">Calls</string>
+    <string name="calls_settings_title_subhead">Call settings</string>
     <string name="sound_settings_summary_head">Sound volumes, audio focus, quiet hours</string>
     <string name="system_settings_title_head">System</string>
     <string name="system_settings_title_subhead">System settings</string>
