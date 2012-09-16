@@ -75,6 +75,9 @@ public class MainActivity extends TabActivity {
 		intent = new Intent().setClass(MainActivity.this, InputActivity.class);
 		setupTab(new TextView(this), getString(R.string.input_settings_title_head), intent);
 
+		intent = new Intent().setClass(MainActivity.this, UIActivity.class);
+		setupTab(new TextView(this), getString(R.string.interface_settings_title_head), intent);
+
 		intent = new Intent().setClass(MainActivity.this, PerformanceSettingsActivity.class);
 		setupTab(new TextView(this), getString(R.string.performance_settings_title_head), intent);
 
@@ -95,9 +98,6 @@ public class MainActivity extends TabActivity {
 
 		intent = new Intent().setClass(MainActivity.this, TabletTweaksActivity.class);
 		setupTab(new TextView(this), getString(R.string.tablet_tweaks_title_head), intent);
-
-		intent = new Intent().setClass(MainActivity.this, UIActivity.class);
-		setupTab(new TextView(this), getString(R.string.interface_settings_title_head), intent);
 
 		intent = new Intent().setClass(MainActivity.this, UIExportActivity.class);
 		setupTab(new TextView(this), getString(R.string.ui_utilities_title_head), intent);
