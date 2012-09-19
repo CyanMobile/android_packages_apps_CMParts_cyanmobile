@@ -375,17 +375,17 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mClockFontsize = (ListPreference) prefSet.findPreference(PREF_CLOCKFONTSIZE);
         mClockFontsize.setOnPreferenceChangeListener(this);
         mClockFontsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_CLOCK_FONT_SIZE, 10)));
+                Settings.System.STATUSBAR_CLOCK_FONT_SIZE, 11)));
         // carrier font size
         mCarrierFontsize = (ListPreference) prefSet.findPreference(PREF_CARRIERFONTSIZE);
         mCarrierFontsize.setOnPreferenceChangeListener(this);
         mCarrierFontsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_CARRIER_FONT_SIZE, 10)));
+                Settings.System.STATUSBAR_CARRIER_FONT_SIZE, 11)));
         // icon font size
         mIconFontsize = (ListPreference) prefSet.findPreference(PREF_ICONFONTSIZE);
         mIconFontsize.setOnPreferenceChangeListener(this);
         mIconFontsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_ICON_FONT_SIZE, 10)));
+                Settings.System.STATUSBAR_ICON_FONT_SIZE, 11)));
         // icon size
         mIconsize = (ListPreference) prefSet.findPreference(PREF_ICONSIZE);
         mIconsize.setOnPreferenceChangeListener(this);

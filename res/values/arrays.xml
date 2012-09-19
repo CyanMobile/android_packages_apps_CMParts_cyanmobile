@@ -208,11 +208,17 @@
         <item>7dp</item>
         <item>8dp</item>
         <item>9dp</item>
-        <item>10dp (Default)</item>
-        <item>11dp</item>
+        <item>10dp</item>
+        <item>11dp (Default)</item>
         <item>12dp</item>
         <item>13dp</item>
         <item>14dp</item>
+        <item>15dp</item>
+        <item>16dp</item>
+        <item>17dp</item>
+        <item>18dp</item>
+        <item>19dp</item>
+        <item>20dp</item>
      </string-array>
   
      <string-array name="statusbar_clockfontsize_values">
@@ -224,17 +230,29 @@
         <item>12</item>
         <item>13</item>
         <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
      </string-array>
 
      <string-array name="statusbar_iconfontsize_entries">
         <item>7dp</item>
         <item>8dp</item>
         <item>9dp</item>
-        <item>10dp (Default)</item>
-        <item>11dp</item>
+        <item>10dp</item>
+        <item>11dp (Default)</item>
         <item>12dp</item>
         <item>13dp</item>
         <item>14dp</item>
+        <item>15dp</item>
+        <item>16dp</item>
+        <item>17dp</item>
+        <item>18dp</item>
+        <item>19dp</item>
+        <item>20dp</item>
      </string-array>
   
      <string-array name="statusbar_iconfontsize_values">
@@ -246,6 +264,12 @@
         <item>12</item>
         <item>13</item>
         <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
      </string-array>
 
      <string-array name="statusbar_iconsize_entries">
@@ -388,11 +412,17 @@
         <item>7dp</item>
         <item>8dp</item>
         <item>9dp</item>
-        <item>10dp (Default)</item>
-        <item>11dp</item>
+        <item>10dp</item>
+        <item>11dp (Default)</item>
         <item>12dp</item>
         <item>13dp</item>
         <item>14dp</item>
+        <item>15dp</item>
+        <item>16dp</item>
+        <item>17dp</item>
+        <item>18dp</item>
+        <item>19dp</item>
+        <item>20dp</item>
      </string-array>
   
      <string-array name="statusbar_carrierfontsize_values">
@@ -404,6 +434,12 @@
         <item>12</item>
         <item>13</item>
         <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
      </string-array>
 
      <string-array name="entries_status_bar_signal" translatable="false">
