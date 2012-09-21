@@ -80,7 +80,7 @@
         <CheckBoxPreference android:key="pref_enable_overicon"
             android:title="@string/tablet_tweaks_sb_navi_color_title"
             android:summary="@string/tablet_tweaks_sb_navi_color_summary" />
-        <Preference android:key="pref_navi_bar_color"
+        <Preference android:key="pref_navi_button_color"
             android:dependency="pref_enable_overicon"
             android:dialogTitle="@string/ui_navi_button_color_title"
             android:title="@string/ui_navi_button_color_title"
