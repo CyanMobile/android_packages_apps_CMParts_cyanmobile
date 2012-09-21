@@ -77,6 +77,15 @@
             android:title="@string/ui_navi_bar_color_title"
             android:summary="@string/ui_navi_bar_color_summary"
             android:defaultValue="-1"/>
+        <CheckBoxPreference android:key="pref_enable_overicon"
+            android:title="@string/tablet_tweaks_sb_navi_color_title"
+            android:summary="@string/tablet_tweaks_sb_navi_color_summary" />
+        <Preference android:key="pref_navi_bar_color"
+            android:dependency="pref_enable_overicon"
+            android:dialogTitle="@string/ui_navi_button_color_title"
+            android:title="@string/ui_navi_button_color_title"
+            android:summary="@string/ui_navi_button_color_summary"
+            android:defaultValue="-1"/>
     </PreferenceCategory>
     <!-- Interface options -->
     <PreferenceCategory android:key="pref_interface_category"

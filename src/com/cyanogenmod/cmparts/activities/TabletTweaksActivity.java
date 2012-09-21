@@ -59,12 +59,14 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private static final String PREF_NAVISIZE = "status_bar_navisize";
     private static final String TRANSPARENT_NAVI_BAR_PREF = "pref_transparent_navi_bar";
     private static final String PREF_NAVI_BAR_COLOR = "pref_navi_bar_color";
+    private static final String PREF_NAVI_BUTTON_COLOR = "pref_navi_button_color";
     private static final String PREF_STATUS_BAR_DEAD_ZONE = "pref_status_bar_dead_zone";
     private static final String PREF_SOFT_BUTTONS_LEFT = "pref_soft_buttons_left";
     private static final String PREF_DISABLE_LOCKSCREEN = "pref_disable_lockscreen";
     private static final String PREF_DISABLE_FULLSCREEN = "pref_disable_fullscreen";
     private static final String PREF_UNHIDE_BUTTON = "pref_unhide_button";
     private static final String PREF_EXTEND_PM = "pref_extend_pm";
+    private static final String PREF_ENABLE_OVERICON = "pref_enable_overicon";
     // cm71 nightlies: will be re-enabled there
     //private static final String PREF_REVERSE_VOLUME_BEHAVIOR = "pref_reverse_volume_behavior";
     private static final String PREF_GENERAL_CATEGORY = "pref_general_category";
@@ -84,7 +86,9 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private CheckBoxPreference mDisableLockscreen;
     private CheckBoxPreference mDisableFullscreen;
     private CheckBoxPreference mExtendPm;
+    private CheckBoxPreference mNaviButtonColorEnable;
     private Preference mNaviBarColor;
+    private Preference mNaviButtonColor;
     private Preference mSquadzone;
     private ListPreference mNavisize;
     private ListPreference mTransparentNaviBarPref;
@@ -117,9 +121,15 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mDisableFullscreen = (CheckBoxPreference) prefSet.findPreference(PREF_DISABLE_FULLSCREEN);
         mUnhideButton = (ListPreference) prefSet.findPreference(PREF_UNHIDE_BUTTON);
         mExtendPm = (CheckBoxPreference) prefSet.findPreference(PREF_EXTEND_PM);
+        mNaviButtonColorEnable = (CheckBoxPreference) prefSet.findPreference(PREF_ENABLE_OVERICON);
+        mNaviButtonColorEnable.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.ENABLE_OVERICON_COLOR, 1) == 1));
 
         mNaviBarColor = (Preference) prefSet.findPreference(PREF_NAVI_BAR_COLOR);
         mNaviBarColor.setOnPreferenceChangeListener(this);
+
+        mNaviButtonColor = (Preference) prefSet.findPreference(PREF_NAVI_BUTTON_COLOR);
+        mNaviButtonColor.setOnPreferenceChangeListener(this);
 
         mNavisize = (ListPreference) prefSet.findPreference(PREF_NAVISIZE);
         mNavisize.setOnPreferenceChangeListener(this);
@@ -137,6 +147,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 Settings.System.NAVI_BAR_COLOR, 0xFF38FF00);
         mNaviBarColor.setSummary(Integer.toHexString(naviBarColor));
         mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
+
+        int naviButtonColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.OVERICON_COLOR, 0xFF38FF00);
+        mNaviButtonColor.setSummary(Integer.toHexString(naviButtonColor));
+        mNaviButtonColor.setEnabled((Settings.System.getInt(getContentResolver(),
+                Settings.System.ENABLE_OVERICON_COLOR, 1) == 1));
 
         int defValue;
 
@@ -318,8 +334,18 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             Settings.System.putInt(getContentResolver(), Settings.System.EXTEND_PM,
                     value ? 1 : 0);
             return true;
+        } else if (preference == mNaviButtonColorEnable) {
+            value = mNaviButtonColorEnable.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.ENABLE_OVERICON_COLOR,
+                    value ? 1 : 0);
+            mNaviButtonColor.setEnabled(value ? true : false);
+            return true;
         } else if (preference == mNaviBarColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this, mNaviBarColorListener, getNaviBarColor());
+            cp.show();
+            return true;
+        } else if (preference == mNaviButtonColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this, mNaviButtonColorListener, getNaviButtonColor());
             cp.show();
             return true;
         }
@@ -421,6 +447,25 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                          // we're screwed here fellas
                        }
                     }
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    private int getNaviButtonColor() {
+        try {
+            return Settings.System.getInt(getContentResolver(),
+                     Settings.System.OVERICON_COLOR);
+        } catch (SettingNotFoundException e) {
+            return -16777216;
+        }
+    }
+
+    ColorPickerDialog.OnColorChangedListener mNaviButtonColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(), Settings.System.OVERICON_COLOR, color);
+                mNaviButtonColor.setSummary(Integer.toHexString(color));
             }
             public void colorUpdate(int color) {
             }

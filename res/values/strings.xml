@@ -91,6 +91,8 @@
     <string name="tablet_tweaks_sb_bottom_summary">Show status bar on bottom. Useful for tablets which use soft-buttons for home, menu, etc on status bar</string>
     <string name="tablet_tweaks_sb_navi_title">Navigation bar</string>
     <string name="tablet_tweaks_sb_navi_summary">Enable navigation on bottom</string>
+    <string name="tablet_tweaks_sb_navi_color_title">Button Color</string>
+    <string name="tablet_tweaks_sb_navi_color_summary">Enable color button overide</string>
     <string name="tablet_tweaks_navi_bar_title">Visibility Navigation</string>
     <string name="tablet_tweaks_navi_bar_summaryOn">Visible (Show)</string>
     <string name="tablet_tweaks_navi_bar_summaryOff">Invisible (hide)</string>
@@ -259,6 +261,8 @@
     <string name="ui_status_bar_color_summary">Change the background color</string>
     <string name="ui_navi_bar_color_title">Navigation background color</string>
     <string name="ui_navi_bar_color_summary">Change the background color</string>
+    <string name="ui_navi_button_color_title">Navigation button color</string>
+    <string name="ui_navi_button_color_summary">Change the button color</string>
     <string name="pref_transparent_status_bar_title">Status bar background appearance</string>
     <string name="pref_transparent_status_bar_summary">Change the background image</string>
     <string name="pref_transparent_navi_bar_title">Navigation background appearance</string>
