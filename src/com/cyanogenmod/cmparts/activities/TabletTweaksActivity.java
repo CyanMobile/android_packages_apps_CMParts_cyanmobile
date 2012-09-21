@@ -29,6 +29,7 @@ import android.graphics.Rect;
 import android.view.Window;
 import android.widget.Toast;
 import java.util.ArrayList;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -464,8 +465,20 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     ColorPickerDialog.OnColorChangedListener mNaviButtonColorListener =
         new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {
+                Handler h = new Handler();
+                if (Settings.System.getInt(getContentResolver(), Settings.System.ENABLE_OVERICON_COLOR, 1) == 1) {
+                    Settings.System.putInt(getContentResolver(), Settings.System.ENABLE_OVERICON_COLOR, 2);
+                }
                 Settings.System.putInt(getContentResolver(), Settings.System.OVERICON_COLOR, color);
                 mNaviButtonColor.setSummary(Integer.toHexString(color));
+                h.postDelayed(new Runnable() {
+                   @Override
+                   public void run() {
+                    if (Settings.System.getInt(getContentResolver(), Settings.System.ENABLE_OVERICON_COLOR, 1) == 2) {
+                       Settings.System.putInt(getContentResolver(), Settings.System.ENABLE_OVERICON_COLOR, 1);
+                    }
+                   }
+                }, 100);
             }
             public void colorUpdate(int color) {
             }
