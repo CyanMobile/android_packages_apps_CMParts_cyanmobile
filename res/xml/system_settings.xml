@@ -21,13 +21,13 @@
                 android:targetClass="com.android.development.Development" />
         </PreferenceScreen>
 
-        <!-- Spare Parts -->
+        <!-- Spare Parts 
         <PreferenceScreen android:key="spareparts_settings"
             android:title="@string/spareparts_title" android:summary="@string/spareparts_summary">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.spare_parts"
                 android:targetClass="com.android.spare_parts.SpareParts" />
-        </PreferenceScreen>
+        </PreferenceScreen> -->
 
         <!-- Battery Monitor -->
         <PreferenceScreen android:key="battery_settings"

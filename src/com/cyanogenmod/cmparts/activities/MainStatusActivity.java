@@ -66,6 +66,9 @@ public class MainStatusActivity extends TabActivity {
 		intent = new Intent().setClass(MainStatusActivity.this, UIGraphicActivity.class);
 		setupTab(new TextView(this), getString(R.string.ui_graphicss_title), intent);
 
+		intent = new Intent().setClass(MainStatusActivity.this, SpareParts.class);
+		setupTab(new TextView(this), getString(R.string.ui_spareparts_title), intent);
+
 		intent = new Intent().setClass(MainStatusActivity.this, UIPowerWidgetActivity.class);
 		setupTab(new TextView(this), getString(R.string.title_expanded_widget), intent);
 

@@ -344,6 +344,11 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.SpareParts">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.CallActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

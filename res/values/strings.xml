@@ -156,6 +156,7 @@
 
     <!-- User interface: Status bar tweaks -->
     <string name="ui_graphicss_title">UI tweaks</string>
+    <string name="ui_spareparts_title">SpareParts</string>
     <string name="ui_status_bar_title">Status bar tweaks</string>
     <string name="ui_status_bar_am_pm_title">AM/PM style</string>
     <string name="ui_status_bar_am_pm_summary">Display style of AM/PM next to clock</string>
@@ -1299,10 +1300,43 @@
     <string name="title_pref_powersaving_sync_screen_off_delay">Sync time interval</string>
     <string name="summary_pref_powersaving_sync_screen_off_delay">How long to wait between each forced sync</string>
 
+    <string name="device_info_title">Device info</string>
+    
+    <string name="title_battery_history">Battery history</string>
+    <string name="summary_battery_history">Summary of how battery has been used</string>
+    
+    <string name="title_battery_information">Battery information</string>
+    <string name="summary_battery_information">Current battery status information</string>
+    
+    <string name="title_usage_statistics">Usage statistics</string>
+    <string name="summary_usage_statistics">Summary of application usage</string>
+    
     <string name="title_window_animations">Window animations</string>
     <string name="summary_window_animations">Speed of animations in individual windows</string>
     <string name="dialog_title_window_animations">Select window speed</string>
+    
     <string name="title_transition_animations">Transition animations</string>
     <string name="summary_transition_animations">Speed of animations moving between screens</string>
     <string name="dialog_title_transition_animations">Select transition speed</string>
+    
+    <string name="title_fancy_ime_animations">Fancy input animations</string>
+    <string name="summary_on_fancy_ime_animations">Use fancier animations for input method windows</string>
+    <string name="summary_off_fancy_ime_animations">Use normal animations for input method windows</string>
+    
+    <string name="title_font_size">Font size</string>
+    <string name="summary_font_size">Overall size of fonts</string>
+    <string name="dialog_title_font_size">Select font size</string>
+    
+    <string name="title_end_button">End button behavior</string>
+    <string name="summary_end_button">Select End (red) button action</string>
+    <string name="dialog_title_end_button">Select End button</string>
+    
+    <string name="applications_title">Applications</string>
+    
+    <!-- Sound & display settings screen, compatibility mode check box label -->
+    <string name="compatibility_mode_title">Compatibility Mode</string>
+    <!-- Sound & display settings screen, compatibility mode option summary text when check box is selected -->
+    <string name="compatibility_mode_summary_on">Run older apps in Compatibility mode. (requires reboot)</string>
+    <!-- Sound & display settings screen, compatibility mode option summary text when check box is clear -->
+    <string name="compatibility_mode_summary_off">Don\'t run older apps in Compatibility mode. (requires reboot)</string>
 </resources>
