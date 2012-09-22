@@ -68,8 +68,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private static final String PREF_UNHIDE_BUTTON = "pref_unhide_button";
     private static final String PREF_EXTEND_PM = "pref_extend_pm";
     private static final String PREF_ENABLE_OVERICON = "pref_enable_overicon";
-    // cm71 nightlies: will be re-enabled there
-    //private static final String PREF_REVERSE_VOLUME_BEHAVIOR = "pref_reverse_volume_behavior";
+    private static final String PREF_REVERSE_VOLUME_BEHAVIOR = "pref_reverse_volume_behavior";
+    private static final String PREF_VOLUME_REMAP_BEHAVIOR = "pref_volume_remap_behavior";
     private static final String PREF_GENERAL_CATEGORY = "pref_general_category";
     private static final String PREF_INTERFACE_CATEGORY = "pref_interface_category";
     private static final String PREF_BUTTON_CATEGORY = "pref_button_category";
@@ -93,8 +93,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private Preference mSquadzone;
     private ListPreference mNavisize;
     private ListPreference mTransparentNaviBarPref;
-    // cm71 nightlies: will be re-enabled there
-    //private CheckBoxPreference mReverseVolumeBehavior;
+    private CheckBoxPreference mReverseVolumeBehavior;
+    private CheckBoxPreference mVolumeRemapBehavior;
     private ListPreference mUnhideButton;
     private AlertDialog alertDialog;
 
@@ -125,6 +125,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mNaviButtonColorEnable = (CheckBoxPreference) prefSet.findPreference(PREF_ENABLE_OVERICON);
         mNaviButtonColorEnable.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.ENABLE_OVERICON_COLOR, 1) == 1));
+        mReverseVolumeBehavior = (CheckBoxPreference) prefSet.findPreference(PREF_REVERSE_VOLUME_BEHAVIOR);
+        mVolumeRemapBehavior = (CheckBoxPreference) prefSet.findPreference(PREF_VOLUME_REMAP_BEHAVIOR);
 
         mNaviBarColor = (Preference) prefSet.findPreference(PREF_NAVI_BAR_COLOR);
         mNaviBarColor.setOnPreferenceChangeListener(this);
@@ -184,6 +186,10 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mExtendPm.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.EXTEND_PM, 0) == 1));
         defValue=CmSystem.getDefaultBool(getBaseContext(), CmSystem.CM_DEFAULT_REVERSE_VOLUME_BEHAVIOR)==true ? 1 : 0;
+        mReverseVolumeBehavior.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.REVERSE_VOLUME_BEHAVIOR, defValue) == 1));
+        mVolumeRemapBehavior.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.VOLUME_REMAP_BEHAVIOR, 0) == 1));
 
         defValue=CmSystem.getDefaultInt(getBaseContext(), CmSystem.CM_DEFAULT_UNHIDE_BUTTON_INDEX);
         mUnhideButton.setOnPreferenceChangeListener(this);
@@ -349,6 +355,18 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             ColorPickerDialog cp = new ColorPickerDialog(this, mNaviButtonColorListener, getNaviButtonColor());
             cp.show();
             return true;
+        } else if (preference == mReverseVolumeBehavior) {
+            value = mReverseVolumeBehavior.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.REVERSE_VOLUME_BEHAVIOR,
+                    value ? 1 : 0);
+            updateDependencies();
+            return true;
+        } else if (preference == mVolumeRemapBehavior) {
+            value = mVolumeRemapBehavior.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_REMAP_BEHAVIOR,
+                    value ? 1 : 0);
+            updateDependencies();
+            return true;
         }
 
         return false;
@@ -489,6 +507,19 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             mStatusBarDeadZone.setChecked(false);
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DEAD_ZONE, 0);
         }
+
+        if (mReverseVolumeBehavior.isChecked()) {
+            mReverseVolumeBehavior.setSummary(R.string.tablet_tweaks_reverse_volume_behavior_summary_on);
+        } else {
+            mReverseVolumeBehavior.setSummary(R.string.tablet_tweaks_reverse_volume_behavior_summary_off);
+        }
+
+        if (mVolumeRemapBehavior.isChecked()) {
+            mVolumeRemapBehavior.setSummary(R.string.tablet_tweaks_volume_remap_behavior_summary_on);
+        } else {
+            mVolumeRemapBehavior.setSummary(R.string.tablet_tweaks_volume_remap_behavior_summary_off);
+        }
+
     }
 
     @Override

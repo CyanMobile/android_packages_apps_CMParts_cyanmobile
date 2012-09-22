@@ -118,11 +118,15 @@
                 android:targetPackage="com.cyanogenmod.cmparts"
                 android:targetClass="com.cyanogenmod.cmparts.activities.TabletExtendPmActivity" />
         </PreferenceScreen>
-    <!--  cm71 nightlies: will be re-enabled there
+        <CheckBoxPreference android:key="pref_volume_remap_behavior"
+            android:title="@string/tablet_tweaks_volume_remap_behavior_title"
+            android:summary="@string/tablet_tweaks_volume_remap_behavior_summary_off"
+            android:defaultValue="false" />
         <CheckBoxPreference android:key="pref_reverse_volume_behavior"
+            android:dependency="pref_volume_remap_behavior"
             android:title="@string/tablet_tweaks_reverse_volume_behavior_title"
             android:summary="@string/tablet_tweaks_reverse_volume_behavior_summary_off"
-            android:defaultValue="true" />  -->
+            android:defaultValue="false" />
         <PreferenceScreen android:key="pref_tablet_input"
             android:title="@string/tablet_tweaks_input_head">
             <intent android:action="android.intent.action.MAIN"

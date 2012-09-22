@@ -117,7 +117,9 @@
     <string name="tablet_tweaks_reverse_volume_behavior_title">Volume behavior reverse</string>
     <string name="tablet_tweaks_reverse_volume_behavior_summary_off">Volume buttons behave normal. Press for volume change, long press for user action</string>
     <string name="tablet_tweaks_reverse_volume_behavior_summary_on">Volume buttons behave reversed. Press for user action, long press for volume change</string>
-
+    <string name="tablet_tweaks_volume_remap_behavior_title">Volume Remapping behavior</string>
+    <string name="tablet_tweaks_volume_remap_behavior_summary_off">Disabled</string>
+    <string name="tablet_tweaks_volume_remap_behavior_summary_on">Enabled</string>
     <!-- User interface: Tablet tweaks -> volume remapping -->
     <string name="tablet_tweaks_input_head">Remap volume keys</string>
     <string name="tablet_tweaks_long_volp_action_title">Long press volume up</string>
