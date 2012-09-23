@@ -842,6 +842,18 @@
         <item>Disabled</item>
     </string-array>
 
+    <string-array name="values_expanded_widget_bgr" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="entries_expanded_widget_bgr">
+        <item>Theme</item>
+        <item>Color</item>
+        <item>Transparent</item>
+    </string-array>
+
     <string-array name="values_status_bar_carrier_logo" translatable="false">
         <item>3</item>
         <item>2</item>

@@ -36,6 +36,8 @@ public class UIPowerWidgetActivity extends PreferenceActivity
 
     private static final String UI_EXP_WIDGET = "expanded_widget";
 
+    private static final String UI_EXP_WIDGET_BGR = "expanded_widget_bgr";
+
     private static final String PREF_SQUADZONE = "squadkeys";
 
     private static final String UI_EXP_WIDGET_HIDE_ONCHANGE = "expanded_hide_onchange";
@@ -47,6 +49,8 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private static final String UI_EXP_WIDGET_HAPTIC_FEEDBACK = "expanded_haptic_feedback";
 
     private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
+
+    private static final String UI_EXP_WIDGET_BGR_COLOR = "expanded_bgr_color_mask";
 
     private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
 
@@ -63,6 +67,8 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private static final String POWER_WIDGET_GRID_FOUR = "pref_widget_grid_four";
 
     private ListPreference mPowerWidget;
+
+    private ListPreference mPowerWidgetBgr;
 
     private CheckBoxPreference mMusicWidget;
 
@@ -83,6 +89,8 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private ListPreference mPowerWidgetHapticFeedback;
 
     private Preference mPowerWidgetColor;
+
+    private Preference mPowerWidgetBgrColor;
 
     private PreferenceScreen mPowerPicker;
 
@@ -110,6 +118,11 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mPowerWidget.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
                 Settings.System.EXPANDED_VIEW_WIDGET, 1)));
 
+        mPowerWidgetBgr = (ListPreference) prefSet.findPreference(UI_EXP_WIDGET_BGR);
+        mPowerWidgetBgr.setOnPreferenceChangeListener(this);
+        mPowerWidgetBgr.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
+                Settings.System.TRANSPARENT_PWR_CRR, 0)));
+
         mMusicWidget = (CheckBoxPreference) prefSet.findPreference(MUSIC_WIDGET_BUTTON);
         mPowerWidgetGridOne = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_ONE);
         mPowerWidgetGridTwo = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_TWO);
@@ -126,6 +139,9 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mPowerWidgetHapticFeedback.setOnPreferenceChangeListener(this);
 
         mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
+        mPowerWidgetBgrColor = prefSet.findPreference(UI_EXP_WIDGET_BGR_COLOR);
+        mPowerWidgetBgrColor.setEnabled((Settings.System.getInt(getContentResolver(),
+                    Settings.System.TRANSPARENT_PWR_CRR, 0) == 1));
         mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
         mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
 
@@ -169,6 +185,18 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         if (preference == mPowerWidgetHapticFeedback) {
             int intValue = Integer.parseInt((String)newValue);
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_HAPTIC_FEEDBACK, intValue);
+            return true;
+        } else if (preference == mPowerWidgetBgr) {
+            int intValue = Integer.parseInt((String)newValue);
+            if (intValue != 1) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_PWR_CRR, intValue);
+                try {
+                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                } catch (IOException e) {
+                   // we're screwed here fellas
+                }
+            }
+            mPowerWidgetBgrColor.setEnabled(intValue == 1);
             return true;
         } else if (preference == mPowerWidget) {
             int intsValue = Integer.parseInt((String)newValue);
@@ -256,6 +284,11 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                     readWidgetColor());
             cp.show();
         }
+        if (preference == mPowerWidgetBgrColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this, mWidgetBgrColorListener,
+                    readWidgetBgrColor());
+            cp.show();
+        }
         return true;
     }
 
@@ -272,6 +305,30 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         public void colorChanged(int color) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.EXPANDED_VIEW_WIDGET_COLOR, color);
+        }
+
+        public void colorUpdate(int color) {
+        }
+    };
+
+    private int readWidgetBgrColor() {
+        try {
+            return Settings.System.getInt(getContentResolver(),
+                    Settings.System.PWR_CRR_COLOR);
+        } catch (SettingNotFoundException e) {
+            return -16777216;
+        }
+    }
+
+    ColorPickerDialog.OnColorChangedListener mWidgetBgrColorListener = new ColorPickerDialog.OnColorChangedListener() {
+        public void colorChanged(int color) {
+            Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_PWR_CRR, 1);
+            Settings.System.putInt(getContentResolver(), Settings.System.PWR_CRR_COLOR, color);
+            try {
+                 Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+            } catch (IOException e) {
+               // we're screwed here fellas
+            }
         }
 
         public void colorUpdate(int color) {

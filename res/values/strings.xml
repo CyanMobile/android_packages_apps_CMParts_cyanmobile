@@ -900,7 +900,9 @@
     <!-- Expanded View Power Widget -->
     <string name="title_widget_buttons">Expanded View Widget</string>
     <string name="title_expanded_widget">Notification power widget</string>
+    <string name="title_expanded_widget_bgr">Background power widget</string>
     <string name="summary_expanded_widget">choose style expanded views power widget</string>
+    <string name="summary_expanded_widget_bgr">choose background expanded views power widget</string>
     <string name="title_bottom_expanded_widget">Move to bottom</string>
     <string name="bottom_expanded_widget_summaryOn">Showing power widget on bottom</string>
     <string name="bottom_expanded_widget_summaryOff">Showing power widget on top</string>
@@ -932,6 +934,7 @@
     <string name="title_expanded_hide_scrollbar">Hide scrollbar</string>
     <string name="summary_expanded_hide_scrollbar">Hide scrollbar when more than the maximum number of widget buttons are present.</string>
     <string name="expanded_color_mask">Indicator color</string>
+    <string name="expanded_bgr_color_mask">Background power widget color</string>
     <string name="title_widget_picker">Widget buttons</string>
     <string name="summary_widget_picker">Pick your widget buttons</string>
     <string name="title_widget_order">Widget button order</string>
