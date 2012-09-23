@@ -24,6 +24,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.view.Window;
+import android.provider.MediaStore;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -78,6 +84,8 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
     private PreferenceScreen mFontsPref;
     private CheckBoxPreference mTextGlobalOfColor;
     private Preference mTextFullOfColor;
+    private File mBackgroundAppImage;
+    private File mBackgroundAppImageTmp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +109,8 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mTransparentAppBackgroundPref = (ListPreference) prefSet.findPreference(PREF_TRANSPARENT_APP_BACKGROUND);
         mTransparentAppBackgroundPref.setValue(String.valueOf(transparentAppBackgroundPref));
         mTransparentAppBackgroundPref.setOnPreferenceChangeListener(this);
+        mBackgroundAppImage = new File(getApplicationContext().getFilesDir()+"/aps_background");
+        mBackgroundAppImageTmp = new File(getApplicationContext().getFilesDir()+"/aps_background.tmp");
 
         int appBackgroundColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.BACKGROUND_APP_COLOR, 0xFF38FF00);
@@ -148,8 +158,10 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         String val = newValue.toString();
         if (preference == mTransparentAppBackgroundPref) {
             int transparentAppBackgroundPref = Integer.parseInt(String.valueOf(newValue));
-            Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP,
+            if (transparentAppBackgroundPref == 0) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP,
                                    transparentAppBackgroundPref);
+            }
             int FullBackgroundPref = Settings.System.getInt(getContentResolver(),
                 Settings.System.TRANSPARENT_BACKGROUND_FULL, 0);
             if (FullBackgroundPref == 2) {
@@ -158,10 +170,35 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             mAppBackgroundColor.setEnabled(transparentAppBackgroundPref == 1);
             mTransparentFullBackgroundPref.setEnabled(transparentAppBackgroundPref == 1);
             if (transparentAppBackgroundPref == 2) {
-                Intent intent = new Intent("org.openintents.action.PICK_FILE");
-                intent.setData(Uri.parse("file:///sdcard/"));
-                intent.putExtra("org.openintents.extra.TITLE", "CyanMobile Please select a file");
-                startActivityForResult(intent, REQUEST_CODE_PICK_FILE_BG);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+                intent.setType("image/*");
+                intent.putExtra("crop", "true");
+                intent.putExtra("scale", true);
+                intent.putExtra("scaleUpIfNeeded", false);
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                int width = getWindowManager().getDefaultDisplay().getWidth();
+                int height = getWindowManager().getDefaultDisplay().getHeight();
+                Rect rect = new Rect();
+                Window window = getWindow();
+                window.getDecorView().getWindowVisibleDisplayFrame(rect);
+                int statusBarHeight = rect.top;
+                int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+                int titleBarHeight = contentViewTop - statusBarHeight;
+                boolean isPortrait = getResources().getConfiguration().orientation ==
+                    Configuration.ORIENTATION_PORTRAIT;
+                intent.putExtra("aspectX", isPortrait ? width : height - titleBarHeight);
+                intent.putExtra("aspectY", isPortrait ? height - titleBarHeight : width);
+                try {
+                    mBackgroundAppImageTmp.createNewFile();
+                    mBackgroundAppImageTmp.setWritable(true, false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(mBackgroundAppImageTmp));
+                    intent.putExtra("return-data", false);
+                    startActivityForResult(intent, REQUEST_CODE_PICK_FILE_BG);
+                } catch (IOException e) {
+                    Log.e("Picker", "IOException: ", e);
+                } catch (ActivityNotFoundException e) {
+                    Log.e("Picker", "ActivityNotFoundException: ", e);
+                }
             }
             return true;
 	} else if (preference == mTransparentFullBackgroundPref) {
@@ -282,6 +319,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
     ColorPickerDialog.OnColorChangedListener mBgAppColorListener =
         new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.BACKGROUND_APP_COLOR, color);
                 mAppBackgroundColor.setSummary(Integer.toHexString(color));
             }
@@ -295,18 +333,18 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         Context context = getApplicationContext();
         switch (requestCode) {
             case REQUEST_CODE_PICK_FILE_BG:
-                if (resultCode == RESULT_OK && data != null) {
-                    // obtain the filename
-                    Uri fileUri = data.getData();
-                    if (fileUri != null) {
-                        String filePath = fileUri.getPath();
-                        if (filePath != null) {
-                            Intent mvAppBackgroundImage = new Intent();
-                            mvAppBackgroundImage.setAction(MOVE_APP_BACKGROUND_INTENT);
-                            mvAppBackgroundImage.putExtra("fileNames", filePath);
-                            sendBroadcast(mvAppBackgroundImage);
-                        }
+                if (resultCode != RESULT_OK) {
+                    if (mBackgroundAppImageTmp.exists()) {
+                        mBackgroundAppImageTmp.delete();
                     }
+                    Toast.makeText(context, "CyanMobile Background App not set" ,Toast.LENGTH_LONG).show();
+                } else {
+                   if (mBackgroundAppImageTmp.exists()) {
+                       mBackgroundAppImageTmp.renameTo(mBackgroundAppImage);
+                   }
+                   mBackgroundAppImage.setReadOnly();
+                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP, 2);
+                   Toast.makeText(context, "CyanMobile Background App set to new image" ,Toast.LENGTH_LONG).show();
                 }
             break;
         }

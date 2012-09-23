@@ -99,6 +99,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private AlertDialog alertDialog;
 
     private File navBackgroundImage;
+    private File navBackgroundImageTmp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,6 +146,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mTransparentNaviBarPref.setValue(String.valueOf(transparentNaviBarPref));
         mTransparentNaviBarPref.setOnPreferenceChangeListener(this);
         navBackgroundImage = new File(getApplicationContext().getFilesDir()+"/navb_background");
+        navBackgroundImageTmp = new File(getApplicationContext().getFilesDir()+"/navb_background.tmp");
 
         int naviBarColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.NAVI_BAR_COLOR, 0xFF38FF00);
@@ -391,8 +393,10 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             return true;
         } else if (preference == mTransparentNaviBarPref) {
             int transparentNaviBarPref = Integer.parseInt(String.valueOf(newValue));
-            Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR,
+            if (transparentNaviBarPref != 6) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR,
                           transparentNaviBarPref);
+            }
             mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
             if (transparentNaviBarPref == 6) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
@@ -406,18 +410,16 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 Rect rect = new Rect();
                 Window window = getWindow();
                 window.getDecorView().getWindowVisibleDisplayFrame(rect);
-                int statusBarHeight = rect.top;
-                int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-                int titleBarHeight = contentViewTop - statusBarHeight;
+                int naviBarHeight = Settings.System.getInt(getContentResolver(),
+                      Settings.System.STATUSBAR_NAVI_SIZE, 25);
                 boolean isPortrait = getResources().getConfiguration().orientation ==
                     Configuration.ORIENTATION_PORTRAIT;
-                intent.putExtra("aspectX", isPortrait ? (width + statusBarHeight + statusBarHeight) : statusBarHeight);
-                intent.putExtra("aspectY", isPortrait ? statusBarHeight : (width + statusBarHeight + statusBarHeight));
+                intent.putExtra("aspectX", isPortrait ? (width + naviBarHeight + naviBarHeight) : naviBarHeight);
+                intent.putExtra("aspectY", isPortrait ? naviBarHeight : (width + naviBarHeight + naviBarHeight));
                 try {
-                    navBackgroundImage.createNewFile();
-                    navBackgroundImage.setReadable(true, false);
-                    navBackgroundImage.setWritable(true, false);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(navBackgroundImage));
+                    navBackgroundImageTmp.createNewFile();
+                    navBackgroundImageTmp.setWritable(true, false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(navBackgroundImageTmp));
                     intent.putExtra("return-data", false);
                     startActivityForResult(intent,REQUEST_CODE_BACK_IMAGE);
                 } catch (IOException e) {
@@ -529,15 +531,22 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         switch (requestCode) {
             case REQUEST_CODE_BACK_IMAGE:
                 if (resultCode != RESULT_OK) {
-                    Log.d("Copy_image_Error", "Error: " + resultCode);
-                } else { 
+                    if (navBackgroundImageTmp.exists()) {
+                        navBackgroundImageTmp.delete();
+                    }
+                    Toast.makeText(context, "CyanMobile navibar background not set" ,Toast.LENGTH_LONG).show();
+                } else {
+                   if (navBackgroundImageTmp.exists()) {
+                       navBackgroundImageTmp.renameTo(navBackgroundImage);
+                   }
+                   navBackgroundImage.setReadOnly();
+                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR, 3);
+                   Toast.makeText(context, "CyanMobile navibar background set to new image" ,Toast.LENGTH_LONG).show();
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
                        // we're screwed here fellas
                    }
-                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR, 3);
-                   Toast.makeText(context, "Success set to new image" ,Toast.LENGTH_LONG).show();
                 }
             break;
         }

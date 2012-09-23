@@ -280,8 +280,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private AlertDialog alertDialog;
 
     private File logoBackgroundImage;
-
+    private File logoBackgroundImageTmp;
     private File backBackgroundImage;
+    private File backBackgroundImageTmp;
+    private File mBackgroundNotifImage;
+    private File mBackgroundNotifImageTmp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -446,6 +449,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarCarrierLogoImage.setEnabled(Settings.System.getInt(getContentResolver(),
                 Settings.System.CARRIER_LOGO, 0) != 0);
         logoBackgroundImage = new File(getApplicationContext().getFilesDir()+"/lg_background");
+        logoBackgroundImageTmp = new File(getApplicationContext().getFilesDir()+"/lg_background.tmp");
+
         // brightness
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_BRIGHTNESS_TOGGLE, 0) == 1));
@@ -565,6 +570,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mTransparentStatusBarPref.setValue(String.valueOf(transparentStatusBarPref));
         mTransparentStatusBarPref.setOnPreferenceChangeListener(this);
         backBackgroundImage = new File(getApplicationContext().getFilesDir()+"/bc_background");
+        backBackgroundImageTmp = new File(getApplicationContext().getFilesDir()+"/bc_background.tmp");
 
         int statusBarColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_COLOR, 0);
@@ -576,6 +582,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mTransparentNotificationBackgroundPref = (ListPreference) prefSet.findPreference(PREF_TRANSPARENT_NOTIFICATION_BACKGROUND);
         mTransparentNotificationBackgroundPref.setValue(String.valueOf(transparentNotificationBackgroundPref));
         mTransparentNotificationBackgroundPref.setOnPreferenceChangeListener(this);
+        mBackgroundNotifImage = new File(getApplicationContext().getFilesDir()+"/nb_background");
+        mBackgroundNotifImageTmp = new File(getApplicationContext().getFilesDir()+"/nb_background.tmp");
 
         int notificationBackgroundColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.NOTIFICATION_BACKGROUND_COLOR, 0);
@@ -757,8 +765,10 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mTransparentStatusBarPref) {
             int transparentStatusBarPref = Integer.parseInt(String.valueOf(newValue));
-            Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR,
+            if ((transparentStatusBarPref != 6) || (transparentStatusBarPref != 4)) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR,
                           transparentStatusBarPref);
+            }
             mStatusBarColor.setEnabled(transparentStatusBarPref == 4);
             if (transparentStatusBarPref == 6) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
@@ -780,10 +790,9 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 intent.putExtra("aspectX", isPortrait ? (width + statusBarHeight + statusBarHeight) : statusBarHeight);
                 intent.putExtra("aspectY", isPortrait ? statusBarHeight : (width + statusBarHeight + statusBarHeight));
                 try {
-                    backBackgroundImage.createNewFile();
-                    backBackgroundImage.setReadable(true, false);
-                    backBackgroundImage.setWritable(true, false);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(backBackgroundImage));
+                    backBackgroundImageTmp.createNewFile();
+                    backBackgroundImageTmp.setWritable(true, false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(backBackgroundImageTmp));
                     intent.putExtra("return-data", false);
                     startActivityForResult(intent,REQUEST_CODE_BACK_FILE);
                 } catch (IOException e) {
@@ -807,14 +816,41 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mTransparentNotificationBackgroundPref) {
             int transparentNotificationBackgroundPref = Integer.parseInt(String.valueOf(newValue));
-            Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND,
+            if ((transparentNotificationBackgroundPref != 5) || (transparentNotificationBackgroundPref != 2)) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND,
                                    transparentNotificationBackgroundPref);
+            }
             mNotificationBackgroundColor.setEnabled(transparentNotificationBackgroundPref == 2);
             if (transparentNotificationBackgroundPref == 5) {
-                Intent intent = new Intent("org.openintents.action.PICK_FILE");
-                intent.setData(Uri.parse("file:///sdcard/"));
-                intent.putExtra("org.openintents.extra.TITLE", "CyanMobile Please select a file");
-                startActivityForResult(intent, REQUEST_CODE_PICK_FILE);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+                intent.setType("image/*");
+                intent.putExtra("crop", "true");
+                intent.putExtra("scale", true);
+                intent.putExtra("scaleUpIfNeeded", false);
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                int width = getWindowManager().getDefaultDisplay().getWidth();
+                int height = getWindowManager().getDefaultDisplay().getHeight();
+                Rect rect = new Rect();
+                Window window = getWindow();
+                window.getDecorView().getWindowVisibleDisplayFrame(rect);
+                int statusBarHeight = rect.top;
+                int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+                int titleBarHeight = contentViewTop - statusBarHeight;
+                boolean isPortrait = getResources().getConfiguration().orientation ==
+                    Configuration.ORIENTATION_PORTRAIT;
+                intent.putExtra("aspectX", isPortrait ? width : height - titleBarHeight);
+                intent.putExtra("aspectY", isPortrait ? height - titleBarHeight : width);
+                try {
+                    mBackgroundNotifImageTmp.createNewFile();
+                    mBackgroundNotifImageTmp.setWritable(true, false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(mBackgroundNotifImageTmp));
+                    intent.putExtra("return-data", false);
+                    startActivityForResult(intent, REQUEST_CODE_PICK_FILE);
+                } catch (IOException e) {
+                    Log.e("Picker", "IOException: ", e);
+                } catch (ActivityNotFoundException e) {
+                    Log.e("Picker", "ActivityNotFoundException: ", e);
+                }
             }
             if (transparentNotificationBackgroundPref == 5) {
                 //do nothings
@@ -1052,21 +1088,10 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
                 intent.setType("image/*");
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
-                int width = 32;
-                int height = 32;
-                Rect rect = new Rect();
-                Window window = getWindow();
-                window.getDecorView().getWindowVisibleDisplayFrame(rect);
-                int statusBarHeight = rect.top;
-                int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-                int titleBarHeight = contentViewTop - statusBarHeight;
-                boolean isPortrait = getResources().getConfiguration().orientation ==
-                    Configuration.ORIENTATION_PORTRAIT;
                 try {
-                    logoBackgroundImage.createNewFile();
-                    logoBackgroundImage.setReadable(true, false);
-                    logoBackgroundImage.setWritable(true, false);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(logoBackgroundImage));
+                    logoBackgroundImageTmp.createNewFile();
+                    logoBackgroundImageTmp.setWritable(true, false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(logoBackgroundImageTmp));
                     intent.putExtra("return-data", false);
                     startActivityForResult(intent,REQUEST_CODE_LOGO_FILE);
                 } catch (IOException e) {
@@ -1153,6 +1178,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     SBColorPickerDialog.OnColorChangedListener mStatusBarColorListener =
         new SBColorPickerDialog.OnColorChangedListener() {
             public void SBcolorChanged(int SBcolor) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 4);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COLOR, SBcolor);
                 mStatusBarColor.setSummary(Integer.toHexString(SBcolor));
                    try {
@@ -1177,6 +1203,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     NBColorPickerDialog.OnColorChangedListener mNotificationBackgroundColorListener =
         new NBColorPickerDialog.OnColorChangedListener() {
             public void NBcolorChanged(int NBcolor) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND, 2);
                 Settings.System.putInt(getContentResolver(), Settings.System.NOTIFICATION_BACKGROUND_COLOR, NBcolor);
                 mNotificationBackgroundColor.setSummary(Integer.toHexString(NBcolor));
                    try {
@@ -1411,29 +1438,36 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         Context context = getApplicationContext();
         switch (requestCode) {
             case REQUEST_CODE_PICK_FILE:
-                if (resultCode == RESULT_OK && data != null) {
-                    // obtain the filename
-                    Uri fileUri = data.getData();
-                    if (fileUri != null) {
-                        String filePath = fileUri.getPath();
-                        if (filePath != null) {
-                            Intent mvBackgroundImage = new Intent();
-                            mvBackgroundImage.setAction(MOVE_BACKGROUND_INTENT);
-                            mvBackgroundImage.putExtra("fileName", filePath);
-                            sendBroadcast(mvBackgroundImage);
-                            try {
-                               Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                            } catch (IOException e) {
-                               // we're screwed here fellas
-                            }
-                        }
+                if (resultCode != RESULT_OK) {
+                    if (mBackgroundNotifImageTmp.exists()) {
+                        mBackgroundNotifImageTmp.delete();
                     }
+                    Toast.makeText(context, "CyanMobile window shade background not set" ,Toast.LENGTH_LONG).show();
+                } else {
+                   if (mBackgroundNotifImageTmp.exists()) {
+                       mBackgroundNotifImageTmp.renameTo(mBackgroundNotifImage);
+                   }
+                   mBackgroundNotifImage.setReadOnly();
+                   Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND, 5);
+                   Toast.makeText(context, "CyanMobile window shade background set to new image" ,Toast.LENGTH_LONG).show();
+                   try {
+                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                   } catch (IOException e) {
+                       // we're screwed here fellas
+                   }
                 }
             break;
             case REQUEST_CODE_LOGO_FILE:
                 if (resultCode != RESULT_OK) {
-                    Log.d("Copy_logo_Error", "Error: " + resultCode);
-                } else { 
+                    if (logoBackgroundImageTmp.exists()) {
+                        logoBackgroundImageTmp.delete();
+                    }
+                    Toast.makeText(context, "CyanMobile carrier logo not set" ,Toast.LENGTH_LONG).show();
+                } else {
+                   if (logoBackgroundImageTmp.exists()) {
+                       logoBackgroundImageTmp.renameTo(logoBackgroundImage);
+                   }
+                   logoBackgroundImage.setReadOnly();
                    Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 1);
                    Toast.makeText(context, "CyanMobile carrier logo set to new image" ,Toast.LENGTH_LONG).show();
                    try {
@@ -1445,10 +1479,17 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             break;
             case REQUEST_CODE_BACK_FILE:
                 if (resultCode != RESULT_OK) {
-                    Log.d("Copy_logo_Error", "Error: " + resultCode);
-                } else { 
+                    if (backBackgroundImageTmp.exists()) {
+                        backBackgroundImageTmp.delete();
+                    }
+                    Toast.makeText(context, "CyanMobile statusbar background not set" ,Toast.LENGTH_LONG).show();
+                } else {
+                   if (backBackgroundImageTmp.exists()) {
+                       backBackgroundImageTmp.renameTo(backBackgroundImage);
+                   }
+                   backBackgroundImage.setReadOnly();
                    Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 6);
-                   Toast.makeText(context, "CyanMobile carrier logo set to new image" ,Toast.LENGTH_LONG).show();
+                   Toast.makeText(context, "CyanMobile statusbar background set to new image" ,Toast.LENGTH_LONG).show();
                    try {
                        Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
                    } catch (IOException e) {
