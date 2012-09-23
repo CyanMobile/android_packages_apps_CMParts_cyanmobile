@@ -42,6 +42,7 @@ import android.net.Uri;
 import java.io.FileOutputStream;
 import java.io.File;
 import java.io.IOException;
+import android.widget.Toast;
 
 import com.cyanogenmod.cmparts.R;
 import com.cyanogenmod.cmparts.activities.ColorPickerDialog.OnColorChangedListener;
@@ -195,9 +196,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
                     intent.putExtra("return-data", false);
                     startActivityForResult(intent, REQUEST_CODE_PICK_FILE_BG);
                 } catch (IOException e) {
-                    Log.e("Picker", "IOException: ", e);
                 } catch (ActivityNotFoundException e) {
-                    Log.e("Picker", "ActivityNotFoundException: ", e);
                 }
             }
             return true;
