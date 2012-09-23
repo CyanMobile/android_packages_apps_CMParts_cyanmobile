@@ -16,6 +16,16 @@
         <!-- Electron beam animations -->
         <CheckBoxPreference android:key="electron_beam_animation_on"
             android:title="@string/pref_electron_beam_animation_on" />
+
+        <ListPreference
+                android:key="electron_beam_animation_on_delay"
+                android:dependency="electron_beam_animation_on"
+                android:title="@string/pref_electron_beam_animation_on_delay"
+                android:summary="@string/pref_electron_beam_animation_on_delay_summary"
+                android:entries="@array/entries_pref_electron_beam_animation_on_delay"
+                android:entryValues="@array/entryvalues_pref_electron_beam_animation_on_delay"
+                android:dialogTitle="@string/pref_electron_beam_animation_on_delay" />
+
         <CheckBoxPreference android:key="electron_beam_animation_off"
             android:title="@string/pref_electron_beam_animation_off" />
 

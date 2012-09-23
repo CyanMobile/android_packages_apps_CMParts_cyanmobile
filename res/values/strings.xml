@@ -68,6 +68,8 @@
 
     <string name="pref_electron_beam_animation_on">Screen-on animation</string>
     <string name="pref_electron_beam_animation_off">Screen-off animation</string>
+    <string name="pref_electron_beam_animation_on_delay">Screen-on animation Delay</string>
+    <string name="pref_electron_beam_animation_on_delay_summary">Choose Screen-on animation Delay Time</string>
     <string name="pref_rotation_animation_title">Rotation animation</string>
     <string name="pref_rotation_animation_summary">Requires a reboot</string>
     <string name="lcd_density_title">LCD Density</string>
