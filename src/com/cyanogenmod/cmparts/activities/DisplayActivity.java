@@ -49,6 +49,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
+import android.preference.EditTextPreference;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.widget.EditText;
@@ -57,7 +58,12 @@ import android.text.Spannable;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.IWindowManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.text.InputFilter;
+import android.text.InputFilter.LengthFilter;
+import android.text.TextUtils;
+import android.widget.EditText;
 import com.cyanogenmod.cmparts.utils.CMDProcessor;
 import com.cyanogenmod.cmparts.utils.CMDProcessor.CommandResult;
 import com.cyanogenmod.cmparts.utils.Helpers;
@@ -105,11 +111,17 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
 
     private static final String TRANSITION_ANIMATIONS_PREF = "transition_animations";
 
+    private static final String DISPLAY_CUSTOM_PREF = "display_custom_pref";
+    private static final String PREF_DISPLAY_SIZE_CUSTOM = "pref_display_size_custom";
+    private static final String RESET_DISPLAY_SIZE_PREF = "reset_display_size_pref";
+
     private PreferenceScreen mBacklightScreen;
 
     /* Other */
     private static final String ROTATION_ANIMATION_PROP = "persist.sys.rotationanimation";
+    private static final String DISPLAY_CUSTOM_PROP = "persist.sys.screensizehack";
 
+    private static final String ROTATION_REVERSE_PREF = "pref_rotation_reverse";
     private static final String ROTATION_0_PREF = "pref_rotation_0";
     private static final String ROTATION_90_PREF = "pref_rotation_90";
     private static final String ROTATION_180_PREF = "pref_rotation_180";
@@ -122,6 +134,7 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
 
     private static final int DIALOG_DENSITY = 101;
     private static final int DIALOG_WARN_DENSITY = 102;
+    private static final int DIALOG_WARN_DISPLAY_SIZE = 103;
     private static final int MSG_DATA_CLEARED = 500;
 
     private CheckBoxPreference mElectronBeamAnimationOn;
@@ -141,14 +154,19 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
     private Preference mReboot;
     private Preference mClearMarketData;
     private Preference mSquadzone;
+    private CheckBoxPreference mDisCusPref;
+    private EditTextPreference mDisText;
+    private Preference mResetDisplaySize;
 
     private ListPreference mLcdDensity;
     private AlertDialog alertDialog;
 
+    private CheckBoxPreference mRotationReversePref;
     private CheckBoxPreference mRotation0Pref;
     private CheckBoxPreference mRotation90Pref;
     private CheckBoxPreference mRotation180Pref;
     private CheckBoxPreference mRotation270Pref;
+    private String displaySizeCustom;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -166,6 +184,8 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         super.onCreate(savedInstanceState);
 
         mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
+        DisplayMetrics m = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(m);
 
         setTitle(R.string.display_settings_title_subhead);
         addPreferencesFromResource(R.xml.display_settings);
@@ -228,6 +248,33 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         mLcdDensity.setOnPreferenceChangeListener(this);
         mLcdDensity.setValue(newDensityValue + "");
 
+        mDisCusPref = (CheckBoxPreference) prefSet.findPreference(DISPLAY_CUSTOM_PREF);
+        mDisCusPref.setChecked((Settings.System.getInt(getContentResolver(),
+                    Settings.System.DISPLAY_CUSTOM_SIZES, 0) == 1));
+        mDisText = (EditTextPreference) prefSet.findPreference(PREF_DISPLAY_SIZE_CUSTOM);
+        if (mDisText != null) {
+            EditText customEditDisplay = mDisText.getEditText();
+
+            if (customEditDisplay != null) {
+                InputFilter lengthFilter = new InputFilter.LengthFilter(30);
+                customEditDisplay.setFilters(new InputFilter[]{lengthFilter});
+                customEditDisplay.setSingleLine(true);
+            }
+        }
+        try {
+            displaySizeCustom = SystemProperties.get(DISPLAY_CUSTOM_PROP);
+        } catch (IllegalArgumentException iae) {
+        }
+        if ((displaySizeCustom == null) || TextUtils.equals(displaySizeCustom, "0")) {
+            displaySizeCustom = ("Display size is :\n"+m.heightPixels+"x"+m.widthPixels+"\nIf you want change this, must type sizeHeight x sizeWidth \nwithout space,example 800x480");
+            mDisText.setSummary(displaySizeCustom);
+	} else {
+            mDisText.setSummary(("Display size is :\n"+displaySizeCustom+"\nIf you want change this, must type sizeHeight x sizeWidth \nwithout space,example 800x480"));
+        }
+        mDisText.setText(displaySizeCustom);
+        mDisText.setOnPreferenceChangeListener(this);
+        mResetDisplaySize = (Preference) prefSet.findPreference(RESET_DISPLAY_SIZE_PREF);
+
         mUseBraviaPref = (CheckBoxPreference) prefSet.findPreference(USE_BRAVIA_PREF);
         String useBravia = SystemProperties.get(USE_BRAVIA_PERSIST_PROP, USE_BRAVIA_DEFAULT);
         mUseBraviaPref.setChecked("1".equals(useBravia));
@@ -241,6 +288,10 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         mClearMarketData.setSummary("");
 
         /* Rotation */
+        mRotationReversePref = (CheckBoxPreference) prefSet.findPreference(ROTATION_REVERSE_PREF);
+        mRotationReversePref.setChecked((Settings.System.getInt(getContentResolver(),
+                    Settings.System.REVERSE_ROTATIONS, 0) == 1));
+
         mRotation0Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_0_PREF);
         mRotation90Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_90_PREF);
         mRotation180Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_180_PREF);
@@ -271,18 +322,14 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         if (preference == mUseBraviaPref) {
             value = mUseBraviaPref.isChecked();
             SystemProperties.set(USE_BRAVIA_PERSIST_PROP, value ? "1" : "0");
-            return true;
         }
 
         if (preference == mReboot) {
-            PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-            pm.reboot("Resetting density");
-            return true;
+            doRebooting();
         }
 
         if (preference == mClearMarketData) {
             new ClearMarketDataTask().execute("");
-            return true;
         }
 
         if (preference == mElectronBeamAnimationOff) {
@@ -294,7 +341,29 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         if (preference == mRotationAnimationPref) {
             SystemProperties.set(ROTATION_ANIMATION_PROP,
                     mRotationAnimationPref.isChecked() ? "1" : "0");
-            return true;
+        }
+
+        if (preference == mResetDisplaySize) {
+            resetDisplaySizeSc("0");
+            doRebooting();
+        }
+
+        if (preference == mDisCusPref) {
+            value = mDisCusPref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.DISPLAY_CUSTOM_SIZES, value ? 1 : 0);
+        }
+
+        if (preference == mRotationReversePref) {
+            value = mRotationReversePref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.REVERSE_ROTATIONS, value ? 1 : 0);
+            String revRot = "Reverse rotation";
+            String unRevrot = "Normal rotation";
+            mRotation0Pref.setSummary(value ? revRot : unRevrot);
+            mRotation90Pref.setSummary(value ? revRot : unRevrot);
+            mRotation180Pref.setSummary(value ? revRot : unRevrot);
+            mRotation270Pref.setSummary(value ? revRot : unRevrot);
         }
 
         if (preference == mRotation0Pref ||
@@ -336,23 +405,22 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
                         .setTitle("Set custom density")
                         .setView(textEntryView)
                         .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 EditText dpi = (EditText) textEntryView.findViewById(R.id.dpi_edit);
                                 Editable text = dpi.getText();
                                 Log.i(TAG, text.toString());
-
                                 try {
                                     newDensityValue = Integer.parseInt(text.toString());
                                     showDialog(DIALOG_WARN_DENSITY);
                                 } catch (Exception e) {
                                     mLcdDensity.setSummary("INVALID DENSITY!");
                                 }
-
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog, int whichButton) {
-
                                 dialog.dismiss();
                             }
                         }).create();
@@ -363,19 +431,42 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
                                 "Changing your LCD density can cause unexpected app behavior and cause incompatibility issues with the market. If this occurs, you need to change your density back, reboot, then clear your market data.")
                         .setCancelable(false)
                         .setPositiveButton("Got it!", new DialogInterface.OnClickListener() {
-
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 setLcdDensity(newDensityValue);
                                 dialog.dismiss();
                                 mLcdDensity.setSummary(newDensityValue + "");
-
                             }
                         })
                         .setNegativeButton("Return to safety",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                        .create();
+            case DIALOG_WARN_DISPLAY_SIZE:
+                return new AlertDialog.Builder(this)
+                        .setTitle("WARNING!")
+                        .setMessage(
+                                "Changing your LCD display size can cause unexpected app behavior. If this occurs, you need to change your LCD display size back\nIf you can\'t, you need to wipe data!")
+                        .setCancelable(false)
+                        .setPositiveButton("Got it! (Reboot)", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                setDisplaySizeSc(displaySizeCustom);
+                                dialog.dismiss();
+                                mDisText.setText(displaySizeCustom);
+                                mDisText.setSummary(("Display size is :\n"+displaySizeCustom+"\nIf you want change this, must type sizeHeight x sizeWidth \nwithout space,example 800x480"));
+                                doRebooting();
+                            }
+                        })
+                        .setNegativeButton("Return to safety",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        displaySizeCustom = null;
                                         dialog.dismiss();
                                     }
                                 })
@@ -400,6 +491,10 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
             return true;
         } else if (preference == mTransitionAnimationsPref) {
             writeAnimationPreference(1, newValue);
+            return true;
+        } else if (preference == mDisText) {
+            displaySizeCustom = String.valueOf(newValue);
+            showDialog(DIALOG_WARN_DISPLAY_SIZE);
             return true;
         } else if (preference == mElectronBeamAnimationOnPref) {
             int electronBeamAnimation = Integer.valueOf((String) newValue);
@@ -470,6 +565,33 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
             mClearMarketData.setSummary(result ? "Market data cleared."
                     : "Market data couldn't be cleared, please clear it yourself!");
         }
+    }
+
+    private void resetDisplaySize() {
+        new CMDProcessor().su.runWaitFor("am display-size reset");
+    }
+
+    private void setDisplaySize(String customSize) {
+        new CMDProcessor().su.runWaitFor("am display-size "+ customSize);
+    }
+
+    private void resetDisplaySizeSc(String customSizeReal) {
+        try {
+             SystemProperties.set(DISPLAY_CUSTOM_PROP, customSizeReal);
+        } catch (IllegalArgumentException iae) {
+        }
+    }
+
+    private void setDisplaySizeSc(String customSizeN) {
+        try{
+            SystemProperties.set(DISPLAY_CUSTOM_PROP, customSizeN);
+        } catch (IllegalArgumentException iae) {
+        }
+    }
+
+    private void doRebooting() {
+       PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+       pm.reboot("Resetting lcd");
     }
 
     private void setLcdDensity(int newDensity) {

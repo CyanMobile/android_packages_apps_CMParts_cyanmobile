@@ -85,7 +85,12 @@
     <string name="pref_vibrate_on_shutdown_summary">Whether to vibrate on shutdown or not</string>
     <string name="pref_animate_on_shutdown_title">Enable Animation on shutdown</string>
     <string name="pref_animate_on_shutdown_summary">Whether to enable animation on shutdown or not</string>
-
+    <string name="display_custom_category_title">LCD Display size Option</string>
+    <string name="display_custom_pref_title">Display Option</string>
+    <string name="display_custom_pref_summary">Enable/disable display size option</string>
+    <string name="pref_display_size_custom_title">Changing display size</string>
+    <string name="reset_display_size_pref_title">Reset Display size</string>
+    <string name="reset_display_size_pref_summary">Reset Display size to default (Auto reboot)</string>
     <!-- User interface: Tablet tweaks -->
     <string name="tablet_tweaks_title_head">Tablet tweaks</string>
     <string name="tablet_tweaks_summary_head">Settings most useful for tablet devices collected in one place. Also working for phones</string>
@@ -153,6 +158,8 @@
 
     <!-- User interface : Rotation -->
     <string name="rotation_category_title">Accelerometer rotation</string>
+    <string name="pref_rotation_reverse_title">Reverse rotation</string>
+    <string name="pref_rotation_reverse_summary">enable/disable reverse rotation display\n Use this if device has wrong rotation</string>
     <string name="pref_rotation_0_title">0 degrees</string>
     <string name="pref_rotation_90_title">90 degrees</string>
     <string name="pref_rotation_180_title">180 degrees</string>
