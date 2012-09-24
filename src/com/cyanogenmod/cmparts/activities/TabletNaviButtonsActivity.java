@@ -16,6 +16,9 @@
 
 package com.cyanogenmod.cmparts.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +47,7 @@ public class TabletNaviButtonsActivity extends PreferenceActivity implements OnP
     private ListPreference mNaviButtonsBack;
     private ListPreference mNaviButtonsSearch;
     private ListPreference mNaviButtonsQuicker;
+    private AlertDialog alertDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,22 @@ public class TabletNaviButtonsActivity extends PreferenceActivity implements OnP
         mNaviButtonsQuicker.setOnPreferenceChangeListener(this);
     }
 
+    private void mDialogShow() {
+        // Set up the warning
+        alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("CyanMobile Notice");
+        alertDialog.setMessage("Long press on Power keys (Hardware) now has been disabled");
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                getResources().getString(com.android.internal.R.string.ok),
+                new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+        
+        alertDialog.show();
+   }
+
     public boolean onPreferenceChange(Preference preference, Object newValue) {
 
         /* Preference Screens */
@@ -92,26 +112,41 @@ public class TabletNaviButtonsActivity extends PreferenceActivity implements OnP
             int ButtonsHomePref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTON_SHOW_HOME,
                           ButtonsHomePref);
+            if (ButtonsHomePref == 7) {
+               mDialogShow();
+            }
             return true;
         } else if (preference == mNaviButtonsMenu) {
             int ButtonsMenuPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTON_SHOW_MENU,
                           ButtonsMenuPref);
+            if (ButtonsMenuPref == 7) {
+               mDialogShow();
+            }
             return true;
         } else if (preference == mNaviButtonsBack) {
             int ButtonsBackPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTON_SHOW_BACK,
                           ButtonsBackPref);
+            if (ButtonsBackPref == 7) {
+               mDialogShow();
+            }
             return true;
         } else if (preference == mNaviButtonsSearch) {
             int ButtonsSearchPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTON_SHOW_SEARCH,
                           ButtonsSearchPref);
+            if (ButtonsSearchPref == 7) {
+               mDialogShow();
+            }
             return true;
         } else if (preference == mNaviButtonsQuicker) {
             int ButtonsQuickerPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTON_SHOW_QUICKER,
                           ButtonsQuickerPref);
+            if (ButtonsQuickerPref == 6) {
+               mDialogShow();
+            }
             return true;
         }
         return false;

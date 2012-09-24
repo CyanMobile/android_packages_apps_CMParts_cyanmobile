@@ -1338,6 +1338,7 @@
         <item>Menu</item>
         <item>Quick</item>
         <item>Custom app</item>
+        <item>Power</item>
     </string-array>
 
     <string-array name="values_tablet_navi_buttons">
@@ -1348,6 +1349,7 @@
         <item>4</item>
         <item>5</item>
         <item>6</item>
+        <item>7</item>
     </string-array>
     
     <string-array name="entries_tablet_soft_buttons">
@@ -1373,6 +1375,7 @@
         <item>Menu</item>
         <item>Quick</item>
         <item>Custom app</item>
+        <item>Power</item>
     </string-array>
 
     <string-array name="values_tablet_navi_buttons_quicker">
@@ -1382,6 +1385,7 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>6</item>
     </string-array>
 
     <string-array name="values_transparent_notification_background">
