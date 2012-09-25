@@ -514,7 +514,9 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 	mStatusBarBatteryColor.setValue(Settings.System.getString(getContentResolver(),
                 Settings.System.STATUS_BAR_BATTERY_COLOR));
         mStatusBarBatteryColor.setOnPreferenceChangeListener(this);
-        mStatusBarBatteryColor.setEnabled(statusBarBattery == 3 || statusBarBattery == 4 || statusBarBattery == 5 || statusBarBattery == 6);
+        mStatusBarBatteryColor.setEnabled(statusBarBattery == 3 ||
+                 statusBarBattery == 4 || statusBarBattery == 5 ||
+                 statusBarBattery == 6 || statusBarBattery == 7);
 
         int signalStyle = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 0);
@@ -652,6 +654,19 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                    }
                 } else {
                   Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 6);
+                }
+                mStatusBarBatteryStyle.setEnabled(false);
+                mStatusBarBatteryColor.setEnabled(true);
+            } else if (statusBarBattery == 7) {
+                if (StatusStyle) {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 7);
+                   try {
+                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+                   } catch (IOException e) {
+                     // we're screwed here fellas
+                   }
+                } else {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 7);
                 }
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(true);
