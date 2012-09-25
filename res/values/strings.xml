@@ -292,6 +292,15 @@
     <string name="pref_transparent_full_background_title">Windows option</string>
     <string name="pref_transparent_full_background_summary">Choose windows option for changing background</string>
 
+    <string name="ui_status_bar_more_expand_title">Power Expanded bar</string>
+    <string name="ui_status_bar_more_expand_summary">Enable/disable power expanded statusbar</string>
+    <string name="ui_status_bar_tiny_expanded_title">Tiny Expanded bar</string>
+    <string name="ui_status_bar_tiny_expanded_summary">Enable/disable tiny expanded statusbar</string>
+    <string name="ui_status_bar_expanded_title">Tiny Expanded size</string>
+    <string name="ui_status_bar_expanded_summary">Change tiny size</string>
+    <string name="ui_status_bar_settingscolor_title">Closedrag Glow color</string>
+    <string name="ui_status_bar_settingscolor_summary">Change the closedrag glow color</string>
+
     <!-- User interface: Text color tweaks -->
     <string name="ui_status__date_color_title">Date color</string>
     <string name="ui_status_bar_date_color_summary">Change the date color</string>

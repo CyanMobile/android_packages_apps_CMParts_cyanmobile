@@ -206,11 +206,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
-                        try {
-                            Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                        } catch (IOException e) {
-                           // we're screwed here fellas
-                        }
+                        restartStatusBar();
                     }
             })
             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -258,11 +254,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                      Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 1);
                      mStatusBarNavi.setChecked(false);
                      updateDependencies();
-                     try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                     } catch (IOException e) {
-                       // we're screwed here fellas
-                     }
+                     restartStatusBar();
                  } else {
                      Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 1);
                      mStatusBarNavi.setChecked(false);
@@ -276,28 +268,16 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             value = mStatusBarSoft.isChecked();
             if (value)  {
                Settings.System.putInt(getContentResolver(), Settings.System.USE_SOFT_BUTTONS, 1);
-               try {
-                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-               } catch (IOException e) {
-                  // we're screwed here fellas
-               }
+               restartStatusBar();
             } else {
                Settings.System.putInt(getContentResolver(), Settings.System.USE_SOFT_BUTTONS, 0);
-               try {
-                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-               } catch (IOException e) {
-                  // we're screwed here fellas
-               }
+               restartStatusBar();
             }
             return true;
         } else if (preference == mStatusBarNavi) {
             value = mStatusBarNavi.isChecked();
             if (value)  {
-               try {
-                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-               } catch (IOException e) {
-                  // we're screwed here fellas
-               }
+               restartStatusBar();
                Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BOTTOM, 0);
@@ -306,11 +286,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             } else {
                Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.SHOW_NAVI_BUTTONS, 0);
-               try {
-                  Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-               } catch (IOException e) {
-                  // we're screwed here fellas
-               }
+               restartStatusBar();
             }
             return true;
         } else if (preference == mNaviBar) {
@@ -383,11 +359,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             int NaviSize = Integer.valueOf((String) newValue);
             if (Settings.System.getInt(getContentResolver(),
                              Settings.System.NAVI_BUTTONS, 0) == 1) {
-                try {
-                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                   // we're screwed here fellas
-                }
+                restartStatusBar();
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
             }
             return true;
@@ -433,17 +405,21 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 } else {
                   if (Settings.System.getInt(getContentResolver(),
                              Settings.System.NAVI_BUTTONS, 0) == 1) {
-                    try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                    } catch (IOException e) {
-                      // we're screwed here fellas
-                    }
+                    restartStatusBar();
                   }
                 }
             }
             return true;
         }
         return false;
+    }
+
+    private void restartStatusBar() {
+        try {
+            Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+        } catch (IOException e) {
+           // we're screwed here fellas
+        }
     }
 
     private int getNaviBarColor() {
@@ -462,11 +438,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 mNaviBarColor.setSummary(Integer.toHexString(color));
                     if (Settings.System.getInt(getContentResolver(),
                               Settings.System.NAVI_BUTTONS, 0) == 1) {
-                       try {
-                          Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                       } catch (IOException e) {
-                         // we're screwed here fellas
-                       }
+                       restartStatusBar();
                     }
             }
             public void colorUpdate(int color) {
@@ -542,11 +514,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                    navBackgroundImage.setReadOnly();
                    Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR, 3);
                    Toast.makeText(context, "CyanMobile navibar background set to new image" ,Toast.LENGTH_LONG).show();
-                   try {
-                       Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                   } catch (IOException e) {
-                       // we're screwed here fellas
-                   }
+                   restartStatusBar();
                 }
             break;
         }

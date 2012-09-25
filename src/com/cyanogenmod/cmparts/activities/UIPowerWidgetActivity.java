@@ -190,11 +190,7 @@ public class UIPowerWidgetActivity extends PreferenceActivity
             int intValue = Integer.parseInt((String)newValue);
             if (intValue != 1) {
                 Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_PWR_CRR, intValue);
-                try {
-                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                   // we're screwed here fellas
-                }
+                restartStatusBar();
             }
             mPowerWidgetBgrColor.setEnabled(intValue == 1);
             return true;
@@ -206,21 +202,13 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 6);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 1);
-                try {
-                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                   // we're screwed here fellas
-                }
+               restartStatusBar();
             } else if (intsValues == 4) {
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0);
-                try {
-                   Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-                } catch (IOException e) {
-                   // we're screwed here fellas
-                }
+               restartStatusBar();
             }
             return true;
         }
@@ -292,6 +280,14 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         return true;
     }
 
+    private void restartStatusBar() {
+        try {
+            Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
+        } catch (IOException e) {
+           // we're screwed here fellas
+        }
+    }
+
     private int readWidgetColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
@@ -324,11 +320,7 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         public void colorChanged(int color) {
             Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_PWR_CRR, 1);
             Settings.System.putInt(getContentResolver(), Settings.System.PWR_CRR_COLOR, color);
-            try {
-                 Runtime.getRuntime().exec("pkill -TERM -f  com.android.systemui");
-            } catch (IOException e) {
-               // we're screwed here fellas
-            }
+            restartStatusBar();
         }
 
         public void colorUpdate(int color) {
