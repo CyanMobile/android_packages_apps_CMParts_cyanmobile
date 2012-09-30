@@ -101,6 +101,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
 
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
+        int defValuesColor = getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
 
         mAppBackgroundColor = (Preference) prefSet.findPreference(PREF_APP_BACKGROUND_COLOR);
         mAppBackgroundColor.setOnPreferenceChangeListener(this);
@@ -114,7 +115,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mBackgroundAppImageTmp = new File(getApplicationContext().getFilesDir()+"/aps_background.tmp");
 
         int appBackgroundColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.BACKGROUND_APP_COLOR, 0xFF38FF00);
+                Settings.System.BACKGROUND_APP_COLOR, defValuesColor);
         mAppBackgroundColor.setSummary(Integer.toHexString(appBackgroundColor));
         mAppBackgroundColor.setEnabled(transparentAppBackgroundPref == 1);
 
@@ -238,10 +239,8 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             if (mOverscrollColor.findIndexOfValue(val)==0){
                 Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_COLOR, 0);
             }else{
-                int overscrollColor = Settings.System.getInt(getContentResolver(),
-                        Settings.System.OVERSCROLL_COLOR, 0xFF38FF00);
                 ColorPickerDialog cp = new ColorPickerDialog(this,mPackageColorListener,
-                        overscrollColor);
+                        getPackageColorColor());
                 cp.show();
             }
             return true;
@@ -305,6 +304,15 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         public void colorUpdate(int color) {
         }
     };
+
+    private int getPackageColorColor() {
+        try {
+            return Settings.System.getInt(getContentResolver(),
+                     Settings.System.OVERSCROLL_COLOR);
+        } catch (SettingNotFoundException e) {
+            return -16777216;
+        }
+    }
 
     private int getBgAppColor() {
         try {

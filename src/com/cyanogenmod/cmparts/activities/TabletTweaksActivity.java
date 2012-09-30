@@ -112,6 +112,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
+        int defValuesColor = getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
+        int defValuesNaviSize = getResources().getInteger(com.android.internal.R.integer.config_navibarsize_default_cyanmobile);
 
         mStatusBarBottom = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_BOTTOM);
         mStatusBarNavi = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_NAVI);
@@ -138,7 +140,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mNavisize = (ListPreference) prefSet.findPreference(PREF_NAVISIZE);
         mNavisize.setOnPreferenceChangeListener(this);
         mNavisize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_NAVI_SIZE, 25)));
+                Settings.System.STATUSBAR_NAVI_SIZE, defValuesNaviSize)));
 
         int transparentNaviBarPref = Settings.System.getInt(getContentResolver(),
                 Settings.System.TRANSPARENT_NAVI_BAR, 0);
@@ -149,12 +151,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         navBackgroundImageTmp = new File(getApplicationContext().getFilesDir()+"/navb_background.tmp");
 
         int naviBarColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.NAVI_BAR_COLOR, 0xFF38FF00);
+                Settings.System.NAVI_BAR_COLOR, defValuesColor);
         mNaviBarColor.setSummary(Integer.toHexString(naviBarColor));
         mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
 
         int naviButtonColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.OVERICON_COLOR, 0xFF38FF00);
+                Settings.System.OVERICON_COLOR, defValuesColor);
         mNaviButtonColor.setSummary(Integer.toHexString(naviButtonColor));
         mNaviButtonColor.setEnabled((Settings.System.getInt(getContentResolver(),
                 Settings.System.ENABLE_OVERICON_COLOR, 1) == 1));

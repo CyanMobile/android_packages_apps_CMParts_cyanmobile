@@ -315,6 +315,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
+        int defValuesColor = getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
+        int defValuesFontSize = getResources().getInteger(com.android.internal.R.integer.config_fontsize_default_cyanmobile);
+        int defValuesIconSize = getResources().getInteger(com.android.internal.R.integer.config_iconsize_default_cyanmobile);
+        int defValuesStatsSize = getResources().getInteger(com.android.internal.R.integer.config_statbarsize_default_cyanmobile);
+        int defValuesTinyExpSize = getResources().getInteger(com.android.internal.R.integer.config_tinyexpsize_default_cyanmobile);
 
         mStatusBarClock = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_CLOCK);
         int clockAct = Settings.System.getInt(getContentResolver(),
@@ -344,7 +349,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
         mStatusBarExpanded = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_EXPANDED);
         int expandedAct = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_EXPANDED_SIZE, 40);
+                Settings.System.STATUSBAR_EXPANDED_SIZE, defValuesTinyExpSize);
         mStatusBarExpanded.setValue(String.valueOf(expandedAct));
         mStatusBarExpanded.setOnPreferenceChangeListener(this);
 
@@ -405,27 +410,27 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mClockFontsize = (ListPreference) prefSet.findPreference(PREF_CLOCKFONTSIZE);
         mClockFontsize.setOnPreferenceChangeListener(this);
         mClockFontsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_CLOCK_FONT_SIZE, 11)));
+                Settings.System.STATUSBAR_CLOCK_FONT_SIZE, defValuesFontSize)));
         // carrier font size
         mCarrierFontsize = (ListPreference) prefSet.findPreference(PREF_CARRIERFONTSIZE);
         mCarrierFontsize.setOnPreferenceChangeListener(this);
         mCarrierFontsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_CARRIER_FONT_SIZE, 11)));
+                Settings.System.STATUSBAR_CARRIER_FONT_SIZE, defValuesFontSize)));
         // icon font size
         mIconFontsize = (ListPreference) prefSet.findPreference(PREF_ICONFONTSIZE);
         mIconFontsize.setOnPreferenceChangeListener(this);
         mIconFontsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_ICON_FONT_SIZE, 11)));
+                Settings.System.STATUSBAR_ICON_FONT_SIZE, defValuesFontSize)));
         // icon size
         mIconsize = (ListPreference) prefSet.findPreference(PREF_ICONSIZE);
         mIconsize.setOnPreferenceChangeListener(this);
         mIconsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_ICONS_SIZE, 25)));
+                Settings.System.STATUSBAR_ICONS_SIZE, defValuesIconSize)));
 
         mStatsize = (ListPreference) prefSet.findPreference(PREF_STATSIZE);
         mStatsize.setOnPreferenceChangeListener(this);
         mStatsize.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUSBAR_STATS_SIZE, 25)));
+                Settings.System.STATUSBAR_STATS_SIZE, defValuesStatsSize)));
 
         // wifi
         mStatusBarCmWifiPref.setChecked((Settings.System.getInt(getContentResolver(),
@@ -590,11 +595,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 statusBarCarrierLabel == 3);
 
         int clockColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCKCOLOR, 0xFF38FF00);
+                Settings.System.STATUS_BAR_CLOCKCOLOR, defValuesColor);
         mStatusBarClockColor.setSummary(Integer.toHexString(clockColor));
 
         int carrierColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CARRIERCOLOR, 0xFF38FF00);
+                Settings.System.STATUS_BAR_CARRIERCOLOR, defValuesColor);
         mStatusBarCarrierColor.setSummary(Integer.toHexString(carrierColor));
 
         int transparentStatusBarPref = Settings.System.getInt(getContentResolver(),
