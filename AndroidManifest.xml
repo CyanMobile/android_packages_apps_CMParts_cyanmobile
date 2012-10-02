@@ -123,6 +123,13 @@
                 <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.UIActivityGlobal"
+            android:label="@string/ui_powertitle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.UIPowerWidgetActivity"
             android:label="@string/title_expanded_widget">
             <intent-filter>

@@ -57,24 +57,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String GENERAL_CATEGORY = "general_category";
 
-    private static final String PREF_PROFILE = "profile_dialog_prompt";
-
-    private static final String PREF_SILENT = "silent_dialog_prompt";
-
-    private static final String PREF_EXTEND = "extend_dialog_prompt";
-
-    private static final String PREF_AIRPLANE = "airplane_dialog_prompt";
-
-    private static final String PREF_POWER_SAVER = "powersaver_dialog_prompt";
-
-    private static final String PREF_SCREENSHOT = "screenshot_dialog_prompt";
-
-    private static final String PREF_SUSPEND = "suspend_dialog_prompt";
-
-    private static final String PREF_HIBERNATE = "hibernate_dialog_prompt";
-
-    private static final String PREF_NAVBAR = "navbar_dialog_prompt";
-
     /* private static final String HIDE_AVATAR_MESSAGE_PREF = "pref_hide_avatar_message"; */
 
     private PreferenceScreen mStatusBarScreen;
@@ -84,25 +66,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
     private PreferenceScreen mTrackballScreen;;
 
     private PreferenceScreen mExtrasScreen;
-
-    private CheckBoxPreference mShowProfile;
-
-    private CheckBoxPreference mShowSilent;
-
-    private CheckBoxPreference mShowExtend;
-
-    private CheckBoxPreference mShowAirplane;
-
-    private CheckBoxPreference mShowScreenshot;
-
-    private CheckBoxPreference mShowPowersaver;
-
-    private CheckBoxPreference mShowSuspend;
-
-    private CheckBoxPreference mShowHibernate;
-
-    private CheckBoxPreference mShowNavbar;
-    /* private CheckBoxPreference mHideAvatarMessage; */
 
     /* Other */
     private static final String BOOTANIMATION_PREF = "pref_bootanimation";
@@ -123,13 +86,9 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
 
     private static final String RENDER_EFFECT_PREF = "pref_render_effect";
 
-    private static final String POWER_PROMPT_PREF = "power_dialog_prompt";
-
     private static final String SHARE_SCREENSHOT_PREF = "pref_share_screenshot";
 
     private CheckBoxPreference mPinchReflowPref;
-
-    private CheckBoxPreference mPowerPromptPref;
 
     private ListPreference mRenderEffectPref;
 
@@ -219,50 +178,9 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         mPinchReflowPref.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.WEB_VIEW_PINCH_REFLOW, 0) == 1);
 
-        mPowerPromptPref = (CheckBoxPreference) prefSet.findPreference(POWER_PROMPT_PREF);
         mRenderEffectPref = (ListPreference) prefSet.findPreference(RENDER_EFFECT_PREF);
         mRenderEffectPref.setOnPreferenceChangeListener(this);
         updateFlingerOptions();
-
-        mShowProfile = (CheckBoxPreference) findPreference(PREF_PROFILE);
-        mShowProfile.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_PROFILE, 0) == 1);
-
-        mShowSilent = (CheckBoxPreference) findPreference(PREF_SILENT);
-        mShowSilent.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_SILENT, 1) == 1);
-
-        mShowExtend = (CheckBoxPreference) findPreference(PREF_EXTEND);
-        mShowExtend.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_EXTEND, 1) == 1);
-
-        mShowAirplane = (CheckBoxPreference) findPreference(PREF_AIRPLANE);
-        mShowAirplane.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_AIRPLANE, 1) == 1);
-
-        mShowScreenshot = (CheckBoxPreference) findPreference(PREF_SCREENSHOT);
-        mShowScreenshot.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 1) == 1);
-
-        mShowSuspend = (CheckBoxPreference) findPreference(PREF_SUSPEND);
-        mShowSuspend.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_SUSPEND, 1) == 1);
-
-        mShowHibernate = (CheckBoxPreference) findPreference(PREF_HIBERNATE);
-        mShowHibernate.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_HIBERNATE, 1) == 1);
-
-        mShowNavbar = (CheckBoxPreference) findPreference(PREF_NAVBAR);
-        mShowNavbar.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_NAVI, 1) == 1);
-
-        /* mHideAvatarMessage = (CheckBoxPreference) findPreference(HIDE_AVATAR_MESSAGE_PREF);
-        mHideAvatarMessage.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.HIDE_AVATAR_MESSAGE, 0) == 1); */
-
-        mShowPowersaver = (CheckBoxPreference) findPreference(PREF_POWER_SAVER);
-        mShowPowersaver.setChecked(Settings.Secure.getInt(getContentResolver(),
-                Settings.Secure.POWER_DIALOG_SHOW_POWER_SAVER, 0) == 1);
 
         /* Share Screenshot */
         mShareScreenshotPref = (CheckBoxPreference) prefSet.findPreference(SHARE_SCREENSHOT_PREF);
@@ -295,61 +213,6 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
         } else if (preference == mShareScreenshotPref) {
             value = mShareScreenshotPref.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.SHARE_SCREENSHOT,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mPowerPromptPref) {
-            value = mPowerPromptPref.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowProfile) {
-            value = mShowProfile.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_PROFILE,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowSilent) {
-            value = mShowSilent.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SILENT,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowExtend) {
-            value = mShowExtend.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_EXTEND,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowAirplane) {
-            value = mShowAirplane.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_AIRPLANE,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowSuspend) {
-            value = mShowSuspend.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SUSPEND,
-                    value ? 1 : 0);
-            return true;
-        /* } else if (preference == mHideAvatarMessage) {
-            value = mHideAvatarMessage.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.HIDE_AVATAR_MESSAGE,
-                    value ? 1 : 0);
-            return true; */
-        } else if (preference == mShowHibernate) {
-            value = mShowHibernate.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_HIBERNATE,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowNavbar) {
-            value = mShowNavbar.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_NAVI,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowScreenshot) {
-            value = mShowScreenshot.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_SHOW_SCREENSHOT,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mShowPowersaver) {
-            value = mShowPowersaver.isChecked();
-            Settings.Secure.putInt(getContentResolver(), Settings.Secure.POWER_DIALOG_SHOW_POWER_SAVER,
                     value ? 1 : 0);
             return true;
         } else if (preference == mBootPref) {

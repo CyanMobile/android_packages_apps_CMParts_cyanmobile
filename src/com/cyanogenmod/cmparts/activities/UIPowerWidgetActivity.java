@@ -202,12 +202,18 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 6);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 1);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 1);
+               mPowerWidgetGridOne.setChecked(true);
+               mPowerWidgetGridTwo.setChecked(true);
                restartStatusBar();
             } else if (intsValues == 4) {
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_THREE, 0);
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_FOUR, 0);
+               mPowerWidgetGridOne.setChecked(false);
+               mPowerWidgetGridTwo.setChecked(false);
+               mPowerWidgetGridThree.setChecked(false);
+               mPowerWidgetGridFour.setChecked(false);
                restartStatusBar();
             }
             return true;

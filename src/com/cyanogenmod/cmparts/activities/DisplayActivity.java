@@ -256,8 +256,9 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         } catch (IllegalArgumentException iae) {
         }
         if ((displaySizeCustom == null) || TextUtils.equals(displaySizeCustom, "0")) {
-            displaySizeCustom = ("Display size is :\n"+m.heightPixels+"x"+m.widthPixels+"\nIf you want change this, must type sizeHeight x sizeWidth \nwithout space,example 800x480");
-            mDisText.setSummary(displaySizeCustom);
+            String displaySizeCus = ("Display size is :\n"+m.heightPixels+"x"+m.widthPixels+"\nIf you want change this, must type sizeHeight x sizeWidth \nwithout space,example 800x480");
+            displaySizeCustom = (m.heightPixels+"x"+m.widthPixels);
+            mDisText.setSummary(displaySizeCus);
 	} else {
             mDisText.setSummary(("Display size is :\n"+displaySizeCustom+"\nIf you want change this, must type sizeHeight x sizeWidth \nwithout space,example 800x480"));
         }

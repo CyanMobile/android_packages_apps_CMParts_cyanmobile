@@ -15,6 +15,7 @@
     <string name="input_settings_title_subhead">Input settings</string>
     <string name="input_settings_summary_head">Input behavior, buttons, haptic feedback</string>
     <string name="interface_settings_title_head">Interface</string>
+    <string name="interface_powermenu_settings_title_head">Power menu</string>
     <string name="interface_settings_summary_head">Interface tweaks, overscrolling, render effect</string>
     <string name="lockscreen_settings_title_head">Lockscreen</string>
     <string name="lockscreen_settings_title_subhead">Lockscreen settings</string>
@@ -64,6 +65,7 @@
 
     <!-- User interface -->
     <string name="ui_title">User interface</string>
+    <string name="ui_powertitle">Global actions</string>
     <string name="title_stats_widget">Interface tweaks</string>
 
     <string name="pref_electron_beam_animation_on">Screen-on animation</string>

@@ -78,6 +78,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 
     private static final int REQUEST_CODE_BACK_IMAGE = 998;
 
+    static Context mContext;
+
     private CheckBoxPreference mStatusBarBottom;
     private CheckBoxPreference mStatusBarNavi;
     private CheckBoxPreference mNaviBar;
@@ -107,6 +109,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 
         setTitle(R.string.tablet_tweaks_title_head);
         addPreferencesFromResource(R.xml.tablet_settings);
+
+		mContext = this.getBaseContext();
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
@@ -204,7 +208,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                             Settings.System.EXPANDED_VIEW_WIDGET, 1) == 4) {
             new AlertDialog.Builder(this)
             .setTitle("Changing Status Bar Layout")
-            .setMessage("System has detect you are using Tab layout.\nneed change to default before enable tablet tweaks.\nRestart now?")
+            .setMessage("System has detect you are using Tab layout.\nneed change to default before enable statusbar bottom option.\nRestart now?")
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
@@ -221,7 +225,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                             Settings.System.EXPANDED_VIEW_WIDGET, 1) == 3) {
             new AlertDialog.Builder(this)
             .setTitle("Changing Status Bar Layout")
-            .setMessage("System has detect you are using Grid layout.\nneed change to default before enable tablet tweaks.\nDisable now?")
+            .setMessage("System has detect you are using Grid layout.\nneed change to default before enable statusbar bottom option.\nDisable now?")
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                        Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
@@ -359,11 +363,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             return true;
         } else if (preference == mNavisize) {
             int NaviSize = Integer.valueOf((String) newValue);
-            if (Settings.System.getInt(getContentResolver(),
-                             Settings.System.NAVI_BUTTONS, 0) == 1) {
-                restartStatusBar();
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
-            }
+            restartStatusBar();
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
             return true;
         } else if (preference == mTransparentNaviBarPref) {
             int transparentNaviBarPref = Integer.parseInt(String.valueOf(newValue));
@@ -379,17 +380,17 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 intent.putExtra("scale", true);
                 intent.putExtra("scaleUpIfNeeded", false);
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
-                int width = 32;
-                int height = 32;
+                int width = getWindowManager().getDefaultDisplay().getWidth();
                 Rect rect = new Rect();
                 Window window = getWindow();
                 window.getDecorView().getWindowVisibleDisplayFrame(rect);
-                int naviBarHeight = Settings.System.getInt(getContentResolver(),
-                      Settings.System.STATUSBAR_NAVI_SIZE, 25);
+                int naviBarsHeight = rect.bottom;
+                int contentViewBottom = window.findViewById(Window.ID_ANDROID_CONTENT).getBottom();
+                int naviBarHeight = contentViewBottom - naviBarsHeight;
                 boolean isPortrait = getResources().getConfiguration().orientation ==
                     Configuration.ORIENTATION_PORTRAIT;
-                intent.putExtra("aspectX", isPortrait ? (width + naviBarHeight + naviBarHeight) : naviBarHeight);
-                intent.putExtra("aspectY", isPortrait ? naviBarHeight : (width + naviBarHeight + naviBarHeight));
+                intent.putExtra("aspectX", isPortrait ? width : naviBarHeight);
+                intent.putExtra("aspectY", isPortrait ? naviBarHeight : width);
                 try {
                     navBackgroundImageTmp.createNewFile();
                     navBackgroundImageTmp.setWritable(true, false);
@@ -402,13 +403,8 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                     Log.e("Picker", "ActivityNotFoundException: ", e);
                 }
             } else {
-                if (transparentNaviBarPref == 4) {
-                // do nothing
-                } else {
-                  if (Settings.System.getInt(getContentResolver(),
-                             Settings.System.NAVI_BUTTONS, 0) == 1) {
+                if (transparentNaviBarPref != 4) {
                     restartStatusBar();
-                  }
                 }
             }
             return true;
@@ -508,6 +504,9 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                     if (navBackgroundImageTmp.exists()) {
                         navBackgroundImageTmp.delete();
                     }
+                    int transparentsNaviBarPref = Settings.System.getInt(getContentResolver(),
+                         Settings.System.TRANSPARENT_NAVI_BAR, 0);
+                    mTransparentNaviBarPref.setValue(String.valueOf(transparentsNaviBarPref));
                     Toast.makeText(context, "CyanMobile navibar background not set" ,Toast.LENGTH_LONG).show();
                 } else {
                    if (navBackgroundImageTmp.exists()) {

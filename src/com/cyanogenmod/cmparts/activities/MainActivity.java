@@ -96,9 +96,6 @@ public class MainActivity extends TabActivity {
 		intent = new Intent().setClass(MainActivity.this, SystemActivity.class);
 		setupTab(new TextView(this), getString(R.string.system_settings_title_head), intent);
 
-		intent = new Intent().setClass(MainActivity.this, TabletTweaksActivity.class);
-		setupTab(new TextView(this), getString(R.string.tablet_tweaks_title_head), intent);
-
 		intent = new Intent().setClass(MainActivity.this, UIExportActivity.class);
 		setupTab(new TextView(this), getString(R.string.ui_utilities_title_head), intent);
     }

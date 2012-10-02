@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- General settings -->
+     	<PreferenceCategory android:key="general_category"
+		android:title="@string/general_title">
+
+		<!-- Power prompt -->
+		<CheckBoxPreference android:key="power_dialog_prompt"
+			android:title="@string/pref_power_prompt_title" android:summary="@string/pref_power_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="silent_dialog_prompt"
+			android:title="@string/pref_silent_prompt_title" android:summary="@string/pref_silent_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="extend_dialog_prompt"
+			android:title="@string/pref_extend_prompt_title" android:summary="@string/pref_extend_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="navbar_dialog_prompt"
+			android:title="@string/pref_navbar_prompt_title" android:summary="@string/pref_navbar_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="airplane_dialog_prompt"
+			android:title="@string/pref_airplane_prompt_title" android:summary="@string/pref_airplane_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="profile_dialog_prompt"
+			android:title="@string/pref_profile_prompt_title" android:summary="@string/pref_profile_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="screenshot_dialog_prompt"
+			android:title="@string/pref_screenshot_prompt_title" android:summary="@string/pref_screenshot_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="powersaver_dialog_prompt"
+			android:title="@string/pref_powersaver_prompt_title" android:summary="@string/pref_powersaver_prompt_summary"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:key="hibernate_dialog_prompt"
+			android:title="@string/pref_hibernate_prompt_title" android:summary="@string/pref_hibernate_prompt_summary"
+			android:defaultValue="true" />
+		<CheckBoxPreference android:key="suspend_dialog_prompt"
+			android:title="@string/pref_suspend_prompt_title" android:summary="@string/pref_suspend_prompt_summary"
+			android:defaultValue="true" />
+	</PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

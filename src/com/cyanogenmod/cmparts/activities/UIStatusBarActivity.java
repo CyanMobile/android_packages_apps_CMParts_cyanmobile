@@ -788,8 +788,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 intent.putExtra("scale", true);
                 intent.putExtra("scaleUpIfNeeded", false);
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
-                int width = 32;
-                int height = 32;
+                int width = getWindowManager().getDefaultDisplay().getWidth();
                 Rect rect = new Rect();
                 Window window = getWindow();
                 window.getDecorView().getWindowVisibleDisplayFrame(rect);
@@ -798,8 +797,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 int titleBarHeight = contentViewTop - statusBarHeight;
                 boolean isPortrait = getResources().getConfiguration().orientation ==
                     Configuration.ORIENTATION_PORTRAIT;
-                intent.putExtra("aspectX", isPortrait ? (width + statusBarHeight + statusBarHeight) : statusBarHeight);
-                intent.putExtra("aspectY", isPortrait ? statusBarHeight : (width + statusBarHeight + statusBarHeight));
+                intent.putExtra("aspectX", isPortrait ? width : titleBarHeight);
+                intent.putExtra("aspectY", isPortrait ? titleBarHeight : width);
                 try {
                     backBackgroundImageTmp.createNewFile();
                     backBackgroundImageTmp.setWritable(true, false);
@@ -812,11 +811,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                     Log.e("Picker", "ActivityNotFoundException: ", e);
                 }
             } else {
-                if (transparentStatusBarPref == 4) {
-                // do nothing
-                } else if (transparentStatusBarPref == 6) {
-                // do nothing
-                } else {
+                if ((transparentStatusBarPref != 4) || (transparentStatusBarPref != 6)) {
                    restartStatusBar();
                 }
             }
@@ -859,11 +854,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                     Log.e("Picker", "ActivityNotFoundException: ", e);
                 }
             }
-            if (transparentNotificationBackgroundPref == 5) {
-                //do nothings
-            } else if (transparentNotificationBackgroundPref == 2) {
-                //do nothings
-            } else {
+            if ((transparentNotificationBackgroundPref != 5) || (transparentNotificationBackgroundPref != 2)) {
                 restartStatusBar();
             }
             return true;
@@ -1457,6 +1448,9 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                     if (mBackgroundNotifImageTmp.exists()) {
                         mBackgroundNotifImageTmp.delete();
                     }
+                    int transparentsNotificationBackgroundPref = Settings.System.getInt(getContentResolver(),
+                          Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND, 0);
+                    mTransparentNotificationBackgroundPref.setValue(String.valueOf(transparentsNotificationBackgroundPref));
                     Toast.makeText(context, "CyanMobile window shade background not set" ,Toast.LENGTH_LONG).show();
                 } else {
                    if (mBackgroundNotifImageTmp.exists()) {
@@ -1489,6 +1483,9 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                     if (backBackgroundImageTmp.exists()) {
                         backBackgroundImageTmp.delete();
                     }
+                    int transparentsStatusBarPref = Settings.System.getInt(getContentResolver(),
+                          Settings.System.TRANSPARENT_STATUS_BAR, 0);
+                    mTransparentStatusBarPref.setValue(String.valueOf(transparentsStatusBarPref));
                     Toast.makeText(context, "CyanMobile statusbar background not set" ,Toast.LENGTH_LONG).show();
                 } else {
                    if (backBackgroundImageTmp.exists()) {

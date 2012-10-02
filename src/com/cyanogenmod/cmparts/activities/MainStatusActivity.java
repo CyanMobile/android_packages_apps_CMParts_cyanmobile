@@ -66,6 +66,12 @@ public class MainStatusActivity extends TabActivity {
 		intent = new Intent().setClass(MainStatusActivity.this, UIGraphicActivity.class);
 		setupTab(new TextView(this), getString(R.string.ui_graphicss_title), intent);
 
+		intent = new Intent().setClass(MainStatusActivity.this, UIActivityGlobal.class);
+		setupTab(new TextView(this), getString(R.string.interface_powermenu_settings_title_head), intent);
+
+		intent = new Intent().setClass(MainStatusActivity.this, TabletTweaksActivity.class);
+		setupTab(new TextView(this), getString(R.string.tablet_tweaks_title_head), intent);
+
 		intent = new Intent().setClass(MainStatusActivity.this, SpareParts.class);
 		setupTab(new TextView(this), getString(R.string.ui_spareparts_title), intent);
 
