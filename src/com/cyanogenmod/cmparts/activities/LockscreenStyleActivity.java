@@ -620,6 +620,8 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
                 lockscreenCatPrefs.add(mCustomAppActivityPref);
                 lockscreenCatPrefsEnable.add(mCustomAppTogglePref.isChecked());
                 break;
+            case IcsRing:
+                break;
             //case Lense:
             default: //Includes Lense
                 prefSet.removePreference(mCategoryStyleLockscreen);
