@@ -1053,6 +1053,7 @@
         <item>@string/lockscreen_style_entry_circular</item>
         <item>@string/lockscreen_style_entry_sense</item>
         <item>@string/lockscreen_style_entry_icsring</item>
+        <item>@string/lockscreen_style_entry_jbring</item>
     </string-array>
 
     <string-array name="pref_lockscreen_style_values" translatable="false">
@@ -1064,6 +1065,7 @@
         <item>7</item>
         <item>8</item>
         <item>9</item>
+        <item>10</item>
     </string-array>
 
     <string-array name="pref_rotary_style_entries" translatable="false">

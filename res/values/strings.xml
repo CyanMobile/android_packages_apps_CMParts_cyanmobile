@@ -574,6 +574,7 @@
     <string name="lockscreen_style_entry_circular">Circular (Alpha)</string>
     <string name="lockscreen_style_entry_sense">Sense (Beta)</string>
     <string name="lockscreen_style_entry_icsring">Ics Ring (Alpha)</string>
+    <string name="lockscreen_style_entry_jbring">Jb Ring (Alpha)</string>
     <string name="pref_rotary_style_title">Rotary style</string>
     <string name="pref_rotary_style_summary">Choose the style of the rotary wheel</string>
     <string name="rotary_style_entry_normal">Normal style</string>

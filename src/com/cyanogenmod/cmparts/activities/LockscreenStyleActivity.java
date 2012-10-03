@@ -154,7 +154,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mLockscreenStylePref = (ListPreference) prefSet.findPreference(LOCKSCREEN_STYLE_PREF);
         mLockscreenStyle = LockscreenStyle.getStyleById(
                 Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_STYLE_PREF, LockscreenStyle.getIdByStyle(LockscreenStyle.Ring)));
+                Settings.System.LOCKSCREEN_STYLE_PREF, LockscreenStyle.getIdByStyle(LockscreenStyle.JbRing)));
         mLockscreenStylePref.setValue(String.valueOf(LockscreenStyle.getIdByStyle(mLockscreenStyle)));
         mLockscreenStylePref.setOnPreferenceChangeListener(this);
 
@@ -621,6 +621,8 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
                 lockscreenCatPrefsEnable.add(mCustomAppTogglePref.isChecked());
                 break;
             case IcsRing:
+                break;
+            case JbRing:
                 break;
             //case Lense:
             default: //Includes Lense
