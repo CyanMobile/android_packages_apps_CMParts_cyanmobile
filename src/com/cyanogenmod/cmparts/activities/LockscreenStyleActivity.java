@@ -624,6 +624,8 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
                 break;
             case JbRing:
                 break;
+            case JbGlowRing:
+                break;
             //case Lense:
             default: //Includes Lense
                 prefSet.removePreference(mCategoryStyleLockscreen);
