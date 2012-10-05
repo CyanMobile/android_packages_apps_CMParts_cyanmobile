@@ -544,7 +544,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mCategoryStyleLockscreen.setTitle(getResources().getString(R.string.lockscreen_style_options_title) +
                 " (" + mLockscreenStylePref.getEntries()[mLockscreenStylePref.
                 findIndexOfValue("" + LockscreenStyle.getIdByStyle(lockscreenStyle))] + ")");
-        mCategoryStyleInCall.setTitle(getResources().getString(R.string.lockscreen_style_options_title) +
+        mCategoryStyleInCall.setTitle(getResources().getString(R.string.incall_style_options_title) +
                 " (" + mInCallStylePref.getEntries()[mInCallStylePref.
                 findIndexOfValue("" + InCallStyle.getIdByStyle(inCallStyle))] + ")");
 
@@ -620,13 +620,6 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
                 lockscreenCatPrefs.add(mCustomAppActivityPref);
                 lockscreenCatPrefsEnable.add(mCustomAppTogglePref.isChecked());
                 break;
-            case IcsRing:
-                break;
-            case JbRing:
-                break;
-            case JbGlowRing:
-                break;
-            //case Lense:
             default: //Includes Lense
                 prefSet.removePreference(mCategoryStyleLockscreen);
         }
