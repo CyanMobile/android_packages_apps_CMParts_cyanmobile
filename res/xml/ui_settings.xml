@@ -37,6 +37,11 @@
 			android:summary="@string/pref_render_effect_summary" android:entries="@array/entries_render_effect"
 			android:entryValues="@array/values_render_effect" />
 
+                <com.cyanogenmod.cmparts.widgets.RenderColorPreference android:key="pref_render_colors"
+                        android:dialogTitle="@string/pref_render_colors_title"
+                        android:title="@string/pref_render_colors_title"
+                        android:summary="@string/pref_render_colors_summary" />
+
 		<CheckBoxPreference android:key="pref_pinch_reflow"
 			android:title="@string/pref_pinch_reflow_title" android:summary="@string/pref_pinch_reflow_summary" />
 

@@ -1614,6 +1614,32 @@
     </string-array>
 
     <string-array
+        name="pref_navi_bar_ani_entries">
+        <item>Disabled</item>
+        <item>Rotate if screen rotate</item>
+        <item>5 seconds</item>
+        <item>10 seconds</item>
+        <item>20 seconds (Default)</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 minute</item>
+        <item>5 minute</item>
+    </string-array>
+
+    <string-array
+        name="pref_navi_bar_ani_values">
+        <item>0</item>
+        <item>1</item>
+        <item>5000</item>
+        <item>10000</item>
+        <item>20000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>120000</item>
+        <item>300000</item>
+    </string-array>
+
+    <string-array
         name="pref_powersaving_sync_screen_off_interval_entries">
         <item>15 minutes</item>
         <item>30 minutes</item>

@@ -75,6 +75,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private static final String PREF_BUTTON_CATEGORY = "pref_button_category";
     private static final String PREF_EXTEND_PM_LIST = "pref_extend_pm_list";
     private static final String PREF_SOFT_BUTTON_LIST = "pref_soft_button_list";
+    private static final String PREF_NAVI_BAR_ANI = "pref_navi_bar_ani";
 
     private static final int REQUEST_CODE_BACK_IMAGE = 998;
 
@@ -94,6 +95,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private Preference mNaviButtonColor;
     private Preference mSquadzone;
     private ListPreference mNavisize;
+    private ListPreference mNaviAnimate;
     private ListPreference mTransparentNaviBarPref;
     private CheckBoxPreference mReverseVolumeBehavior;
     private CheckBoxPreference mVolumeRemapBehavior;
@@ -153,6 +155,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mTransparentNaviBarPref.setOnPreferenceChangeListener(this);
         navBackgroundImage = new File(getApplicationContext().getFilesDir()+"/navb_background");
         navBackgroundImageTmp = new File(getApplicationContext().getFilesDir()+"/navb_background.tmp");
+
+        int naviAnimatePref = Settings.System.getInt(getContentResolver(),
+                Settings.System.NAVI_BUTTONS_ANIMATE, 20000);
+	mNaviAnimate = (ListPreference) prefSet.findPreference(PREF_NAVI_BAR_ANI);
+        mNaviAnimate.setValue(String.valueOf(naviAnimatePref));
+        mNaviAnimate.setOnPreferenceChangeListener(this);
 
         int naviBarColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.NAVI_BAR_COLOR, defValuesColor);
@@ -365,6 +373,10 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             int NaviSize = Integer.valueOf((String) newValue);
             restartStatusBar();
             Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
+            return true;
+        } else if (preference == mNaviAnimate) {
+            int NaviAni = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BUTTONS_ANIMATE, NaviAni);
             return true;
         } else if (preference == mTransparentNaviBarPref) {
             int transparentNaviBarPref = Integer.parseInt(String.valueOf(newValue));

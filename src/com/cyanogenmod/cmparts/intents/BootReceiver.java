@@ -34,6 +34,11 @@ public class BootReceiver extends BroadcastReceiver {
 
         if (renderEffect != null && !TextUtils.equals(renderEffect, "0")) {
             SurfaceFlingerUtils.setRenderEffect(context, Integer.valueOf(renderEffect));
+
+            String colors = prefs.getString(UIActivity.RENDER_COLORS_PREF, null);
+            if (colors != null) {
+                SurfaceFlingerUtils.setRenderColors(context, colors);
+            }
         }
     }
 }

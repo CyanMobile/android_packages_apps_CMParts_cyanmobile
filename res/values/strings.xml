@@ -219,6 +219,8 @@
     <string name="statusbar_statsize_summary">Change the size of Height statusbar</string>
     <string name="statusbar_navisize">Navigation Size</string>
     <string name="statusbar_navisize_summary">Change the size of Navigation buttons</string>
+    <string name="pref_navi_bar_ani_title">Navigation buttons animate</string>
+    <string name="pref_navi_bar_ani_summary">Change time for animate (require restarts statusbar)</string>
     <string name="statusbar_carrierfontsize">Carrier Font Size</string>
     <string name="statusbar_carrierfontsize_summary">Change the size of text elements on carrier</string>
     <string name="ui_status_bar_statusbar_carrier_title">Carrier label menu</string>
@@ -1368,4 +1370,12 @@
     <string name="compatibility_mode_summary_on">Run older apps in Compatibility mode. (requires reboot)</string>
     <!-- Sound & display settings screen, compatibility mode option summary text when check box is clear -->
     <string name="compatibility_mode_summary_off">Don\'t run older apps in Compatibility mode. (requires reboot)</string>
+
+    <string name="pref_render_colors_title">Color calibration</string>
+    <string name="pref_render_colors_summary">Fine-tune the calibration colors</string>
+    <string name="render_colors_reset">Reset</string>
+    <string name="render_color_red_title">Red</string>
+    <string name="render_color_green_title">Green</string>
+    <string name="render_color_blue_title">Blue</string>
+
 </resources>

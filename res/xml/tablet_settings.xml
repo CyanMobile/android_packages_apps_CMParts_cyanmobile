@@ -58,6 +58,13 @@
                 android:targetClass="com.cyanogenmod.cmparts.activities.TabletNaviButtonsActivity" />
         </PreferenceScreen>
         <ListPreference
+            android:key="pref_navi_bar_ani"
+            android:dependency="pref_status_bar_navi"
+            android:title="@string/pref_navi_bar_ani_title"
+            android:summary="@string/pref_navi_bar_ani_summary"
+            android:entries="@array/pref_navi_bar_ani_entries"
+            android:entryValues="@array/pref_navi_bar_ani_values" />
+        <ListPreference
             android:key="status_bar_navisize"
             android:dependency="pref_status_bar_navi"
             android:title="@string/statusbar_navisize"

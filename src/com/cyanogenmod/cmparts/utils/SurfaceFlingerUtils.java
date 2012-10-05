@@ -29,8 +29,41 @@ public class SurfaceFlingerUtils {
     private SurfaceFlingerUtils() {
     }
 
-    public static int getActiveRenderEffect(Context context) {
-        int effectId = 0;
+    public static class RenderEffectSettings {
+        public int effectId;
+        public int renderColorR;
+        public int renderColorG;
+        public int renderColorB;
+
+        public RenderEffectSettings() {
+            effectId = 0;
+            setColorDefinition(null);
+        }
+        public String getColorDefinition() {
+            StringBuilder builder = new StringBuilder();
+            builder.append(renderColorR);
+            builder.append(';');
+            builder.append(renderColorG);
+            builder.append(';');
+            builder.append(renderColorB);
+            return builder.toString();
+        }
+        public void setColorDefinition(String definition) {
+            if (definition != null) {
+                String[] colors = definition.split(";");
+                if (colors.length == 3) {
+                    renderColorR = Integer.valueOf(colors[0]);
+                    renderColorG = Integer.valueOf(colors[1]);
+                    renderColorB = Integer.valueOf(colors[2]);
+                    return;
+                }
+            }
+            renderColorR = renderColorG = renderColorB = 1000;
+        }
+    }
+
+    public static RenderEffectSettings getRenderEffectSettings(Context context) {
+        RenderEffectSettings settings = new RenderEffectSettings();
 
         // Taken from DevelopmentSettings
         // magic communication with surface flinger.
@@ -50,29 +83,56 @@ public class SurfaceFlingerUtils {
                 // boolean: show background
                 reply.readInt();
                 // int: render effect id
-                effectId = reply.readInt();
+                settings.effectId = reply.readInt();
+                // int: render colors
+                settings.renderColorR = reply.readInt();
+                settings.renderColorG = reply.readInt();
+                settings.renderColorB = reply.readInt();
                 reply.recycle();
                 data.recycle();
             }
         } catch (RemoteException e) {
-            Log.e(TAG, "Could not get active render effect", e);
+            Log.e(TAG, "Could not get render effect settings", e);
         }
 
-        return effectId;
+        return settings;
     }
 
     public static void setRenderEffect(Context context, int effectId) {
+        doIntTransaction(1014, effectId);
+    }
+
+    public static void setRenderColors(Context context, String colorDefinition) {
+        RenderEffectSettings settings = new RenderEffectSettings();
+        settings.setColorDefinition(colorDefinition);
+        setRenderColors(context, settings.renderColorR, settings.renderColorG, settings.renderColorB);
+    }
+
+    public static void setRenderColors(Context context, int r, int g, int b) {
+        doIntTransaction(1015, r);
+        doIntTransaction(1016, g);
+        doIntTransaction(1017, b);
+    }
+
+    public static void resetRenderColorsToDefaults(Context context) {
+        doIntTransaction(1018, 0);
+    }
+
+    private static boolean doIntTransaction(int transactionId, int data) {
         try {
             IBinder flinger = ServiceManager.getService("SurfaceFlinger");
             if (flinger != null) {
-                Parcel data = Parcel.obtain();
-                data.writeInterfaceToken("android.ui.ISurfaceComposer");
-                data.writeInt(effectId);
-                flinger.transact(1014, data, null, 0);
-                data.recycle();
+                Parcel parcel = Parcel.obtain();
+                parcel.writeInterfaceToken("android.ui.ISurfaceComposer");
+                parcel.writeInt(data);
+                flinger.transact(transactionId, parcel, null, 0);
+                parcel.recycle();
+                return true;
             }
         } catch (RemoteException e) {
-            Log.e(TAG, "Setting render effect failed", e);
+            Log.e(TAG, "SurfaceFlinger transaction " + transactionId + " failed", e);
         }
+
+        return false;
     }
 }
