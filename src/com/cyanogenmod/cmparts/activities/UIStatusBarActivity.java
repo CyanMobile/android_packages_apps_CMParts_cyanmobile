@@ -798,7 +798,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         } else if (preference == mTracker) {
             int intValue = Integer.parseInt((String)newValue);
             if (intValue != 1) {
-                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_PWR_CRR, intValue);
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STS_BTT, intValue);
                 restartStatusBar();
             }
             mTrackerColor.setEnabled(intValue == 1);
