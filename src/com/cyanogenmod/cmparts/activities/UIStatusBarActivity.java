@@ -639,14 +639,14 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mTracker = (ListPreference) prefSet.findPreference(PREF_TRACKER);
         int trackAct = Settings.System.getInt(getContentResolver(),
                 Settings.System.TRANSPARENT_STS_BTT, 0);
-        mTracker.setValue(Integer.toString(trackAct));
+        mTracker.setValue(String.valueOf(trackAct));
         mTracker.setOnPreferenceChangeListener(this);
 
         mTrackerColor = (Preference) prefSet.findPreference(PREF_TRACKER_COLOR);
         mTrackerColor.setOnPreferenceChangeListener(this);
         int trackColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.STS_BTT_COLOR, 0);
-        mTrackerColor.setSummary(Integer.toHexString(statusBarColor));
+        mTrackerColor.setSummary(Integer.toHexString(trackColor));
         mTrackerColor.setEnabled(trackAct == 1);
 
         // Set up the warning
@@ -796,7 +796,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                     carrierLabelCustom);
             return true;
         } else if (preference == mTracker) {
-            int intValue = Integer.parseInt((String)newValue);
+            int intValue = Integer.valueOf((String) newValue);
             if (intValue != 1) {
                 Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STS_BTT, intValue);
                 restartStatusBar();
@@ -1469,6 +1469,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(), Settings.System.STS_BTT_COLOR, color);
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STS_BTT, 1);
                 restartStatusBar();
             }
             public void colorUpdate(int color) {
