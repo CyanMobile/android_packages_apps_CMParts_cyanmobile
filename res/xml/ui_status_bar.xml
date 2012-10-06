@@ -277,6 +277,15 @@
                         android:title="@string/ui_notification_background_color_title"
                         android:summary="@string/ui_notification_background_color_summary"
                         android:defaultValue="-1"/>
+		<ListPreference android:key="pref_tracker"
+			android:dialogTitle="@string/title_pref_tracker"
+			android:title="@string/title_pref_tracker"
+			android:summary="@string/summary_pref_tracker"
+			android:entries="@array/entries_expanded_widget_bgr"
+			android:entryValues="@array/values_expanded_widget_bgr" />
+		<Preference android:key="pref_tracker_color"
+			android:title="@string/title_pref_tracker_color" android:summary="@string/pref_tracker_color_summary"
+			android:defaultValue="-1"/>
                 <Preference
                         android:key="restartStatusBar"
                         android:title="@string/restartStatusBar_title"

@@ -76,6 +76,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_TINY_EXPANDED = "pref_status_bar_tiny_expanded";
 
+    private static final String PREF_TRACKER = "pref_tracker";
+
     private static final String PREF_STATUS_BAR_EXPANDED = "pref_status_bar_expanded";
 
     private static final String PREF_STATUS_BAR_INTRUDER = "pref_status_bar_intruder";
@@ -135,6 +137,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_COLOR = "pref_status_bar_color";
 
+    private static final String PREF_TRACKER_COLOR = "pref_tracker_color";
+
     private static final String PREF_NOTIFICATION_BACKGROUND_COLOR = "pref_notification_background_color";
 
     private static final String PREF_TRANSPARENT_NOTIFICATION_BACKGROUND = "pref_transparent_notification_background";
@@ -185,6 +189,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private ListPreference mStatusBarBattery;
 
+    private ListPreference mTracker;
+
     private ListPreference mStatusBarBatteryStyle;
 
     private ListPreference mStatusBarBatteryColor;
@@ -230,6 +236,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private Preference mStatusBarCarrierColor;
 
     private Preference mStatusBarColor;
+
+    private Preference mTrackerColor;
 
     private Preference mSquadzone;
 
@@ -628,6 +636,19 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mNotificationBackgroundColor.setSummary(Integer.toHexString(notificationBackgroundColor));
         mNotificationBackgroundColor.setEnabled(transparentNotificationBackgroundPref == 2);
 
+        mTracker = (ListPreference) prefSet.findPreference(PREF_TRACKER);
+        int trackAct = Settings.System.getInt(getContentResolver(),
+                Settings.System.TRANSPARENT_STS_BTT, 0);
+        mTracker.setValue(Integer.toString(trackAct));
+        mTracker.setOnPreferenceChangeListener(this);
+
+        mTrackerColor = (Preference) prefSet.findPreference(PREF_TRACKER_COLOR);
+        mTrackerColor.setOnPreferenceChangeListener(this);
+        int trackColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.STS_BTT_COLOR, 0);
+        mTrackerColor.setSummary(Integer.toHexString(statusBarColor));
+        mTrackerColor.setEnabled(trackAct == 1);
+
         // Set up the warning
         alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("CyanMobile Notice");
@@ -773,6 +794,14 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             Settings.System.putString(getContentResolver(),
                     Settings.System.CARRIER_LABEL_CUSTOM_STRING,
                     carrierLabelCustom);
+            return true;
+        } else if (preference == mTracker) {
+            int intValue = Integer.parseInt((String)newValue);
+            if (intValue != 1) {
+                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_PWR_CRR, intValue);
+                restartStatusBar();
+            }
+            mTrackerColor.setEnabled(intValue == 1);
             return true;
         } else if (preference == mTransparentStatusBarPref) {
             int transparentStatusBarPref = Integer.parseInt(String.valueOf(newValue));
@@ -1111,6 +1140,12 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             SBColorPickerDialog sbcp = new SBColorPickerDialog(this, mStatusBarColorListener, getStatusBarColor());
             sbcp.show();
             return true;
+        } else if (preference == mTrackerColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this,
+                mTrackerColorListener,
+                readTrackerColor());
+            cp.show();
+            return true;
         } else if (preference == mNotificationBackgroundColor) {
             NBColorPickerDialog nbcp = new NBColorPickerDialog(this, mNotificationBackgroundColorListener, getNotificationBackgroundColor());
             nbcp.show();
@@ -1429,6 +1464,25 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             // no-op
         }
     };
+
+    ColorPickerDialog.OnColorChangedListener mTrackerColorListener = 
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(), Settings.System.STS_BTT_COLOR, color);
+                restartStatusBar();
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    private int readTrackerColor() {
+        try {
+            return Settings.System.getInt(getContentResolver(), Settings.System.STS_BTT_COLOR);
+        }
+        catch (SettingNotFoundException e) {
+            return -16777216;
+        }
+    }
 
     private void restartStatusBar() {
         try {
