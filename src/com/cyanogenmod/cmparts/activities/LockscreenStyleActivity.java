@@ -154,7 +154,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mLockscreenStylePref = (ListPreference) prefSet.findPreference(LOCKSCREEN_STYLE_PREF);
         mLockscreenStyle = LockscreenStyle.getStyleById(
                 Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_STYLE_PREF, LockscreenStyle.getIdByStyle(LockscreenStyle.JbRing)));
+                Settings.System.LOCKSCREEN_STYLE_PREF, LockscreenStyle.getIdByStyle(LockscreenStyle.JbGlowRing)));
         mLockscreenStylePref.setValue(String.valueOf(LockscreenStyle.getIdByStyle(mLockscreenStyle)));
         mLockscreenStylePref.setOnPreferenceChangeListener(this);
 
@@ -162,7 +162,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mInCallStylePref = (ListPreference) prefSet.findPreference(IN_CALL_STYLE_PREF);
         mInCallStyle = InCallStyle.getStyleById(
                 Settings.System.getInt(getContentResolver(),
-                Settings.System.IN_CALL_STYLE_PREF, InCallStyle.getIdByStyle(InCallStyle.Ring)));
+                Settings.System.IN_CALL_STYLE_PREF, InCallStyle.getIdByStyle(InCallStyle.JbGlowRing)));
         mInCallStylePref.setValue(String.valueOf(InCallStyle.getIdByStyle(mInCallStyle)));
         mInCallStylePref.setOnPreferenceChangeListener(this);
 
