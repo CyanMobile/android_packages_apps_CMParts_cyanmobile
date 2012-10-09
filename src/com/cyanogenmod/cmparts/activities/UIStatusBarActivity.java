@@ -323,7 +323,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
-        int defValuesColor = getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
         int defValuesFontSize = getResources().getInteger(com.android.internal.R.integer.config_fontsize_default_cyanmobile);
         int defValuesIconSize = getResources().getInteger(com.android.internal.R.integer.config_iconsize_default_cyanmobile);
         int defValuesStatsSize = getResources().getInteger(com.android.internal.R.integer.config_statbarsize_default_cyanmobile);
@@ -603,11 +602,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 statusBarCarrierLabel == 3);
 
         int clockColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCKCOLOR, defValuesColor);
+                Settings.System.STATUS_BAR_CLOCKCOLOR, defValuesColor());
         mStatusBarClockColor.setSummary(Integer.toHexString(clockColor));
 
         int carrierColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_CARRIERCOLOR, defValuesColor);
+                Settings.System.STATUS_BAR_CARRIERCOLOR, defValuesColor());
         mStatusBarCarrierColor.setSummary(Integer.toHexString(carrierColor));
 
         int transparentStatusBarPref = Settings.System.getInt(getContentResolver(),
@@ -1192,7 +1191,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private int getStatusBarColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.STATUS_BAR_COLOR);
+                     Settings.System.STATUS_BAR_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -1213,7 +1212,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private int getNotificationBackgroundColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.NOTIFICATION_BACKGROUND_COLOR);
+                     Settings.System.NOTIFICATION_BACKGROUND_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -1234,7 +1233,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private int getClockColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.STATUS_BAR_CLOCKCOLOR);
+                     Settings.System.STATUS_BAR_CLOCKCOLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -1253,7 +1252,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     private int getCarrierColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.STATUS_BAR_CARRIERCOLOR);
+                     Settings.System.STATUS_BAR_CARRIERCOLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -1271,7 +1270,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readDateFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_DATE);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_DATE, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1289,7 +1288,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readStatusBarSettingsColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_SETTINGSCOLOR);
+            return Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_SETTINGSCOLOR, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1307,7 +1306,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readTickerFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_TICKER_TEXT);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_TICKER_TEXT, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1325,7 +1324,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readNoneFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_NONE);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_NONE, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1343,7 +1342,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readLatestFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_LATEST);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_LATEST, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1361,7 +1360,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readOngoingFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ONGOING);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ONGOING, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1377,9 +1376,13 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             }
     };
 
+    private int defValuesColor() {
+        return getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
+    }
+
     private int readClearFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_CLEAR_BUTTON);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_CLEAR_BUTTON, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1398,7 +1401,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readNotifTitleFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ITEM_TITLE);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ITEM_TITLE, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1416,7 +1419,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readNotifItemFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ITEM_TEXT);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ITEM_TEXT, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1434,7 +1437,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readNotifTimeFontColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ITEM_TIME);
+            return Settings.System.getInt(getContentResolver(), Settings.System.COLOR_NOTIFICATION_ITEM_TIME, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;
@@ -1478,7 +1481,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private int readTrackerColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.STS_BTT_COLOR);
+            return Settings.System.getInt(getContentResolver(), Settings.System.STS_BTT_COLOR, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -16777216;

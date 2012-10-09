@@ -118,7 +118,6 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
 
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
-        int defValuesColor = getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
         int defValuesNaviSize = getResources().getInteger(com.android.internal.R.integer.config_navibarsize_default_cyanmobile);
 
         mStatusBarBottom = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_BOTTOM);
@@ -163,12 +162,12 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
         mNaviAnimate.setOnPreferenceChangeListener(this);
 
         int naviBarColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.NAVI_BAR_COLOR, defValuesColor);
+                Settings.System.NAVI_BAR_COLOR, defValuesColor());
         mNaviBarColor.setSummary(Integer.toHexString(naviBarColor));
         mNaviBarColor.setEnabled(transparentNaviBarPref == 4);
 
         int naviButtonColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.OVERICON_COLOR, defValuesColor);
+                Settings.System.OVERICON_COLOR, defValuesColor());
         mNaviButtonColor.setSummary(Integer.toHexString(naviButtonColor));
         mNaviButtonColor.setEnabled((Settings.System.getInt(getContentResolver(),
                 Settings.System.ENABLE_OVERICON_COLOR, 1) == 1));
@@ -435,7 +434,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private int getNaviBarColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.NAVI_BAR_COLOR);
+                     Settings.System.NAVI_BAR_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -458,7 +457,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private int getNaviButtonColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.OVERICON_COLOR);
+                     Settings.System.OVERICON_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -485,6 +484,10 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
             public void colorUpdate(int color) {
             }
     };
+
+    private int defValuesColor() {
+        return getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
+    }
 
     private void updateDependencies() {
         if(!mStatusBarBottom.isChecked()){

@@ -297,7 +297,7 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private int readWidgetColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR);
+                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -316,10 +316,14 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private int readWidgetBgrColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                    Settings.System.PWR_CRR_COLOR);
+                    Settings.System.PWR_CRR_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
+    }
+
+    private int defValuesColor() {
+        return getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
     }
 
     ColorPickerDialog.OnColorChangedListener mWidgetBgrColorListener = new ColorPickerDialog.OnColorChangedListener() {

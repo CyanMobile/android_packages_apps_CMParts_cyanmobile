@@ -148,7 +148,6 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
 
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
-        int defValuesColor = getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
 
         /* Lockscreen Style */
         mLockscreenStylePref = (ListPreference) prefSet.findPreference(LOCKSCREEN_STYLE_PREF);
@@ -195,7 +194,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mStatusBarLockscreenColor = (Preference) prefSet.findPreference(PREF_STATUS_BAR_LOCKSCREENCOLOR);
         mStatusBarLockscreenColor.setOnPreferenceChangeListener(this);
         int lockscreenColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_LOCKSCREENCOLOR, defValuesColor);
+                Settings.System.STATUS_BAR_LOCKSCREENCOLOR, defValuesColor());
         mStatusBarLockscreenColor.setSummary(Integer.toHexString(lockscreenColor));
 
         /* Rotary related options */
@@ -416,6 +415,10 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
             }
         }
         return false;
+    }
+
+    private int defValuesColor() {
+        return getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
     }
 
     ColorPickerDialog.OnColorChangedListener mPackageColorListener =
@@ -697,7 +700,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
     private int getLockscreenColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.STATUS_BAR_LOCKSCREENCOLOR);
+                     Settings.System.STATUS_BAR_LOCKSCREENCOLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }

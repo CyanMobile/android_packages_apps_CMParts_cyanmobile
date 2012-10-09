@@ -101,7 +101,6 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
 
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
-        int defValuesColor = getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
 
         mAppBackgroundColor = (Preference) prefSet.findPreference(PREF_APP_BACKGROUND_COLOR);
         mAppBackgroundColor.setOnPreferenceChangeListener(this);
@@ -115,7 +114,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mBackgroundAppImageTmp = new File(getApplicationContext().getFilesDir()+"/aps_background.tmp");
 
         int appBackgroundColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.BACKGROUND_APP_COLOR, defValuesColor);
+                Settings.System.BACKGROUND_APP_COLOR, defValuesColor());
         mAppBackgroundColor.setSummary(Integer.toHexString(appBackgroundColor));
         mAppBackgroundColor.setEnabled(transparentAppBackgroundPref == 1);
 
@@ -279,7 +278,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
 
     private int readTextFullOfColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR);
+            return Settings.System.getInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR, defValuesColor());
         }
         catch (SettingNotFoundException e) {
             return -1;
@@ -308,7 +307,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
     private int getPackageColorColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.OVERSCROLL_COLOR);
+                     Settings.System.OVERSCROLL_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
@@ -317,10 +316,14 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
     private int getBgAppColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.BACKGROUND_APP_COLOR);
+                     Settings.System.BACKGROUND_APP_COLOR, defValuesColor());
         } catch (SettingNotFoundException e) {
             return -16777216;
         }
+    }
+
+    private int defValuesColor() {
+        return getResources().getInteger(com.android.internal.R.color.color_default_cyanmobile);
     }
 
     ColorPickerDialog.OnColorChangedListener mBgAppColorListener =
