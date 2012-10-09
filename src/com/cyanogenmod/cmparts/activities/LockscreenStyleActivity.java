@@ -700,9 +700,9 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
     private int getLockscreenColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.STATUS_BAR_LOCKSCREENCOLOR, defValuesColor());
+                     Settings.System.STATUS_BAR_LOCKSCREENCOLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return defValuesColor();
         }
     }
 

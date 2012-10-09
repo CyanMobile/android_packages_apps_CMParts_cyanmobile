@@ -278,10 +278,10 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
 
     private int readTextFullOfColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR, defValuesColor());
+            return Settings.System.getInt(getContentResolver(), Settings.System.TEXT_FULLOFCOLOR);
         }
         catch (SettingNotFoundException e) {
-            return -1;
+            return defValuesColor();
         }
     }
 
@@ -307,18 +307,18 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
     private int getPackageColorColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.OVERSCROLL_COLOR, defValuesColor());
+                     Settings.System.OVERSCROLL_COLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return defValuesColor();
         }
     }
 
     private int getBgAppColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.BACKGROUND_APP_COLOR, defValuesColor());
+                     Settings.System.BACKGROUND_APP_COLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return defValuesColor();
         }
     }
 

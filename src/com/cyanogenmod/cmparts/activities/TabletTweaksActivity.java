@@ -434,9 +434,9 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private int getNaviBarColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.NAVI_BAR_COLOR, defValuesColor());
+                     Settings.System.NAVI_BAR_COLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return defValuesColor();
         }
     }
 
@@ -457,9 +457,9 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
     private int getNaviButtonColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                     Settings.System.OVERICON_COLOR, defValuesColor());
+                     Settings.System.OVERICON_COLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return defValuesColor();
         }
     }
 

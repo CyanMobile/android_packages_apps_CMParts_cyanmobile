@@ -297,9 +297,9 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private int readWidgetColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR, defValuesColor());
+                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return defValuesColor();
         }
     }
 
@@ -316,9 +316,9 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private int readWidgetBgrColor() {
         try {
             return Settings.System.getInt(getContentResolver(),
-                    Settings.System.PWR_CRR_COLOR, defValuesColor());
+                    Settings.System.PWR_CRR_COLOR);
         } catch (SettingNotFoundException e) {
-            return -16777216;
+            return defValuesColor();
         }
     }
 
