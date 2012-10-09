@@ -90,6 +90,8 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
 
     private static final String PREF_STATUS_BAR_LOCKSCREENCOLOR = "pref_status_bar_lockscreencolor";
 
+    private static final String KEY_SEE_TRHOUGH_PREF = "lockscreen_see_through";
+
     private PreferenceCategory mCategoryStyleGeneral;
 
     private PreferenceCategory mCategoryStyleLockscreen;
@@ -136,6 +138,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
     private RinglockStyle mRinglockStyle;
     private ShortcutPickHelper mPicker;
     private Preference mSquadzone;
+    private CheckBoxPreference mSeeThrough;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -196,6 +199,11 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         int lockscreenColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_LOCKSCREENCOLOR, defValuesColor());
         mStatusBarLockscreenColor.setSummary(Integer.toHexString(lockscreenColor));
+
+        mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_TRHOUGH_PREF);
+        mSeeThrough.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1));
+        mSeeThrough.setEnabled(true);
 
         /* Rotary related options */
         mRotaryUnlockDownToggle = (CheckBoxPreference) prefSet
@@ -285,12 +293,14 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
                         Settings.System.LOCKSCREEN_BACKGROUND,"");
                 mCustomBackground.setValueIndex(1);
                 updateCustomBackgroundSummary();
+                mSeeThrough.setEnabled(false);
             } else {
                 if (wallpaperTemporary.exists()) {
                     wallpaperTemporary.delete();
                 }
                 Toast.makeText(this, getResources().getString(R.string.
                         pref_lockscreen_background_result_not_successful), Toast.LENGTH_LONG).show();
+                mSeeThrough.setEnabled(true);
             }
         }
         mPicker.onActivityResult(requestCode, resultCode, data);
@@ -323,6 +333,11 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         } else if (preference == mStatusBarLockscreenColor) {
             LSColorPickerDialog ls = new LSColorPickerDialog(this, mLockscreenColorListener, getLockscreenColor());
             ls.show();
+            return true;
+        } else if (preference == mSeeThrough) {
+            value = mSeeThrough.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH,
+                    value ? 1 : 0);
             return true;
         } else if (preference == mRotaryHideArrowsToggle) {
             value = mRotaryHideArrowsToggle.isChecked();
@@ -508,6 +523,7 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
                 Settings.System.putString(getContentResolver(),
                         Settings.System.LOCKSCREEN_BACKGROUND,null);
                 updateCustomBackgroundSummary();
+                mSeeThrough.setEnabled(true);
                 break;
             }
             return true;

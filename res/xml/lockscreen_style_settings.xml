@@ -32,6 +32,10 @@
             android:entries="@array/pref_lockscreen_background_entries"
             android:entryValues="@array/pref_lockscreen_background_values"/>
 
+        <CheckBoxPreference android:key="lockscreen_see_through"
+            android:title="@string/lockscreen_see_through_title"
+            android:summary="@string/lockscreen_see_through_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

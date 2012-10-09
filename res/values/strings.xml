@@ -1382,4 +1382,7 @@
     <string name="render_color_green_title">Green</string>
     <string name="render_color_blue_title">Blue</string>
 
+    <!-- Lock screen see through -->
+    <string name="lockscreen_see_through_title">See through</string>
+    <string name="lockscreen_see_through_summary">Allows to see the activity behind the lock screen.\n Custom image will disable this preference.</string>
 </resources>
