@@ -203,7 +203,9 @@ public class LockscreenStyleActivity extends PreferenceActivity implements
         mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_TRHOUGH_PREF);
         mSeeThrough.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1));
-        mSeeThrough.setEnabled(true);
+        String valback = Settings.System.getString(getContentResolver(),
+                Settings.System.LOCKSCREEN_BACKGROUND);
+        mSeeThrough.setEnabled((valback == null));
 
         /* Rotary related options */
         mRotaryUnlockDownToggle = (CheckBoxPreference) prefSet
