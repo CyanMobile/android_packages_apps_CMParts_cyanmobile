@@ -168,6 +168,8 @@
 	<item>Behind Status Bar</item>
 	<item>Navi Bar Top</item>
 	<item>Navi Bar Outside</item>
+	<item>Circle</item>
+	<item>Circle Percentage</item>
         <item>Hidden</item>
     </string-array>
 
@@ -179,6 +181,8 @@
         <item>5</item>
         <item>6</item>
         <item>7</item>
+        <item>8</item>
+        <item>9</item>
         <item>2</item>
     </string-array>
 

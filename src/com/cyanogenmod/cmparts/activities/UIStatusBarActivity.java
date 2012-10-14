@@ -559,7 +559,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarBatteryColor.setOnPreferenceChangeListener(this);
         mStatusBarBatteryColor.setEnabled(statusBarBattery == 3 ||
                  statusBarBattery == 4 || statusBarBattery == 5 ||
-                 statusBarBattery == 6 || statusBarBattery == 7);
+                 statusBarBattery == 6 || statusBarBattery == 7 ||
+                 statusBarBattery == 8 || statusBarBattery == 9);
 
         int signalStyle = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_CM_SIGNAL_TEXT, 0);
@@ -707,6 +708,24 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                   restartStatusBar();
                 } else {
                   Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 7);
+                }
+                mStatusBarBatteryStyle.setEnabled(false);
+                mStatusBarBatteryColor.setEnabled(true);
+            } else if (statusBarBattery == 8) {
+                if (StatusStyle) {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 8);
+                  restartStatusBar();
+                } else {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 8);
+                }
+                mStatusBarBatteryStyle.setEnabled(false);
+                mStatusBarBatteryColor.setEnabled(true);
+            } else if (statusBarBattery == 9) {
+                if (StatusStyle) {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 9);
+                  restartStatusBar();
+                } else {
+                  Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_BATTERY, 9);
                 }
                 mStatusBarBatteryStyle.setEnabled(false);
                 mStatusBarBatteryColor.setEnabled(true);
