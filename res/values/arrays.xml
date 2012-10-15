@@ -1372,6 +1372,7 @@
     
     <string-array name="entries_tablet_navi_buttons">
         <item>Hide</item>
+        <item>Invisible</item>
         <item>Home</item>
         <item>Back</item>
         <item>Search</item>
@@ -1383,6 +1384,7 @@
 
     <string-array name="values_tablet_navi_buttons">
         <item>0</item>
+        <item>8</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
