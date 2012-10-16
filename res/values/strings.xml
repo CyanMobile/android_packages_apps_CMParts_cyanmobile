@@ -304,6 +304,8 @@
     <string name="ui_status_bar_expanded_summary">Change tiny size</string>
     <string name="ui_status_bar_settingscolor_title">Closedrag Glow color</string>
     <string name="ui_status_bar_settingscolor_summary">Change the closedrag glow color</string>
+    <string name="ui_status_bar_showram_title">Ram Expanded bar</string>
+    <string name="ui_status_bar_showram_summary">Enable/disable ram expanded statusbar</string>
 
     <!-- User interface: Text color tweaks -->
     <string name="ui_status__date_color_title">Date color</string>
