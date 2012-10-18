@@ -1059,6 +1059,7 @@
         <item>@string/lockscreen_style_entry_icsring</item>
         <item>@string/lockscreen_style_entry_jbring</item>
         <item>@string/lockscreen_style_entry_jbglowring</item>
+        <item>@string/lockscreen_style_entry_bebering</item>
     </string-array>
 
     <string-array name="pref_lockscreen_style_values" translatable="false">
@@ -1072,6 +1073,7 @@
         <item>9</item>
         <item>10</item>
         <item>11</item>
+        <item>12</item>
     </string-array>
 
     <string-array name="pref_rotary_style_entries" translatable="false">
