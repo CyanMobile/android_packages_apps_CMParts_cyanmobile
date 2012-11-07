@@ -1496,20 +1496,30 @@
 
     <string-array name="entries_lowmemkill">
         <item>Default</item>
+        <item>Minimum</item>
+        <item>Maximum</item>
         <item>Every day use</item>
+        <item>System</item>
         <item>Multitasking</item>
-        <item>Hard multitasking</item>
         <item>Soft multitasking</item>
+        <item>Hard multitasking</item>
+        <item>Gaming</item>
+        <item>Soft gaming</item>
         <item>Hard gaming</item>
     </string-array>
 
     <string-array name="values_lowmemkill">
         <item>2560,4096,6144,10240,11264,12288</item>
+        <item>1536,2048,4096,5120,5632,6144</item>
+        <item>2048,3072,6144,15360,17920,20480</item>
+        <item>2560,4096,6144,7680,8704,10240</item>
+        <item>2560,3840,6400,7680,10240,12800</item>
         <item>2560,4096,6144,11264,11776,14336</item>
         <item>2560,4096,6144,11776,12288,16384</item>
         <item>2560,4096,6144,10752,11264,13312</item>
-        <item>2560,4096,6144,7680,8704,10240</item>
+        <item>2560,3840,6400,10240,12800,19200</item>
         <item>2560,4096,6144,18944,22016,23552</item>
+        <item>2560,3840,6400,12800,12800,25600</item>
     </string-array>
 
     <string-array name="entries_iosched">
