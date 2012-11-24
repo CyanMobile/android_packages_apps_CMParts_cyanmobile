@@ -330,6 +330,12 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.MemoryManagementActivity"
+            android:label="@string/memory_management_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.HapticTweaksActivity"
             android:label="@string/haptic_title">
             <intent-filter>
