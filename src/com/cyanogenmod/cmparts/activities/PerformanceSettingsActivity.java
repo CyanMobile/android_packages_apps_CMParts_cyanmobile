@@ -246,7 +246,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
             mCompcachePref.setValue(SystemProperties.get(COMPCACHE_PERSIST_PROP, COMPCACHE_DEFAULT));
             mCompcachePref.setOnPreferenceChangeListener(this);
         } else {
-            prefSet.removePreference(mCompcachePref);
+            generalCategory.removePreference(mCompcachePref);
         }
 
         mJitPref = (CheckBoxPreference) prefSet.findPreference(JIT_PREF);
@@ -281,7 +281,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         if (CPUActivity.fileExists(KSM_RUN_FILE)) {
             mKSMPref.setChecked("1".equals(CPUActivity.readOneLine(KSM_RUN_FILE)));
         } else {
-            prefSet.removePreference(mKSMPref);
+            generalCategory.removePreference(mKSMPref);
         }
 
         temp = CPUActivity.readOneLine(KSM_SLEEP_RUN_FILE);
@@ -291,7 +291,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mKSMSleepPref.setOnPreferenceChangeListener(this);
 
         if (temp == null) {
-            prefSet.removePreference(mKSMSleepPref);
+            generalCategory.removePreference(mKSMSleepPref);
         }
 
         temp = CPUActivity.readOneLine(KSM_SCAN_RUN_FILE);
@@ -301,7 +301,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mKSMScanPref.setOnPreferenceChangeListener(this);
 
         if (temp == null) {
-            prefSet.removePreference(mKSMScanPref);
+            generalCategory.removePreference(mKSMScanPref);
         }
 
         mAnimateOnShutdownPref = (CheckBoxPreference) prefSet.findPreference(ANIMATE_SHUTDOWN_PREF);
@@ -343,7 +343,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mLowMemKillPref.setOnPreferenceChangeListener(this);
 
         if (temp == null) {
-            prefSet.removePreference(mLowMemKillPref);
+            generalCategory.removePreference(mLowMemKillPref);
         }
 
         temp = CPUActivity.readOneLine(SDCARD_RUN_FILE);
@@ -353,7 +353,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mSdReadAheadPref.setOnPreferenceChangeListener(this);
 
         if (temp == null) {
-            prefSet.removePreference(mSdReadAheadPref);
+            generalCategory.removePreference(mSdReadAheadPref);
         }
 
         mBatteryPref = (ListPreference) prefSet.findPreference(BATTERY_PREF);
