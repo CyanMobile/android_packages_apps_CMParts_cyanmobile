@@ -20,6 +20,9 @@
     <string name="lockscreen_settings_title_head">Lockscreen</string>
     <string name="lockscreen_settings_title_subhead">Lockscreen settings</string>
     <string name="lockscreen_settings_summary_head">Lockscreen gestures, style, unlock options</string>
+    <string name="memory_management_settings_title_head">Memory</string>
+    <string name="memory_management_settings_title_subhead">Memory settings</string>
+    <string name="memory_management_settings_summary_head">Memory management, Compcache, KSM</string>
     <string name="performance_settings_title_head">Performance</string>
     <string name="performance_settings_title_subhead">Performance settings</string>
     <string name="performance_settings_summary_head">Performance tweaks, JIT, VM heap size</string>
@@ -72,6 +75,8 @@
     <string name="pref_electron_beam_animation_off">Screen-off animation</string>
     <string name="pref_electron_beam_animation_on_delay">Screen-on animation Delay</string>
     <string name="pref_electron_beam_animation_on_delay_summary">Choose Screen-on animation Delay Time</string>
+    <string name="pref_use_bravia_title">Enable Bravia engine</string>
+    <string name="pref_use_bravia_summary">Improve graphic effects but no guarrantee (requires reboot)</string>
     <string name="pref_rotation_animation_title">Rotation animation</string>
     <string name="pref_rotation_animation_summary">Requires a reboot</string>
     <string name="lcd_density_title">LCD Density</string>
@@ -742,16 +747,48 @@
     <string name="haptic_revert_toast">Restoring last-used values</string>
     <string name="haptic_default_toast">Loading hard-coded defaults</string>
 
+    <!-- Memory management Settings -->
+    <string name="memory_management_title">Memory management</string>
+    <string name="memory_management_summary">Customize the usage of memory to alter system performance</string>
+
+    <!-- Memory management Settings : Compcache -->
+    <string name="pref_compcache_title">Compcache RAM Usage</string>
+    <string name="pref_compcache_summary">Compress memory for increased virtual capacity (requires reboot)</string>
+
+    <!-- Memory management Settings : Purgeable Assets -->
+    <string name="pref_purgeable_assets_title">Allow purging of assets</string>
+    <string name="pref_purgeable_assets_summary">System can free more RAM when needed if asset bitmap memory can be reclaimed (requires reboot)</string>
+
+    <!-- Memory management Settings : Lock home memory -->
+    <string name="pref_lock_home_title">Lock home in memory</string>
+    <string name="pref_lock_home_summary">Attempt to keep the current home app in memory at all times</string>
+
+    <!-- Memory management Settings : Lock mms app in memory -->
+    <string name="pref_lock_mms_title">Lock messaging app in memory</string>
+    <string name="pref_lock_mms_summary">Avoid lost messages on low memory situations</string>
+
+    <!-- Memory management Settings : GMAPS hack -->
+    <string name="pref_gmaps_hack_title">GMAPS hack</string>
+    <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires restart of Maps)</string>
+
+    <!-- Memory management Settings : KSM -->
+    <string name="pref_ksm_title">Kernel samepage merging</string>
+    <string name="pref_ksm_summary">KSM reduces physical memory requirements and improves performance</string>
+    <string name="pref_ksm_sleep_title">KSM Sleep time</string>
+    <string name="pref_ksm_sleep_summary">KSM Sleep time option (improves performance)</string>
+    <string name="pref_ksm_scan_title">KSM Page scan</string>
+    <string name="pref_ksm_scan_summary">KSM Page scan option (improves performance)</string>
+
+    <!-- Memory management Settings : Low Mem Killer -->
+    <string name="pref_lowmemkill_title">Low Mem Killer</string>
+    <string name="pref_lowmemkill_summary">Option for Low Mem Killer</string>
+
     <!-- Performance Settings -->
     <string name="performance_settings_title">Performance settings</string>
     <string name="powersaver_settings_title">Power saver settings</string>
 
     <!-- Performance Settings : BatteryCalibrate -->
     <string name="batterycalibrate">Calibrate Battery</string>
-
-    <!-- Performance Settings : Compcache -->
-    <string name="pref_compcache_title">Compcache RAM Usage</string>
-    <string name="pref_compcache_summary">Compress memory for increased virtual capacity (requires reboot)</string>
 
     <!-- Performance Settings : JIT Mode -->
     <string name="pref_jit_mode_title">Use JIT</string>
@@ -764,18 +801,6 @@
     <string name="dithering_blur_effect">Fix color banding and blur effect</string>
     <string name="pref_use_dithering_summary">Dithering improves image quality on some displays at the cost of performance (requires reboot)</string>
 
-    <!-- Display Settings : Bravia -->
-    <string name="pref_use_bravia_title">Enable Bravia engine</string>
-    <string name="pref_use_bravia_summary">Improve graphic effects but no guarrantee (requires reboot)</string>
-
-    <!-- Performance Settings : KSM -->
-    <string name="pref_ksm_title">Kernel samepage merging</string>
-    <string name="pref_ksm_summary">KSM reduces physical memory requirements and improves performance</string>
-    <string name="pref_ksm_sleep_title">KSM Sleep time</string>
-    <string name="pref_ksm_sleep_summary">KSM Sleep time option (improves performance)</string>
-    <string name="pref_ksm_scan_title">KSM Page scan</string>
-    <string name="pref_ksm_scan_summary">KSM Page scan option (improves performance)</string>
-
     <!-- Performance Settings : 16bpp Alpha -->
     <string name="pref_use_16bpp_alpha_title">Use 16bit transparency</string>
     <string name="pref_use_16bpp_alpha_summary">Using 16bit transparency can improve scrolling performance, but may cause visual artifacts (requires reboot)</string>
@@ -787,10 +812,6 @@
     <string name="pref_scrollingcache_default_enable">Default enable</string>
     <string name="pref_scrollingcache_default_disable">Default disable</string>
     <string name="pref_scrollingcache_force_disable">Force disable</string>
-
-    <!-- Performance Settings : Purgeable Assets -->
-    <string name="pref_purgeable_assets_title">Allow purging of assets</string>
-    <string name="pref_purgeable_assets_summary">System can free more RAM when needed if asset bitmap memory can be reclaimed (requires reboot)</string>
 
     <!-- Performance Settings : VM Heap Size -->
     <string name="pref_heapsize_title">VM heap size</string>
@@ -810,18 +831,6 @@
     <string name="pref_enable_bootsound_title">Enable boot sound</string>
     <string name="pref_enable_bootsound_play_summary">play the boot sound</string>
     <string name="pref_enable_bootsound_not_summary">Don\'t play the boot sound</string>
-
-    <!-- Performance : Lock home memory -->
-    <string name="pref_lock_home_title">Lock home in memory</string>
-    <string name="pref_lock_home_summary">Attempt to keep the current home app in memory at all times</string>
-
-    <!-- Performance : Lock mms app in memory -->
-    <string name="pref_lock_mms_title">Lock messaging app in memory</string>
-    <string name="pref_lock_mms_summary">Avoid lost messages on low memory situations</string>
-
-    <!-- Performance : GMAPS hack -->
-    <string name="pref_gmaps_hack_title">GMAPS hack</string>
-    <string name="pref_gmaps_hack_summary">Make NetworkLocationService killable. Frees some RAM, but Latitude isn\'t reporting location any more (requires restart of Maps)</string>
 
     <!-- Performance Settings : SD Read Ahead Cache Size -->
     <string name="pref_sd_readahead_title">SD Read Ahead Size</string>
@@ -1284,8 +1293,6 @@
     <string name="cpu_max_freq_summary">Maximum CPU frequency\nCurrently: %s</string>
     <string name="screenoff_cpu_max_freq_title">Max screen off CPU freq</string>
     <string name="screenoff_cpu_max_freq_summary">Maximum screen off CPU frequency\nCurrently set to: %s</string>
-    <string name="pref_lowmemkill_title">Low Mem Killer</string>
-    <string name="pref_lowmemkill_summary">Option for Low Mem Killer</string>
     <string name="pref_iosched_title">I/O scheduler</string>
     <string name="pref_iosched_summary">Change I/O scheduler</string>
     <string name="io_sched_summary">%S</string>

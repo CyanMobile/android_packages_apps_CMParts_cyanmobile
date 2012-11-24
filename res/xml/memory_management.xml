@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="pref_compcache_size"
+        android:dialogTitle="@string/pref_compcache_title"
+        android:title="@string/pref_compcache_title"
+        android:summary="@string/pref_compcache_summary"
+        android:entries="@array/pref_compcache_size_entries"
+        android:entryValues="@array/pref_compcache_size_values" />
+
+    <CheckBoxPreference
+        android:key="pref_purgeable_assets"
+        android:title="@string/pref_purgeable_assets_title"
+        android:summary="@string/pref_purgeable_assets_summary" />
+
+    <CheckBoxPreference
+        android:key="pref_lock_home"
+        android:title="@string/pref_lock_home_title"
+        android:summary="@string/pref_lock_home_summary" />
+
+    <CheckBoxPreference
+        android:key="pref_lock_mms"
+        android:title="@string/pref_lock_mms_title"
+        android:summary="@string/pref_lock_mms_summary" />
+
+    <CheckBoxPreference
+        android:key="pref_gmaps_hack"
+        android:dialogTitle="@string/pref_gmaps_hack_title"
+        android:title="@string/pref_gmaps_hack_title"
+        android:summary="@string/pref_gmaps_hack_summary" />
+
+    <CheckBoxPreference
+        android:key="pref_ksm"
+        android:title="@string/pref_ksm_title"
+        android:summary="@string/pref_ksm_summary" />
+
+    <ListPreference
+        android:key="pref_ksm_sleep"
+        android:dependency="pref_ksm"
+        android:dialogTitle="@string/pref_ksm_sleep_title"
+        android:title="@string/pref_ksm_sleep_title"
+        android:summary="@string/pref_ksm_sleep_summary"
+        android:entries="@array/entries_ksm_sleep"
+        android:entryValues="@array/values_ksm_sleep" />
+
+    <ListPreference
+        android:key="pref_ksm_scan"
+        android:dependency="pref_ksm"
+        android:dialogTitle="@string/pref_ksm_scan_title"
+        android:title="@string/pref_ksm_scan_title"
+        android:summary="@string/pref_ksm_scan_summary"
+        android:entries="@array/entries_ksm_scan"
+        android:entryValues="@array/values_ksm_scan" />
+
+    <ListPreference
+        android:key="pref_lowmemkill"
+        android:dialogTitle="@string/pref_lowmemkill_title"
+        android:title="@string/pref_lowmemkill_title"
+        android:summary="@string/pref_lowmemkill_summary"
+        android:entries="@array/entries_lowmemkill"
+        android:entryValues="@array/values_lowmemkill" />
+
+</PreferenceScreen>
