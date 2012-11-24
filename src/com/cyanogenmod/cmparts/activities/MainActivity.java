@@ -78,6 +78,9 @@ public class MainActivity extends TabActivity {
 		intent = new Intent().setClass(MainActivity.this, UIActivity.class);
 		setupTab(new TextView(this), getString(R.string.interface_settings_title_head), intent);
 
+		intent = new Intent().setClass(MainActivity.this, MemoryManagementActivity.class);
+		setupTab(new TextView(this), getString(R.string.memory_management_settings_title_head), intent);
+
 		intent = new Intent().setClass(MainActivity.this, PerformanceSettingsActivity.class);
 		setupTab(new TextView(this), getString(R.string.performance_settings_title_head), intent);
 
