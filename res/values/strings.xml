@@ -20,8 +20,8 @@
     <string name="lockscreen_settings_title_head">Lockscreen</string>
     <string name="lockscreen_settings_title_subhead">Lockscreen settings</string>
     <string name="lockscreen_settings_summary_head">Lockscreen gestures, style, unlock options</string>
-    <string name="memory_management_settings_title_head">Memory</string>
-    <string name="memory_management_settings_title_subhead">Memory settings</string>
+    <string name="memory_management_settings_title_head">Memory management</string>
+    <string name="memory_management_settings_title_subhead">Memory management</string>
     <string name="memory_management_settings_summary_head">Memory management, Compcache, KSM</string>
     <string name="performance_settings_title_head">Performance</string>
     <string name="performance_settings_title_subhead">Performance settings</string>
