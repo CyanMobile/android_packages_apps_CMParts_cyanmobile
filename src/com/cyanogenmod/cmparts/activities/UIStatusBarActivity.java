@@ -953,6 +953,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         } else if (preference == mStatusBarCarrierLogo) {
             int logosPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, logosPref);
+            mStatusBarCarrierLogoImage.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.CARRIER_LOGO, 0) != 0);
             restartStatusBar();
             return true;
         }
