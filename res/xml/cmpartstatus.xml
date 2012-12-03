@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <view
-     class="com.cyanogenmod.cmparts.activities.MainActivity$FlingableTabHost"
+     class="com.cyanogenmod.cmparts.activities.MainStatusActivity$FlingableTabHost"
      xmlns:android="http://schemas.android.com/apk/res/android"
      android:id="@android:id/tabhost"
      android:layout_width="fill_parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost
+<view
+     class="com.cyanogenmod.cmparts.activities.LockscreenActivity$FlingableTabHost"
      xmlns:android="http://schemas.android.com/apk/res/android"
      android:id="@android:id/tabhost"
      android:layout_width="fill_parent"
@@ -22,4 +23,4 @@
                android:layout_height="fill_parent"
                android:padding="5dp" />
      </LinearLayout>
-</TabHost>
+</view>
