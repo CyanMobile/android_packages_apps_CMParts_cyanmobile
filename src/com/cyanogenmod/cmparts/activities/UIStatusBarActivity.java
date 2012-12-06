@@ -70,6 +70,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_CLOCK = "pref_status_bar_clock";
 
+    private static final String PREF_STATUS_BAR_WEEKDAY = "pref_status_bar_weekday";
+
     private static final String PREF_STATUS_BAR_CM_WIFI_TEXT = "pref_status_bar_cm_wifi_text";
 
     private static final String PREF_STATUS_BAR_DATE = "pref_status_bar_date";
@@ -213,6 +215,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private ListPreference mStatusBarClock;
 
+    private ListPreference mStatusBarWeekday;
+
     private CheckBoxPreference mStatusBarReverse;
 
     private ListPreference mStatusBarCarrier;
@@ -337,6 +341,12 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUS_BAR_CLOCK, 1);
         mStatusBarClock.setValue(String.valueOf(clockAct));
         mStatusBarClock.setOnPreferenceChangeListener(this);
+
+        mStatusBarWeekday = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_WEEKDAY);
+        int weekdayAct = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_WEEKDAY, 2);
+        mStatusBarWeekday.setValue(String.valueOf(weekdayAct));
+        mStatusBarWeekday.setOnPreferenceChangeListener(this);
 
         mStatusBarCmWifiPref = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CM_WIFI_TEXT);
         mStatusBarDate = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_DATE);
@@ -931,6 +941,10 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 	} else if (preference == mStatusBarClock) {
             int clockPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CLOCK, clockPref);
+            return true;
+	} else if (preference == mStatusBarWeekday) {
+            int weekdayPref = Integer.parseInt(String.valueOf(newValue));
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_WEEKDAY, weekdayPref);
             return true;
         } else if (preference == mStatusBarCarrier) {
             int carrierPref = Integer.parseInt(String.valueOf(newValue));

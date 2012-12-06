@@ -181,6 +181,8 @@
     <string name="ui_status_bar_am_pm_info">24-hour clock is enabled</string>
     <string name="ui_status_bar_clock_title">Clock locations</string>
     <string name="ui_status_bar_clock_summary">Choose location clock in statusbar</string>
+    <string name="ui_status_bar_weekday_title">Day of the week style</string>
+    <string name="ui_status_bar_weekday_summary">Abbreviated day of the week before the clock</string>
     <string name="ui_status_bar_alarm_title">Show alarm icon</string>
     <string name="ui_status_bar_alarm_summary">Status bar alarm icon will be hidden, if disabled</string>
     <string name="ui_status_bar_clockcolor_title">Clock color</string>
