@@ -7,6 +7,12 @@
 			android:title="@string/ui_status_bar_intruder_title"
 			android:summary="@string/ui_status_bar_intruder_summary"
 			android:defaultValue="true" />
+                <ListPreference
+                        android:key="pref_status_bar_intruder_time"
+                        android:title="@string/status_bar_intruder_time_title"
+                        android:summary="@string/status_bar_intruder_time_summary"
+                        android:entries="@array/pref_intruder_delay_entries"
+                        android:entryValues="@array/pref_intruder_delay_values" />
                 <CheckBoxPreference android:key="pref_status_bar_date"
 			android:title="@string/ui_status_bar_date_title"
 			android:summary="@string/ui_status_bar_date_summary"

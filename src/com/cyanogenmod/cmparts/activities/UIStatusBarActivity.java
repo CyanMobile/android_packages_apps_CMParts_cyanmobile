@@ -86,6 +86,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_INTRUDER = "pref_status_bar_intruder";
 
+    private static final String PREF_STATUS_BAR_INTRUDER_TIME = "pref_status_bar_intruder_time";
+
     private static final String PREF_STATUS_BAR_NOTIF = "pref_status_bar_notif";
 
     private static final String PREF_STATUS_BAR_ICON = "pref_status_bar_icon";
@@ -217,6 +219,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private ListPreference mStatusBarWeekday;
 
+    private ListPreference mStatusBarIntruTime;
+
     private CheckBoxPreference mStatusBarReverse;
 
     private ListPreference mStatusBarCarrier;
@@ -347,6 +351,12 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUS_BAR_WEEKDAY, 2);
         mStatusBarWeekday.setValue(String.valueOf(weekdayAct));
         mStatusBarWeekday.setOnPreferenceChangeListener(this);
+
+        mStatusBarIntruTime = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_INTRUDER_TIME);
+        int intruAct = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_INTRUDER_TIME, 3000);
+        mStatusBarIntruTime.setValue(String.valueOf(intruAct));
+        mStatusBarIntruTime.setOnPreferenceChangeListener(this);
 
         mStatusBarCmWifiPref = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_CM_WIFI_TEXT);
         mStatusBarDate = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_DATE);
@@ -892,20 +902,14 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 intent.setType("image/*");
                 intent.putExtra("crop", "true");
                 intent.putExtra("scale", true);
-                intent.putExtra("scaleUpIfNeeded", false);
-                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                intent.putExtra("scaleUpIfNeeded", true);
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
                 int width = getWindowManager().getDefaultDisplay().getWidth();
                 int height = getWindowManager().getDefaultDisplay().getHeight();
-                Rect rect = new Rect();
-                Window window = getWindow();
-                window.getDecorView().getWindowVisibleDisplayFrame(rect);
-                int statusBarHeight = rect.top;
-                int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-                int titleBarHeight = contentViewTop - statusBarHeight;
                 boolean isPortrait = getResources().getConfiguration().orientation ==
                     Configuration.ORIENTATION_PORTRAIT;
-                intent.putExtra("aspectX", isPortrait ? width : height - titleBarHeight);
-                intent.putExtra("aspectY", isPortrait ? height - titleBarHeight : width);
+                intent.putExtra("aspectX", isPortrait ? width : height);
+                intent.putExtra("aspectY", isPortrait ? height : width);
                 try {
                     mBackgroundNotifImageTmp.createNewFile();
                     mBackgroundNotifImageTmp.setWritable(true, false);
@@ -945,6 +949,10 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 	} else if (preference == mStatusBarWeekday) {
             int weekdayPref = Integer.parseInt(String.valueOf(newValue));
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_WEEKDAY, weekdayPref);
+            return true;
+	} else if (preference == mStatusBarIntruTime) {
+            int intruPref = Integer.parseInt(String.valueOf(newValue));
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_INTRUDER_TIME, intruPref);
             return true;
         } else if (preference == mStatusBarCarrier) {
             int carrierPref = Integer.parseInt(String.valueOf(newValue));
