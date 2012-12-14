@@ -30,14 +30,14 @@
     </string-array>
 
     <string-array name="entries_status_bar_battery">
-    <item>Top Status Bar</item>
-    <item>Side Bar</item>
-	<item>Behind Status Bar</item>
-	<item>Navi Bar Top</item>
-	<item>Navi Bar Outside</item>
-	<item>Circle</item>
-	<item>Circle Percentage</item>
-        <item>Hidden</item>
+        <item>Επάνω Μπάρα</item>
+	<item>Πλευρική Μπάρα</item>
+	<item>Πίσω από τη γραμμή κατάστασης</item>
+	<item>Navi Bar Κορυφή</item>
+	<item>Navi Bar Εξωτερικά</item>
+	<item>Κυκλικό</item>
+	<item>Κυκλικό Ποσοστό</item>
+	<item>Κρυφή</item>
     </string-array>
 
     <string-array name="haptic_feedback_entries">
