@@ -158,6 +158,13 @@
                 <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.UIWeatherActivity"
+            android:label="@string/lockscreen_weather_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.UIExportActivity"
             android:label="@string/ui_utilities_title_head">
             <intent-filter>
