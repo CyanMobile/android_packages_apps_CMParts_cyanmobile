@@ -67,6 +67,8 @@ public class UIWeatherActivity extends PreferenceActivity implements
         mEnableWeather = (CheckBoxPreference) prefSet.findPreference(KEY_ENABLE_WEATHER);
         mEnableWeather.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_WEATHER, 0) == 1);
+        // TODO: still WIP,should be disabled for now
+        mEnableWeather.setEnabled(false);
 
         mUseCustomLoc = (CheckBoxPreference) prefSet.findPreference(KEY_USE_CUSTOM_LOCATION);
         mUseCustomLoc.setChecked(Settings.System.getInt(getContentResolver(),
