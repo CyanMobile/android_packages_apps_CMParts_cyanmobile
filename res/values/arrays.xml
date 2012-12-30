@@ -909,6 +909,7 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
         <item>0</item>
     </string-array>
 
@@ -917,6 +918,7 @@
         <item>Bottom</item>
         <item>Grid</item>
         <item>Tab</item>
+        <item>TileView</item>
         <item>Disabled</item>
     </string-array>
 
