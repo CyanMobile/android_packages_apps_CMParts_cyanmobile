@@ -941,6 +941,7 @@
 
     <!-- Expanded View Power Widget -->
     <string name="title_widget_buttons">Expanded View Widget</string>
+    <string name="title_tileview">Expanded TileView</string>
     <string name="title_expanded_widget">Notification power widget</string>
     <string name="title_expanded_widget_bgr">Background power widget</string>
     <string name="summary_expanded_widget">choose style expanded views power widget</string>
@@ -985,7 +986,12 @@
     <string name="summary_widget_picker">Pick your widget buttons</string>
     <string name="title_widget_order">Widget button order</string>
     <string name="summary_widget_order">Order your widget buttons</string>
+    <string name="title_tileview_picker">Widget TileViews</string>
+    <string name="summary_tileview_picker">Pick your widget TileViews</string>
+    <string name="title_tileview_order">Widget TileView order</string>
+    <string name="summary_tileview_order">Order your widget TileViews</string>
     <string name="title_buttons">Buttons</string>
+    <string name="title_tiles">Tiles</string>
     <string name="title_toggle_wifi">Toggle Wifi</string>
     <string name="title_toggle_bluetooth">Toggle Bluetooth</string>
     <string name="title_toggle_gps">Toggle GPS</string>
@@ -1006,8 +1012,12 @@
     <string name="title_toggle_media_play_pause">Media: Toggle Play/Pause</string>
     <string name="title_toggle_media_previous">Media: Skip to Previous</string>
     <string name="title_toggle_media_next">Media: Skip to Next</string>
+    <string name="title_toggle_battery">Toggle Battery</string>
+    <string name="title_toggle_setting">Toggle Setting</string>
+    <string name="title_toggle_time">Toggle Clock and Date</string>
     <string name="title_toggle_wimax">Toggle WiMAX</string>
     <string name="title_button_modes">Button modes</string>
+    <string name="title_tileview_modes">TileView modes</string>
     <string name="pref_brightness_mode_title">Brightness modes</string>
     <string name="pref_brightness_mode_summary">Choose how the brightness button changes modes</string>
     <string name="cm_brightness_mode_auto">Auto</string>

@@ -92,6 +92,12 @@ public class MainStatusActivity extends TabActivity {
 
 		intent = new Intent().setClass(MainStatusActivity.this, PowerWidgetOrderActivity.class);
 		setupTab(new TextView(this), getString(R.string.title_widget_order), intent);
+
+		intent = new Intent().setClass(MainStatusActivity.this, TileViewActivity.class);
+		setupTab(new TextView(this), getString(R.string.title_tileview_picker), intent);
+
+		intent = new Intent().setClass(MainStatusActivity.this, TileViewOrderActivity.class);
+		setupTab(new TextView(this), getString(R.string.title_tileview_order), intent);
     }
 
     public static class FlingableTabHost extends TabHost {

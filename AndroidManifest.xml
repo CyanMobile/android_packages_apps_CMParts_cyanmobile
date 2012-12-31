@@ -419,6 +419,18 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activities.TileViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.TileViewOrderActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".activities.BatteryTester"
             android:label="Battery Tester">
         </activity>
