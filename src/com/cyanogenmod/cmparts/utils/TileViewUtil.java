@@ -52,6 +52,8 @@ public class TileViewUtil {
     public static final String TILE_WIMAX = "toggleWimax";
     public static final String TILE_LOCKSCREEN = "toggleLockscreen";
     public static final String TILE_USER = "toggleUser";
+    public static final String TILE_CPU = "toggleCpu";
+    public static final String TILE_WEATHER = "toggleWeather";
 
     public static final HashMap<String, TileInfo> TILES = new HashMap<String, TileInfo>();
     static {
@@ -97,16 +99,22 @@ public class TileViewUtil {
                 TILE_WIMAX, R.string.title_toggle_wimax, "com.android.systemui:drawable/stat_wimax_on"));
         TILES.put(TILE_USER, new TileViewUtil.TileInfo(
                 TILE_USER, R.string.title_toggle_user, "com.android.systemui:drawable/ic_menu_allfriends"));
+        TILES.put(TILE_CPU, new TileViewUtil.TileInfo(
+                TILE_CPU, R.string.title_toggle_cpu, "com.android.systemui:drawable/ic_settings_performance"));
+        TILES.put(TILE_WEATHER, new TileViewUtil.TileInfo(
+                TILE_WEATHER, R.string.title_toggle_weather, "com.android.systemui:drawable/weather_47"));
     }
 
     private static final String TILE_DELIMITER = "|";
     private static final String TILES_DEFAULT = TILE_USER
+            + TILE_DELIMITER + TILE_CPU
+            + TILE_DELIMITER + TILE_WEATHER
             + TILE_DELIMITER + TILE_WIFI
             + TILE_DELIMITER + TILE_BATTERY
             + TILE_DELIMITER + TILE_MOBILEDATA
+            + TILE_DELIMITER + TILE_SETTING
             + TILE_DELIMITER + TILE_TIME
             + TILE_DELIMITER + TILE_NETWORKMODE
-            + TILE_DELIMITER + TILE_SETTING
             + TILE_DELIMITER + TILE_BLUETOOTH
             + TILE_DELIMITER + TILE_BRIGHTNESS
             + TILE_DELIMITER + TILE_GPS

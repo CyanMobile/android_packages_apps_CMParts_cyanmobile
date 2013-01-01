@@ -1019,6 +1019,8 @@
     <string name="title_toggle_time">Toggle Clock and Date</string>
     <string name="title_toggle_wimax">Toggle WiMAX</string>
     <string name="title_toggle_user">Toggle User</string>
+    <string name="title_toggle_cpu">Toggle CPU info</string>
+    <string name="title_toggle_weather">Toggle Weather</string>
     <string name="title_button_modes">Button modes</string>
     <string name="title_tileview_modes">TileView modes</string>
     <string name="pref_brightness_mode_title">Brightness modes</string>
