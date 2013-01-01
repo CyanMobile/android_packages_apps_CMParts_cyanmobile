@@ -22,6 +22,7 @@ import android.content.ContentResolver;
 import android.net.wimax.WimaxHelper;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
@@ -30,6 +31,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.text.InputFilter;
+import android.text.InputFilter.LengthFilter;
+import android.text.TextUtils;
+import android.widget.EditText;
 import android.util.Log;
 
 import com.cyanogenmod.cmparts.R;
@@ -52,6 +57,7 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
     private static final String EXP_RING_MODE = "pref_ring_mode";
     private static final String EXP_FLASH_MODE = "pref_flash_mode";
     private static final String EXP_MOBILEDATANETWORK_MODE = "pref_mobiledatanetwork_mode";
+    private static final String PREF_USER_WIDGETS = "pref_user_widgets";
 
     private HashMap<CheckBoxPreference, String> mCheckBoxPrefs = new HashMap<CheckBoxPreference, String>();
 
@@ -61,6 +67,7 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
     MultiSelectListPreference mRingMode;
     ListPreference mFlashMode;
     ListPreference mMobileDataNetworkMode;
+    EditTextPreference mUserNumbers;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,28 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
         addPreferencesFromResource(R.xml.tileview_widget);
 
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        mUserNumbers = (EditTextPreference) prefSet.findPreference(PREF_USER_WIDGETS);
+        if (mUserNumbers != null) {
+            EditText numberEditText = mUserNumbers.getEditText();
+
+            if (numberEditText != null) {
+                InputFilter lengthFilter = new InputFilter.LengthFilter(25);
+                numberEditText.setFilters(new InputFilter[]{lengthFilter});
+                numberEditText.setSingleLine(true);
+            }
+        }
+
+        String userNumber = Settings.System.getString(getContentResolver(),
+                Settings.System.USER_MY_NUMBERS);
+
+        if (userNumber == null) {
+            userNumber = "000000000";
+            Settings.System.putString(getContentResolver(), Settings.System.USER_MY_NUMBERS,
+		    userNumber);
+	}
+        mUserNumbers.setText(userNumber);
+        mUserNumbers.setOnPreferenceChangeListener(this);
 
         mBrightnessMode = (MultiSelectListPreference) prefSet.findPreference(EXP_BRIGHTNESS_MODE);
         mBrightnessMode.setValue(Settings.System.getString(getContentResolver(), Settings.System.EXPANDED_BRIGHTNESS_MODE));
@@ -223,6 +252,9 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
 	} else if(preference == mMobileDataNetworkMode) {
             int value = Integer.valueOf((String)newValue);
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_MOBILEDATANETWORK_MODE, value);
+        } else if (preference == mUserNumbers) {
+            String userNumbers = String.valueOf(newValue);
+            Settings.System.putString(getContentResolver(), Settings.System.USER_MY_NUMBERS, userNumbers);
         }
         return true;
     }

@@ -3,6 +3,13 @@
     <PreferenceCategory android:key="pref_tiles" android:title="@string/title_tiles" />
 
     <PreferenceCategory android:title="@string/title_tileview_modes">
+
+	<EditTextPreference android:key="pref_user_widgets"
+            android:dialogTitle="@string/user_widgets_title"
+	    android:title="@string/user_widgets_title"
+	    android:summary="@string/user_widgets_summary"
+	    android:defaultValue="000000000" />
+
         <MultiSelectListPreference android:key="pref_brightness_mode" android:dialogTitle="@string/pref_brightness_mode_title"
             android:title="@string/pref_brightness_mode_title" android:summary="@string/pref_brightness_mode_summary"
             android:entries="@array/entries_brightness_widget" android:entryValues="@array/values_brightness_widget"
