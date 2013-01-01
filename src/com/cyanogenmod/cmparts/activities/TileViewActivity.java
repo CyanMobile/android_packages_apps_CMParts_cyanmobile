@@ -18,6 +18,8 @@ package com.cyanogenmod.cmparts.activities;
 
 import com.android.internal.telephony.Phone;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.ContentResolver;
 import android.net.wimax.WimaxHelper;
 import android.os.Bundle;
@@ -235,6 +237,20 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
         return false;
     }
 
+    private void usersWidgets() {
+        AlertDialog alert = new AlertDialog.Builder(this).create();
+        alert.setTitle("CyanMobile Notice");
+        alert.setMessage(getResources().getString(R.string.userwidgets_message));
+        alert.setButton(DialogInterface.BUTTON_POSITIVE,
+                getResources().getString(com.android.internal.R.string.ok),
+                new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+        alert.show();
+    }
+
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if(preference == mBrightnessMode) {
             Settings.System.putString(getContentResolver(), Settings.System.EXPANDED_BRIGHTNESS_MODE, (String) newValue);
@@ -255,6 +271,7 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
         } else if (preference == mUserNumbers) {
             String userNumbers = String.valueOf(newValue);
             Settings.System.putString(getContentResolver(), Settings.System.USER_MY_NUMBERS, userNumbers);
+            usersWidgets();
         }
         return true;
     }

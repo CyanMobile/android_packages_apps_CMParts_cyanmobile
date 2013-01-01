@@ -1454,4 +1454,5 @@
     <string name="widgets_reset_message">Restore the default displayed widgets or tiles?</string>
     <string name="powerwidgets_reset_title">Reset Widgets</string>
     <string name="powerwidgets_reset_summary">Restore displayed widgets or tiles to default</string>
+    <string name="userwidgets_message">Please click User tileview to reload your picture</string>
 </resources>
