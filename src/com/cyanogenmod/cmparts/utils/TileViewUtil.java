@@ -137,6 +137,11 @@ public class TileViewUtil {
                 Settings.System.QUICK_SETTINGS_TILES, tiles);
     }
 
+    public static void resetCurrentTiles(Context context) {
+        Settings.System.putString(context.getContentResolver(),
+                Settings.System.QUICK_SETTINGS_TILES, TILES_DEFAULT);
+    }
+
     public static String mergeInNewTileString(String oldString, String newString) {
         ArrayList<String> oldList = getTileListFromString(oldString);
         ArrayList<String> newList = getTileListFromString(newString);

@@ -59,6 +59,10 @@
 		<CheckBoxPreference android:key="pref_music_widget"
 			android:title="@string/title_music_widget" android:summary="@string/summary_music_widget"
 			android:defaultValue="true"/>
+                <Preference
+                        android:key="reset_widgets_pref"
+                        android:title="@string/powerwidgets_reset_title"
+                        android:summary="@string/powerwidgets_reset_summary" />
 	</PreferenceCategory>
 	<PreferenceCategory />
 	<Preference android:key="squadkeys" android:title="@string/squadzone_title"

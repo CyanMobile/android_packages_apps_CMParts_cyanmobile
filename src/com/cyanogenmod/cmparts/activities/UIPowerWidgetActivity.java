@@ -29,6 +29,9 @@ import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import java.io.IOException;
 
+import com.cyanogenmod.cmparts.utils.TileViewUtil;
+import com.cyanogenmod.cmparts.utils.PowerWidgetUtil;
+
 import com.cyanogenmod.cmparts.R;
 
 public class UIPowerWidgetActivity extends PreferenceActivity
@@ -65,6 +68,10 @@ public class UIPowerWidgetActivity extends PreferenceActivity
     private static final String POWER_WIDGET_GRID_THREE = "pref_widget_grid_three";
 
     private static final String POWER_WIDGET_GRID_FOUR = "pref_widget_grid_four";
+
+    private static final String RESETWIDGETS_PREF = "reset_widgets_pref";
+
+    private Preference mResetWidgets;
 
     private ListPreference mPowerWidget;
 
@@ -144,6 +151,7 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                     Settings.System.TRANSPARENT_PWR_CRR, 0) == 1));
         mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
         mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
+        mResetWidgets = (Preference) prefSet.findPreference(RESETWIDGETS_PREF);
 
         mMusicWidget.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.MUSIC_WIDGET_TOGGLE, 0) == 1));
@@ -294,6 +302,9 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                     readWidgetBgrColor());
             cp.show();
         }
+        if (preference == mResetWidgets) {
+            resetWidgets();
+        }
         return true;
     }
 
@@ -303,6 +314,24 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         } catch (IOException e) {
            // we're screwed here fellas
         }
+    }
+
+    private void resetWidgets() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.widgets_reset_title);
+        alert.setMessage(R.string.widgets_reset_message);
+        alert.setPositiveButton(R.string.common_dialog_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                int intsValues = Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 0);
+                if (intsValues == 5) {
+                    TileViewUtil.resetCurrentTiles(getApplicationContext());
+                } else {
+                    PowerWidgetUtil.resetCurrentButtons(getApplicationContext());
+                }
+            }
+        });
+        alert.setNegativeButton(R.string.common_dialog_cancel, null);
+        alert.create().show();
     }
 
     private int readWidgetColor() {

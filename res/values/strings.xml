@@ -1447,4 +1447,8 @@
     <string name="weather_refresh_8hrs">8 hours</string>
     <string name="unknown">Unknown</string>
     <string name="cancel">Cancel</string>
+    <string name="widgets_reset_title">Reset</string>
+    <string name="widgets_reset_message">Restore the default displayed widgets or tiles?</string>
+    <string name="powerwidgets_reset_title">Reset Widgets</string>
+    <string name="powerwidgets_reset_summary">Restore displayed widgets or tiles to default</string>
 </resources>

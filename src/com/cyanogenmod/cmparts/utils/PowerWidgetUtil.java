@@ -146,6 +146,11 @@ public class PowerWidgetUtil {
                 Settings.System.WIDGET_BUTTONS, buttons);
     }
 
+    public static void resetCurrentButtons(Context context) {
+        Settings.System.putString(context.getContentResolver(),
+                Settings.System.WIDGET_BUTTONS, BUTTONS_DEFAULT);
+    }
+
     public static String mergeInNewButtonString(String oldString, String newString) {
         ArrayList<String> oldList = getButtonListFromString(oldString);
         ArrayList<String> newList = getButtonListFromString(newString);
