@@ -218,6 +218,10 @@
 			android:title="@string/ui_status_bar_showram_title"
 			android:summary="@string/ui_status_bar_showram_summary"
 			android:defaultValue="true" />
+		<CheckBoxPreference android:key="pref_status_bar_showiconex"
+			android:title="@string/ui_status_bar_showiconex_title"
+			android:summary="@string/ui_status_bar_showiconex_summary"
+			android:defaultValue="true" />
 		<CheckBoxPreference android:key="pref_status_bar_tiny_expanded"
 			android:title="@string/ui_status_bar_tiny_expanded_title"
 			android:summary="@string/ui_status_bar_tiny_expanded_summary"

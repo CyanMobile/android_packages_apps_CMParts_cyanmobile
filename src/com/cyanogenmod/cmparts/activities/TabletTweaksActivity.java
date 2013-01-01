@@ -215,7 +215,24 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                             Settings.System.EXPANDED_VIEW_WIDGET, 1) == 4) {
             new AlertDialog.Builder(this)
             .setTitle("Changing Status Bar Layout")
-            .setMessage("System has detect you are using Tab layout.\nneed change to default before enable statusbar bottom option.\nRestart now?")
+            .setMessage("System has detect you are using Tab layout.\nneed change to default before enable statusbar bottom option.\nRestart statusbar now?")
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
+                        restartStatusBar();
+                    }
+            })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                         mStatusBarBottom.setEnabled(false);
+                    }
+             })
+            .show();
+        } else if (Settings.System.getInt(getContentResolver(),
+                            Settings.System.EXPANDED_VIEW_WIDGET, 1) == 5) {
+            new AlertDialog.Builder(this)
+            .setTitle("Changing Status Bar Layout")
+            .setMessage("System has detect you are using TileView layout.\nneed change to default before enable statusbar bottom option.\nRestart statusbar now?")
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
@@ -232,7 +249,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                             Settings.System.EXPANDED_VIEW_WIDGET, 1) == 3) {
             new AlertDialog.Builder(this)
             .setTitle("Changing Status Bar Layout")
-            .setMessage("System has detect you are using Grid layout.\nneed change to default before enable statusbar bottom option.\nDisable now?")
+            .setMessage("System has detect you are using Grid layout.\nneed change to default before enable statusbar bottom option.\nSet to default now?")
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                        Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);

@@ -80,6 +80,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private static final String PREF_STATUS_BAR_SHOWRAM = "pref_status_bar_showram";
 
+    private static final String PREF_STATUS_BAR_SHOWICONEX = "pref_status_bar_showiconex";
+
     private static final String PREF_TRACKER = "pref_tracker";
 
     private static final String PREF_STATUS_BAR_EXPANDED = "pref_status_bar_expanded";
@@ -229,6 +231,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
 
     private CheckBoxPreference mStatusBarRam;
 
+    private CheckBoxPreference mStatusBarIconex;
+
     private ListPreference mStatusBarExpanded;
 
     private CheckBoxPreference mStatusBarDate;
@@ -372,6 +376,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mStatusBarReverse = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_REVERSE);
         mStatusBarTiny = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_TINY_EXPANDED);
         mStatusBarRam = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_SHOWRAM);
+        mStatusBarIconex = (CheckBoxPreference) prefSet.findPreference(PREF_STATUS_BAR_SHOWICONEX);
 
         mStatusBarCarrier = (ListPreference) prefSet.findPreference(PREF_STATUS_BAR_STATUSBAR_CARRIER);
         int carrierAct = Settings.System.getInt(getContentResolver(),
@@ -487,6 +492,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUSBAR_TINY_EXPANDED, 1) == 1));
         mStatusBarRam.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_SHOWRAM, 1) == 1));
+        mStatusBarIconex.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_SHOWICONEX, 1) == 1));
         // notif
         mStatusBarNotif.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_NOTIF, 1) == 1));
@@ -1053,6 +1060,11 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         } else if (preference == mStatusBarRam) {
             value = mStatusBarRam.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_SHOWRAM,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarIconex) {
+            value = mStatusBarIconex.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_SHOWICONEX,
                     value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarBluetooth) {
