@@ -93,7 +93,7 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
         String userNumber = Settings.System.getString(getContentResolver(),
                 Settings.System.USER_MY_NUMBERS);
 
-        if (userNumber == null) {
+        if (userNumber == null || userNumber.equals("") || TextUtils.isEmpty(userNumber)) {
             userNumber = "000000000";
             Settings.System.putString(getContentResolver(), Settings.System.USER_MY_NUMBERS,
 		    userNumber);
@@ -270,7 +270,12 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
             Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_MOBILEDATANETWORK_MODE, value);
         } else if (preference == mUserNumbers) {
             String userNumbers = String.valueOf(newValue);
-            Settings.System.putString(getContentResolver(), Settings.System.USER_MY_NUMBERS, userNumbers);
+            if (userNumbers == null || userNumbers.equals("")|| TextUtils.isEmpty(userNumbers)) {
+               userNumbers = "000000000";
+               Settings.System.putString(getContentResolver(), Settings.System.USER_MY_NUMBERS, userNumbers);
+	    } else {
+               Settings.System.putString(getContentResolver(), Settings.System.USER_MY_NUMBERS, userNumbers);
+            }
             usersWidgets();
         }
         return true;
