@@ -125,8 +125,10 @@ public class UIWeatherActivity extends PreferenceActivity implements
         if (preference == mEnableWeather) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_WEATHER,
                     mEnableWeather.isChecked() ? 1 : 0);
-            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_FUZZY_CLOCK, 0);
-            Settings.System.putInt(getContentResolver(), Settings.System.WEATHER_UPDATE_INTERVAL, 60);
+            if (mEnableWeather.isChecked()) {
+                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_FUZZY_CLOCK, 0);
+                Settings.System.putInt(getContentResolver(), Settings.System.WEATHER_UPDATE_INTERVAL, 60);
+            }
             return true;
 
         } else if (preference == mUseCustomLoc) {
