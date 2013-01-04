@@ -135,6 +135,16 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mPowerWidgetGridTwo = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_TWO);
         mPowerWidgetGridThree = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_THREE);
         mPowerWidgetGridFour = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_FOUR);
+
+        mPowerWidgetGridOne.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+        mPowerWidgetGridTwo.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+        mPowerWidgetGridThree.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+        mPowerWidgetGridFour.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+
         mPowerWidgetHideOnChange = (CheckBoxPreference) prefSet
                 .findPreference(UI_EXP_WIDGET_HIDE_ONCHANGE);
         mPowerWidgetHideScrollBar = (CheckBoxPreference) prefSet
@@ -212,6 +222,10 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_TWO, 1);
                mPowerWidgetGridOne.setChecked(true);
                mPowerWidgetGridTwo.setChecked(true);
+               mPowerWidgetGridOne.setEnabled(true);
+               mPowerWidgetGridTwo.setEnabled(true);
+               mPowerWidgetGridThree.setEnabled(true);
+               mPowerWidgetGridFour.setEnabled(true);
                restartStatusBar();
             } else if (intsValue == 5) {
                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 0);
@@ -223,6 +237,10 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                mPowerWidgetGridTwo.setChecked(false);
                mPowerWidgetGridThree.setChecked(false);
                mPowerWidgetGridFour.setChecked(false);
+               mPowerWidgetGridOne.setEnabled(false);
+               mPowerWidgetGridTwo.setEnabled(false);
+               mPowerWidgetGridThree.setEnabled(false);
+               mPowerWidgetGridFour.setEnabled(false);
                restartStatusBar();
             } else if ((intsValues == 4) || (intsValues == 5)) {
                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_GRID_ONE, 0);
@@ -233,6 +251,10 @@ public class UIPowerWidgetActivity extends PreferenceActivity
                mPowerWidgetGridTwo.setChecked(false);
                mPowerWidgetGridThree.setChecked(false);
                mPowerWidgetGridFour.setChecked(false);
+               mPowerWidgetGridOne.setEnabled(true);
+               mPowerWidgetGridTwo.setEnabled(true);
+               mPowerWidgetGridThree.setEnabled(true);
+               mPowerWidgetGridFour.setEnabled(true);
                restartStatusBar();
             }
             return true;

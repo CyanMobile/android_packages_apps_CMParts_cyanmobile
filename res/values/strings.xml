@@ -1442,6 +1442,9 @@
     <string name="weather_invert_lowhigh">Invert low/high temperatures</string>
     <string name="weather_progress_title">Verifying location</string>
 
+    <string name="weather_sync_dialog_title">Warning!</string>
+    <string name="weather_sync_dialog_message">Lockscreen Weather now disable.\n\nSet interval sync if you want enable Lockscreen Weather.</string>
+
     <!-- Lock screen Weather - Update frequency -->
     <string name="weather_refresh_manual">Manual</string>
     <string name="weather_refresh_30min">30 minutes</string>

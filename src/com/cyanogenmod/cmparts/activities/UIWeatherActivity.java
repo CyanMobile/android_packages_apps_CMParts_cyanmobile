@@ -54,6 +54,7 @@ public class UIWeatherActivity extends PreferenceActivity implements
     private EditTextPreference mCustomWeatherLoc;
 
     private static final int LOC_WARNING = 101;
+    private static final int SYNCS_WARNING = 102;
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -65,10 +66,6 @@ public class UIWeatherActivity extends PreferenceActivity implements
 
         // Setup the preferences
         mEnableWeather = (CheckBoxPreference) prefSet.findPreference(KEY_ENABLE_WEATHER);
-        mEnableWeather.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_WEATHER, 0) == 1);
-        // TODO: still WIP,should be disabled for now
-        mEnableWeather.setEnabled(false);
 
         mUseCustomLoc = (CheckBoxPreference) prefSet.findPreference(KEY_USE_CUSTOM_LOCATION);
         mUseCustomLoc.setChecked(Settings.System.getInt(getContentResolver(),
@@ -94,7 +91,11 @@ public class UIWeatherActivity extends PreferenceActivity implements
 
         mWeatherSyncInterval = (ListPreference) prefSet.findPreference(KEY_REFRESH_INTERVAL);
         int weatherInterval = Settings.System.getInt(getContentResolver(),
-                Settings.System.WEATHER_UPDATE_INTERVAL, 60);
+                Settings.System.WEATHER_UPDATE_INTERVAL, 0);
+        mEnableWeather.setChecked((weatherInterval != 0) && (Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_WEATHER, 0) == 1));
+        mEnableWeather.setEnabled((weatherInterval != 0) && (Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_STYLE_PREF, 11) >= 6));
         mWeatherSyncInterval.setValue(String.valueOf(weatherInterval));
         mWeatherSyncInterval.setSummary(mapUpdateValue(weatherInterval));
         mWeatherSyncInterval.setOnPreferenceChangeListener(this);
@@ -124,6 +125,7 @@ public class UIWeatherActivity extends PreferenceActivity implements
         if (preference == mEnableWeather) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_WEATHER,
                     mEnableWeather.isChecked() ? 1 : 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_FUZZY_CLOCK, 0);
             return true;
 
         } else if (preference == mUseCustomLoc) {
@@ -195,6 +197,11 @@ public class UIWeatherActivity extends PreferenceActivity implements
             Settings.System.putInt(getContentResolver(), Settings.System.WEATHER_UPDATE_INTERVAL, newVal);
             mWeatherSyncInterval.setValue((String) newValue);
             mWeatherSyncInterval.setSummary(mapUpdateValue(newVal));
+            if (newVal == 0) {
+                showDialog(SYNCS_WARNING);
+            } else {
+                mEnableWeather.setEnabled(true);
+            }
             return true;
         }
 
@@ -255,6 +262,21 @@ public class UIWeatherActivity extends PreferenceActivity implements
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Settings.Secure.setLocationProviderEnabled(getContentResolver(),
                                         LocationManager.NETWORK_PROVIDER, true);
+                            }
+                        });
+                builder.setNegativeButton(R.string.cancel, null);
+                dialog = builder.create();
+                break;
+            case SYNCS_WARNING:
+                builder.setTitle(R.string.weather_sync_dialog_title);
+                builder.setMessage(R.string.weather_sync_dialog_message);
+                builder.setCancelable(false);
+                builder.setPositiveButton(R.string.common_dialog_ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                               Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_WEATHER, 0);
+                               mEnableWeather.setChecked(false);
+                               mEnableWeather.setEnabled(false);
                             }
                         });
                 builder.setNegativeButton(R.string.cancel, null);

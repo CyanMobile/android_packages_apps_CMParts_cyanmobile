@@ -341,6 +341,7 @@ public class LockscreenWidgetsActivity extends PreferenceActivity implements
         } else if (preference == mFuzzyClock) {
             int FuzzyClockPref = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_FUZZY_CLOCK, FuzzyClockPref);
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_WEATHER, 0);
             return true;
         } else if (preference == mCusText) {
             String labelTextCustom = String.valueOf(newValue);
