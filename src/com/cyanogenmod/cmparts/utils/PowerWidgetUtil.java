@@ -110,8 +110,8 @@ public class PowerWidgetUtil {
     public static String getCurrentButtons(Context context) {
         String buttons = Settings.System.getString(context.getContentResolver(), Settings.System.WIDGET_BUTTONS);
         boolean addPowerWidget = ((Settings.System.getInt(context.getContentResolver(),
-                   Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5) || (Settings.System.getInt(context.getContentResolver(),
-                   Settings.System.EXPANDED_VIEW_WIDGET, 1) != 0));
+                   Settings.System.EXPANDED_VIEW_WIDGET, 5) != 5) || (Settings.System.getInt(context.getContentResolver(),
+                   Settings.System.EXPANDED_VIEW_WIDGET, 5) != 0));
         if (buttons == null) {
             buttons = BUTTONS_DEFAULT;
             if (addPowerWidget) {

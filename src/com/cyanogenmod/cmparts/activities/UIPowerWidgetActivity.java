@@ -123,7 +123,7 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mPowerWidget = (ListPreference) prefSet.findPreference(UI_EXP_WIDGET);
         mPowerWidget.setOnPreferenceChangeListener(this);
         mPowerWidget.setValue(Integer.toString(Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 1)));
+                Settings.System.EXPANDED_VIEW_WIDGET, 5)));
 
         mPowerWidgetBgr = (ListPreference) prefSet.findPreference(UI_EXP_WIDGET_BGR);
         mPowerWidgetBgr.setOnPreferenceChangeListener(this);
@@ -137,13 +137,13 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         mPowerWidgetGridFour = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_GRID_FOUR);
 
         mPowerWidgetGridOne.setEnabled(Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+                Settings.System.EXPANDED_VIEW_WIDGET, 5) != 5);
         mPowerWidgetGridTwo.setEnabled(Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+                Settings.System.EXPANDED_VIEW_WIDGET, 5) != 5);
         mPowerWidgetGridThree.setEnabled(Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+                Settings.System.EXPANDED_VIEW_WIDGET, 5) != 5);
         mPowerWidgetGridFour.setEnabled(Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_VIEW_WIDGET, 1) != 5);
+                Settings.System.EXPANDED_VIEW_WIDGET, 5) != 5);
 
         mPowerWidgetHideOnChange = (CheckBoxPreference) prefSet
                 .findPreference(UI_EXP_WIDGET_HIDE_ONCHANGE);

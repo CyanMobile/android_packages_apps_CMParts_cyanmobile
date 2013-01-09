@@ -212,7 +212,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
                 Settings.System.UNHIDE_BUTTON, defValue));
 
         if (Settings.System.getInt(getContentResolver(),
-                            Settings.System.EXPANDED_VIEW_WIDGET, 1) == 4) {
+                            Settings.System.EXPANDED_VIEW_WIDGET, 5) == 4) {
             new AlertDialog.Builder(this)
             .setTitle("Changing Status Bar Layout")
             .setMessage("System has detect you are using Tab layout.\nneed change to default before enable statusbar bottom option.\nRestart statusbar now?")
@@ -229,7 +229,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
              })
             .show();
         } else if (Settings.System.getInt(getContentResolver(),
-                            Settings.System.EXPANDED_VIEW_WIDGET, 1) == 5) {
+                            Settings.System.EXPANDED_VIEW_WIDGET, 5) == 5) {
             new AlertDialog.Builder(this)
             .setTitle("Changing Status Bar Layout")
             .setMessage("System has detect you are using TileView layout.\nneed change to default before enable statusbar bottom option.\nRestart statusbar now?")
@@ -246,7 +246,7 @@ public class TabletTweaksActivity extends PreferenceActivity implements OnPrefer
              })
             .show();
         } else if (Settings.System.getInt(getContentResolver(),
-                            Settings.System.EXPANDED_VIEW_WIDGET, 1) == 3) {
+                            Settings.System.EXPANDED_VIEW_WIDGET, 5) == 3) {
             new AlertDialog.Builder(this)
             .setTitle("Changing Status Bar Layout")
             .setMessage("System has detect you are using Grid layout.\nneed change to default before enable statusbar bottom option.\nSet to default now?")
