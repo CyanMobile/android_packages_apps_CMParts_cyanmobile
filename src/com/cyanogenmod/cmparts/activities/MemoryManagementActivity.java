@@ -28,6 +28,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -40,6 +41,8 @@ public class MemoryManagementActivity extends PreferenceActivity implements
     private static final String COMPCACHE_PERSIST_PROP = "persist.service.compcache";
 
     private static final String COMPCACHE_DEFAULT = SystemProperties.get("ro.compcache.default");
+
+    private static final String GENERAL_CATEGORY = "general_category";
 
     private static final String PURGEABLE_ASSETS_PREF = "pref_purgeable_assets";
 
@@ -127,6 +130,8 @@ public class MemoryManagementActivity extends PreferenceActivity implements
 
             String temp;
 
+            PreferenceCategory generalCategory = (PreferenceCategory)prefSet.findPreference(GENERAL_CATEGORY);
+
             mCompcachePref = (ListPreference) prefSet.findPreference(COMPCACHE_PREF);
             mPurgeableAssetsPref = (CheckBoxPreference) prefSet.findPreference(PURGEABLE_ASSETS_PREF);
             mLockHomePref = (CheckBoxPreference) prefSet.findPreference(LOCK_HOME_PREF);
@@ -143,7 +148,7 @@ public class MemoryManagementActivity extends PreferenceActivity implements
                 mCompcachePref.setValue(SystemProperties.get(COMPCACHE_PERSIST_PROP, COMPCACHE_DEFAULT));
                 mCompcachePref.setOnPreferenceChangeListener(this);
             } else {
-                prefSet.removePreference(mCompcachePref);
+                generalCategory.removePreference(mCompcachePref);
             }
 
             String purgeableAssets = SystemProperties.get(PURGEABLE_ASSETS_PERSIST_PROP,
@@ -162,7 +167,7 @@ public class MemoryManagementActivity extends PreferenceActivity implements
             if (isKsmAvailable()) {
                 mKSMPref.setChecked(KSM_PREF_ENABLED.equals(CPUActivity.readOneLine(KSM_RUN_FILE)));
             } else {
-                prefSet.removePreference(mKSMPref);
+                generalCategory.removePreference(mKSMPref);
             }
 
             if (isKsmAvailable()) {
@@ -170,7 +175,7 @@ public class MemoryManagementActivity extends PreferenceActivity implements
                 mKSMSleepPref.setValue(temp);
                 mKSMSleepPref.setOnPreferenceChangeListener(this);
             } else {
-                prefSet.removePreference(mKSMSleepPref);
+                generalCategory.removePreference(mKSMSleepPref);
             }
 
             if (isKsmAvailable()) {
@@ -178,7 +183,7 @@ public class MemoryManagementActivity extends PreferenceActivity implements
                 mKSMScanPref.setValue(temp);
                 mKSMScanPref.setOnPreferenceChangeListener(this);
             } else {
-                prefSet.removePreference(mKSMScanPref);
+                generalCategory.removePreference(mKSMScanPref);
             }
 
             temp = CPUActivity.readOneLine(LOWMEMKILL_RUN_FILE);
@@ -187,7 +192,7 @@ public class MemoryManagementActivity extends PreferenceActivity implements
             mLowMemKillPref.setOnPreferenceChangeListener(this);
 
             if (temp == null) {
-                prefSet.removePreference(mLowMemKillPref);
+                generalCategory.removePreference(mLowMemKillPref);
             }
         }
     }
