@@ -4,11 +4,9 @@
 
     <PreferenceCategory android:title="@string/title_tileview_modes">
 
-	<EditTextPreference android:key="pref_user_widgets"
-            android:dialogTitle="@string/user_widgets_title"
+	<Preference android:key="pref_user_widgets"
 	    android:title="@string/user_widgets_title"
-	    android:summary="@string/user_widgets_summary"
-	    android:defaultValue="000000000" />
+	    android:summary="@string/user_widgets_summary" />
 
         <MultiSelectListPreference android:key="pref_brightness_mode" android:dialogTitle="@string/pref_brightness_mode_title"
             android:title="@string/pref_brightness_mode_title" android:summary="@string/pref_brightness_mode_summary"
