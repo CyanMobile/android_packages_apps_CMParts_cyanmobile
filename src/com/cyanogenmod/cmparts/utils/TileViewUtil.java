@@ -19,7 +19,6 @@ package com.cyanogenmod.cmparts.utils;
 import com.cyanogenmod.cmparts.R;
 
 import android.content.Context;
-import android.net.wimax.WimaxHelper;
 import android.provider.Settings;
 
 import java.util.ArrayList;
@@ -49,60 +48,60 @@ public class TileViewUtil {
     public static final String TILE_AUTOROTATE = "toggleAutoRotate";
     public static final String TILE_AIRPLANE = "toggleAirplane";
     public static final String TILE_TORCH = "toggleFlashlight";  // Keep old string for compatibility
-    public static final String TILE_WIMAX = "toggleWimax";
     public static final String TILE_LOCKSCREEN = "toggleLockscreen";
     public static final String TILE_USER = "toggleUser";
     public static final String TILE_CPU = "toggleCpu";
     public static final String TILE_WEATHER = "toggleWeather";
+    public static final String TILE_NOTIF = "toggleNotif";
 
     public static final HashMap<String, TileInfo> TILES = new HashMap<String, TileInfo>();
     static {
         TILES.put(TILE_AIRPLANE, new TileViewUtil.TileInfo(
-                TILE_AIRPLANE, R.string.title_toggle_airplane, "com.android.systemui:drawable/stat_airplane_on"));
+                TILE_AIRPLANE, R.string.title_toggle_airplane, "com.android.systemui:drawable/ic_qs_airplane_off"));
         TILES.put(TILE_AUTOROTATE, new TileViewUtil.TileInfo(
-                TILE_AUTOROTATE, R.string.title_toggle_autorotate, "com.android.systemui:drawable/stat_orientation_on"));
+                TILE_AUTOROTATE, R.string.title_toggle_autorotate, "com.android.systemui:drawable/ic_qs_auto_rotate"));
         TILES.put(TILE_BLUETOOTH, new TileViewUtil.TileInfo(
-                TILE_BLUETOOTH, R.string.title_toggle_bluetooth, "com.android.systemui:drawable/stat_bluetooth_on"));
+                TILE_BLUETOOTH, R.string.title_toggle_bluetooth, "com.android.systemui:drawable/ic_qs_bluetooth_neutral"));
         TILES.put(TILE_BRIGHTNESS, new TileViewUtil.TileInfo(
-                TILE_BRIGHTNESS, R.string.title_toggle_brightness, "com.android.systemui:drawable/stat_brightness_on"));
+                TILE_BRIGHTNESS, R.string.title_toggle_brightness, "com.android.systemui:drawable/ic_qs_brightness_auto_on"));
         TILES.put(TILE_TORCH, new TileViewUtil.TileInfo(
-                TILE_TORCH, R.string.title_toggle_flashlight, "com.android.systemui:drawable/stat_flashlight_on"));
+                TILE_TORCH, R.string.title_toggle_flashlight, "com.android.systemui:drawable/ic_qs_torch_off"));
         TILES.put(TILE_GPS, new TileViewUtil.TileInfo(
-                TILE_GPS, R.string.title_toggle_gps, "com.android.systemui:drawable/stat_gps_on"));
+                TILE_GPS, R.string.title_toggle_gps, "com.android.systemui:drawable/ic_qs_gps_off"));
         TILES.put(TILE_LOCKSCREEN, new TileViewUtil.TileInfo(
-                TILE_LOCKSCREEN, R.string.title_toggle_lockscreen, "com.android.systemui:drawable/stat_lock_screen_on"));
+                TILE_LOCKSCREEN, R.string.title_toggle_lockscreen, "com.android.systemui:drawable/ic_qs_lock_screen_off"));
         TILES.put(TILE_MOBILEDATA, new TileViewUtil.TileInfo(
-                TILE_MOBILEDATA, R.string.title_toggle_mobiledata, "com.android.systemui:drawable/stat_data_on"));
+                TILE_MOBILEDATA, R.string.title_toggle_mobiledata, "com.android.systemui:drawable/ic_qs_signal_full_1"));
         TILES.put(TILE_NETWORKMODE, new TileViewUtil.TileInfo(
-                TILE_NETWORKMODE, R.string.title_toggle_networkmode, "com.android.systemui:drawable/stat_2g3g_on"));
+                TILE_NETWORKMODE, R.string.title_toggle_networkmode, "com.android.systemui:drawable/ic_qs_2g3g_on"));
         TILES.put(TILE_SCREENTIME, new TileViewUtil.TileInfo(
-                TILE_SCREENTIME, R.string.title_toggle_screentimeout, "com.android.systemui:drawable/stat_screen_timeout_on"));
+                TILE_SCREENTIME, R.string.title_toggle_screentimeout, "com.android.systemui:drawable/ic_qs_screen_timeout_off"));
         TILES.put(TILE_SLEEP, new TileViewUtil.TileInfo(
-                TILE_SLEEP, R.string.title_toggle_sleep, "com.android.systemui:drawable/stat_sleep"));
+                TILE_SLEEP, R.string.title_toggle_sleep, "com.android.systemui:drawable/ic_qs_sleep"));
         TILES.put(TILE_SCREENSHOT, new TileViewUtil.TileInfo(
-                TILE_SCREENSHOT, R.string.title_toggle_screenshot, "com.android.systemui:drawable/stat_screenshot"));
+                TILE_SCREENSHOT, R.string.title_toggle_screenshot, "com.android.systemui:drawable/ic_qs_screenshot"));
         TILES.put(TILE_RINGER, new TileViewUtil.TileInfo(
-                TILE_RINGER, R.string.title_toggle_sound, "com.android.systemui:drawable/stat_ring_on"));
+                TILE_RINGER, R.string.title_toggle_sound, "com.android.systemui:drawable/ic_qs_ring_vibrate_on"));
         TILES.put(TILE_SYNC, new TileViewUtil.TileInfo(
-                TILE_SYNC, R.string.title_toggle_sync, "com.android.systemui:drawable/stat_sync_on"));
+                TILE_SYNC, R.string.title_toggle_sync, "com.android.systemui:drawable/ic_qs_sync_off"));
         TILES.put(TILE_WIFI, new TileViewUtil.TileInfo(
-                TILE_WIFI, R.string.title_toggle_wifi, "com.android.systemui:drawable/stat_wifi_on"));
+                TILE_WIFI, R.string.title_toggle_wifi, "com.android.systemui:drawable/ic_qs_wifi_full_1"));
         TILES.put(TILE_WIFIAP, new TileViewUtil.TileInfo(
-                TILE_WIFIAP, R.string.title_toggle_wifiap, "com.android.systemui:drawable/stat_wifi_ap_on"));
+                TILE_WIFIAP, R.string.title_toggle_wifiap, "com.android.systemui:drawable/ic_qs_wifi_ap_off"));
         TILES.put(TILE_SETTING, new TileViewUtil.TileInfo(
-                TILE_SETTING, R.string.title_toggle_setting, "com.android.systemui:drawable/ic_sysbar_set"));
+                TILE_SETTING, R.string.title_toggle_setting, "com.android.systemui:drawable/ic_qs_settings"));
         TILES.put(TILE_TIME, new TileViewUtil.TileInfo(
-                TILE_TIME, R.string.title_toggle_time, "com.android.systemui:drawable/stat_notify_alarm"));
+                TILE_TIME, R.string.title_toggle_time, "com.android.systemui:drawable/ic_qs_clock_circle"));
         TILES.put(TILE_BATTERY, new TileViewUtil.TileInfo(
-                TILE_BATTERY, R.string.title_toggle_battery, "com.android.systemui:drawable/stat_sys_battery_unknown"));
-        TILES.put(TILE_WIMAX, new TileViewUtil.TileInfo(
-                TILE_WIMAX, R.string.title_toggle_wimax, "com.android.systemui:drawable/stat_wimax_on"));
+                TILE_BATTERY, R.string.title_toggle_battery, "com.android.systemui:drawable/ic_qs_battery_charge_28"));
         TILES.put(TILE_USER, new TileViewUtil.TileInfo(
                 TILE_USER, R.string.title_toggle_user, "com.android.systemui:drawable/ic_menu_allfriends"));
         TILES.put(TILE_CPU, new TileViewUtil.TileInfo(
                 TILE_CPU, R.string.title_toggle_cpu, "com.android.systemui:drawable/ic_settings_performance"));
         TILES.put(TILE_WEATHER, new TileViewUtil.TileInfo(
                 TILE_WEATHER, R.string.title_toggle_weather, "com.android.systemui:drawable/weather_47"));
+        TILES.put(TILE_NOTIF, new TileViewUtil.TileInfo(
+                TILE_NOTIF, R.string.title_toggle_notif, "com.android.systemui:drawable/ic_qs_notif_enable"));
     }
 
     private static final String TILE_DELIMITER = "|";
@@ -132,10 +131,6 @@ public class TileViewUtil {
         String tiles = Settings.System.getString(context.getContentResolver(), Settings.System.QUICK_SETTINGS_TILES);
         if (tiles == null) {
             tiles = TILES_DEFAULT;
-            // Add the WiMAX tile if it's supported
-            /*if (WimaxHelper.isWimaxSupported(context)) {
-                tiles += TILE_DELIMITER + TILE_WIMAX;
-            }*/
             // And the flashlight too if available
             if (context.getResources().getBoolean(R.bool.has_led_flash)) {
                 tiles += TILE_DELIMITER + TILE_TORCH;

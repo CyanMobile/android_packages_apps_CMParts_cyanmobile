@@ -23,7 +23,6 @@ import android.content.DialogInterface;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.wimax.WimaxHelper;
 import android.os.Bundle;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -110,12 +109,6 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
         // get our list of tiles
         ArrayList<String> tileList = TileViewUtil.getTileListFromString(TileViewUtil.getCurrentTiles(this));
 
-        // Don't show WiMAX option if not supported
-        boolean isWimaxEnabled = WimaxHelper.isWimaxSupported(this);
-        if (!isWimaxEnabled) {
-            TileViewUtil.TILES.remove(TileViewUtil.TILE_WIMAX);
-        }
-
         // fill that checkbox map!
         for(TileViewUtil.TileInfo tile : TileViewUtil.TILES.values()) {
             // create a checkbox
@@ -162,10 +155,6 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
                 if (!knownState) {
                     cb.setEnabled(false);
                     mNetworkMode.setEnabled(false);
-                }
-            } else if (TileViewUtil.TILE_WIMAX.equals(tile.getId())) {
-                if (!isWimaxEnabled) {
-                    cb.setEnabled(false);
                 }
             }
 
