@@ -4,6 +4,11 @@
 
     <PreferenceCategory android:title="@string/title_tileview_modes">
 
+        <CheckBoxPreference android:key="pref_enable_flip"
+	    android:title="@string/ui_enable_flip_title"
+	    android:summary="@string/ui_enable_flip_summary"
+	    android:defaultValue="true" />
+
 	<Preference android:key="pref_user_widgets"
 	    android:title="@string/user_widgets_title"
 	    android:summary="@string/user_widgets_summary" />

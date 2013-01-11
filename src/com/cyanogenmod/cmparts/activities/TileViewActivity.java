@@ -58,6 +58,7 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
     private static final String EXP_FLASH_MODE = "pref_flash_mode";
     private static final String EXP_MOBILEDATANETWORK_MODE = "pref_mobiledatanetwork_mode";
     private static final String PREF_USER_WIDGETS = "pref_user_widgets";
+    private static final String PREF_ENABLE_FLIP = "pref_enable_flip";
 
     private static final int PICK_CONTACT_REQUEST = 1;
     private final ContactAccessor mContactAccessor = ContactAccessor.getInstance();
@@ -71,6 +72,7 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
     ListPreference mFlashMode;
     ListPreference mMobileDataNetworkMode;
     Preference mUserNumbers;
+    CheckBoxPreference mEnableFlip;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,9 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
         PreferenceScreen prefSet = getPreferenceScreen();
 
         mUserNumbers = (Preference) prefSet.findPreference(PREF_USER_WIDGETS);
+        mEnableFlip = (CheckBoxPreference) prefSet.findPreference(PREF_ENABLE_FLIP);
+        mEnableFlip.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.ENABLE_FLIP_ANIMATE, 1) == 1));
 
         mBrightnessMode = (MultiSelectListPreference) prefSet.findPreference(EXP_BRIGHTNESS_MODE);
         mBrightnessMode.setValue(Settings.System.getString(getContentResolver(), Settings.System.EXPANDED_BRIGHTNESS_MODE));
@@ -206,6 +211,11 @@ public class TileViewActivity extends PreferenceActivity implements OnPreference
         }
         if (preference == mUserNumbers) {
             startActivityForResult(mContactAccessor.getPickContactIntent(), PICK_CONTACT_REQUEST);
+            return true;
+        }
+        if (preference == mEnableFlip) {
+            Settings.System.putInt(getContentResolver(), Settings.System.ENABLE_FLIP_ANIMATE,
+                    mEnableFlip.isChecked() ? 1 : 0);
             return true;
         }
         return false;

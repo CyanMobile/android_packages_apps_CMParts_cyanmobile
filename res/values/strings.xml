@@ -1050,6 +1050,8 @@
     <string name="pref_mobiledatanetwork_mode_summary">Mobiledata button toggles 2G/3G mode</string>
     <string name="user_widgets_title">Set MyNumbers</string>
     <string name="user_widgets_summary">Choose your mobile numbers, and this will showup in User TileView</string>
+    <string name="ui_enable_flip_title">Flip Animation</string>
+    <string name="ui_enable_flip_summary">Enable/disable flip animation tileview</string>
 
     <!-- Backlight -->
     <string name="backlight_title">Automatic backlight</string>
