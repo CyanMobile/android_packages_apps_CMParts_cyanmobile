@@ -58,6 +58,20 @@
                 android:targetClass="com.cyanogenmod.cmparts.activities.TabletNaviButtonsActivity" />
         </PreferenceScreen>
         <ListPreference
+            android:key="pref_navi_bar_swiperight"
+            android:dependency="pref_status_bar_navi"
+            android:title="@string/pref_navi_bar_swiperight_title"
+            android:summary="@string/pref_navi_bar_swiperight_summary"
+            android:entries="@array/pref_navi_bar_swipe_entries"
+            android:entryValues="@array/pref_navi_bar_swipe_values" />
+        <ListPreference
+            android:key="pref_navi_bar_swipeleft"
+            android:dependency="pref_status_bar_navi"
+            android:title="@string/pref_navi_bar_swipeleft_title"
+            android:summary="@string/pref_navi_bar_swipeleft_summary"
+            android:entries="@array/pref_navi_bar_swipe_entries"
+            android:entryValues="@array/pref_navi_bar_swipe_values" />
+        <ListPreference
             android:key="pref_navi_bar_ani"
             android:dependency="pref_status_bar_navi"
             android:title="@string/pref_navi_bar_ani_title"

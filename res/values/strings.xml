@@ -230,6 +230,10 @@
     <string name="statusbar_navisize_summary">Change the size of Navigation buttons</string>
     <string name="pref_navi_bar_ani_title">Navigation buttons animate</string>
     <string name="pref_navi_bar_ani_summary">Change time for animate</string>
+    <string name="pref_navi_bar_swiperight_title">Swiping Right</string>
+    <string name="pref_navi_bar_swiperight_summary">Choose activity when swiping right navigation bar</string>
+    <string name="pref_navi_bar_swipeleft_title">Swiping Left</string>
+    <string name="pref_navi_bar_swipeleft_summary">Choose activity when swiping left navigation bar</string>
     <string name="statusbar_carrierfontsize">Carrier Font Size</string>
     <string name="statusbar_carrierfontsize_summary">Change the size of text elements on carrier</string>
     <string name="ui_status_bar_statusbar_carrier_title">Carrier label menu</string>
