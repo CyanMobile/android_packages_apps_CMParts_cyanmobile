@@ -344,7 +344,7 @@ public class UIPowerWidgetActivity extends PreferenceActivity
         alert.setMessage(R.string.widgets_reset_message);
         alert.setPositiveButton(R.string.common_dialog_ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                int intsValues = Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 0);
+                int intsValues = Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 5);
                 if (intsValues == 5) {
                     TileViewUtil.resetCurrentTiles(getApplicationContext());
                 } else {

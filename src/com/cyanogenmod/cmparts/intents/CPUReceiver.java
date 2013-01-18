@@ -29,6 +29,7 @@ import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class CPUReceiver extends BroadcastReceiver {
     private static final String CPU_SETTINGS_PROP = "sys.cpufreq.restored";
     private static final String IOSCHED_SETTINGS_PROP = "sys.iosched.restored";
     private static final String KSM_SETTINGS_PROP = "sys.ksm.restored";
+
+    private int ksmAvailable = -1;
 
     @Override
     public void onReceive(Context ctx, Intent intent) {
@@ -102,12 +105,14 @@ public class CPUReceiver extends BroadcastReceiver {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 
         boolean ksm = prefs.getBoolean(MemoryManagementActivity.KSM_PREF, false);
-        CPUActivity.writeOneLine(MemoryManagementActivity.KSM_SLEEP_RUN_FILE, prefs.getString(MemoryManagementActivity.KSM_SLEEP_PREF,
+        if (isKsmAvailable()) {
+            CPUActivity.writeOneLine(MemoryManagementActivity.KSM_SLEEP_RUN_FILE, prefs.getString(MemoryManagementActivity.KSM_SLEEP_PREF,
                                  MemoryManagementActivity.KSM_SLEEP_PREF_DEFAULT));
-        CPUActivity.writeOneLine(MemoryManagementActivity.KSM_SCAN_RUN_FILE, prefs.getString(MemoryManagementActivity.KSM_SCAN_PREF,
+            CPUActivity.writeOneLine(MemoryManagementActivity.KSM_SCAN_RUN_FILE, prefs.getString(MemoryManagementActivity.KSM_SCAN_PREF,
                                  MemoryManagementActivity.KSM_SCAN_PREF_DEFAULT));
-        CPUActivity.writeOneLine(MemoryManagementActivity.KSM_RUN_FILE, ksm ? "1" : "0");
-        Log.d(TAG, "KSM settings restored.");
+            CPUActivity.writeOneLine(MemoryManagementActivity.KSM_RUN_FILE, ksm ? "1" : "0");
+            Log.d(TAG, "KSM settings restored.");
+        }
     }
 
     private void configureIOSched(Context ctx) {
@@ -174,5 +179,15 @@ public class CPUReceiver extends BroadcastReceiver {
             }
             Log.d(TAG, "CPU settings restored.");
         }
+    }
+
+    /**
+     * Check if KSM support is available on the system
+     */
+    private boolean isKsmAvailable() {
+        if (ksmAvailable < 0) {
+            ksmAvailable = new File(MemoryManagementActivity.KSM_RUN_FILE).exists() ? 1 : 0;
+        }
+        return ksmAvailable > 0;
     }
 }
