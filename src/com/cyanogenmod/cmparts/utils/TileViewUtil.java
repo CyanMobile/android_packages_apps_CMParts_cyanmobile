@@ -53,6 +53,8 @@ public class TileViewUtil {
     public static final String TILE_CPU = "toggleCpu";
     public static final String TILE_WEATHER = "toggleWeather";
     public static final String TILE_NOTIF = "toggleNotif";
+    public static final String TILE_PROFILE = "toggleProfile";
+    public static final String TILE_POWER = "togglePower";
 
     public static final HashMap<String, TileInfo> TILES = new HashMap<String, TileInfo>();
     static {
@@ -102,6 +104,10 @@ public class TileViewUtil {
                 TILE_WEATHER, R.string.title_toggle_weather, "com.android.systemui:drawable/weather_47"));
         TILES.put(TILE_NOTIF, new TileViewUtil.TileInfo(
                 TILE_NOTIF, R.string.title_toggle_notif, "com.android.systemui:drawable/ic_qs_notif_enable"));
+        TILES.put(TILE_PROFILE, new TileViewUtil.TileInfo(
+                TILE_PROFILE, R.string.title_toggle_profile, "com.android.systemui:drawable/ic_qs_profiles"));
+        TILES.put(TILE_POWER, new TileViewUtil.TileInfo(
+                TILE_POWER, R.string.title_toggle_power, "com.android.systemui:drawable/ic_qs_profiles"));
     }
 
     private static final String TILE_DELIMITER = "|";
