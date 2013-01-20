@@ -97,9 +97,8 @@ public class GestureMenuActivity extends PreferenceActivity
             mGesturesEnable.setChecked(Settings.System.getInt(
                     getContentResolver(),
                     Settings.System.LOCKSCREEN_GESTURES_ENABLED, 0) != 0);
-            mGesturesEnable.setEnabled(Settings.System.getInt(
-                    getContentResolver(),
-                    Settings.System.LOCKSCREEN_STYLE_PREF, 6) != 6);
+            mGesturesEnable.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_STYLE_PREF, 11) <= 6);
             mGesturesTrail.setChecked(Settings.System.getInt(
                     getContentResolver(),
                     Settings.System.LOCKSCREEN_GESTURES_TRAIL, 0) != 0);
