@@ -108,7 +108,7 @@ public class TileViewUtil {
         TILES.put(TILE_PROFILE, new TileViewUtil.TileInfo(
                 TILE_PROFILE, R.string.title_toggle_profile, "com.android.systemui:drawable/ic_qs_profiles"));
         TILES.put(TILE_POWER, new TileViewUtil.TileInfo(
-                TILE_POWER, R.string.title_toggle_power, "com.android.systemui:drawable/ic_qs_profiles"));
+                TILE_POWER, R.string.title_toggle_power, "com.android.systemui:drawable/ic_qs_power_off"));
         TILES.put(TILE_ALARM, new TileViewUtil.TileInfo(
                 TILE_ALARM, R.string.title_toggle_alarm, "com.android.systemui:drawable/ic_qs_alarm_on"));
     }
