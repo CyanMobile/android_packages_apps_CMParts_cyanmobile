@@ -43,11 +43,13 @@ public class GestureMenuActivity extends PreferenceActivity
     private static final String LOCKSCREEN_GESTURES_TRAIL = "lockscreen_gestures_trail";
     private static final String LOCKSCREEN_GESTURES_SENSITIVITY = "lockscreen_gestures_sensitivity";
     private static final String LOCKSCREEN_GESTURES_COLOR = "lockscreen_gestures_color";
+    private static final String LOCKSCREEN_GESTURES_BUILDER = "lockscreen_gestures_builder";
 
     private CheckBoxPreference mGesturesEnable;
     private CheckBoxPreference mGesturesTrail;
     private ListPreference mGesturesSensitivity;
     private Preference mGesturesColor;
+    private PreferenceScreen mGesturesBuilder;
 
     public static boolean updatePreferenceToSpecificActivityOrRemove(Context context,
             PreferenceGroup parentPreferenceGroup, String preferenceKey, int flags) {
@@ -91,6 +93,8 @@ public class GestureMenuActivity extends PreferenceActivity
         final PreferenceGroup parentPreference = getPreferenceScreen();
         parentPreference.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         mGesturesColor.setSummary(Integer.toHexString(getGestureColor()));
+
+        mGesturesBuilder = (PreferenceScreen) prefSet.findPreference(LOCKSCREEN_GESTURES_BUILDER);
     }
 
     private void updateToggles() {
@@ -98,7 +102,7 @@ public class GestureMenuActivity extends PreferenceActivity
                     getContentResolver(),
                     Settings.System.LOCKSCREEN_GESTURES_ENABLED, 0) != 0);
             mGesturesEnable.setEnabled(Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_STYLE_PREF, 11) <= 6);
+                Settings.System.LOCKSCREEN_STYLE_PREF, 11) < 6);
             mGesturesTrail.setChecked(Settings.System.getInt(
                     getContentResolver(),
                     Settings.System.LOCKSCREEN_GESTURES_TRAIL, 0) != 0);
@@ -107,6 +111,8 @@ public class GestureMenuActivity extends PreferenceActivity
                     Settings.System.LOCKSCREEN_GESTURES_SENSITIVITY, 3)));
             mGesturesSensitivity.setSummary(mGesturesSensitivity.getEntry());
             mGesturesColor.setSummary(Integer.toHexString(getGestureColor()));
+            mGesturesBuilder.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_STYLE_PREF, 11) < 6);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {

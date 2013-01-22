@@ -76,11 +76,6 @@ public class GestureListActivity extends ListActivity {
 
         setContentView(R.layout.gestures_list);
 
-        if (Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_STYLE_PREF, 11) >= 6) {
-            finish();
-        }
-
         mAdapter = new GesturesAdapter(this);
         setListAdapter(mAdapter);
 

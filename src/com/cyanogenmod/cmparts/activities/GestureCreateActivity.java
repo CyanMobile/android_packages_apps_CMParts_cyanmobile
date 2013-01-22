@@ -77,11 +77,6 @@ public class GestureCreateActivity extends Activity implements ShortcutPickHelpe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gesture_create);
 
-        if (Settings.System.getInt(getContentResolver(),
-                Settings.System.LOCKSCREEN_STYLE_PREF, 11) >= 6) {
-            finish();
-        }
-
         mPicker = new ShortcutPickHelper(this, this);
 
         mDoneButton = findViewById(R.id.done);
