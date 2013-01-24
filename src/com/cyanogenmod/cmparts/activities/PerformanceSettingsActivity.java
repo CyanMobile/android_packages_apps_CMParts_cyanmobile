@@ -80,7 +80,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 	
     private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
 	
-    private static final String SCROLLINGCACHE_DEFAULT = "2";
+    private static final String SCROLLINGCACHE_DEFAULT = "0";
 
     private static final String DISABLE_BOOTANIMATION_PREF = "pref_disable_bootanimation";
 

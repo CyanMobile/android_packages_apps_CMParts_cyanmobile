@@ -213,9 +213,8 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
             //mElectronBeamAnimationOn.setChecked(Settings.System.getInt(getContentResolver(),
             //        Settings.System.ELECTRON_BEAM_ANIMATION_ON,
             //        getResources().getBoolean(com.android.internal.R.bool.config_enableScreenOnAnimation) ? 1 : 0) == 1);
-            mElectronBeamAnimationOff.setChecked(Settings.System.getInt(getContentResolver(),
-                    Settings.System.ELECTRON_BEAM_ANIMATION_OFF,
-                    getResources().getBoolean(com.android.internal.R.bool.config_enableScreenOffAnimation) ? 1 : 0) == 1);
+            mElectronBeamAnimationOff.setChecked((Settings.System.getInt(getContentResolver(),
+                    Settings.System.ELECTRON_BEAM_ANIMATION_OFF, 0) == 1) && getResources().getBoolean(com.android.internal.R.bool.config_enableScreenOffAnimation));
         } else {
             /* Hide Electron Beam controls if disabled */
             //((PreferenceCategory) prefSet.findPreference(GENERAL_CATEGORY))
