@@ -59,7 +59,7 @@ public class InputTweaksActivity extends TabActivity {
         mActionBar.setHomeLogo(R.drawable.cm_icon, new OnClickListener() {
                   @Override
                   public void onClick(View v) {
-                        MainActivity.this.finish();
+                        InputTweaksActivity.this.finish();
                   }
         });
 		Intent intent; // Reusable Intent for each tab
