@@ -238,7 +238,7 @@
                 <category android:name="com.cyanogenmod.cmparts.SHORTCUT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.InputTweaksActivity" android:label="@string/inputtweaks_title">
+        <activity android:name=".activities.InputTweaksActivity" android:label="@string/inputtweaks_title" android:theme="@style/CustomTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.cyanogenmod.cmparts.SHORTCUT"/>
