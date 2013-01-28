@@ -48,6 +48,7 @@ public class InputTweaksActivity extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         if ("1".equals(SystemProperties.get("ro.squadzone.build", "0"))) {
            setContentView(R.xml.cmpartsinput);
         } else {
@@ -55,7 +56,7 @@ public class InputTweaksActivity extends TabActivity {
         }
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
         mActionBar = (ActionBar) findViewById(R.id.actionBar);
-        mActionBar.setTitle(R.string.app_name);
+        mActionBar.setTitle(R.string.inputtweaks_title);
         mActionBar.setHomeLogo(R.drawable.cm_icon, new OnClickListener() {
                   @Override
                   public void onClick(View v) {
