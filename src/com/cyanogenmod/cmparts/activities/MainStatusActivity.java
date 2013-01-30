@@ -81,6 +81,9 @@ public class MainStatusActivity extends TabActivity {
 		intent = new Intent().setClass(MainStatusActivity.this, TabletTweaksActivity.class);
 		setupTab(new TextView(this), getString(R.string.tablet_tweaks_title_head), intent);
 
+		intent = new Intent().setClass(MainStatusActivity.this, UIPieActivity.class);
+		setupTab(new TextView(this), getString(R.string.pie_controls_title), intent);
+
 		intent = new Intent().setClass(MainStatusActivity.this, SpareParts.class);
 		setupTab(new TextView(this), getString(R.string.ui_spareparts_title), intent);
 
