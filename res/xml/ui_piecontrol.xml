@@ -66,6 +66,12 @@
                         android:title="@string/pie_clock_color_title"
                         android:summary="@string/pie_clock_color_summary"
                         android:defaultValue="-1"/>
+                <Preference android:key="pie_outline_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_outline_color_title"
+                        android:title="@string/pie_outline_color_title"
+                        android:summary="@string/pie_outline_color_summary"
+                        android:defaultValue="-1"/>
         </PreferenceCategory>
 	<PreferenceCategory />
 	<Preference android:key="squadkeys" android:title="@string/squadzone_title"

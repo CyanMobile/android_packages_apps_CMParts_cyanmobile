@@ -292,6 +292,8 @@
     <string name="ui_navi_bar_color_summary">Change the background color</string>
     <string name="ui_navi_button_color_title">Navigation button color</string>
     <string name="ui_navi_button_color_summary">Change the button color</string>
+    <string name="ui_navi_glow_color_title">Navigation glow color</string>
+    <string name="ui_navi_glow_color_summary">Change the glow color</string>
     <string name="pref_transparent_status_bar_title">Status bar background appearance</string>
     <string name="pref_transparent_status_bar_summary">Change the background image</string>
     <string name="pref_transparent_navi_bar_title">Navigation background appearance</string>
@@ -1507,5 +1509,7 @@
     <string name="pie_chevron_color_summary">Change chevron color overlay</string>
     <string name="pie_clock_color_title">Change clock color</string>
     <string name="pie_clock_color_summary">Change clock color overlay</string>
+    <string name="pie_outline_color_title">Change outline color</string>
+    <string name="pie_outline_color_summary">Change outline color overlay</string>
     <string name="piecontrol_notice_summary">NavigationBar is enable.\n\nDisable navigationbar if you want using PIE.</string>
 </resources>

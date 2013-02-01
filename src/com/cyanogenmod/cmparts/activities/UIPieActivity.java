@@ -48,6 +48,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private static final String PIE_BATTERY_COLOR = "pie_battery_color";
     private static final String PIE_CHEVRON_COLOR = "pie_chevron_color";
     private static final String PIE_CLOCK_COLOR = "pie_clock_color";
+    private static final String PIE_OUTLINE_COLOR = "pie_outline_color";
     private static final String PIE_ENABLE_COLOR = "pie_enable_color";
 
     static Context mContext;
@@ -59,6 +60,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private Preference mPieBatteryColor;
     private Preference mPieChevronColor;
     private Preference mPieClockColor;
+    private Preference mPieOutlineColor;
     private ListPreference mPieMode;
     private ListPreference mPieSize;
     private ListPreference mPieGravity;
@@ -102,6 +104,9 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         mPieClockColor = (Preference) prefSet.findPreference(PIE_CLOCK_COLOR);
         mPieClockColor.setOnPreferenceChangeListener(this);
 
+        mPieOutlineColor = (Preference) prefSet.findPreference(PIE_OUTLINE_COLOR);
+        mPieOutlineColor.setOnPreferenceChangeListener(this);
+
         mPieGravity = (ListPreference) prefSet.findPreference(PIE_GRAVITY);
         int pieGravity = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.PIE_GRAVITY, 3);
@@ -144,6 +149,8 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
        mPieChoiceButtonColor.setEnabled(!mNavBarEnabled);
        mPieBatteryColor.setEnabled(!mNavBarEnabled);
        mPieChevronColor.setEnabled(!mNavBarEnabled);
+       mPieClockColor.setEnabled(!mNavBarEnabled);
+       mPieOutlineColor.setEnabled(!mNavBarEnabled);
        mPieMode.setEnabled(!mNavBarEnabled);
        mPieSize.setEnabled(!mNavBarEnabled);
        mPieGravity.setEnabled(!mNavBarEnabled);
@@ -193,6 +200,10 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
 	    return true;
         } else if (preference == mPieClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this, mPieClockColorListener, getPieClockColor());
+            cp.show();
+	    return true;
+        } else if (preference == mPieOutlineColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this, mPieOutlineColorListener, getPieOutlineColor());
             cp.show();
 	    return true;
         } else if (preference == mPieEnableColor) {
@@ -261,6 +272,15 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         }
     }
 
+    private int getPieOutlineColor() {
+        try {
+            return Settings.System.getInt(getContentResolver(), Settings.System.PIE_OUTLINE_COLOR);
+        }
+        catch (SettingNotFoundException e) {
+            return defValuesColor();
+        }
+    }
+
     ColorPickerDialog.OnColorChangedListener mPieButtonColorListener =  new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(), Settings.System.PIE_BUTTON_COLOR, color);
@@ -304,6 +324,14 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     ColorPickerDialog.OnColorChangedListener mPieClockColorListener =  new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(), Settings.System.PIE_CLOCK_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mPieOutlineColorListener =  new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(), Settings.System.PIE_OUTLINE_COLOR, color);
             }
             public void colorUpdate(int color) {
             }
