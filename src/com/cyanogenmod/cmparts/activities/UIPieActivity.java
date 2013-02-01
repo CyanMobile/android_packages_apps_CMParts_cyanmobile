@@ -169,6 +169,8 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
        mPieOutlineColor.setEnabled(!mNavBarEnabled);
        mPieMode.setEnabled(!mNavBarEnabled);
        mPieSize.setEnabled(!mNavBarEnabled);
+       mPieTrigger.setEnabled(!mNavBarEnabled);
+       mPieGap.setEnabled(!mNavBarEnabled);
        mPieGravity.setEnabled(!mNavBarEnabled);
        mPieEnableColor.setEnabled(!mNavBarEnabled);
     }
