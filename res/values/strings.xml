@@ -1487,10 +1487,11 @@
     <string name="pie_mode_summary">Manage how animations and status additions will be handled</string>
     <string name="pie_mode_bare">Bare</string>
     <string name="pie_mode_quick">Quick</string>
-    <string name="pie_mode_default">Default</string>
+    <string name="pie_mode_default">Normal (Default)</string>
     <string name="pie_mode_slow">Slow</string>
     <string name="pie_size_title">Pie size</string>
     <string name="pie_size_summary">Define pie controls size</string>
+    <string name="pie_size_small">Small</string>
     <string name="pie_size_medium">Medium</string>
     <string name="pie_size_default">@string/pie_mode_default</string>
     <string name="pie_size_large">Large</string>
@@ -1512,4 +1513,15 @@
     <string name="pie_outline_color_title">Change outline color</string>
     <string name="pie_outline_color_summary">Change outline color overlay</string>
     <string name="piecontrol_notice_summary">NavigationBar is enable.\n\nDisable navigationbar if you want using PIE.</string>
+    <string name="pie_gap_title">Pie gap</string>
+    <string name="pie_gap_summary">Adjust the gap in between pie elements</string>
+    <string name="pie_gap_closed">Closed</string>
+    <string name="pie_gap_small">Small (default)</string>
+    <string name="pie_gap_big">Big</string>
+    <string name="pie_gap_huge">Huge</string>
+    <string name="pie_trigger_title">Trigger size</string>
+    <string name="pie_trigger_summary">Determine the size of the triggering area that will start pie controls</string>
+    <string name="pie_trigger_small">@string/pie_gap_small</string>
+    <string name="pie_trigger_big">@string/pie_gap_big</string>
+    <string name="pie_trigger_huge">@string/pie_gap_huge</string>
 </resources>

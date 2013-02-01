@@ -50,6 +50,8 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private static final String PIE_CLOCK_COLOR = "pie_clock_color";
     private static final String PIE_OUTLINE_COLOR = "pie_outline_color";
     private static final String PIE_ENABLE_COLOR = "pie_enable_color";
+    private static final String PIE_TRIGGER = "pie_trigger";
+    private static final String PIE_GAP = "pie_gap";
 
     static Context mContext;
 
@@ -66,6 +68,8 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private ListPreference mPieGravity;
     private CheckBoxPreference mPieEnableColor;
     private boolean mNavBarEnabled;
+    private ListPreference mPieTrigger;	
+    private ListPreference mPieGap;
 
     private AlertDialog alertDialog;
 
@@ -83,7 +87,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         mSquadzone = (Preference) prefSet.findPreference(PREF_SQUADZONE);
         mSquadzone.setSummary("CyanMobile");
 
-        mNavBarEnabled = Settings.System.getInt(mContext.getContentResolver(),
+        mNavBarEnabled = Settings.System.getInt(getContentResolver(),
                 Settings.System.SHOW_NAVI_BUTTONS, 1) == 1;
 
         mPieButtonColor = (Preference) prefSet.findPreference(PIE_BUTTON_COLOR);
@@ -108,19 +112,19 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         mPieOutlineColor.setOnPreferenceChangeListener(this);
 
         mPieGravity = (ListPreference) prefSet.findPreference(PIE_GRAVITY);
-        int pieGravity = Settings.System.getInt(mContext.getContentResolver(),
+        int pieGravity = Settings.System.getInt(getContentResolver(),
                 Settings.System.PIE_GRAVITY, 3);
         mPieGravity.setValue(String.valueOf(pieGravity));
         mPieGravity.setOnPreferenceChangeListener(this);
 
         mPieMode = (ListPreference) prefSet.findPreference(PIE_MODE);
-        int pieMode = Settings.System.getInt(mContext.getContentResolver(),
+        int pieMode = Settings.System.getInt(getContentResolver(),
                 Settings.System.PIE_MODE, 2);
         mPieMode.setValue(String.valueOf(pieMode));
         mPieMode.setOnPreferenceChangeListener(this);
 
         mPieSize = (ListPreference) prefSet.findPreference(PIE_SIZE);
-        String pieSize = Settings.System.getString(mContext.getContentResolver(),
+        String pieSize = Settings.System.getString(getContentResolver(),
                 Settings.System.PIE_SIZE);
         mPieSize.setValue(pieSize != null && !pieSize.isEmpty() ? pieSize : "0.8");
         mPieSize.setOnPreferenceChangeListener(this);
@@ -128,6 +132,18 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         mPieEnableColor = (CheckBoxPreference) prefSet.findPreference(PIE_ENABLE_COLOR);
         mPieEnableColor.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.PIE_ENABLE_COLOR, 0) == 1));
+
+        mPieTrigger = (ListPreference) prefSet.findPreference(PIE_TRIGGER);
+        String pieTrigger = Settings.System.getString(getContentResolver(),
+                Settings.System.PIE_TRIGGER);
+        mPieTrigger.setValue(pieTrigger != null && !pieTrigger.isEmpty() ? pieTrigger : "1");
+        mPieTrigger.setOnPreferenceChangeListener(this);
+
+        mPieGap = (ListPreference) prefSet.findPreference(PIE_GAP);
+        int pieGap = Settings.System.getInt(getContentResolver(),
+                Settings.System.PIE_GAP, 1);
+        mPieGap.setValue(String.valueOf(pieGap));
+        mPieGap.setOnPreferenceChangeListener(this);
 
         if (mNavBarEnabled) {
            // Set up the warning
@@ -172,6 +188,16 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
             int pieGravity = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.PIE_GRAVITY, pieGravity);
+            return true;
+        } else if (preference == mPieGap) {
+            int pieGap = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.PIE_GAP, pieGap);
+            return true;
+        } else if (preference == mPieTrigger) {
+            float pierigger = Float.valueOf((String) newValue);
+            Settings.System.putFloat(getContentResolver(),
+                    Settings.System.PIE_TRIGGER, pierigger);
             return true;
         }
         return false;
