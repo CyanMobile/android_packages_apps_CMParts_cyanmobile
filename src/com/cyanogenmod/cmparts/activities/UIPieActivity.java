@@ -197,9 +197,9 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
                     Settings.System.PIE_GAP, pieGap);
             return true;
         } else if (preference == mPieTrigger) {
-            float pierigger = Float.valueOf((String) newValue);
+            float pieTrigger = Float.valueOf((String) newValue);
             Settings.System.putFloat(getContentResolver(),
-                    Settings.System.PIE_TRIGGER, pierigger);
+                    Settings.System.PIE_TRIGGER, pieTrigger);
             return true;
         }
         return false;
