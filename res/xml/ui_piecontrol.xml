@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/general_title">
+                <ListPreference
+                    android:key="pie_trigger"
+                    android:dialogTitle="@string/pie_trigger_title"
+                    android:title="@string/pie_trigger_title"
+                    android:summary="@string/pie_trigger_summary"
+                    android:entries="@array/entries_pie_trigger"
+                    android:entryValues="@array/values_pie_trigger" />
+
+		<ListPreference
+                     android:key="pie_gravity"
+                     android:dialogTitle="@string/pie_gravity_title"
+                     android:title="@string/pie_gravity_title"
+                     android:summary="@string/pie_gravity_summary"
+                     android:entries="@array/entries_pie_gravity"
+                     android:entryValues="@array/values_pie_gravity" />
+
+                <ListPreference	
+                     android:key="pie_size"
+                     android:dialogTitle="@string/pie_size_title"
+                     android:title="@string/pie_size_title"
+                     android:summary="@string/pie_size_summary"
+                     android:entries="@array/entries_pie_size"
+                     android:entryValues="@array/values_pie_size" />
+
+                <ListPreference
+                     android:key="pie_mode"
+                     android:dialogTitle="@string/pie_mode_title"
+                     android:title="@string/pie_mode_title"
+                     android:summary="@string/pie_mode_summary"
+                     android:entries="@array/entries_pie_mode"
+                     android:entryValues="@array/values_pie_mode" />
+
+                <ListPreference
+                     android:key="pie_gap"
+                     android:dialogTitle="@string/pie_gap_title"
+                     android:title="@string/pie_gap_title"
+                     android:summary="@string/pie_gap_summary"
+                     android:entries="@array/entries_pie_gap"
+                     android:entryValues="@array/values_pie_gap" />
+	</PreferenceCategory>
+        <PreferenceCategory android:title="@string/pie_color_change_title">
+                <CheckBoxPreference android:key="pie_enable_color"
+                        android:title="@string/pie_enable_color_title"
+                        android:summary="@string/pie_enable_color_summary"
+                        android:defaultValue="false" />
+                <Preference android:key="pie_button_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_button_color_title"
+                        android:title="@string/pie_button_color_title"
+                        android:summary="@string/pie_button_color_summary"
+                        android:defaultValue="-1"/>
+                <Preference android:key="pie_background_button_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_background_button_color_title"
+                        android:title="@string/pie_background_button_color_title"
+                        android:summary="@string/pie_background_button_color_summary"
+                        android:defaultValue="-1"/>
+                <Preference android:key="pie_choice_button_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_choice_button_color_title"
+                        android:title="@string/pie_choice_button_color_title"
+                        android:summary="@string/pie_choice_button_color_summary"
+                        android:defaultValue="-1"/>
+                <Preference android:key="pie_battery_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_battery_color_title"
+                        android:title="@string/pie_battery_color_title"
+                        android:summary="@string/pie_battery_color_summary"
+                        android:defaultValue="-1"/>
+                <Preference android:key="pie_chevron_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_chevron_color_title"
+                        android:title="@string/pie_chevron_color_title"
+                        android:summary="@string/pie_chevron_color_summary"
+                        android:defaultValue="-1"/>
+                <Preference android:key="pie_clock_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_clock_color_title"
+                        android:title="@string/pie_clock_color_title"
+                        android:summary="@string/pie_clock_color_summary"
+                        android:defaultValue="-1"/>
+                <Preference android:key="pie_outline_color"
+                        android:dependency="pie_enable_color"
+                        android:dialogTitle="@string/pie_outline_color_title"
+                        android:title="@string/pie_outline_color_title"
+                        android:summary="@string/pie_outline_color_summary"
+                        android:defaultValue="-1"/>
+        </PreferenceCategory>
+	<PreferenceCategory />
+	<Preference android:key="squadkeys" android:title="@string/squadzone_title"
+		android:summary="@string/squadzone_summary" android:selectable="false" />
+</PreferenceScreen>

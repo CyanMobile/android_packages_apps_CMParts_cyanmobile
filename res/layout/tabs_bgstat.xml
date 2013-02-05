@@ -2,21 +2,21 @@
 <LinearLayout
      xmlns:android="http://schemas.android.com/apk/res/android"
      android:id="@+id/tabsLayout"
-     android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:background="@drawable/tab_bg_selector"
-     android:padding="3dip"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@*android:drawable/tab_indicator"
+     android:layout_marginLeft="-3dip"
+     android:layout_marginRight="-3dip"
      android:gravity="center"
      android:orientation="vertical">
      <TextView
-          android:layout_width="wrap_content"
-          android:textColor="@drawable/tab_text_selector"
-          android:gravity="center"
-          android:textSize="12dip"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:id="@+id/tabsText"
-          android:text="@string/title_stats_widget"
-          android:padding="10px">
-     </TextView>
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/tabsText"
+        android:padding="10px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/tabWidgetStyle"
+    />
 </LinearLayout>

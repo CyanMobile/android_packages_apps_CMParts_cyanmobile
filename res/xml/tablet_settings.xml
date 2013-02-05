@@ -107,6 +107,12 @@
             android:title="@string/ui_navi_button_color_title"
             android:summary="@string/ui_navi_button_color_summary"
             android:defaultValue="-1"/>
+        <Preference android:key="pref_navi_glow_color"
+            android:dependency="pref_enable_overicon"
+            android:dialogTitle="@string/ui_navi_glow_color_title"
+            android:title="@string/ui_navi_glow_color_title"
+            android:summary="@string/ui_navi_glow_color_summary"
+            android:defaultValue="-1"/>
     </PreferenceCategory>
     <!-- Interface options -->
     <PreferenceCategory android:key="pref_interface_category"

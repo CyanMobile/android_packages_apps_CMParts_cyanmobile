@@ -56,6 +56,7 @@ public class UIWeatherActivity extends PreferenceActivity implements
     private static final int LOC_WARNING = 101;
     private static final int SYNCS_WARNING = 102;
     private ProgressDialog mProgressDialog;
+    private int mWeatherInterval;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,14 +91,14 @@ public class UIWeatherActivity extends PreferenceActivity implements
                 Settings.System.WEATHER_USE_METRIC, 1) == 1);
 
         mWeatherSyncInterval = (ListPreference) prefSet.findPreference(KEY_REFRESH_INTERVAL);
-        int weatherInterval = Settings.System.getInt(getContentResolver(),
+        mWeatherInterval = Settings.System.getInt(getContentResolver(),
                 Settings.System.WEATHER_UPDATE_INTERVAL, 0);
-        mEnableWeather.setChecked((weatherInterval != 0) && (Settings.System.getInt(getContentResolver(),
+        mEnableWeather.setChecked((mWeatherInterval != 0) && (Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_WEATHER, 0) == 1));
-        mEnableWeather.setEnabled((weatherInterval != 0) && (Settings.System.getInt(getContentResolver(),
+        mEnableWeather.setEnabled((mWeatherInterval != 0) && (Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_STYLE_PREF, 11) >= 6));
-        mWeatherSyncInterval.setValue(String.valueOf(weatherInterval));
-        mWeatherSyncInterval.setSummary(mapUpdateValue(weatherInterval));
+        mWeatherSyncInterval.setValue(String.valueOf(mWeatherInterval));
+        mWeatherSyncInterval.setSummary(mapUpdateValue(mWeatherInterval));
         mWeatherSyncInterval.setOnPreferenceChangeListener(this);
 
         if (!Settings.Secure.isLocationProviderEnabled(getContentResolver(),
@@ -281,7 +282,14 @@ public class UIWeatherActivity extends PreferenceActivity implements
                                mEnableWeather.setEnabled(false);
                             }
                         });
-                builder.setNegativeButton(R.string.cancel, null);
+                builder.setNegativeButton(R.string.cancel, 
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                               Settings.System.putInt(getContentResolver(), Settings.System.WEATHER_UPDATE_INTERVAL, mWeatherInterval);
+                               mWeatherSyncInterval.setValue(String.valueOf(mWeatherInterval));
+                               mWeatherSyncInterval.setSummary(mapUpdateValue(mWeatherInterval));
+                            }
+                        });
                 dialog = builder.create();
                 break;
             default:
