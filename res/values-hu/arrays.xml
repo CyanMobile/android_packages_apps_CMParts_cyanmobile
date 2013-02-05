@@ -16,25 +16,25 @@
  -->
 <resources>
 
-	<string-array name="entries_battery">
-		<item>1 másodperc</item>
-		<item>5 másodperc</item>
-		<item>10 másodperc</item>
-		<item>20 másodperc</item>
-		<item>30 másodperc</item>
-		<item>40 másodperc</item>
-		<item>50 másodperc</item>
-		<item>1 perc</item>
-	</string-array>
+    <string-array name="entries_battery">
+        <item>1 másodperc</item>
+        <item>5 másodperc</item>
+        <item>10 másodperc</item>
+        <item>20 másodperc</item>
+        <item>30 másodperc</item>
+        <item>40 másodperc</item>
+        <item>50 másodperc</item>
+        <item>1 perc</item>
+    </string-array>
 
-	<string-array name="entries_heapsize">
-		<item>12mb</item>
-		<item>16mb</item>
-		<item>24mb</item>
-		<item>32mb</item>
-		<item>48mb</item>
-		<item>64mb</item>
-	</string-array>
+    <string-array name="entries_heapsize">
+        <item>12mb</item>
+        <item>16mb</item>
+        <item>24mb</item>
+        <item>32mb</item>
+        <item>48mb</item>
+        <item>64mb</item>
+    </string-array>
 
     <string-array name="entries_vol_bootsound">
         <item>1</item>
@@ -46,37 +46,37 @@
         <item>7</item>
     </string-array>
 
-	<string-array name="entries_install_location">
-		<item>Automatikus</item>
-		<item>Belső</item>
-		<item>Külső</item>
-		<item>SD-Ext</item>
-	</string-array>
+    <string-array name="entries_install_location">
+        <item>Automatikus</item>
+        <item>Belső</item>
+        <item>Külső</item>
+        <item>SD-Ext</item>
+    </string-array>
 
-	<string-array name="entries_status_bar_am_pm">
-		<item>Normál</item>
-		<item>Kicsi</item>
-		<item>Nincs (alapért.)</item>
-	</string-array>
+    <string-array name="entries_status_bar_am_pm">
+        <item>Normál</item>
+        <item>Kicsi</item>
+        <item>Nincs (alapért.)</item>
+    </string-array>
 
-	<string-array name="entries_status_bar_battery_style">
-		<item>Alapértelmezett</item>
-		<item>Százalék</item>
-		<item>Színes</item>
-	</string-array>
+    <string-array name="entries_status_bar_battery_style">
+        <item>Alapértelmezett</item>
+        <item>Százalék</item>
+        <item>Színes</item>
+    </string-array>
 
-	<string-array name="entries_status_bar_battery">
-		<item>Ikon (alapért.)</item>
-		<item>Százalékos</item>
+    <string-array name="entries_status_bar_battery">
+        <item>Ikon (alapért.)</item>
+        <item>Százalékos</item>
         <item>Felső Statusbar</item>
         <item>Oldal Bar</item>
         <item>Mögött Statusbar</item>
-		<item>Felső Navigationbar</item>
-		<item>Kívülavi Navigationbar</item>
-		<item>Kör</item>
-		<item>Kör százalékkal</item>
-		<item>Rejtett</item>
-	</string-array>
+        <item>Felső Navigationbar</item>
+        <item>Kívülavi Navigationbar</item>
+        <item>Kör</item>
+        <item>Kör százalékkal</item>
+        <item>Rejtett</item>
+    </string-array>
 
     <string-array name="entries_status_bar_battery_color">
         <item>Téma</item>
@@ -90,22 +90,22 @@
         <item>Szokás</item>
     </string-array>
 
-	<string-array name="statusbar_clockfontsize_entries">
-		<item>7dp</item>
-		<item>8dp</item>
-		<item>9dp</item>
-		<item>10dp</item>
-		<item>11dp (alapért.)</item>
-		<item>12dp</item>
-		<item>13dp</item>
-		<item>14dp</item>
-		<item>15dp</item>
-		<item>16dp</item>
-		<item>17dp</item>
-		<item>18dp</item>
-		<item>19dp</item>
-		<item>20dp</item>
-	</string-array>
+    <string-array name="statusbar_clockfontsize_entries">
+        <item>7dp</item>
+        <item>8dp</item>
+        <item>9dp</item>
+        <item>10dp</item>
+        <item>11dp (alapért.)</item>
+        <item>12dp</item>
+        <item>13dp</item>
+        <item>14dp</item>
+        <item>15dp</item>
+        <item>16dp</item>
+        <item>17dp</item>
+        <item>18dp</item>
+        <item>19dp</item>
+        <item>20dp</item>
+    </string-array>
 
     <string-array name="statusbar_iconfontsize_entries">
        <item>7dp</item>
@@ -221,11 +221,11 @@
        <item>20dp</item>
     </string-array>
 
-	<string-array name="haptic_feedback_entries">
-		<item>Globális beállítás</item>
-		<item>Be</item>
-		<item>Ki</item>
-	</string-array>
+    <string-array name="haptic_feedback_entries">
+        <item>Globális beállítás</item>
+        <item>Be</item>
+        <item>Ki</item>
+    </string-array>
 
     <string-array name="pref_trackball_blink_rate_entries">
         <item>Az alkalmazás beállítása</item>
@@ -388,10 +388,10 @@
         <item>Magas / Halálsugár</item>
     </string-array>
 
-	<string-array name="entries_mobiledatanetwork_widget">
-		<item>Ki</item>
-		<item>Be</item>
-	</string-array>
+    <string-array name="entries_mobiledatanetwork_widget">
+        <item>Ki</item>
+        <item>Be</item>
+    </string-array>
 
     <string-array name="pref_lockscreen_gestures_sensitivity_entries">
         <item>1 (legtágabb)</item>
@@ -456,38 +456,38 @@
         <item>Egyéni szín</item>
     </string-array>
 
-	<string-array name="swap_volume_keys_orientation_list_entries">
-		<item>Soha</item>
-		<item>0-fok</item>
-		<item>90-fok</item>
-		<item>180-fok</item>
-		<item>270-fok</item>
-	</string-array>
+    <string-array name="swap_volume_keys_orientation_list_entries">
+        <item>Soha</item>
+        <item>0-fok</item>
+        <item>90-fok</item>
+        <item>180-fok</item>
+        <item>270-fok</item>
+    </string-array>
 
-	<string-array name="entries_vol_actions">
-		<item>Nincs/Alap</item>
-		<item>Kezdő</item>
-		<item>Menü</item>
-		<item>Vissza</item>
-		<item>Keresés</item>
-		<item>Bekapcsolás</item>
-		<item>Hívás</item>
-		<item>Hívás vége</item>
-		<item>Indít/Szünet</item>
-		<item>Következő szám</item>
-		<item>Előző szám</item>
-		<item>Kezdő hosszan nyomva</item>
-	</string-array>
+    <string-array name="entries_vol_actions">
+        <item>Nincs/Alap</item>
+        <item>Kezdő</item>
+        <item>Menü</item>
+        <item>Vissza</item>
+        <item>Keresés</item>
+        <item>Bekapcsolás</item>
+        <item>Hívás</item>
+        <item>Hívás vége</item>
+        <item>Indít/Szünet</item>
+        <item>Következő szám</item>
+        <item>Előző szám</item>
+        <item>Kezdő hosszan nyomva</item>
+    </string-array>
 
-	<string-array name="entries_unhide_button">
-		<item>Kezdő</item>
-		<item>Menü</item>
-		<item>Vissza</item>
-		<item>Keresés</item>
-		<item>Kamera</item>
-		<item>Hang - fel</item>
-		<item>Hang - le</item>
-	</string-array>
+    <string-array name="entries_unhide_button">
+        <item>Kezdő</item>
+        <item>Menü</item>
+        <item>Vissza</item>
+        <item>Keresés</item>
+        <item>Kamera</item>
+        <item>Hang - fel</item>
+        <item>Hang - le</item>
+    </string-array>
 
     <string-array name="entries_long_press_menu">
         <item>Nincs</item>
