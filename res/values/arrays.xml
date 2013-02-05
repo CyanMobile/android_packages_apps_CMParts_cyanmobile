@@ -1970,4 +1970,62 @@
         <item>2.0</item>
         <item>3.0</item>
     </string-array>
+
+    <string-array name="entries_pie_buttons_home">
+        <item>Back</item>
+        <item>Home</item>
+        <item>Recent</item>
+        <item>Menu</item>
+        <item>Search</item>
+        <item>Screenshot</item>
+        <item>Power menu</item>
+        <item>Last app</item>
+        <item>Settings</item>
+        <item>Clear All</item>
+        <item>Nothing</item>
+    </string-array>
+
+    <string-array name="values_pie_buttons_home">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="entries_pie_buttons_homes">
+        <item>Back</item>
+        <item>Home</item>
+        <item>Recent</item>
+        <item>Menu</item>
+        <item>Search</item>
+        <item>Screenshot</item>
+        <item>Power menu</item>
+        <item>Last app</item>
+        <item>Settings</item>
+        <item>Clear All</item>
+        <item>Nothing</item>
+        <item>Custom app</item>
+    </string-array>
+
+    <string-array name="values_pie_buttons_homes">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
 </resources>

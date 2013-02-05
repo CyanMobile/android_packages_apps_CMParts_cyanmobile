@@ -39,7 +39,7 @@ import android.widget.TabHost.TabSpec;
 
 import com.cyanogenmod.cmparts.utils.MathUtils;
 
-public class MainStatusActivity extends TabActivity {
+public class PieItemsActivity extends TabActivity {
 
 	private static TabHost mTabHost;
 	private Intent intent;
@@ -51,56 +51,36 @@ public class MainStatusActivity extends TabActivity {
 
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         if ("1".equals(SystemProperties.get("ro.squadzone.build", "0"))) {
-           setContentView(R.xml.cmpartstatus);
+           setContentView(R.xml.cmparts_pie);
         } else {
            return;
         }
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
         mActionBar = (ActionBar) findViewById(R.id.actionBar);
-        mActionBar.setTitle(R.string.title_stats_widget);
+        mActionBar.setTitle(R.string.pie_item_controls_title);
         mActionBar.setHomeLogo(R.drawable.cm_icon, new OnClickListener() {
                   @Override
                   public void onClick(View v) {
-                        MainStatusActivity.this.finish();
+                        PieItemsActivity.this.finish();
                   }
         });
 		Intent intent; // Reusable Intent for each tab
 
-		intent = new Intent().setClass(MainStatusActivity.this, UIStatusBarActivity.class);
-		setupTab(new TextView(this), getString(R.string.ui_status_bar_title), intent);
+		intent = new Intent().setClass(PieItemsActivity.this, PieBackButtonsActivity.class);
+		setupTab(new TextView(this), getString(R.string.pie_back_controls_title), intent);
 
-		intent = new Intent().setClass(MainStatusActivity.this, UIGraphicActivity.class);
-		setupTab(new TextView(this), getString(R.string.ui_graphicss_title), intent);
+		intent = new Intent().setClass(PieItemsActivity.this, PieHomeButtonsActivity.class);
+		setupTab(new TextView(this), getString(R.string.pie_home_controls_title), intent);
 
-		intent = new Intent().setClass(MainStatusActivity.this, UIActivityGlobal.class);
-		setupTab(new TextView(this), getString(R.string.interface_powermenu_settings_title_head), intent);
+		intent = new Intent().setClass(PieItemsActivity.this, PieRecentButtonsActivity.class);
+		setupTab(new TextView(this), getString(R.string.pie_recent_controls_title), intent);
 
-		intent = new Intent().setClass(MainStatusActivity.this, UIWeatherActivity.class);
-		setupTab(new TextView(this), getString(R.string.lockscreen_weather_title), intent);
+		intent = new Intent().setClass(PieItemsActivity.this, PieSearchButtonsActivity.class);
+		setupTab(new TextView(this), getString(R.string.pie_search_controls_title), intent);
 
-		intent = new Intent().setClass(MainStatusActivity.this, TabletTweaksActivity.class);
-		setupTab(new TextView(this), getString(R.string.tablet_tweaks_title_head), intent);
+		intent = new Intent().setClass(PieItemsActivity.this, PieMenuButtonsActivity.class);
+		setupTab(new TextView(this), getString(R.string.pie_menu_controls_title), intent);
 
-		intent = new Intent().setClass(MainStatusActivity.this, UIPieActivity.class);
-		setupTab(new TextView(this), getString(R.string.pie_controls_title), intent);
-
-		intent = new Intent().setClass(MainStatusActivity.this, SpareParts.class);
-		setupTab(new TextView(this), getString(R.string.ui_spareparts_title), intent);
-
-		intent = new Intent().setClass(MainStatusActivity.this, UIPowerWidgetActivity.class);
-		setupTab(new TextView(this), getString(R.string.title_expanded_widget), intent);
-
-		intent = new Intent().setClass(MainStatusActivity.this, PowerWidgetActivity.class);
-		setupTab(new TextView(this), getString(R.string.title_widget_picker), intent);
-
-		intent = new Intent().setClass(MainStatusActivity.this, PowerWidgetOrderActivity.class);
-		setupTab(new TextView(this), getString(R.string.title_widget_order), intent);
-
-		intent = new Intent().setClass(MainStatusActivity.this, TileViewActivity.class);
-		setupTab(new TextView(this), getString(R.string.title_tileview_picker), intent);
-
-		intent = new Intent().setClass(MainStatusActivity.this, TileViewOrderActivity.class);
-		setupTab(new TextView(this), getString(R.string.title_tileview_order), intent);
     }
 
     public static class FlingableTabHost extends TabHost {

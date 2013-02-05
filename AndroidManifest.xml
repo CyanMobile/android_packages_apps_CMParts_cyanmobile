@@ -167,6 +167,48 @@
                 <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.PieBackButtonsActivity"
+            android:label="@string/pie_back_controls_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.PieHomeButtonsActivity"
+            android:label="@string/pie_home_controls_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.PieMenuButtonsActivity"
+            android:label="@string/pie_menu_controls_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.PieSearchButtonsActivity"
+            android:label="@string/pie_search_controls_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.PieRecentButtonsActivity"
+            android:label="@string/pie_recent_controls_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.PieItemsActivity"
+            android:label="@string/pie_item_controls_title" android:theme="@style/CustomTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.UIWeatherActivity"
             android:label="@string/lockscreen_weather_title">
             <intent-filter>

@@ -40,6 +40,14 @@
                      android:summary="@string/pie_gap_summary"
                      android:entries="@array/entries_pie_gap"
                      android:entryValues="@array/values_pie_gap" />
+
+		<PreferenceScreen android:key="input_pie_key"
+			android:title="@string/input_pie_key_title" android:summary="@string/input_pie_key_summary">
+			<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.cyanogenmod.cmparts"
+				android:targetClass="com.cyanogenmod.cmparts.activities.PieItemsActivity" />
+		</PreferenceScreen>
+
 	</PreferenceCategory>
         <PreferenceCategory android:title="@string/pie_color_change_title">
                 <CheckBoxPreference android:key="pie_enable_color"
