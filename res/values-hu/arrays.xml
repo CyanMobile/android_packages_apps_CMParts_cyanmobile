@@ -16,13 +16,219 @@
  -->
 <resources>
 
+    <string-array name="entries_battery">
+        <item>1 másodperc</item>
+        <item>5 másodperc</item>
+        <item>10 másodperc</item>
+        <item>20 másodperc</item>
+        <item>30 másodperc</item>
+        <item>40 másodperc</item>
+        <item>50 másodperc</item>
+        <item>1 perc</item>
+    </string-array>
+
+    <string-array name="entries_heapsize">
+        <item>12mb</item>
+        <item>16mb</item>
+        <item>24mb</item>
+        <item>32mb</item>
+        <item>48mb</item>
+        <item>64mb</item>
+    </string-array>
+
+    <string-array name="entries_vol_bootsound">
+        <item>1</item>
+        <item>2 (alapért.)</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
     <string-array name="entries_install_location">
         <item>Automatikus</item>
         <item>Belső</item>
-        <item>Külső (SD)</item>
+        <item>Külső</item>
+        <item>SD-Ext</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_am_pm">
+        <item>Normál</item>
+        <item>Kicsi</item>
+        <item>Nincs (alapért.)</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_battery_style">
+        <item>Alapértelmezett</item>
+        <item>Százalék</item>
+        <item>Színes</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_battery">
+        <item>Ikon (alapért.)</item>
+        <item>Százalékos</item>
+        <item>Felső Statusbar</item>
+        <item>Oldal Bar</item>
+        <item>Mögött Statusbar</item>
+        <item>Felső Navigationbar</item>
+        <item>Kívülavi Navigationbar</item>
+        <item>Kör</item>
+        <item>Kör százalékkal</item>
+        <item>Rejtett</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_battery_color">
+        <item>Téma</item>
+        <item>Fekete</item>
+        <item>Kék</item>
+        <item>Szürke</item>
+        <item>Zöld</item>
+        <item>Piros</item>
+        <item>Fehér</item>
+        <item>Sárga</item>
+        <item>Szokás</item>
+    </string-array>
+
+    <string-array name="statusbar_clockfontsize_entries">
+        <item>7dp</item>
+        <item>8dp</item>
+        <item>9dp</item>
+        <item>10dp</item>
+        <item>11dp (alapért.)</item>
+        <item>12dp</item>
+        <item>13dp</item>
+        <item>14dp</item>
+        <item>15dp</item>
+        <item>16dp</item>
+        <item>17dp</item>
+        <item>18dp</item>
+        <item>19dp</item>
+        <item>20dp</item>
+    </string-array>
+
+    <string-array name="statusbar_iconfontsize_entries">
+       <item>7dp</item>
+       <item>8dp</item>
+       <item>9dp</item>
+       <item>10dp</item>
+       <item>11dp (alapért.)</item>
+       <item>12dp</item>
+       <item>13dp</item>
+       <item>14dp</item>
+       <item>15dp</item>
+       <item>16dp</item>
+       <item>17dp</item>
+       <item>18dp</item>
+       <item>19dp</item>
+       <item>20dp</item>
+    </string-array>
+
+    <string-array name="statusbar_iconsize_entries">
+       <item>15dp</item>
+       <item>16dp</item>
+       <item>17dp</item>
+       <item>18dp</item>
+       <item>19dp</item>
+       <item>20dp</item>
+       <item>21dp</item>
+       <item>22dp</item>
+       <item>23dp</item>
+       <item>24dp</item>
+       <item>25dp (alapért.)</item>
+       <item>26dp</item>
+       <item>27dp</item>
+       <item>28dp</item>
+       <item>29dp</item>
+       <item>30dp</item>
+       <item>31dp</item>
+       <item>32dp</item>
+       <item>33dp</item>
+       <item>34dp</item>
+       <item>35dp</item>
+       <item>36dp</item>
+       <item>37dp</item>
+       <item>38dp</item>
+       <item>39dp</item>
+       <item>40dp</item>
+       <item>41dp</item>
+       <item>42dp</item>
+       <item>43dp</item>
+       <item>44dp</item>
+       <item>45dp</item>
+    </string-array>
+
+    <string-array name="statusbar_navisize_entries">
+       <item>15dp</item>
+       <item>16dp</item>
+       <item>17dp</item>
+       <item>18dp</item>
+       <item>19dp</item>
+       <item>20dp</item>
+       <item>21dp</item>
+       <item>22dp</item>
+       <item>23dp</item>
+       <item>24dp</item>
+       <item>25dp (alapért.)</item>
+       <item>26dp</item>
+       <item>27dp</item>
+       <item>28dp</item>
+       <item>29dp</item>
+       <item>30dp</item>
+       <item>31dp</item>
+       <item>32dp</item>
+       <item>33dp</item>
+       <item>34dp</item>
+       <item>35dp</item>
+       <item>36dp</item>
+       <item>37dp</item>
+       <item>38dp</item>
+       <item>39dp</item>
+       <item>40dp</item>
+       <item>41dp</item>
+       <item>42dp</item>
+       <item>43dp</item>
+       <item>44dp</item>
+       <item>45dp</item>
+    </string-array>
+
+    <string-array name="ui_status_bar_expanded_entries">
+       <item>20dp</item>
+       <item>25dp</item>
+       <item>30dp</item>
+       <item>35dp</item>
+       <item>40dp (alapért.)</item>
+       <item>45dp</item>
+       <item>50dp</item>
+       <item>55dp</item>
+       <item>60dp</item>
+    </string-array>
+
+    <string-array name="statusbar_carrierfontsize_entries">
+       <item>7dp</item>
+       <item>8dp</item>
+       <item>9dp</item>
+       <item>10dp</item>
+       <item>11dp (alapért.)</item>
+       <item>12dp</item>
+       <item>13dp</item>
+       <item>14dp</item>
+       <item>15dp</item>
+       <item>16dp</item>
+       <item>17dp</item>
+       <item>18dp</item>
+       <item>19dp</item>
+       <item>20dp</item>
+    </string-array>
+
+    <string-array name="haptic_feedback_entries">
+        <item>Globális beállítás</item>
+        <item>Be</item>
+        <item>Ki</item>
     </string-array>
 
     <string-array name="pref_trackball_blink_rate_entries">
+        <item>Az alkalmazás beállítása</item>
         <item>2 (Gyors)</item>
         <item>3</item>
         <item>4 (Közepes)</item>
@@ -32,31 +238,41 @@
 
     <string-array name="pref_lockscreen_delay_entries">
         <item>Azonnal</item>
-        <item>1 mp</item>
-        <item>5 mp</item>
-        <item>10 mp</item>
-        <item>15 mp</item>  
-        <item>30 mp</item>
+        <item>1 másodperc</item>
+        <item>5 másodperc</item>
+        <item>10 másodperc</item>
+        <item>15 másodperc</item>  
+        <item>30 másodperc</item>
         <item>1 perc</item>
         <item>5 perc</item>
         <item>10 perc</item>
         <item>30 perc</item>
     </string-array>
 
+    <string-array name="pref_intruder_delay_entries">
+        <item>Azonnal</item>
+        <item>1 másodperc</item>
+        <item>2 másodperc</item>
+        <item>3 másodperc (alapért.)</item>
+        <item>4 másodperc</item>  
+        <item>5 másodperc</item>
+    </string-array>
+
     <string-array name="pref_compcache_size_entries">
         <item>Letiltva</item>
         <item>10%</item>
-        <item>18% (default)</item>
+        <item>18%</item>
         <item>26%</item>
+        <item>32%</item>
     </string-array>
 
     <string-array name="entries_light_filter_window">
-        <item>2 mp</item>
-        <item>5 mp</item>
-        <item>10 mp</item>
-        <item>20 mp</item>
-        <item>30 mp</item>
-        <item>60 mp</item>
+        <item>2 másodperc</item>
+        <item>5 másodperc</item>
+        <item>10 másodperc</item>
+        <item>20 másodperc</item>
+        <item>30 másodperc</item>
+        <item>60 másodperc</item>
     </string-array>
 
     <string-array name="entries_light_filter_reset">
@@ -74,11 +290,20 @@
     </string-array>
 
     <string-array name="entries_light_filter_interval">
-        <item>0.5 mp</item>
-        <item>1 mp</item>
-        <item>2 mp</item>
-        <item>5 mp</item>
-        <item>10 mp</item>
+        <item>0.5 másodperc</item>
+        <item>1 másodperc</item>
+        <item>2 másodperc</item>
+        <item>5 másodperc</item>
+        <item>10 másodperc</item>
+    </string-array>
+
+    <string-array name="entries_pref_electron_beam_animation_on_delay">
+        <item>Nincs</item>
+        <item>0.1 másodperc (alapért.)</item>
+        <item>0.5 másodperc</item>
+        <item>1 másodperc</item>
+        <item>2 másodperc</item>
+        <item>3 másodperc</item>
     </string-array>
 
     <string-array name="entries_light_levels_dim">
@@ -121,6 +346,27 @@
         <item>10 dB</item>
     </string-array>
 
+    <string-array name="entries_speaker_attenuation">
+        <item>0 dB (alapért.)</item>
+        <item>4 dB</item>
+        <item>6 dB</item>
+        <item>8 dB</item>
+        <item>10 dB</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_clock">
+        <item>Jobbra (alapért.)</item>
+        <item>Központ</item>
+        <item>Bal</item>
+        <item>Elrejt</item>
+    </string-array>
+
+    <string-array name="entries_status_bar_weekday">
+        <item>Normál</item>
+        <item>Kicsi</item>
+        <item>Nincs (alapért.)</item>
+    </string-array>
+
     <string-array name="entries_sound_limitvol">
         <item>Legyengített rendszer beállítás</item>
         <item>Zene hangerő (alapértelmezett)</item>
@@ -133,13 +379,18 @@
     </string-array>
 
     <string-array name="entries_screentimeout_widget">
-        <item>15s/1m/5m</item>
-        <item>30s/2m/5m</item>
+        <item>15mp/1p/5p</item>
+        <item>30mp/2p/5p</item>
     </string-array>
 
     <string-array name="entries_flash_widget">
         <item>Normál</item>
         <item>Magas / Halálsugár</item>
+    </string-array>
+
+    <string-array name="entries_mobiledatanetwork_widget">
+        <item>Ki</item>
+        <item>Be</item>
     </string-array>
 
     <string-array name="pref_lockscreen_gestures_sensitivity_entries">
@@ -200,6 +451,44 @@
         <item>Nagyon könnyű</item>
     </string-array>
 
+    <string-array name="entries_overscroll_color">
+        <item>Alapértelmezett szín</item>
+        <item>Egyéni szín</item>
+    </string-array>
+
+    <string-array name="swap_volume_keys_orientation_list_entries">
+        <item>Soha</item>
+        <item>0-fok</item>
+        <item>90-fok</item>
+        <item>180-fok</item>
+        <item>270-fok</item>
+    </string-array>
+
+    <string-array name="entries_vol_actions">
+        <item>Nincs/Alap</item>
+        <item>Kezdő</item>
+        <item>Menü</item>
+        <item>Vissza</item>
+        <item>Keresés</item>
+        <item>Bekapcsolás</item>
+        <item>Hívás</item>
+        <item>Hívás vége</item>
+        <item>Indít/Szünet</item>
+        <item>Következő szám</item>
+        <item>Előző szám</item>
+        <item>Kezdő hosszan nyomva</item>
+    </string-array>
+
+    <string-array name="entries_unhide_button">
+        <item>Kezdő</item>
+        <item>Menü</item>
+        <item>Vissza</item>
+        <item>Keresés</item>
+        <item>Kamera</item>
+        <item>Hang - fel</item>
+        <item>Hang - le</item>
+    </string-array>
+
     <string-array name="entries_long_press_menu">
         <item>Nincs</item>
         <item>Billentyűzet</item>
@@ -208,16 +497,233 @@
         <item>Állapotsor ki/be</item>
     </string-array>
 
-    <string-array name="entries_status_bar_am_pm">
-        <item>Normál</item>
-        <item>Kicsi</item>
-        <item>Nincs (Alapértelmezett)</item>
+    <string-array name="entries_transparent_status_bar">
+        <item>Téma</item>
+        <item>Rokkant</item>
+        <item>Félig átlátszó</item>
+        <item>Gradiens</item>
+        <item>Egyéni szín</item>
+        <item>Átlátszó</item>
+        <item>Egyedi fényképek</item>
     </string-array>
 
-    <string-array name="entries_status_bar_battery">
-        <item>Ikon (Alapértelmezett)</item>
-        <item>Százalékos</item>
-        <item>Rejtett</item>
+    <string-array name="entries_transparent_navi_bar">
+        <item>Téma</item>
+        <item>Rokkant</item>
+        <item>Félig átlátszó</item>
+        <item>Gradiens</item>
+        <item>Egyéni szín</item>
+        <item>Átlátszó</item>
+        <item>Egyedi fényképek</item>
+    </string-array>
+
+    <string-array name="entries_tablet_navi_buttons">
+        <item>Elrejt</item>
+        <item>Láthatatlan</item>
+        <item>Kezdő</item>
+        <item>Vissza</item>
+        <item>Keresés</item>
+        <item>Menü</item>
+        <item>Gyors</item>
+        <item>Egyéni app</item>
+        <item>Hatalom</item>
+        <item>Új</item>
+    </string-array>
+
+    <string-array name="entries_tablet_soft_buttons">
+        <item>Elrejt</item>
+        <item>Kezdő</item>
+        <item>Vissza</item>
+        <item>Keresés</item>
+        <item>Menü</item>
+    </string-array>
+
+    <string-array name="entries_tablet_navi_buttons_quicker">
+        <item>Kezdő</item>
+        <item>Vissza</item>
+        <item>Keresés</item>
+        <item>Menü</item>
+        <item>Gyors</item>
+        <item>Egyéni app</item>
+        <item>Hatalom</item>
+        <item>Új</item>
+    </string-array>
+
+    <string-array name="entries_transparent_notification_background">
+        <item>Téma</item>
+        <item>Cigány</item>
+        <item>Egyéni szín</item>
+        <item>Átlátszó</item>
+        <item>Peeping Android</item>
+        <item>Egyedi fényképek</item>
+    </string-array>
+
+    <string-array name="entries_transparent_app_background">
+        <item>Téma (alapért.)</item>
+        <item>Egyéni szín</item>
+        <item>Egyedi fényképek</item>
+    </string-array>
+
+    <string-array name="entries_transparent_full_background">
+        <item>Téma (alapért.)</item>
+        <item>Áttetsző</item>
+        <item>Megjelenítés tapéta</item>
+    </string-array>
+
+    <string-array name="entries_lowmemkill">
+        <item>Alapértelmezett</item>
+        <item>Minimális</item>
+        <item>Maximális</item>
+        <item>Minden nap használat</item>
+        <item>Rendszer</item>
+        <item>Multitasking</item>
+        <item>Lágy multitasking</item>
+        <item>Kemény multitasking</item>
+        <item>Szerencsejáték</item>
+        <item>Lágy gaming</item>
+        <item>kemény gaming</item>
+    </string-array>
+
+    <string-array name="lcd_density_entries">
+        <item>200</item>  
+        <item>205</item>
+        <item>210</item>
+        <item>215</item>
+        <item>220</item>
+        <item>225</item>
+        <item>230</item>
+        <item>235</item>
+        <item>240</item>
+        <item>245</item>
+        <item>250</item>
+        <item>255</item>
+        <item>260</item>
+        <item>szokás</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_data_screen_off_entries">
+        <item>Ne tegyen semmit</item>
+        <item>Kapcsolja ki az adatok</item>
+        <item>Váltás 2G módba</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_data_screen_off_delay_entries">
+        <item>Ne várj (azonnali)</item>
+        <item>10 másodperc</item>
+        <item>30 másodperc</item>
+        <item>45 másodperc</item>
+        <item>1 perc</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>30 perc</item>
+    </string-array>
+
+    <string-array
+        name="pref_navi_bar_swipe_entries">
+        <item>Kiterjed Statusbar</item>
+        <item>Összeomlás Statusbar</item>
+        <item>Toggle QwikWidgets</item>
+        <item>Nincs</item>
+    </string-array>
+
+    <string-array
+        name="pref_navi_bar_ani_entries">
+        <item>Rokkant</item>
+        <item>Forgatás ha képernyő forgatás</item>
+        <item>gyorsabb</item>
+        <item>5 másodperc</item>
+        <item>10 másodperc</item>
+        <item>20 másodperc (alapért.)</item>
+        <item>30 másodperc</item>
+        <item>1 perc</item>
+        <item>2 perc</item>
+        <item>5 perc</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_sync_screen_off_interval_entries">
+        <item>15 perc</item>
+        <item>30 perc</item>
+        <item>1 óra</item>
+        <item>2 óra</item>
+        <item>3 óra</item>
+        <item>4 óra</item>
+        <item>5 óra</item>
+        <item>6 óra</item>
+        <item>8 óra</item>
+        <item>12 óra</item>
+    </string-array>
+
+    <string-array
+       name="pref_powersaving_data_screen_off_entries_cdma">
+       <item>Ne várj</item>
+       <item>Kapcsolja ki az adatok</item>
+    </string-array>
+
+    <string-array
+        name="pref_powersaving_sync_screen_off_entries">
+        <item>Ne várj</item>
+        <item>Kapcsolja ki AutoSync</item>
+        <item>Kapcsolja AutoSync le késleltetés</item>
+    </string-array>
+
+    <string-array name="powersaving_screen_off_wifi_entries">
+        <item>Hagyja érintetlenül</item>
+        <item>Fordítsa Wi-Fi off</item>
+        <item>Fordítsa Wi-Fi</item>
+    </string-array>
+
+    <string-array name="powersaving_sync_data_mode_entries">
+        <item>Hagyja érintetlenül</item>
+        <item>Csak Wi-Fi</item>
+        <item>Wi-Fi előnyös</item>
+        <item>Az adatok csak a</item>
+    </string-array>
+
+    <string-array name="powersaving_sync_data_mobile_mode_entries">
+        <item>2G/1x csak</item>
+        <item>Jobban szeret 3G</item>
+    </string-array>
+
+    <string-array name="statusbar_settingup_entries">
+        <item>NavBar Visibilty</item>
+        <item>Időjárás Popup</item>
+        <item>Nincs</item>
+    </string-array>
+
+    <string-array name="entries_lockscreen_fuzzy_clock">
+        <item>Fuzzy Óra</item>
+        <item>Kanji Óra</item>
+        <item>Teljesen Kanji Óra</item>
+        <item>Alapértelmezett</item>
+    </string-array>
+
+    <string-array name="entries_animations">
+        <item>Ki</item>
+        <item>Gyors</item>
+        <item>Normál</item>
+        <item>Lassíts</item>
+        <item>Nagyon lassú</item>
+    </string-array>
+
+    <string-array name="entries_font_size">
+        <item>Rendkívül kicsi</item>
+        <item>Rendkívüli kicsi</item>
+        <item>Kicsi</item>
+        <item>Normál</item>
+        <item>Nagy</item>
+        <item>Rendkívüli Nagy</item>
+        <item>Rendkívül Nagy</item>
+    </string-array>
+
+    <string-array name="entries_end_button">
+        <item>Semmi</item>
+        <item>Vissza a főoldalra</item>
+        <item>Aludni megy</item>
+        <item>Kezdő, majd aludni</item>
     </string-array>
 
 </resources>
