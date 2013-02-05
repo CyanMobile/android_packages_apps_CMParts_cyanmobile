@@ -35,6 +35,7 @@
             android:title="@string/tablet_tweaks_soft_buttons_left_title"
             android:summary="@string/tablet_tweaks_soft_buttons_left_summary" />
         <PreferenceScreen android:key="pref_soft_button_list"
+            android:dependency="pref_status_bar_soft"
             android:title="@string/tablet_tweaks_soft_button_list_title">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.cyanogenmod.cmparts"
@@ -52,6 +53,7 @@
             android:summaryOn="@string/tablet_tweaks_navi_bar_summaryOn"
             android:summaryOff="@string/tablet_tweaks_navi_bar_summaryOff" />
         <PreferenceScreen android:key="pref_navi_button_list"
+            android:dependency="pref_status_bar_navi"
             android:title="@string/tablet_tweaks_navi_button_list_title">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.cyanogenmod.cmparts"
@@ -99,16 +101,17 @@
             android:summary="@string/ui_navi_bar_color_summary"
             android:defaultValue="-1"/>
         <CheckBoxPreference android:key="pref_enable_overicon"
+            android:dependency="pref_status_bar_navi"
             android:title="@string/tablet_tweaks_sb_navi_color_title"
             android:summary="@string/tablet_tweaks_sb_navi_color_summary" />
         <Preference android:key="pref_navi_button_color"
-            android:dependency="pref_enable_overicon"
+            android:dependency="pref_status_bar_navi"
             android:dialogTitle="@string/ui_navi_button_color_title"
             android:title="@string/ui_navi_button_color_title"
             android:summary="@string/ui_navi_button_color_summary"
             android:defaultValue="-1"/>
         <Preference android:key="pref_navi_glow_color"
-            android:dependency="pref_enable_overicon"
+            android:dependency="pref_status_bar_navi"
             android:dialogTitle="@string/ui_navi_glow_color_title"
             android:title="@string/ui_navi_glow_color_title"
             android:summary="@string/ui_navi_glow_color_summary"
