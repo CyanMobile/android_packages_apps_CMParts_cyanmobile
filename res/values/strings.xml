@@ -1524,4 +1524,45 @@
     <string name="pie_trigger_small">@string/pie_gap_small</string>
     <string name="pie_trigger_big">@string/pie_gap_big</string>
     <string name="pie_trigger_huge">@string/pie_gap_huge</string>
+
+    <string name="pref_pie_buttons_home_title">Pie home</string>
+    <string name="pref_pie_buttons_home1_title">Pie home level 1</string>
+    <string name="pref_pie_buttons_home2_title">Pie home level 2</string>
+    <string name="pref_pie_buttons_home3_title">Pie home level 3</string>
+    <string name="pref_pie_buttons_home4_title">Pie home level 4</string>
+    <string name="pref_pie_buttons_home_summary">Choose activity for this button</string>
+    <string name="pref_pie_buttons_home_input_title">Choose activity</string>
+    <string name="pref_pie_buttons_home_level_toggle_title">Enable Pie item levels</string>
+    <string name="pref_pie_buttons_home_level_toggle_summary">Enable/disable Pie item levels</string>
+    <string name="pref_pie_buttons_home_app_toggle_title">Enable Pie custom app</string>
+    <string name="pref_pie_buttons_home_app_toggle_summary">Enable/disable pie custom app</string>
+    <string name="pref_pie_buttons_search_title">Pie search</string>
+    <string name="pref_pie_buttons_search1_title">Pie search level 1</string>
+    <string name="pref_pie_buttons_search2_title">Pie search level 2</string>
+    <string name="pref_pie_buttons_search3_title">Pie search level 3</string>
+    <string name="pref_pie_buttons_search4_title">Pie search level 4</string>
+    <string name="pref_pie_buttons_recent_title">Pie recent</string>
+    <string name="pref_pie_buttons_recent1_title">Pie recent level 1</string>
+    <string name="pref_pie_buttons_recent2_title">Pie recent level 2</string>
+    <string name="pref_pie_buttons_recent3_title">Pie recent level 3</string>
+    <string name="pref_pie_buttons_recent4_title">Pie recent level 4</string>
+    <string name="pref_pie_buttons_menu_title">Pie menu</string>
+    <string name="pref_pie_buttons_menu1_title">Pie menu level 1</string>
+    <string name="pref_pie_buttons_menu2_title">Pie menu level 2</string>
+    <string name="pref_pie_buttons_menu3_title">Pie menu level 3</string>
+    <string name="pref_pie_buttons_menu4_title">Pie menu level 4</string>
+    <string name="pref_pie_buttons_back_title">Pie back</string>
+    <string name="pref_pie_buttons_back1_title">Pie back level 1</string>
+    <string name="pref_pie_buttons_back2_title">Pie back level 2</string>
+    <string name="pref_pie_buttons_back3_title">Pie back level 3</string>
+    <string name="pref_pie_buttons_back4_title">Pie back level 4</string>
+    <string name="pie_recent_controls_title">Pie recent control</string>
+    <string name="pie_menu_controls_title">Pie menu control</string>
+    <string name="pie_search_controls_title">Pie search control</string>
+    <string name="pie_back_controls_title">Pie back control</string>
+    <string name="pie_home_controls_title">Pie home control</string>
+    <string name="pie_item_controls_title">Pie item control</string>
+
+    <string name="input_pie_key_title">Pie item control</string>
+    <string name="input_pie_key_summary">Choose pie item control activity</string>
 </resources>

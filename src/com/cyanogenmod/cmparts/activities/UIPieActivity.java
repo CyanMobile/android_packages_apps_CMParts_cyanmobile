@@ -52,6 +52,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private static final String PIE_ENABLE_COLOR = "pie_enable_color";
     private static final String PIE_TRIGGER = "pie_trigger";
     private static final String PIE_GAP = "pie_gap";
+    private static final String PIE_INPUT_CONTROL = "input_pie_key";
 
     static Context mContext;
 
@@ -72,6 +73,8 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private ListPreference mPieGap;
 
     private AlertDialog alertDialog;
+
+    private PreferenceScreen mPieInputControl;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,6 +148,8 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         mPieGap.setValue(String.valueOf(pieGap));
         mPieGap.setOnPreferenceChangeListener(this);
 
+        mPieInputControl = (PreferenceScreen) prefSet.findPreference(PIE_INPUT_CONTROL);
+
         if (mNavBarEnabled) {
            // Set up the warning
            alertDialog = new AlertDialog.Builder(this).create();
@@ -173,6 +178,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
        mPieGap.setEnabled(!mNavBarEnabled);
        mPieGravity.setEnabled(!mNavBarEnabled);
        mPieEnableColor.setEnabled(!mNavBarEnabled);
+       mPieInputControl.setEnabled(!mNavBarEnabled);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
