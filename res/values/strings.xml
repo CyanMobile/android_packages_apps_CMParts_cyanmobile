@@ -593,11 +593,11 @@
     <string name="lockscreen_style_entry_lense">Lense</string>
     <string name="lockscreen_style_entry_ring">Ring</string> 
     <string name="lockscreen_style_entry_honeycomb">Honeycomb (Beta)</string>
-    <string name="lockscreen_style_entry_circular">Circular (Alpha)</string>
+    <string name="lockscreen_style_entry_circular">Circular (Beta)</string>
     <string name="lockscreen_style_entry_sense">Sense (Beta)</string>
-    <string name="lockscreen_style_entry_icsring">Ics Ring (Alpha)</string>
-    <string name="lockscreen_style_entry_jbring">Jb Ring (Alpha)</string>
-    <string name="lockscreen_style_entry_jbglowring">Jb GlowPad (Alpha)</string>
+    <string name="lockscreen_style_entry_icsring">Ics Ring</string>
+    <string name="lockscreen_style_entry_jbring">Jb Ring</string>
+    <string name="lockscreen_style_entry_jbglowring">Jb GlowPad</string>
     <string name="lockscreen_style_entry_bebering">Bebek Ring (Alpha)</string>
     <string name="pref_rotary_style_title">Rotary style</string>
     <string name="pref_rotary_style_summary">Choose the style of the rotary wheel</string>
