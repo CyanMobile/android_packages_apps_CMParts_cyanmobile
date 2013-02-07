@@ -92,7 +92,6 @@ public class CPUActivity extends PreferenceActivity implements
                     final String curFreq = readOneLine(FREQ_CUR_FILE);
                     if (curFreq != null)
                         mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, curFreq));
-                    /* mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, curFreq)); */
                }
             } catch (InterruptedException e) {
             }
@@ -103,7 +102,7 @@ public class CPUActivity extends PreferenceActivity implements
 	
     private Handler mCurCPUHandler = new Handler() {
         public void handleMessage(Message msg) {
-            mCurFrequencyPref.setSummary(toMHzS((String) msg.obj));
+            mCurFrequencyPref.setSummary(toMHz((String) msg.obj));
         }
     };
 
@@ -173,14 +172,19 @@ public class CPUActivity extends PreferenceActivity implements
             PrefScreen.removePreference(mGovernorPref);
         }
 
+        /* Cur frequency */
+        mCurFrequencyPref = (Preference) PrefScreen.findPreference(FREQ_CUR_PREF);
+
         if (!fileExists(FREQ_CUR_FILE)) {
             FREQ_CUR_FILE = FREQINFO_CUR_FILE;
         }
 
-        temp = readOneLine(FREQ_CUR_FILE);
-
-        mCurFrequencyPref = (Preference) PrefScreen.findPreference(FREQ_CUR_PREF);
-        mCurFrequencyPref.setSummary(toMHz(temp));
+        if (!fileExists(FREQ_CUR_FILE) || (temp = readOneLine(FREQ_CUR_FILE)) == null) {
+            mCurFrequencyPref.setEnabled(false);
+        } else {
+            mCurFrequencyPref.setSummary(toMHz(temp));
+            mCurCPUThread.start();
+        }
 
         temp = readOneLine(FREQ_MIN_FILE);
 
@@ -214,9 +218,6 @@ public class CPUActivity extends PreferenceActivity implements
             mMaxFrequencyPref.setEnabled(false);
             mMaxSoFrequencyPref.setEnabled(false);
         }
-
-        mCurCPUThread.start();
-
     }
 
     @Override
@@ -345,11 +346,5 @@ public class CPUActivity extends PreferenceActivity implements
         if (mhzString == null)
             return "-";
         return new StringBuilder().append(Integer.valueOf(mhzString) / 1000).append(" MHz").toString();
-    }
-
-    private String toMHzS(String mhzsString) {
-        if (mhzsString == null)
-            return "-";
-        return new StringBuilder().append(Integer.valueOf(mhzsString) / 1000).append(" MHz CMobile").toString();
     }
 }
