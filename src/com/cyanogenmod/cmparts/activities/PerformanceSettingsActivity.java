@@ -58,14 +58,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     private static final String JIT_PROP = "dalvik.vm.execution-mode";
 
-    private static final String HEAPSIZE_PREF = "pref_heapsize";
-
-    private static final String HEAPSIZE_PROP = "dalvik.vm.heapsize";
-
-    private static final String HEAPSIZE_PERSIST_PROP = "persist.sys.vm.heapsize";
-
-    private static final String HEAPSIZE_DEFAULT = "16m";
-
     private static final String USE_DITHERING_PREF = "pref_use_dithering";
 
     private static final String USE_DITHERING_PERSIST_PROP = "persist.sys.use_dithering";
@@ -75,12 +67,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private static final String USE_16BPP_ALPHA_PREF = "pref_use_16bpp_alpha";
 
     private static final String USE_16BPP_ALPHA_PROP = "persist.sys.use_16bpp_alpha";
-
-    private static final String SCROLLINGCACHE_PREF = "pref_scrollingcache";
-	
-    private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
-	
-    private static final String SCROLLINGCACHE_DEFAULT = "0";
 
     private static final String DISABLE_BOOTANIMATION_PREF = "pref_disable_bootanimation";
 
@@ -124,8 +110,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
 
     private CheckBoxPreference mUse16bppAlphaPref;
 
-    private ListPreference mScrollingCachePref;
-
     private ListPreference mSdReadAheadPref;
 
     private Preference mSquadzone;
@@ -135,8 +119,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private CheckBoxPreference mEnableBootSoundPref;
 
     private CheckBoxPreference mAnimateOnShutdownPref;
-
-    private ListPreference mHeapsizePref;
 
     private ListPreference mVolbootPref;
 
@@ -173,16 +155,6 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mUse16bppAlphaPref = (CheckBoxPreference) prefSet.findPreference(USE_16BPP_ALPHA_PREF);
         String use16bppAlpha = SystemProperties.get(USE_16BPP_ALPHA_PROP, "0");
         mUse16bppAlphaPref.setChecked("1".equals(use16bppAlpha));
-
-        mScrollingCachePref = (ListPreference) prefSet.findPreference(SCROLLINGCACHE_PREF);
-        mScrollingCachePref.setValue(SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP,
-                SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP, SCROLLINGCACHE_DEFAULT)));
-        mScrollingCachePref.setOnPreferenceChangeListener(this);
-
-        mHeapsizePref = (ListPreference) prefSet.findPreference(HEAPSIZE_PREF);
-        mHeapsizePref.setValue(SystemProperties.get(HEAPSIZE_PERSIST_PROP,
-                SystemProperties.get(HEAPSIZE_PROP, HEAPSIZE_DEFAULT)));
-        mHeapsizePref.setOnPreferenceChangeListener(this);
 
         mAnimateOnShutdownPref = (CheckBoxPreference) prefSet.findPreference(ANIMATE_SHUTDOWN_PREF);
         mAnimateOnShutdownPref.setChecked(Settings.System.getInt(getContentResolver(),
@@ -299,23 +271,10 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mScrollingCachePref) {
-            if (newValue != null) {
-                SystemProperties.set(SCROLLINGCACHE_PERSIST_PROP, (String)newValue);
-                return true;
-            }
-        }
 
         if (preference == mUseDitheringPref) {
             if (newValue != null) {
                 SystemProperties.set(USE_DITHERING_PERSIST_PROP, (String) newValue);
-                return true;
-            }
-        }
-
-        if (preference == mHeapsizePref) {
-            if (newValue != null) {
-                SystemProperties.set(HEAPSIZE_PERSIST_PROP, (String)newValue);
                 return true;
             }
         }

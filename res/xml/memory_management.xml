@@ -66,6 +66,22 @@
         android:entries="@array/entries_lowmemkill"
         android:entryValues="@array/values_lowmemkill" />
 
+    <ListPreference
+        android:key="pref_scrollingcache"
+        android:dialogTitle="@string/pref_scrollingcache_title"
+        android:title="@string/pref_scrollingcache_title"
+        android:summary="@string/pref_scrollingcache_summary"
+        android:entries="@array/entries_scrollingcache"
+        android:entryValues="@array/values_scrollingcache" />
+
+    <ListPreference
+        android:key="pref_heapsize"
+        android:dialogTitle="@string/pref_heapsize_title"
+        android:title="@string/pref_heapsize_title"
+        android:summary="@string/pref_heapsize_summary"
+        android:entries="@array/entries_heapsize"
+        android:entryValues="@array/values_heapsize" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
