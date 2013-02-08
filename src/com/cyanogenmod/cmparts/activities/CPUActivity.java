@@ -215,18 +215,15 @@ public class CPUActivity extends PreferenceActivity implements
                 mMaxFrequencyPref.setValue(temp);
                 mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat, toMHz(temp)));
                 mMaxFrequencyPref.setOnPreferenceChangeListener(this);
-	        }
+            }
 
             // SO Max frequency
-            if ((temp = prefs.getString(SO_MAX_FREQ_PREF, null)) == null) {
-                mMaxSoFrequencyPref.setEnabled(false);
-            } else {
-                mMaxSoFrequencyPref.setEntryValues(availableFrequencies);
-                mMaxSoFrequencyPref.setEntries(frequencies);
-                mMaxSoFrequencyPref.setValue(temp);
-                mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat, toMHz(temp)));
-                mMaxSoFrequencyPref.setOnPreferenceChangeListener(this);
-            }
+            temp = prefs.getString(SO_MAX_FREQ_PREF, null);
+            mMaxSoFrequencyPref.setEntryValues(availableFrequencies);
+            mMaxSoFrequencyPref.setEntries(frequencies);
+            mMaxSoFrequencyPref.setValue(temp);
+            mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat, toMHz(temp)));
+            mMaxSoFrequencyPref.setOnPreferenceChangeListener(this);
         }
     }
 
