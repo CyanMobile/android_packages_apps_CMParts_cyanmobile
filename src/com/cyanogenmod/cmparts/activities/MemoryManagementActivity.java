@@ -96,6 +96,20 @@ public class MemoryManagementActivity extends PreferenceActivity implements
 
     public static final String LOWMEMKILL_PREF_DEFAULT = "2560,4096,6144,11264,11776,14336";
 
+    private static final String SCROLLINGCACHE_PREF = "pref_scrollingcache";
+	
+    private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
+	
+    private static final String SCROLLINGCACHE_DEFAULT = "0";
+
+    private static final String HEAPSIZE_PREF = "pref_heapsize";
+
+    private static final String HEAPSIZE_PROP = "dalvik.vm.heapsize";
+
+    private static final String HEAPSIZE_PERSIST_PROP = "persist.sys.vm.heapsize";
+
+    private static final String HEAPSIZE_DEFAULT = "16m";
+
     private ListPreference mCompcachePref;
 
     private CheckBoxPreference mPurgeableAssetsPref;
@@ -113,6 +127,10 @@ public class MemoryManagementActivity extends PreferenceActivity implements
     private CheckBoxPreference mLockMmsPref;
 
     private ListPreference mLowMemKillPref;
+
+    private ListPreference mScrollingCachePref;
+
+    private ListPreference mHeapsizePref;
 
     private int swapAvailable = -1;
 
@@ -141,6 +159,8 @@ public class MemoryManagementActivity extends PreferenceActivity implements
             mKSMSleepPref = (ListPreference) prefSet.findPreference(KSM_SLEEP_PREF);
             mKSMScanPref = (ListPreference) prefSet.findPreference(KSM_SCAN_PREF);
             mLowMemKillPref = (ListPreference) prefSet.findPreference(LOWMEMKILL_PREF);
+            mScrollingCachePref = (ListPreference) prefSet.findPreference(SCROLLINGCACHE_PREF);
+            mHeapsizePref = (ListPreference) prefSet.findPreference(HEAPSIZE_PREF);
 
             if (isSwapAvailable()) {
                 if (SystemProperties.get(COMPCACHE_PERSIST_PROP) == "1")
@@ -190,6 +210,14 @@ public class MemoryManagementActivity extends PreferenceActivity implements
 
             mLowMemKillPref.setValue(temp);
             mLowMemKillPref.setOnPreferenceChangeListener(this);
+
+            mScrollingCachePref.setValue(SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP,
+                    SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP, SCROLLINGCACHE_DEFAULT)));
+            mScrollingCachePref.setOnPreferenceChangeListener(this);
+
+            mHeapsizePref.setValue(SystemProperties.get(HEAPSIZE_PERSIST_PROP,
+                    SystemProperties.get(HEAPSIZE_PROP, HEAPSIZE_DEFAULT)));
+            mHeapsizePref.setOnPreferenceChangeListener(this);
 
             if (temp == null) {
                 generalCategory.removePreference(mLowMemKillPref);
@@ -290,6 +318,20 @@ public class MemoryManagementActivity extends PreferenceActivity implements
             if (newValue != null) {
                 SystemProperties.set(LOWMEMKILL_PROP, (String)newValue);
                 CPUActivity.writeOneLine(LOWMEMKILL_RUN_FILE, (String)newValue);
+                return true;
+            }
+        }
+
+        if (preference == mScrollingCachePref) {
+            if (newValue != null) {
+                SystemProperties.set(SCROLLINGCACHE_PERSIST_PROP, (String)newValue);
+                return true;
+            }
+        }
+
+        if (preference == mHeapsizePref) {
+            if (newValue != null) {
+                SystemProperties.set(HEAPSIZE_PERSIST_PROP, (String)newValue);
                 return true;
             }
         }
