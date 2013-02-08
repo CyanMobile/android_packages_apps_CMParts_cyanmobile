@@ -92,7 +92,6 @@ public class CPUActivity extends PreferenceActivity implements
                     final String curFreq = readOneLine(FREQ_CUR_FILE);
                     if (curFreq != null)
                         mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, curFreq));
-                    /* mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, curFreq)); */
                }
             } catch (InterruptedException e) {
             }
@@ -103,7 +102,7 @@ public class CPUActivity extends PreferenceActivity implements
 	
     private Handler mCurCPUHandler = new Handler() {
         public void handleMessage(Message msg) {
-            mCurFrequencyPref.setSummary(toMHzS((String) msg.obj));
+            mCurFrequencyPref.setSummary(toMHz((String) msg.obj));
         }
     };
 
@@ -113,10 +112,10 @@ public class CPUActivity extends PreferenceActivity implements
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mGovernorFormat = getString(R.string.cpu_governors_summary);
+        mIOSchedulerFormat = getString(R.string.io_sched_summary);
         mMinFrequencyFormat = getString(R.string.cpu_min_freq_summary);
         mMaxFrequencyFormat = getString(R.string.cpu_max_freq_summary);
         mMaxSoFrequencyFormat = getString(R.string.screenoff_cpu_max_freq_summary);
-        mIOSchedulerFormat = getString(R.string.io_sched_summary);
 
         String[] availableIOSchedulers = new String[0];
         String availableIOSchedulersLine;
@@ -140,16 +139,26 @@ public class CPUActivity extends PreferenceActivity implements
 
         PreferenceScreen PrefScreen = getPreferenceScreen();
 
-        temp = readOneLine(GOVERNOR);
-
         mGovernorPref = (ListPreference) PrefScreen.findPreference(GOV_PREF);
-        mGovernorPref.setEntryValues(availableGovernors);
-        mGovernorPref.setEntries(availableGovernors);
-        mGovernorPref.setValue(temp);
-        mGovernorPref.setSummary(String.format(mGovernorFormat, temp));
-        mGovernorPref.setOnPreferenceChangeListener(this);
-
         mIOSchedulerPref = (ListPreference) PrefScreen.findPreference(IOSCHED_PREF);
+        mCurFrequencyPref = (Preference) PrefScreen.findPreference(FREQ_CUR_PREF);
+        mMinFrequencyPref = (ListPreference) PrefScreen.findPreference(MIN_FREQ_PREF);
+        mMaxFrequencyPref = (ListPreference) PrefScreen.findPreference(MAX_FREQ_PREF);
+        mMaxSoFrequencyPref = (ListPreference) PrefScreen.findPreference(SO_MAX_FREQ_PREF);
+
+        /* Some systems might not use governors */
+        if (!fileExists(GOVERNORS_LIST_FILE) || !fileExists(GOVERNOR) ||
+            (temp = readOneLine(GOVERNOR)) == null || availableGovernors == null) {
+            PrefScreen.removePreference(mGovernorPref);
+        } else {
+            mGovernorPref.setEntryValues(availableGovernors);
+            mGovernorPref.setEntries(availableGovernors);
+            mGovernorPref.setValue(temp);
+            mGovernorPref.setSummary(String.format(mGovernorFormat, temp));
+            mGovernorPref.setOnPreferenceChangeListener(this);
+        }
+
+        /* iosched */
         if (!fileExists(IOSCHED_LIST_FILE) ||
             (availableIOSchedulersLine = readOneLine(IOSCHED_LIST_FILE)) == null) {
             PrefScreen.removePreference(mIOSchedulerPref);
@@ -168,55 +177,54 @@ public class CPUActivity extends PreferenceActivity implements
             mIOSchedulerPref.setOnPreferenceChangeListener(this);
         }
 
-        /* Some systems might not use governors */
-        if (temp == null) {
-            PrefScreen.removePreference(mGovernorPref);
-        }
-
+        /* Cur frequency */
         if (!fileExists(FREQ_CUR_FILE)) {
             FREQ_CUR_FILE = FREQINFO_CUR_FILE;
         }
 
-        temp = readOneLine(FREQ_CUR_FILE);
+        if (!fileExists(FREQ_CUR_FILE) || (temp = readOneLine(FREQ_CUR_FILE)) == null) {
+            mCurFrequencyPref.setEnabled(false);
+        } else {
+            mCurFrequencyPref.setSummary(toMHz(temp));
+            mCurCPUThread.start();
+        }
 
-        mCurFrequencyPref = (Preference) PrefScreen.findPreference(FREQ_CUR_PREF);
-        mCurFrequencyPref.setSummary(toMHz(temp));
-
-        temp = readOneLine(FREQ_MIN_FILE);
-
-        mMinFrequencyPref = (ListPreference) PrefScreen.findPreference(MIN_FREQ_PREF);
-        mMinFrequencyPref.setEntryValues(availableFrequencies);
-        mMinFrequencyPref.setEntries(frequencies);
-        mMinFrequencyPref.setValue(temp);
-        mMinFrequencyPref.setSummary(String.format(mMinFrequencyFormat, toMHz(temp)));
-        mMinFrequencyPref.setOnPreferenceChangeListener(this);
-
-        temp = prefs.getString(MAX_FREQ_PREF, null);
-
-        mMaxFrequencyPref = (ListPreference) PrefScreen.findPreference(MAX_FREQ_PREF);
-        mMaxFrequencyPref.setEntryValues(availableFrequencies);
-        mMaxFrequencyPref.setEntries(frequencies);
-        mMaxFrequencyPref.setValue(temp);
-        mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat, toMHz(temp)));
-        mMaxFrequencyPref.setOnPreferenceChangeListener(this);
-	
-        temp = prefs.getString(SO_MAX_FREQ_PREF, null);
-
-        mMaxSoFrequencyPref = (ListPreference) PrefScreen.findPreference(SO_MAX_FREQ_PREF);
-        mMaxSoFrequencyPref.setEntryValues(availableFrequencies);
-        mMaxSoFrequencyPref.setEntries(frequencies);
-        mMaxSoFrequencyPref.setValue(temp);
-        mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat, toMHz(temp)));
-        mMaxSoFrequencyPref.setOnPreferenceChangeListener(this);
-
-        if (availableFrequenciesLine == null) {
+        // Disable the min/max/somax list if we dont have a list file
+        if (!fileExists(FREQ_LIST_FILE) || availableFrequenciesLine == null) {
             mMinFrequencyPref.setEnabled(false);
             mMaxFrequencyPref.setEnabled(false);
             mMaxSoFrequencyPref.setEnabled(false);
+        } else {
+            // Min frequency
+            if (!fileExists(FREQ_MIN_FILE) || (temp = readOneLine(FREQ_MIN_FILE)) == null) {
+                mMinFrequencyPref.setEnabled(false);
+            } else {
+                mMinFrequencyPref.setEntryValues(availableFrequencies);
+                mMinFrequencyPref.setEntries(frequencies);
+                mMinFrequencyPref.setValue(temp);
+                mMinFrequencyPref.setSummary(String.format(mMinFrequencyFormat, toMHz(temp)));
+                mMinFrequencyPref.setOnPreferenceChangeListener(this);
+            }
+
+            // Max frequency
+            if (!fileExists(FREQ_MAX_FILE) || (temp = readOneLine(FREQ_MAX_FILE)) == null) {
+                mMaxFrequencyPref.setEnabled(false);
+            } else {
+                mMaxFrequencyPref.setEntryValues(availableFrequencies);
+                mMaxFrequencyPref.setEntries(frequencies);
+                mMaxFrequencyPref.setValue(temp);
+                mMaxFrequencyPref.setSummary(String.format(mMaxFrequencyFormat, toMHz(temp)));
+                mMaxFrequencyPref.setOnPreferenceChangeListener(this);
+            }
+
+            // SO Max frequency
+            temp = prefs.getString(SO_MAX_FREQ_PREF, null);
+            mMaxSoFrequencyPref.setEntryValues(availableFrequencies);
+            mMaxSoFrequencyPref.setEntries(frequencies);
+            mMaxSoFrequencyPref.setValue(temp);
+            mMaxSoFrequencyPref.setSummary(String.format(mMaxSoFrequencyFormat, toMHz(temp)));
+            mMaxSoFrequencyPref.setOnPreferenceChangeListener(this);
         }
-
-        mCurCPUThread.start();
-
     }
 
     @Override
@@ -345,11 +353,5 @@ public class CPUActivity extends PreferenceActivity implements
         if (mhzString == null)
             return "-";
         return new StringBuilder().append(Integer.valueOf(mhzString) / 1000).append(" MHz").toString();
-    }
-
-    private String toMHzS(String mhzsString) {
-        if (mhzsString == null)
-            return "-";
-        return new StringBuilder().append(Integer.valueOf(mhzsString) / 1000).append(" MHz CMobile").toString();
     }
 }
