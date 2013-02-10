@@ -1498,6 +1498,8 @@
     <string name="pie_size_gigantic">Gigantic</string>
     <string name="pie_enable_color_title">Enable color overlay</string>
     <string name="pie_enable_color_summary">Enable/disable pie color overlay</string>
+    <string name="pie_enable_control_title">Enable Pie control</string>
+    <string name="pie_enable_control_summary">Enable/disable pie control</string>
     <string name="pie_button_color_title">Change button color</string>
     <string name="pie_button_color_summary">Change button color overlay</string>
     <string name="pie_background_button_color_title">Change background color</string>
@@ -1524,6 +1526,7 @@
     <string name="pie_trigger_small">@string/pie_gap_small</string>
     <string name="pie_trigger_big">@string/pie_gap_big</string>
     <string name="pie_trigger_huge">@string/pie_gap_huge</string>
+    <string name="pie_trigger_disable">Disable</string>
 
     <string name="pref_pie_buttons_home_title">Pie home</string>
     <string name="pref_pie_buttons_home1_title">Pie home level 1</string>

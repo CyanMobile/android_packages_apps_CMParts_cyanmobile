@@ -53,6 +53,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private static final String PIE_TRIGGER = "pie_trigger";
     private static final String PIE_GAP = "pie_gap";
     private static final String PIE_INPUT_CONTROL = "input_pie_key";
+    private static final String PIE_ENABLE_CONTROL = "pie_enable_control";
 
     static Context mContext;
 
@@ -68,6 +69,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private ListPreference mPieSize;
     private ListPreference mPieGravity;
     private CheckBoxPreference mPieEnableColor;
+    private CheckBoxPreference mPieEnableControl;
     private boolean mNavBarEnabled;
     private ListPreference mPieTrigger;	
     private ListPreference mPieGap;
@@ -136,6 +138,10 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         mPieEnableColor.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.PIE_ENABLE_COLOR, 0) == 1));
 
+        mPieEnableControl = (CheckBoxPreference) prefSet.findPreference(PIE_ENABLE_CONTROL);
+        mPieEnableControl.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.PIE_CONTROL_ENABLE, 1) == 1));
+
         mPieTrigger = (ListPreference) prefSet.findPreference(PIE_TRIGGER);
         String pieTrigger = Settings.System.getString(getContentResolver(),
                 Settings.System.PIE_TRIGGER);
@@ -178,6 +184,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
        mPieGap.setEnabled(!mNavBarEnabled);
        mPieGravity.setEnabled(!mNavBarEnabled);
        mPieEnableColor.setEnabled(!mNavBarEnabled);
+       mPieEnableControl.setEnabled(!mNavBarEnabled);
        mPieInputControl.setEnabled(!mNavBarEnabled);
     }
 
@@ -243,6 +250,10 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         } else if (preference == mPieEnableColor) {
             Settings.System.putInt(getContentResolver(), Settings.System.PIE_ENABLE_COLOR,
                     mPieEnableColor.isChecked() ? 1 : 0);
+	    return true;
+        } else if (preference == mPieEnableControl) {
+            Settings.System.putInt(getContentResolver(), Settings.System.PIE_CONTROL_ENABLE,
+                    mPieEnableControl.isChecked() ? 1 : 0);
 	    return true;
 	}
         return false;
