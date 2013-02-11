@@ -82,7 +82,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle(R.string.ui_graphicss_title);
+        setTitle(R.string.ui_piess_title);
         addPreferencesFromResource(R.xml.ui_piecontrol);
 
 		mContext = this.getBaseContext();

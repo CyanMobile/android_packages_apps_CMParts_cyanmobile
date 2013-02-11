@@ -103,6 +103,7 @@
     <string name="tablet_tweaks_summary_head">Settings most useful for tablet devices collected in one place. Also working for phones</string>
     <string name="tablet_tweaks_sb_bottom_title">Bottom status bar</string>
     <string name="tablet_tweaks_sb_bottom_summary">Show status bar on bottom. Useful for tablets which use soft-buttons for home, menu, etc on status bar</string>
+    <string name="navbar_menu_title">Navbar tweaks</string>
     <string name="tablet_tweaks_sb_navi_title">Navigation bar</string>
     <string name="tablet_tweaks_sb_navi_summary">Enable navigation on bottom</string>
     <string name="tablet_tweaks_sb_navi_color_title">Button Color</string>
@@ -174,6 +175,8 @@
 
     <!-- User interface: Status bar tweaks -->
     <string name="ui_graphicss_title">UI tweaks</string>
+    <string name="ui_navbar_title">Navbar tweaks</string>
+    <string name="ui_piess_title">PIE tweaks</string>
     <string name="ui_spareparts_title">SpareParts</string>
     <string name="ui_status_bar_title">Status bar tweaks</string>
     <string name="ui_status_bar_am_pm_title">AM/PM style</string>
