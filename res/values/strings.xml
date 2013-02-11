@@ -1527,6 +1527,7 @@
     <string name="pie_trigger_big">@string/pie_gap_big</string>
     <string name="pie_trigger_huge">@string/pie_gap_huge</string>
     <string name="pie_trigger_disable">Disable</string>
+    <string name="pie_trigger_default">Default</string>
 
     <string name="pref_pie_buttons_home_title">Pie home</string>
     <string name="pref_pie_buttons_home1_title">Pie home level 1</string>
