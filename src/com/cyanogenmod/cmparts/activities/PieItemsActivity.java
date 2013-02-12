@@ -33,6 +33,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.HorizontalScrollView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
@@ -41,9 +42,9 @@ import com.cyanogenmod.cmparts.utils.MathUtils;
 
 public class PieItemsActivity extends TabActivity {
 
-	private static TabHost mTabHost;
-	private Intent intent;
+    private Intent intent;
     private ActionBar mActionBar;
+    private static HorizontalScrollView mHorizontalScrollView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,8 @@ public class PieItemsActivity extends TabActivity {
                         PieItemsActivity.this.finish();
                   }
         });
-		Intent intent; // Reusable Intent for each tab
+
+        mHorizontalScrollView = (HorizontalScrollView) findViewById(R.id.horizontalScrollView);
 
 		intent = new Intent().setClass(PieItemsActivity.this, PieBackButtonsActivity.class);
 		setupTab(new TextView(this), getString(R.string.pie_back_controls_title), intent);
@@ -83,13 +85,13 @@ public class PieItemsActivity extends TabActivity {
 
     }
 
-    public static class FlingableTabHost extends TabHost {
-        GestureDetector mGestureDetector;
-
-        Animation mRightInAnimation;
-        Animation mRightOutAnimation;
-        Animation mLeftInAnimation;
-        Animation mLeftOutAnimation;
+    public static class FlingableTabHost extends TabHost implements TabHost.OnTabChangeListener {
+        private GestureDetector mGestureDetector;
+        private static final int MAJOR_MOVE = 60;
+        private Animation mRightInAnimation;
+        private Animation mRightOutAnimation;
+        private Animation mLeftInAnimation;
+        private Animation mLeftOutAnimation;
 
         public FlingableTabHost(Context context, AttributeSet attrs) {
             super(context, attrs);
@@ -99,17 +101,18 @@ public class PieItemsActivity extends TabActivity {
             mLeftInAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_left_in);
             mLeftOutAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_left_out);
 
-            final int minScaledFlingVelocity = ViewConfiguration.get(context)
-                    .getScaledMinimumFlingVelocity() * 10; // 10 = fudge by experimentation
+            setOnTabChangedListener(this);
 
-            mGestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
-                @Override
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                         float velocityY) {
                     int tabCount = getTabWidget().getTabCount();
                     int currentTab = getCurrentTab();
-                    if (Math.abs(velocityX) > minScaledFlingVelocity &&
-                        Math.abs(velocityY) < minScaledFlingVelocity) {
+                    int dx = (int) (e2.getX() - e1.getX());
+
+                    // don't accept the fling if it's too short
+                    // as it may conflict with tracking move
+                    if (Math.abs(dx) > MAJOR_MOVE && Math.abs(velocityX) > Math.abs(velocityY)) {
 
                         final boolean right = velocityX < 0;
                         final int newTab = MathUtils.constrain(currentTab + (right ? 1 : -1),
@@ -126,18 +129,31 @@ public class PieItemsActivity extends TabActivity {
                             currentView.startAnimation(
                                     right ? mRightOutAnimation : mLeftOutAnimation);
                         }
+                        return true;
+                    } else {
+                        return false;
                     }
-                    return super.onFling(e1, e2, velocityX, velocityY);
                 }
             });
         }
 
         @Override
-        public boolean onInterceptTouchEvent(MotionEvent ev) {
-            if (mGestureDetector.onTouchEvent(ev)) {
-                return true;
-            }
-            return super.onInterceptTouchEvent(ev);
+        public void onTabChanged(String tabId) {
+            View tabView = getCurrentTabView();
+            final int width = mHorizontalScrollView.getWidth();
+            final int scrollPos = tabView.getLeft() - (width - tabView.getWidth()) / 2; 
+            mHorizontalScrollView.scrollTo(scrollPos, 0);
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            mGestureDetector.onTouchEvent(event);
+            return true;
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(MotionEvent event) {
+            return mGestureDetector.onTouchEvent(event);
         }
     }
 

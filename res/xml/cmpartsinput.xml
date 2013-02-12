@@ -10,8 +10,11 @@
           android:layout_width="fill_parent"
           android:layout_height="fill_parent">
           <HorizontalScrollView
+               android:id="@+id/horizontalScrollView"
                android:layout_width="fill_parent"
-               android:layout_height="wrap_content">
+               android:layout_height="wrap_content"
+               android:fillViewport="true"
+               android:scrollbars="@null" >
                <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="fill_parent"
