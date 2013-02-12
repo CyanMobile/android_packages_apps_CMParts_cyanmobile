@@ -2,9 +2,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<PreferenceCategory android:title="@string/general_title">
                 <CheckBoxPreference android:key="pie_enable_control"
-                        android:title="@string/pie_enable_control_title"
-                        android:summary="@string/pie_enable_control_summary"
-                        android:defaultValue="true" />
+                     android:title="@string/pie_enable_control_title"
+                     android:summary="@string/pie_enable_control_summary"
+                     android:defaultValue="true" />
+
+                <CheckBoxPreference
+                    android:key="pie_center"
+                    android:dependency="pie_enable_control"
+                    android:title="@string/pie_center_title"
+                    android:summary="@string/pie_center_summary"
+                    android:defaultValue="true" />
 
                 <ListPreference
                     android:key="pie_trigger"

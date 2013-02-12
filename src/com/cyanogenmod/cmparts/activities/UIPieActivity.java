@@ -54,6 +54,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private static final String PIE_GAP = "pie_gap";
     private static final String PIE_INPUT_CONTROL = "input_pie_key";
     private static final String PIE_ENABLE_CONTROL = "pie_enable_control";
+    private static final String PIE_CENTER = "pie_center";
 
     static Context mContext;
 
@@ -70,6 +71,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
     private ListPreference mPieGravity;
     private CheckBoxPreference mPieEnableColor;
     private CheckBoxPreference mPieEnableControl;
+    private CheckBoxPreference mPieCenter;
     private boolean mNavBarEnabled;
     private ListPreference mPieTrigger;	
     private ListPreference mPieGap;
@@ -142,6 +144,10 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         mPieEnableControl.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.PIE_CONTROL_ENABLE, 1) == 1));
 
+        mPieCenter = (CheckBoxPreference) prefSet.findPreference(PIE_CENTER);
+        mPieCenter.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PIE_CENTER, 1) == 1);
+
         mPieTrigger = (ListPreference) prefSet.findPreference(PIE_TRIGGER);
         String pieTrigger = Settings.System.getString(getContentResolver(),
                 Settings.System.PIE_TRIGGER);
@@ -186,6 +192,7 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
        mPieEnableColor.setEnabled(!mNavBarEnabled);
        mPieEnableControl.setEnabled(!mNavBarEnabled);
        mPieInputControl.setEnabled(!mNavBarEnabled);
+       mPieCenter.setEnabled(!mNavBarEnabled);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -254,6 +261,10 @@ public class UIPieActivity extends PreferenceActivity implements OnPreferenceCha
         } else if (preference == mPieEnableControl) {
             Settings.System.putInt(getContentResolver(), Settings.System.PIE_CONTROL_ENABLE,
                     mPieEnableControl.isChecked() ? 1 : 0);
+	    return true;
+        } else if (preference == mPieCenter) {
+            Settings.System.putInt(getContentResolver(), Settings.System.PIE_CENTER,
+                    mPieCenter.isChecked() ? 1 : 0);
 	    return true;
 	}
         return false;
