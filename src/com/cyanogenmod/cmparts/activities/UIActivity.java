@@ -346,7 +346,8 @@ public class UIActivity extends PreferenceActivity implements OnPreferenceChange
                             mBootPreviewRunning = true;
                             prevOrientation = getRequestedOrientation();
                             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                            SystemProperties.set("ctl.start", "bootanim");
+                             SystemProperties.set( "service.bootanim.exit",  "0");
+                             SystemProperties.set("ctl.start", "bootanim");
                         }
                     }
                 }
