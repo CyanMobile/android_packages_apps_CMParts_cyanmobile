@@ -85,12 +85,9 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
         mImportAllPref = (Preference) prefSet.findPreference(IMPORTALL_PREF);
         mImportAllPref.setOnPreferenceChangeListener(this);
 
-        /*mExportAllPref.setEnabled(false);
-        mImportAllPref.setEnabled(false);
-
         alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("CyanMobile Notice");
-        alertDialog.setMessage("Not working yet, now disable!");
+        alertDialog.setTitle("CyanMobile Warning!");
+        alertDialog.setMessage("After Doing a restore,\nyou may facing CMParts FC (this normal),\n then you must REBOOT to take effect!");
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
                 getResources().getString(com.android.internal.R.string.ok),
                 new DialogInterface.OnClickListener() {
@@ -99,7 +96,7 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             }
         });
         
-        alertDialog.show();*/
+        alertDialog.show();
 
     }
 
@@ -200,15 +197,9 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
                 return getResources().getString(R.string.import_export_sdcard_unmounted);
             }
 
-            File prefBackupFile = new File("/sdcard/CMobile_backup/com.cyanogenmod.cmparts_preferences.xml");
-
-            if (!prefBackupFile.exists()) {
-                return getResources().getString(R.string.xml_file_not_found);
-            }
-
             new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
             new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/com.cyanogenmod.cmparts_preferences.xml /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
-            new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
+            new CMDProcessor().su.runWaitFor("busybox chmod 666 /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
             return getResources().getString(R.string.xml_import_success);
         }
 
@@ -301,16 +292,10 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
                 return getResources().getString(R.string.import_export_sdcard_unmounted);
             }
 
-            File dbBackupFile = new File("/sdcard/CMobile_backup/backupsettings.db");
-
-            if (!dbBackupFile.exists()) {
-                return getResources().getString(R.string.dbfile_not_found);
-            }
-
             try {
                 new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.android.providers.settings/databases/settings.db");
                 new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/backupsettings.db /data/data/com.android.providers.settings/databases/settings.db");
-                new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.android.providers.settings/databases/settings.db");
+                new CMDProcessor().su.runWaitFor("busybox chmod 666 /data/data/com.android.providers.settings/databases/settings.db");
                 importCategories();
                 shouldRestart = true;
                 return getResources().getString(R.string.dbfile_import_success);
@@ -325,7 +310,7 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             for (String fileName : list) {
                 if (fileName.startsWith("led_packages")) {
                     new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/led_packages.xml /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml");
-                    new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml");
+                    new CMDProcessor().su.runWaitFor("busybox chmod 666 /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml");
                 } else if (fileName.startsWith("aps_background")) {
                     new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/aps_background /data/data/com.cyanogenmod.cmparts/files/aps_background");
                     new CMDProcessor().su.runWaitFor("busybox chmod 664 /data/data/com.cyanogenmod.cmparts/files/aps_background");
