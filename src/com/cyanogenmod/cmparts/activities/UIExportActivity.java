@@ -54,15 +54,12 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
     private static final String IMPORTALL_PREF = "pref_importall";
 
     private static final String PREF_BACKUP_FILENAME = "com.cyanogenmod.cmparts_preferences.xml";
-    private static final String CONFIG_BACKUP_FILENAME = "webview.db";
-    private static final String CONFIG_BACKUP_FILENAMESE = "webviewCache.db";
     private static final String NAMESPACE = "com.cyanogenmod.cmparts";
-    private static final String LAUNCHER_DB_BASE = "/data/" + NAMESPACE + "/databases/webview.db";
-    private static final String LAUNCHER_DB_BASESE = "/data/" + NAMESPACE + "/databases/webviewCache.db";
+    private static final String CONFIG_BACKUP_FILENAME = "backupsettings.db";
 
     static Context mContext;
 
-    private boolean shouldRestart=false;
+    private boolean shouldRestart = false;
 
     private Preference mExportAllPref;
     private Preference mImportAllPref;
@@ -88,7 +85,7 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
         mImportAllPref = (Preference) prefSet.findPreference(IMPORTALL_PREF);
         mImportAllPref.setOnPreferenceChangeListener(this);
 
-        mExportAllPref.setEnabled(false);
+        /*mExportAllPref.setEnabled(false);
         mImportAllPref.setEnabled(false);
 
         alertDialog = new AlertDialog.Builder(this).create();
@@ -102,7 +99,7 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             }
         });
         
-        alertDialog.show();
+        alertDialog.show();*/
 
     }
 
@@ -154,29 +151,30 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
         return false;
     }
 
-    // Wysie: Adapted from http://code.google.com/p/and-examples/source/browse/#svn/trunk/database/src/com/totsp/database
     private class ExportPrefsTask extends AsyncTask<Void, Void, String> {
         private final ProgressDialog dialog = new ProgressDialog(UIExportActivity.this);
 
-        // can use UI thread here
         @Override
         protected void onPreExecute() {
             this.dialog.setMessage(getResources().getString(R.string.xml_export_dialog));
             this.dialog.show();
         }
 
-      // automatically done on worker thread (separate from UI thread)
         @Override
         protected String doInBackground(final Void... args) {
             if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                 return getResources().getString(R.string.import_export_sdcard_unmounted);
             }
 
-            new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml /sdcard/com.cyanogenmod.cmparts_preferences.xml");
+            File dis = new File("/sdcard/CMobile_backup");
+	    if(!dis.exists()) {
+		new CMDProcessor().su.runWaitFor("busybox mkdir /sdcard/CMobile_backup");
+            }
+
+            new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml /sdcard/CMobile_backup/com.cyanogenmod.cmparts_preferences.xml");
             return getResources().getString(R.string.xml_export_success);
         }
 
-        // can use UI thread here
         @Override
         protected void onPostExecute(final String msg) {
             if (this.dialog.isShowing()) {
@@ -187,7 +185,6 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
         }
     }
 
-    // Wysie: Adapted from http://code.google.com/p/and-examples/source/browse/#svn/trunk/database/src/com/totsp/database
     private class ImportPrefsTask extends AsyncTask<Void, Void, String> {
         private final ProgressDialog dialog = new ProgressDialog(UIExportActivity.this);
 
@@ -197,21 +194,20 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             this.dialog.show();
         }
 
-        // could pass the params used here in AsyncTask<String, Void, String> - but not being re-used
         @Override
         protected String doInBackground(final Void... args) {
             if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                 return getResources().getString(R.string.import_export_sdcard_unmounted);
             }
 
-            File prefBackupFile = new File(Environment.getExternalStorageDirectory(), PREF_BACKUP_FILENAME);
+            File prefBackupFile = new File("/sdcard/CMobile_backup/com.cyanogenmod.cmparts_preferences.xml");
 
             if (!prefBackupFile.exists()) {
                 return getResources().getString(R.string.xml_file_not_found);
             }
 
             new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
-            new CMDProcessor().su.runWaitFor("busybox cp /sdcard/com.cyanogenmod.cmparts_preferences.xml /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
+            new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/com.cyanogenmod.cmparts_preferences.xml /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
             new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.cyanogenmod.cmparts/shared_prefs/com.cyanogenmod.cmparts_preferences.xml");
             return getResources().getString(R.string.xml_import_success);
         }
@@ -226,18 +222,15 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
         }
     }
 
-    // Wysie: Adapted from http://code.google.com/p/and-examples/source/browse/#svn/trunk/database/src/com/totsp/database
     private class ExportDatabaseTask extends AsyncTask<Void, Void, String> {
         private final ProgressDialog dialog = new ProgressDialog(UIExportActivity.this);
 
-        // can use UI thread here
         @Override
         protected void onPreExecute() {
             this.dialog.setMessage(getResources().getString(R.string.dbfile_export_dialog));
             this.dialog.show();
         }
 
-      // automatically done on worker thread (separate from UI thread)
         @Override
         protected String doInBackground(final Void... args) {
             if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
@@ -245,29 +238,45 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             }
 
             try {
-                new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/databases/webview.db /sdcard/webview.db");
-                new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/databases/webviewCache.db /sdcard/webviewCache.db");
+                new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.android.providers.settings/databases/settings.db /sdcard/CMobile_backup/backupsettings.db");
                 exportCategories();
+                exportImgCategories();
                 return getResources().getString(R.string.dbfile_export_success);
             } catch (IOException e) {
                 return getResources().getString(R.string.dbfile_export_error);
             }
         }
 
-        private void exportCategories() throws IOException
-        {
+        private void exportCategories() throws IOException {
             File prefFolder = new File(Environment.getDataDirectory() + "/data/" + NAMESPACE + "/shared_prefs");
             String[] list = prefFolder.list();
-            for (String fileName : list)
-            {
-                if ( fileName.startsWith("led_packages") )
-                {
-                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml /sdcard/led_packages.xml");
+            for (String fileName : list) {
+                if (fileName.startsWith("led_packages")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml /sdcard/CMobile_backup/led_packages.xml");
                 }
             }
         }
 
-        // can use UI thread here
+        private void exportImgCategories() throws IOException {
+            File prefFolder = new File(Environment.getDataDirectory() + "/data/" + NAMESPACE + "/files");
+            String[] list = prefFolder.list();
+            for (String fileName : list) {
+                if (fileName.startsWith("aps_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/files/aps_background /sdcard/CMobile_backup/aps_background");
+                } else if (fileName.startsWith("navb_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/files/navb_background /sdcard/CMobile_backup/navb_background");
+                } else if (fileName.startsWith("lg_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/files/lg_background /sdcard/CMobile_backup/lg_background");
+                } else if (fileName.startsWith("bc_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/files/bc_background /sdcard/CMobile_backup/bc_background");
+                } else if (fileName.startsWith("nb_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/files/nb_background /sdcard/CMobile_backup/nb_background");
+                } else if (fileName.startsWith("lockwallpaper")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /data/data/com.cyanogenmod.cmparts/files/lockwallpaper /sdcard/CMobile_backup/lockwallpaper");
+                }
+            }
+        }
+
         @Override
         protected void onPostExecute(final String msg) {
             if (this.dialog.isShowing()) {
@@ -277,7 +286,6 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
         }
     }
 
-    // Wysie: Adapted from http://code.google.com/p/and-examples/source/browse/#svn/trunk/database/src/com/totsp/database
     private class ImportDatabaseTask extends AsyncTask<Void, Void, String> {
         private final ProgressDialog dialog = new ProgressDialog(UIExportActivity.this);
 
@@ -287,32 +295,22 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             this.dialog.show();
         }
 
-        // could pass the params used here in AsyncTask<String, Void, String> - but not being re-used
         @Override
         protected String doInBackground(final Void... args) {
             if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                 return getResources().getString(R.string.import_export_sdcard_unmounted);
             }
 
-            File dbBackupFile = new File(Environment.getExternalStorageDirectory(), CONFIG_BACKUP_FILENAME);
-            File dbBackupFiler = new File(Environment.getExternalStorageDirectory(), CONFIG_BACKUP_FILENAMESE);
+            File dbBackupFile = new File("/sdcard/CMobile_backup/backupsettings.db");
 
-            if (!dbBackupFile.exists() || !dbBackupFiler.exists()) {
+            if (!dbBackupFile.exists()) {
                 return getResources().getString(R.string.dbfile_not_found);
             }
 
-            new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/databases/webview.db");
-            new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/databases/webviewCache.db");
-            new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/databases/webview.db-shm");
-            new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/databases/webviewCache.db-shm");
-            new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/databases/webview.db-wal");
-            new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.cyanogenmod.cmparts/databases/webviewCache.db-wal");
-
             try {
-                new CMDProcessor().su.runWaitFor("busybox cp /sdcard/webview.db /data/data/com.cyanogenmod.cmparts/databases/webview.db");
-                new CMDProcessor().su.runWaitFor("busybox cp /sdcard/webviewCache.db /data/data/com.cyanogenmod.cmparts/databases/webviewCache.db");
-                new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.cyanogenmod.cmparts/databases/webview.db");
-                new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.cyanogenmod.cmparts/databases/webviewCache.db");
+                new CMDProcessor().su.runWaitFor("busybox rm -r /data/data/com.android.providers.settings/databases/settings.db");
+                new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/backupsettings.db /data/data/com.android.providers.settings/databases/settings.db");
+                new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.android.providers.settings/databases/settings.db");
                 importCategories();
                 shouldRestart = true;
                 return getResources().getString(R.string.dbfile_import_success);
@@ -321,16 +319,31 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             }
         }
 
-        private void importCategories() throws IOException
-        {
-            File prefFolder = Environment.getExternalStorageDirectory();
+        private void importCategories() throws IOException {
+            File prefFolder = new File(Environment.getExternalStorageDirectory() + "/CMobile_backup");
             String[] list = prefFolder.list();
-            for (String fileName : list)
-            {
-                if ( fileName.startsWith("led_packages") )
-                {
-                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/led_packages.xml /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml");
+            for (String fileName : list) {
+                if (fileName.startsWith("led_packages")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/led_packages.xml /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml");
                     new CMDProcessor().su.runWaitFor("busybox chmod 660 /data/data/com.cyanogenmod.cmparts/shared_prefs/led_packages.xml");
+                } else if (fileName.startsWith("aps_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/aps_background /data/data/com.cyanogenmod.cmparts/files/aps_background");
+                    new CMDProcessor().su.runWaitFor("busybox chmod 664 /data/data/com.cyanogenmod.cmparts/files/aps_background");
+                } else if (fileName.startsWith("navb_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/navb_background /data/data/com.cyanogenmod.cmparts/files/navb_background");
+                    new CMDProcessor().su.runWaitFor("busybox chmod 664 /data/data/com.cyanogenmod.cmparts/files/navb_background");
+                } else if (fileName.startsWith("lg_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/lg_background /data/data/com.cyanogenmod.cmparts/files/lg_background");
+                    new CMDProcessor().su.runWaitFor("busybox chmod 664 /data/data/com.cyanogenmod.cmparts/files/lg_background");
+                } else if (fileName.startsWith("bc_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/bc_background /data/data/com.cyanogenmod.cmparts/files/bc_background");
+                    new CMDProcessor().su.runWaitFor("busybox chmod 664 /data/data/com.cyanogenmod.cmparts/files/bc_background");
+                } else if (fileName.startsWith("nb_background")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/nb_background /data/data/com.cyanogenmod.cmparts/files/nb_background");
+                    new CMDProcessor().su.runWaitFor("busybox chmod 664 /data/data/com.cyanogenmod.cmparts/files/nb_background");
+                } else if (fileName.startsWith("lockwallpaper")) {
+                    new CMDProcessor().su.runWaitFor("busybox cp /sdcard/CMobile_backup/lockwallpaper /data/data/com.cyanogenmod.cmparts/files/lockwallpaper");
+                    new CMDProcessor().su.runWaitFor("busybox chmod 664 /data/data/com.cyanogenmod.cmparts/files/lockwallpaper");
                 }
             }
         }
@@ -340,7 +353,6 @@ public class UIExportActivity extends PreferenceActivity implements OnPreference
             if (this.dialog.isShowing()) {
                 this.dialog.dismiss();
             }
-
             Toast.makeText(UIExportActivity.this, msg, Toast.LENGTH_SHORT).show();
         }
     }

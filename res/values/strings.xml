@@ -40,9 +40,9 @@
     <string name="updatenotify_summary">Get push notifications of updates</string>
 
     <string name="ui_exportall_title">Backup Settings</string>
-    <string name="ui_exportall_summary">Backup to\n /sdcard/com.cyanogenmod.cmparts_preferences.xml\n /sdcard/webview.db\n /sdcard/webviewCache.db</string>
+    <string name="ui_exportall_summary">Backup to\n /sdcard/CMobile_backup</string>
     <string name="ui_importall_title">Restore Settings</string>
-    <string name="ui_importall_summary">Restore from\n /sdcard/com.cyanogenmod.cmparts_preferences.xml\n /sdcard/webview.db\n /sdcard/webviewCache.db</string>
+    <string name="ui_importall_summary">Restore from\n /sdcard/CMobile_backup</string>
 
     <string name="xml_export_dialog">Backing up CM settings\u2026</string>
     <string name="xml_export_success">CM settings backed up successfully!</string>
@@ -56,11 +56,11 @@
     <string name="ui_utilities_title_head">Utilities</string>
     <string name="import_export_sdcard_unmounted">SD card not mounted!</string>
 
-    <string name="dbfile_export_dialog">Backing up desktop configuration\u2026</string>
+    <string name="dbfile_export_dialog">Backing up system configuration\u2026</string>
     <string name="dbfile_export_success">Configuration backed up successfully!</string>
     <string name="dbfile_export_error">Error backing up configuration!</string>
 
-    <string name="dbfile_import_dialog">Restoring desktop configuration\u2026</string>
+    <string name="dbfile_import_dialog">Restoring system configuration\u2026</string>
     <string name="dbfile_not_found">Configuration file not found!</string>
     <string name="dbfile_not_readable">Configuration file exists, but is not readable!</string>
     <string name="dbfile_import_success">Configuration restored successfully!</string>
