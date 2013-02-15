@@ -536,7 +536,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.STATUSBAR_MORE_EXPANDED, 1) == 1));
         // hidden statusbar
         mStatusBarHidden.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY, 0) == 1));
+                Settings.System.STATUSBAR_ICONS_VISIBILITY, 0) == 1));
         // 4g
         mStatusBarFourG.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_FOURG, 0) == 1));
@@ -1228,7 +1228,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mStatusBarHidden) {
             value = mStatusBarHidden.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.SYSTEMUI_STATUSBAR_VISIBILITY,
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_ICONS_VISIBILITY,
                     value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarFourG) {

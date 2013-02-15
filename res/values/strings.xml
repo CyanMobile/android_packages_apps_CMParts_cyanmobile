@@ -283,8 +283,8 @@
     <string name="ui_status_bar_cm_wifi_text_summary">Show text value of wifi bars</string>
     <string name="ui_status_bar_headset_title">Show headset icon</string>
     <string name="ui_status_bar_headset_summary">Headset icon will appear when headset is plugged in</string>
-    <string name="ui_status_bar_hidden_title">Hide Statusbar</string>
-    <string name="ui_status_bar_hidden_summary">Statusbar will be hidden if checked</string>
+    <string name="ui_status_bar_hidden_title">Hide statusbar</string>
+    <string name="ui_status_bar_hidden_summary">Option to hide statusbar on lockscreen, if enabled</string>
     <string name="ui_status_bar_settingup_title">CloseDrag shortcut</string>
     <string name="ui_status_bar_settingup_summary">choose activity for CloseDrag Dropdown</string>
     <string name="ui_status_bar_fourg_title">Show 4G icon</string>
