@@ -31,6 +31,15 @@
         android:hint="@string/weather_custom_location_hint"
         android:title="@string/weather_custom_location_title" />
 
+    <PreferenceScreen
+        android:key="gps_tracker"
+        android:title="@string/gpstracker_title"
+        android:summary="@string/gpstracker_summary" >
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.gpstracker"
+                android:targetClass="com.android.gpstracker.TrackerActivity" />
+    </PreferenceScreen>
+
     <CheckBoxPreference
         android:key="use_metric"
         android:persistent="false"

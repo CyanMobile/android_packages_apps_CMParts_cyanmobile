@@ -42,6 +42,7 @@ public class UIWeatherActivity extends PreferenceActivity implements
     private static final String KEY_ENABLE_WEATHER = "enable_weather";
     private static final String KEY_REFRESH_INTERVAL = "refresh_interval";
     private static final String KEY_INVERT_LOWHIGH = "invert_lowhigh";
+    private static final String KEY_GPS_LOC = "gps_tracker";
     private static final int WEATHER_CHECK = 0;
 
     private CheckBoxPreference mEnableWeather;
@@ -52,6 +53,7 @@ public class UIWeatherActivity extends PreferenceActivity implements
     private CheckBoxPreference mInvertLowHigh;
     private ListPreference mWeatherSyncInterval;
     private EditTextPreference mCustomWeatherLoc;
+    private PreferenceScreen mGpsLoc;
 
     private static final int LOC_WARNING = 101;
     private static final int SYNCS_WARNING = 102;
@@ -101,6 +103,10 @@ public class UIWeatherActivity extends PreferenceActivity implements
         mWeatherSyncInterval.setSummary(mapUpdateValue(mWeatherInterval));
         mWeatherSyncInterval.setOnPreferenceChangeListener(this);
 
+        mGpsLoc = (PreferenceScreen) prefSet.findPreference(KEY_GPS_LOC);
+        mGpsLoc.setEnabled(Settings.System.getInt(getContentResolver(),
+                Settings.System.WEATHER_USE_CUSTOM_LOCATION, 0) != 1);
+
         if (!Settings.Secure.isLocationProviderEnabled(getContentResolver(),
                 LocationManager.NETWORK_PROVIDER)
                 && !mUseCustomLoc.isChecked()) {
@@ -134,6 +140,7 @@ public class UIWeatherActivity extends PreferenceActivity implements
         } else if (preference == mUseCustomLoc) {
             Settings.System.putInt(getContentResolver(), Settings.System.WEATHER_USE_CUSTOM_LOCATION,
                     mUseCustomLoc.isChecked() ? 1 : 0);
+            mGpsLoc.setEnabled(!mUseCustomLoc.isChecked());
             updateLocationSummary();
             return true;
 

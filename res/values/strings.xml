@@ -1575,4 +1575,7 @@
 
     <string name="input_pie_key_title">Pie item control</string>
     <string name="input_pie_key_summary">Choose pie item control activity</string>
+
+    <string name="gpstracker_title">Query Auto Location</string>
+    <string name="gpstracker_summary">An option to Configure and Check Location</string>
 </resources>
