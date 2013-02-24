@@ -1571,7 +1571,10 @@
     <string name="pie_item_controls_title">Pie item control</string>
 
     <string name="pie_center_title">Middle alignment</string>
-    <string name="pie_center_summary">Align pie in the middle of the screen, regardless of the activation position</string>
+    <string name="pie_center_summary">Center Pie on the trigger edge</string>
+	
+    <string name="pie_stick_title">Prevent rotation</string>
+    <string name="pie_stick_summary">If checked Pie will stay in place no matter which orientation</string>
 
     <string name="input_pie_key_title">Pie item control</string>
     <string name="input_pie_key_summary">Choose pie item control activity</string>
