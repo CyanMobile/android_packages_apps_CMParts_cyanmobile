@@ -174,8 +174,8 @@ public class UINavbarActivity extends PreferenceActivity implements OnPreference
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mNavisize) {
             int NaviSize = Integer.valueOf((String) newValue);
-            restartStatusBar();
             Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_NAVI_SIZE, NaviSize);
+            restartStatusBar();
             return true;
         } else if (preference == mNaviAnimate) {
             int NaviAni = Integer.valueOf((String) newValue);
@@ -210,10 +210,8 @@ public class UINavbarActivity extends PreferenceActivity implements OnPreference
                 int naviBarsHeight = rect.bottom;
                 int contentViewBottom = window.findViewById(Window.ID_ANDROID_CONTENT).getBottom();
                 int naviBarHeight = contentViewBottom - naviBarsHeight;
-                boolean isPortrait = getResources().getConfiguration().orientation ==
-                    Configuration.ORIENTATION_PORTRAIT;
-                intent.putExtra("aspectX", isPortrait ? width : naviBarHeight);
-                intent.putExtra("aspectY", isPortrait ? naviBarHeight : width);
+                intent.putExtra("aspectX", width);
+                intent.putExtra("aspectY", naviBarHeight);
                 try {
                     navBackgroundImageTmp.createNewFile();
                     navBackgroundImageTmp.setWritable(true, false);
@@ -224,10 +222,6 @@ public class UINavbarActivity extends PreferenceActivity implements OnPreference
                     Log.e("Picker", "IOException: ", e);
                 } catch (ActivityNotFoundException e) {
                     Log.e("Picker", "ActivityNotFoundException: ", e);
-                }
-            } else {
-                if (transparentNaviBarPref != 4) {
-                    restartStatusBar();
                 }
             }
             return true;
@@ -301,10 +295,6 @@ public class UINavbarActivity extends PreferenceActivity implements OnPreference
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(), Settings.System.NAVI_BAR_COLOR, color);
                 mNaviBarColor.setSummary(Integer.toHexString(color));
-                    if (Settings.System.getInt(getContentResolver(),
-                              Settings.System.NAVI_BUTTONS, 0) == 1) {
-                       restartStatusBar();
-                    }
             }
             public void colorUpdate(int color) {
             }
@@ -397,7 +387,6 @@ public class UINavbarActivity extends PreferenceActivity implements OnPreference
                    navBackgroundImage.setReadOnly();
                    Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_NAVI_BAR, 3);
                    Toast.makeText(context, "CyanMobile navibar background set to new image" ,Toast.LENGTH_LONG).show();
-                   restartStatusBar();
                 }
             break;
         }

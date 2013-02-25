@@ -876,10 +876,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 int statusBarHeight = rect.top;
                 int contentViewTop = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
                 int titleBarHeight = contentViewTop - statusBarHeight;
-                boolean isPortrait = getResources().getConfiguration().orientation ==
-                    Configuration.ORIENTATION_PORTRAIT;
-                intent.putExtra("aspectX", isPortrait ? width : titleBarHeight);
-                intent.putExtra("aspectY", isPortrait ? titleBarHeight : width);
+                intent.putExtra("aspectX", width);
+                intent.putExtra("aspectY", titleBarHeight);
                 try {
                     backBackgroundImageTmp.createNewFile();
                     backBackgroundImageTmp.setWritable(true, false);
@@ -890,10 +888,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                     Log.e("Picker", "IOException: ", e);
                 } catch (ActivityNotFoundException e) {
                     Log.e("Picker", "ActivityNotFoundException: ", e);
-                }
-            } else {
-                if ((transparentStatusBarPref != 4) || (transparentStatusBarPref != 6)) {
-                   restartStatusBar();
                 }
             }
             return true;
@@ -913,10 +907,8 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
                 int width = getWindowManager().getDefaultDisplay().getWidth();
                 int height = getWindowManager().getDefaultDisplay().getHeight();
-                boolean isPortrait = getResources().getConfiguration().orientation ==
-                    Configuration.ORIENTATION_PORTRAIT;
-                intent.putExtra("aspectX", isPortrait ? width : height);
-                intent.putExtra("aspectY", isPortrait ? height : width);
+                intent.putExtra("aspectX", width);
+                intent.putExtra("aspectY", height);
                 try {
                     mBackgroundNotifImageTmp.createNewFile();
                     mBackgroundNotifImageTmp.setWritable(true, false);
@@ -963,16 +955,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             return true;
         } else if (preference == mStatusBarCarrier) {
             int carrierPref = Integer.parseInt(String.valueOf(newValue));
-            int carrierPrefs = Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 0);
-            if (carrierPref == 1 || carrierPref == 2 || carrierPref == 3) {
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
-                restartStatusBar();
-            } else if (carrierPrefs == 1 || carrierPrefs == 2 || carrierPrefs == 3) {
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
-                restartStatusBar();
-            } else {
-                Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
-            }
+            Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, carrierPref);
             return true;
         } else if (preference == mStatusBarExpanded) {
             int expandPref = Integer.parseInt(String.valueOf(newValue));
@@ -984,7 +967,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO, logosPref);
             mStatusBarCarrierLogoImage.setEnabled(Settings.System.getInt(getContentResolver(),
                 Settings.System.CARRIER_LOGO, 0) != 0);
-            restartStatusBar();
             return true;
         }
         return false;
@@ -1193,7 +1175,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
               if ((Settings.System.getInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 0) == 1)) {
                   Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 0);
                   mStatusBarCarrierLogoImage.setChecked(false);
-                  restartStatusBar();
               }
             }
             return true;
@@ -1270,7 +1251,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                 Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 4);
                 Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_COLOR, SBcolor);
                 mStatusBarColor.setSummary(Integer.toHexString(SBcolor));
-                restartStatusBar();
             }
             public void SBcolorUpdate(int SBcolor) {
             }
@@ -1600,7 +1580,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                    logoBackgroundImage.setReadOnly();
                    Settings.System.putInt(getContentResolver(), Settings.System.CARRIER_LOGO_STATUS_BAR, 1);
                    Toast.makeText(context, "CyanMobile carrier logo set to new image" ,Toast.LENGTH_LONG).show();
-                   restartStatusBar();
                 }
             break;
             case REQUEST_CODE_BACK_FILE:
@@ -1619,7 +1598,6 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
                    backBackgroundImage.setReadOnly();
                    Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 6);
                    Toast.makeText(context, "CyanMobile statusbar background set to new image" ,Toast.LENGTH_LONG).show();
-                   restartStatusBar();
                 }
             break;
         }
