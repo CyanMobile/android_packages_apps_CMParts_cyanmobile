@@ -207,18 +207,18 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
         mTransitionAnimationsPref.setOnPreferenceChangeListener(this);
 
         /* Electron Beam control */
-        //mElectronBeamAnimationOn = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_ON);
+        mElectronBeamAnimationOn = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_ON);
         mElectronBeamAnimationOff = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_OFF);
         if (getResources().getBoolean(com.android.internal.R.bool.config_enableScreenAnimation)) {
-            //mElectronBeamAnimationOn.setChecked(Settings.System.getInt(getContentResolver(),
-            //        Settings.System.ELECTRON_BEAM_ANIMATION_ON,
-            //        getResources().getBoolean(com.android.internal.R.bool.config_enableScreenOnAnimation) ? 1 : 0) == 1);
+            mElectronBeamAnimationOn.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.ELECTRON_BEAM_ANIMATION_ON,
+                    getResources().getBoolean(com.android.internal.R.bool.config_enableScreenOnAnimation) ? 1 : 0) == 1);
             mElectronBeamAnimationOff.setChecked((Settings.System.getInt(getContentResolver(),
                     Settings.System.ELECTRON_BEAM_ANIMATION_OFF, 0) == 1) && getResources().getBoolean(com.android.internal.R.bool.config_enableScreenOffAnimation));
         } else {
             /* Hide Electron Beam controls if disabled */
-            //((PreferenceCategory) prefSet.findPreference(GENERAL_CATEGORY))
-            //    .removePreference(mElectronBeamAnimationOn);
+            ((PreferenceCategory) prefSet.findPreference(GENERAL_CATEGORY))
+                .removePreference(mElectronBeamAnimationOn);
             ((PreferenceCategory) prefSet.findPreference(GENERAL_CATEGORY))
                 .removePreference(mElectronBeamAnimationOff);
         }
@@ -303,11 +303,11 @@ public class DisplayActivity extends PreferenceActivity implements OnPreferenceC
             startActivity(mBacklightScreen.getIntent());
         }
 
-        //if (preference == mElectronBeamAnimationOn) {
-        //    value = mElectronBeamAnimationOn.isChecked();
-        //    Settings.System.putInt(getContentResolver(),
-        //            Settings.System.ELECTRON_BEAM_ANIMATION_ON, value ? 1 : 0);
-        //}
+        if (preference == mElectronBeamAnimationOn) {
+            value = mElectronBeamAnimationOn.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.ELECTRON_BEAM_ANIMATION_ON, value ? 1 : 0);
+        }
 
         if (preference == mUseBraviaPref) {
             value = mUseBraviaPref.isChecked();
