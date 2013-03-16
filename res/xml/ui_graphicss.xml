@@ -21,6 +21,13 @@
                         android:entries="@array/entries_transparent_full_background"
                         android:entryValues="@array/values_transparent_full_background" />
 	</PreferenceCategory>
+        <PreferenceCategory android:title="@string/keyboard_settings_additional_category">
+             <CheckBoxPreference
+                     android:key="disable_fullscreen_keyboard"
+                     android:title="@string/disable_fullscreen_keyboard_title"
+                     android:summary="@string/disable_fullscreen_keyboard_summary"
+                     android:defaultValue="false" />
+        </PreferenceCategory>
         <PreferenceCategory android:title="@string/fonts_change_title">
                  <PreferenceScreen android:key="fonts_settings"
                          android:title="@string/fonts_title" android:summary="@string/fonts_summary">

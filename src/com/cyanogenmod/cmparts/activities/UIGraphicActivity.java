@@ -71,6 +71,8 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
 
     private static final String PREF_TEXT_GLOBAL_OF_COLOR = "pref_text_global_of_color";
 
+    private static final String PREF_DISABLE_FULLSCREEN_KEYBOARD = "disable_fullscreen_keyboard";
+
     static Context mContext;
 
     private static final int REQUEST_CODE_PICK_FILE_BG = 998;
@@ -87,6 +89,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
     private Preference mTextFullOfColor;
     private File mBackgroundAppImage;
     private File mBackgroundAppImageTmp;
+    private CheckBoxPreference mDisableFullscreenKeyboard;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,6 +156,9 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
         mOverscrollWeightPref.setValue(String.valueOf(overscrollWeight));
         mOverscrollWeightPref.setOnPreferenceChangeListener(this);
 
+        mDisableFullscreenKeyboard = (CheckBoxPreference) prefSet.findPreference(PREF_DISABLE_FULLSCREEN_KEYBOARD);
+        mDisableFullscreenKeyboard.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.DISABLE_FULLSCREEN_KEYBOARD, 0) == 1);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -162,6 +168,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             if (transparentAppBackgroundPref == 0) {
                 Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP,
                                    transparentAppBackgroundPref);
+               Settings.System.putInt(getContentResolver(), Settings.System.DISABLE_FULLSCREEN_KEYBOARD, 0);
             }
             int FullBackgroundPref = Settings.System.getInt(getContentResolver(),
                 Settings.System.TRANSPARENT_BACKGROUND_FULL, 0);
@@ -201,9 +208,11 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             }
             return true;
 	} else if (preference == mTransparentFullBackgroundPref) {
+            boolean value;
             int transparentFullBackgroundPref = Integer.parseInt(String.valueOf(newValue));
             if (transparentFullBackgroundPref == 1) {
                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_FULL, 1);
+               value = true;
             } else if (transparentFullBackgroundPref == 2) {
             new AlertDialog.Builder(this)
             .setTitle("CyanMobile Notice")
@@ -211,17 +220,20 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                          Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_FULL, 2);
+                         Settings.System.putInt(getContentResolver(), Settings.System.DISABLE_FULLSCREEN_KEYBOARD, 1);
                     }
             })
             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                          Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_FULL, 0);
+                         Settings.System.putInt(getContentResolver(), Settings.System.DISABLE_FULLSCREEN_KEYBOARD, 0);
                          return;
                     }
              })
             .show();
             } else {
                Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_FULL, 0);
+               Settings.System.putInt(getContentResolver(), Settings.System.DISABLE_FULLSCREEN_KEYBOARD, 0);
             }
             return true;
         } else if (preference == mOverscrollPref) {
@@ -271,6 +283,11 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
               if (KEY_FONT_FONT_SETINGS.equals(key)) {
                   return false;
               }
+            return true;
+        } else if (preference == mDisableFullscreenKeyboard) {
+            value = mDisableFullscreenKeyboard.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.DISABLE_FULLSCREEN_KEYBOARD, value ? 1 : 0);
             return true;
 	}
         return false;
@@ -331,6 +348,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP, 1);
                 Settings.System.putInt(getContentResolver(), Settings.System.BACKGROUND_APP_COLOR, color);
+                Settings.System.putInt(getContentResolver(), Settings.System.DISABLE_FULLSCREEN_KEYBOARD, 1);
                 mAppBackgroundColor.setSummary(Integer.toHexString(color));
             }
             public void colorUpdate(int color) {
@@ -354,6 +372,7 @@ public class UIGraphicActivity extends PreferenceActivity implements OnPreferenc
                    }
                    mBackgroundAppImage.setReadOnly();
                    Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_BACKGROUND_APP, 2);
+                   Settings.System.putInt(getContentResolver(), Settings.System.DISABLE_FULLSCREEN_KEYBOARD, 1);
                    Toast.makeText(context, "CyanMobile Background App set to new image" ,Toast.LENGTH_LONG).show();
                 }
             break;

@@ -1034,6 +1034,7 @@
     <string name="title_toggle_profile">Toggle Profile</string>
     <string name="title_toggle_power">Toggle Power menu</string>
     <string name="title_toggle_alarm">Toggle Alarm</string>
+    <string name="title_toggle_volume">Toggle Volume</string>
     <string name="title_button_modes">Button modes</string>
     <string name="title_tileview_modes">TileView modes</string>
     <string name="pref_brightness_mode_title">Brightness modes</string>
@@ -1581,4 +1582,8 @@
 
     <string name="gpstracker_title">Query Auto Location</string>
     <string name="gpstracker_summary">An option to Configure and Check Location</string>
+
+    <string name="keyboard_settings_additional_category">Additional keyboard settings</string>
+    <string name="disable_fullscreen_keyboard_title">Disable fullscreen keyboard</string>
+    <string name="disable_fullscreen_keyboard_summary">Landscape keyboard will never take up entire screen</string>
 </resources>

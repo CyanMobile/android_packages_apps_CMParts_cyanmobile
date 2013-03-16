@@ -56,6 +56,7 @@ public class TileViewUtil {
     public static final String TILE_PROFILE = "toggleProfile";
     public static final String TILE_POWER = "togglePower";
     public static final String TILE_ALARM = "toggleAlarm";
+    public static final String TILE_VOLUME = "toggleVolume";
 
     public static final HashMap<String, TileInfo> TILES = new HashMap<String, TileInfo>();
     static {
@@ -111,6 +112,8 @@ public class TileViewUtil {
                 TILE_POWER, R.string.title_toggle_power, "com.android.systemui:drawable/ic_qs_power_off"));
         TILES.put(TILE_ALARM, new TileViewUtil.TileInfo(
                 TILE_ALARM, R.string.title_toggle_alarm, "com.android.systemui:drawable/ic_qs_alarm_on"));
+        TILES.put(TILE_VOLUME, new TileViewUtil.TileInfo(
+                TILE_VOLUME, R.string.title_toggle_volume, "com.android.systemui:drawable/ic_qs_volume"));
     }
 
     private static final String TILE_DELIMITER = "|";
@@ -128,6 +131,7 @@ public class TileViewUtil {
             + TILE_DELIMITER + TILE_GPS
             + TILE_DELIMITER + TILE_SYNC
             + TILE_DELIMITER + TILE_RINGER
+            + TILE_DELIMITER + TILE_VOLUME
             + TILE_DELIMITER + TILE_AIRPLANE
             + TILE_DELIMITER + TILE_AUTOROTATE
             + TILE_DELIMITER + TILE_SCREENSHOT
