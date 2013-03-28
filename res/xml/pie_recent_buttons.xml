@@ -27,7 +27,6 @@
 	    android:title="@string/pref_pie_buttons_home_app_toggle_title"
 	    android:summary="@string/pref_pie_buttons_home_app_toggle_summary" />
         <ListPreference android:key="pref_pie_buttons_recent"
-            android:dependency="pref_pie_buttons_recent_level_toggle"
             android:title="@string/pref_pie_buttons_recent_title"
 	    android:summary="@string/pref_pie_buttons_home_summary"
             android:dialogTitle="@string/pref_pie_buttons_home_input_title"

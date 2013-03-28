@@ -1987,6 +1987,7 @@
         <item>Settings</item>
         <item>Clear All</item>
         <item>Nothing</item>
+        <item>Hide</item>
     </string-array>
 
     <string-array name="values_pie_buttons_home">
@@ -2001,6 +2002,7 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
+        <item>11</item>
     </string-array>
 
     <string-array name="entries_pie_buttons_homes">
