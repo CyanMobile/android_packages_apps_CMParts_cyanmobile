@@ -318,7 +318,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
     //private CheckBoxPreference mRecentAppsStatusBar;
 
     private AlertDialog alertDialog;
-
+    private boolean alreadyShowing = false;
     private File logoBackgroundImage;
     private File logoBackgroundImageTmp;
     private File backBackgroundImage;
@@ -684,18 +684,21 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
         mTrackerColor.setEnabled(trackAct == 1);
 
         // Set up the warning
-        alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("CyanMobile Notice");
-        alertDialog.setMessage(getResources().getString(R.string.reboot_notice_summary));
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                getResources().getString(com.android.internal.R.string.ok),
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
-        });
+        if (!alreadyShowing) {
+            alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("CyanMobile Notice");
+            alertDialog.setMessage(getResources().getString(R.string.reboot_notice_summary));
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                    getResources().getString(com.android.internal.R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog, int which) {
+                    return;
+                 }
+            });
         
-        alertDialog.show();
+            alertDialog.show();
+            alreadyShowing = true;
+        }
 
     }
 

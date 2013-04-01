@@ -125,6 +125,7 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
     private ListPreference mBatteryPref;
 
     private AlertDialog alertDialog;
+    private boolean alreadyShowing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,18 +193,21 @@ public class PerformanceSettingsActivity extends PreferenceActivity implements P
         mBatteryPref.setOnPreferenceChangeListener(this);
 
         // Set up the warning
-        alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("CyanMobile WARNING: Dragons Ahead!");
-        alertDialog.setMessage(getResources().getString(R.string.performance_settings_warning));
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                getResources().getString(com.android.internal.R.string.ok),
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
-        });
+        if (!alreadyShowing) {
+            alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("CyanMobile WARNING: Dragons Ahead!");
+            alertDialog.setMessage(getResources().getString(R.string.performance_settings_warning));
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                   getResources().getString(com.android.internal.R.string.ok),
+                   new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                   return;
+                }
+            });
 
-        alertDialog.show();
+            alertDialog.show();
+            alreadyShowing = true;
+        }
     }
 
     @Override
