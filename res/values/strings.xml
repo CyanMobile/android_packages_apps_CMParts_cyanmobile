@@ -1586,4 +1586,7 @@
     <string name="keyboard_settings_additional_category">Additional keyboard settings</string>
     <string name="disable_fullscreen_keyboard_title">Disable fullscreen keyboard</string>
     <string name="disable_fullscreen_keyboard_summary">Landscape keyboard will never take up entire screen</string>
+    <string name="ui_status_bar_compact_carrier_summary">Just want to remove build warnings</string>
+    <string name="pref_lockscreen_custom_app_toggle_summary">Just want to remove build warnings</string>
+    <string name="ui_status_bar_compact_carrier_title">Just want to remove build warnings</string>
 </resources>

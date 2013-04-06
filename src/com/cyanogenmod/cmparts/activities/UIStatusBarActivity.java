@@ -1523,6 +1523,7 @@ public class UIStatusBarActivity extends PreferenceActivity implements OnPrefere
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(), Settings.System.STS_BTT_COLOR, color);
                 Settings.System.putInt(getContentResolver(), Settings.System.TRANSPARENT_STS_BTT, 1);
+                mTrackerColor.setSummary(Integer.toHexString(color));
                 restartStatusBar();
             }
             public void colorUpdate(int color) {
