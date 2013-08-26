@@ -121,7 +121,7 @@
     <!-- User interface: Tablet tweaks -> volume remapping -->
     <string name="tablet_tweaks_input_head">Hangerőgombok felülvezérlése</string>
     <string name="tablet_tweaks_long_volp_action_title">Hang fel hosszan nyomva</string>
-    <string name="tablet_tweaks_long_volp_action_summary">Társítja a home/vissza/menü stb. akciót a hangerő gomb hosszú lenyomsához. A kéernyő működése korlátozza</string>
+    <string name="tablet_tweaks_long_volp_action_summary">Társítja a home/vissza/menü stb. akciót a hangerő gomb hosszú lenyomásához. A képernyő működése korlátozza</string>
     <string name="tablet_tweaks_long_volm_action_title">Hang le gomb hosszan nyomva</string>
     <string name="tablet_tweaks_vol_both_action_title">Mindkét hangerőgomb</string>
     <string name="tablet_tweaks_vol_both_action_summary">Figyelem: több készüléken a hangerőgomb mindkét felének lenyomása és a bekapcsológomb együtt a gyári beállítások visszaállítására szolgál</string>
