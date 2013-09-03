@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Generic -->
-    <string name="app_name">CyanogenMod beállítások</string>
+    <string name="app_name">CyanMobile beállítások</string>
 
     <!-- Primary Screen Settings -->
     <string name="application_settings_title_head">Alkalmazás</string>
@@ -40,15 +40,9 @@
     <string name="updatenotify_title">Frissítési értesítések</string>
     <string name="updatenotify_summary">Push értesítés a frissítésekről</string>
     <string name="ui_exportall_title">Mentés beállítása</string>
-    <string name="ui_exportall_summary">"Backup to
- /sdcard/com.cyanogenmod.cmparts_preferences.xml
- /sdcard/webview.db
- /sdcard/webviewCache.db"</string>
-    <string name="ui_importall_title">Beállítások visszaálítása</string>
-    <string name="ui_importall_summary">"Restore from
- /sdcard/com.cyanogenmod.cmparts_preferences.xml
- /sdcard/webview.db
- /sdcard/webviewCache.db"</string>
+    <string name="ui_exportall_summary">Mentés az\n /sdcard/CMobile_backup</string>
+    <string name="ui_importall_title">Helyreállítási beállítások</string>
+    <string name="ui_importall_summary">Helyreállítás az\n /sdcard/CMobile_backup</string>
     <string name="xml_export_dialog">Biztonsági mentés CM settings…</string>
     <string name="xml_export_success">CM beállítások sikeresen mentve!</string>
     <string name="xml_export_error">Sikertelen mentés CM settings!</string>
@@ -127,7 +121,7 @@
     <!-- User interface: Tablet tweaks -> volume remapping -->
     <string name="tablet_tweaks_input_head">Hangerőgombok felülvezérlése</string>
     <string name="tablet_tweaks_long_volp_action_title">Hang fel hosszan nyomva</string>
-    <string name="tablet_tweaks_long_volp_action_summary">Társítja a home/vissza/menü stb. akciót a hangerő gomb hosszú lenyomsához. A kéernyő működése korlátozza</string>
+    <string name="tablet_tweaks_long_volp_action_summary">Társítja a home/vissza/menü stb. akciót a hangerő gomb hosszú lenyomásához. A képernyő működése korlátozza</string>
     <string name="tablet_tweaks_long_volm_action_title">Hang le gomb hosszan nyomva</string>
     <string name="tablet_tweaks_vol_both_action_title">Mindkét hangerőgomb</string>
     <string name="tablet_tweaks_vol_both_action_summary">Figyelem: több készüléken a hangerőgomb mindkét felének lenyomása és a bekapcsológomb együtt a gyári beállítások visszaállítására szolgál</string>
@@ -1187,7 +1181,7 @@ If disable option below will only change color for popup and other
     <string name="spareparts_summary">Spare Parts beállítások</string>
     <string name="bugreports_title">Hibajelentés küldése</string>
     <string name="bugreports_summary">Hibajelentés küldése a rom fejlesztőjének</string>
-    <string name="dspmanager_title">DSP Menedzser</string>
+    <string name="dspmanager_title">ViPER4Android Audio FX</string>
     <string name="dspmanager_summary">Hangbeállítások</string>
     <string name="stk_title">SIM eszköztár</string>
     <string name="stk_summary">SIM menü opciók</string>
@@ -1305,7 +1299,7 @@ Jelenlegi beállítása: %s"</string>
     <!-- Permissions Management Settings strings -->
     <string name="perm_enable_management">Jogosultság kezelés</string>
     <string name="perm_enable_management_summary">Alkalmazások jogosultság kezelése</string>
-    <string name="perm_enable_warning_message">Vigyázat!\nAlkalmazásoktól a jogosultságok visszavonása hibás működéshez vezethet. Hiba esetén engedélyezze a szükséges jogosultságokat vagy NE használja az alkalmazást!\nKérjük NE KÜLDJÖN hibajelentést a CyanogenMod csapatnak ha a visszavont jogosultságokkal rendelkező alkalmazás nem működik megfelelően!</string>
+    <string name="perm_enable_warning_message">Vigyázat!\nAlkalmazásoktól a jogosultságok visszavonása hibás működéshez vezethet. Hiba esetén engedélyezze a szükséges jogosultságokat vagy NE használja az alkalmazást!\nKérjük NE KÜLDJÖN hibajelentést a CyanMobile csapatnak ha a visszavont jogosultságokkal rendelkező alkalmazás nem működik megfelelően!</string>
     <string name="perm_enable_warning_title">Biztos benne?</string>
     <string name="reboot_notice_title">Fontos</string>
     <string name="reboot_notice_summary">"Statusbar nem jelenik meg 30 mp alatt.
