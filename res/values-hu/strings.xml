@@ -1181,7 +1181,7 @@ If disable option below will only change color for popup and other
     <string name="spareparts_summary">Spare Parts beállítások</string>
     <string name="bugreports_title">Hibajelentés küldése</string>
     <string name="bugreports_summary">Hibajelentés küldése a rom fejlesztőjének</string>
-    <string name="dspmanager_title">DSP Menedzser</string>
+    <string name="dspmanager_title">ViPER4Android Audio FX</string>
     <string name="dspmanager_summary">Hangbeállítások</string>
     <string name="stk_title">SIM eszköztár</string>
     <string name="stk_summary">SIM menü opciók</string>
